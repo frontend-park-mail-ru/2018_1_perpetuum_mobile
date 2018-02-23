@@ -1,0 +1,123 @@
+body {
+	font-family: 'Orbitron', sans-serif;
+  	background: linear-gradient(-45deg ,#2b2b2b, #1e1e1e);
+  	margin: 0 !important;
+  	color: #e7e7e7;
+}
+
+.wrapper {
+   	display: grid;
+   	height: 100vh;
+   	grid-template-columns: 1fr 2fr 1fr;
+   	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
+}
+
+.three {
+  	grid-row: 1/7;
+  	grid-column: 1/2;
+}
+
+.menu {
+	font-size: 4vw;
+	display: flex;
+	justify-content: center;
+	grid-row: 2/6;
+	grid-column: 2/3;
+}
+
+.four {
+  	grid-column: 3;
+  	grid-row: 1/6;
+}
+
+.logo {
+	font-size: 7vw;
+	text-align: center;
+	grid-column: 2/3;
+	grid-row: 1;
+}
+
+.p-0{
+	padding: 0 !important;
+}
+
+li {
+	list-style-type: none;
+	text-align: center;
+}
+
+.profile {
+	grid-column: 3;
+	grid-row: 6/7;
+	text-align: center;
+}
+
+/*div {
+  border: 2px solid rgb(233,171,88);
+  border-radius: 5px;
+  background-color: rgba(233,171,88,.5);
+}
+*/
+.changeProfile {
+	grid-row: 2/4;
+	grid-column: 2/3;
+	display: grid;
+	grid-template-columns: 30% 70%;
+	grid-template-rows: 20% 90%;
+}
+
+.changeProfileImage {
+	grid-row: 2/3;
+	grid-column: 1/2;
+	text-align: center;
+	margin: 3vh 0 0 3vw;
+}
+
+.descriptionText {
+	font-size: 3vh;
+	height: 3vh;
+	padding: 2vh 0 0 0;
+}
+
+.changeProfileHead {
+	font-size: 3vw;
+	grid-row: 1/2;
+	grid-column: 1/3;
+	text-align: center;
+}
+
+.changeProfileNick {
+	grid-row: 2/3;
+	grid-column: 2/3;
+}
+
+.changePassword {
+	margin: 2vw 0 0 0;
+	grid-row: 4/7;
+	grid-column: 2/3;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: #bcbcbc;
+}
+
+a:hover {
+	color: white;
+}
+
+#changeImage {
+	font-size: 3vh;
+}
+
+.changeProfileImage img {
+	width: 50%;
+	border: 4px solid #bcbcbc;
+	border-radius: 5px;
+}
+
+input {
+	height: 3vh;
+	width: 70%;
+}
