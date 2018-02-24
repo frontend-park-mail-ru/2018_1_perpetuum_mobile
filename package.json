@@ -1,0 +1,11 @@
+{
+  "name": "2018_1_perpetuum_mobile",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "static-livereload": "^0.1.4"
+  },
+  "scripts": {
+    "start": "static-livereload --path static"
+  }
+}

@@ -18,22 +18,35 @@
 			<img src="img.jpg"></img>
 			<a href="lol"> <div id="changeImage">change</div></a>
 		</div>
-		<div class="changeProfileNick">
+		<form class="changeProfileNick">
+
 			<div class="descriptionText">Name</div>
-			<input type="text" name="text">
-			<div class="descriptionText">Email</div>
-			<input type="text" name="text">
-		</div>
+			<input class="inputSize" type="text" name="name" >
+
+			<div class="descriptionText descriptionTextWidth">Email</div>
+			<input class="inputSize" type="text" name="email">
+
+			<div class="changeButtonBlock">
+				<input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
+			</div>
+		</form>
 	</div>
-	<div class="changePassword">
+	<form class="changePassword">
 		<div class="changeProfileHead">Change password</div>
+
 		<div class="descriptionText">Old password</div>
-		<input type="text" name="text">
+		<input class="inputSize" type="text" name="text">
+
 		<div class="descriptionText">New password</div>
-		<input type="text" name="text">
+		<input class="inputSize" type="text" name="text">
+
 		<div class="descriptionText">Repead password</div>
-		<input type="text" name="text">
-	</div>
+		<input class="inputSize" type="text" name="text">
+
+		<div class="newBlock">
+			<input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
+		</div>
+	</form>
 	<div class="four"></div>
 	<div class="profile"><a href="#">Log in | Register</a></div>
 

@@ -15,6 +15,8 @@ body {
 .three {
   	grid-row: 1/7;
   	grid-column: 1/2;
+	/*border: 5px solid white;*/
+	position: relative;
 }
 
 .menu {
@@ -23,6 +25,8 @@ body {
 	justify-content: center;
 	grid-row: 2/6;
 	grid-column: 2/3;
+	/*border: 5px solid red;*/
+
 }
 
 .four {
@@ -33,8 +37,9 @@ body {
 .logo {
 	font-size: 7vw;
 	text-align: center;
-	grid-column: 2/3;
-	grid-row: 1;
+	/*border: 5px solid white;*/
+	height: 7vw;
+
 }
 
 .p-0{
@@ -79,6 +84,38 @@ li {
 	padding: 2vh 0 0 0;
 }
 
+.inputSize {
+	width: 50vh;
+	height: 3vh;
+}
+
+.changeButton:hover {
+	background: white;
+}
+
+.changeButton {
+	height: 2em;
+	width: 6em;
+	border-radius: 10px;
+}
+
+.changeNickEmailButtonPosition{
+	position: relative;
+	top: 0.5vw;
+	left: 18vw;
+}
+
+.changePasswordButtonPosition {
+	position: relative;
+	top: 0.5vw;
+}
+
+.changeButtonBlock {
+	display:block;
+	width: 50vh;
+	justify-content: center;
+}
+
 .changeProfileHead {
 	font-size: 3vw;
 	grid-row: 1/2;
@@ -117,7 +154,4 @@ a:hover {
 	border-radius: 5px;
 }
 
-input {
-	height: 3vh;
-	width: 70%;
-}
+
