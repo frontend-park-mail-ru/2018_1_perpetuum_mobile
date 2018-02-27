@@ -87,10 +87,10 @@ app.post('/register', function (req, res) {
         !password.match(/^\S{4,}$/) ||
         !email.match(/@/)
     ) {
-        return res.status(400).json({error: 'Не валидные данные пользователя'});
+        return res.status(400).json({error: 'Invalid user data'});
     }
     if (users[email]) {
-        return res.status(400).json({error: 'Пользователь уже существует'});
+        return res.status(400).json({error: 'The user have already registered'});
     }
 
     const id = uuid();
@@ -100,6 +100,18 @@ app.post('/register', function (req, res) {
 
     res.cookie('blendocu', id, {expires: new Date(Date.now() + 1000 * 60 * 10)});
     res.status(201).json({id});
+});
+
+app.get('/me', function (req, res) {
+    const id = req.cookies['blendocu'];
+    const email = ids[id];
+    if (!email || !users[email]) {
+        return res.status(401).end();
+    }
+
+    users[email].score += 1;
+
+    res.json(users[email]);
 });
 
 

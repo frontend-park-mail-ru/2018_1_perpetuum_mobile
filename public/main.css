@@ -151,10 +151,10 @@ a:hover {
 	width: 20vw;
 	height: 7vh;
 	font-family: 'Orbitron', sans-serif;
-	background: #2b2b2b;
+	background: #444444;
 	color: #e7e7e7;
 	font-size: 2vw;
-	border: #2b2b2b 3px solid;
+	border: #444444 3px solid;
     transition: all 0.3s linear;
 }
 

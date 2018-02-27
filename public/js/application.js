@@ -13,6 +13,7 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
+const profileFooter = document.getElementsByClassName('profile')[0];
 
 
 const application = document.getElementById('application');
@@ -73,7 +74,7 @@ function onSubmitLoginForm(evt) {
             return;
         }
 
-        //checkAuth();
+        checkAuth();
         openSection('menu');
     });
 }
@@ -99,7 +100,7 @@ function onSubmitRegisterForm(evt) {
             return;
         }
 
-        //checkAuth();
+        checkAuth();
         openSection('menu');
     });
 }
@@ -151,6 +152,45 @@ function loadAllUsers(callback) {
     httpModule.doGet({
         url: '/users',
         callback
+    });
+}
+
+function loadMe(callback) {
+    httpModule.doGet({
+        url: '/me',
+        callback
+    });
+}
+
+function checkAuth() {
+    loadMe(function (err, me) {
+        if (err) {
+            profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
+            return;
+        }
+
+        console.log('me is', me);
+        profileFooter.innerHTML = `${me.email}
+            <img src="img.jpg" class="imgInProfile">
+            <div class="submenu">
+                <ul>
+                    <li><a>Log out</a></li>
+                    <li><a>Settings</a></li>
+                </ul>
+            </div>`;
+
+        /*
+        <footer class="profile">
+            @Warprobot
+            <img src="img.jpg" class="imgInProfile">
+            <div class="submenu">
+                <ul>
+                    <li><a>Log out</a></li>
+                    <li><a>Settings</a></li>
+                </ul>
+            </div>
+        </footer>
+         */
     });
 }
 
