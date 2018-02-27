@@ -12,12 +12,12 @@ body {
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
 }
 
-.menu, .login{
+
+.menu, .login, .scoreboard, .registration {
 	font-size: 4vw;
+	text-align: center;
 	grid-row: 2/6;
 	grid-column: 2/3;
-	/*border: 5px solid red;*/
-	text-align: center;
 }
 
 .logo {
@@ -27,8 +27,6 @@ body {
 
 	font-size: 7vw;
 	text-align: center;
-    /*vertical-align: middle;*/
-	/*border: 5px solid white;*/
 	height: 7vw;
 }
 
