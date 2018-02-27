@@ -32,7 +32,25 @@
         </section>
 
         <section class="login">
-            <p>Login</p>
+            <div class="loginDiv">
+                <div class="changeProfileHead">Sign in to Blendocu</div>
+                <div>
+                    <form class="loginForm">
+                        <div>
+                            <div class="descriptionText"> Username or email address </div>
+                            <input class="inputSize" type="text" name="email">
+                            <div class="descriptionText">Password</div>
+                            <input class="inputSize" type="password" name="password">
+                        </div>
+                        <input class="registerButton" type="submit" value="Login">
+                    </form>
+                </div>
+                <div>
+                    <div class="descriptionText">  You are not registered? </div>
+                    <input class="registerButton" type="submit" value="Register">
+                </div>
+            </div>
+
         </section>
 
         <section class="registration">
@@ -43,7 +61,7 @@
             <div class="changeProfile">
                 <div class="changeProfileHead">Profile</div>
                 <div class="changeProfileImage">
-                    <img src="img.jpg">
+                    <img src="/img.jpg">
                     <a href="lol"> <div id="changeImage">change</div></a>
                 </div>
                 <form class="changeProfileNick">
@@ -81,6 +99,7 @@
 
 	</div>
 
+    <script src="./js/modules/http.js"></script>
     <script src="./js/application.js"></script>
 </body>
 

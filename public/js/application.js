@@ -1,6 +1,6 @@
 'use strict';
 
-//const httpModule = new window.HttpModule();
+const httpModule = new window.HttpModule();
 
 const menuSection = document.getElementsByClassName('menu')[0];
 const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
@@ -43,13 +43,39 @@ const openFunctions = {
         registrationForm.removeEventListener('submit', onSubmitRegisterForm);
         registrationForm.reset();
         registrationForm.addEventListener('submit', onSubmitRegisterForm);
-    },
+    },*/
     login: function () {
         loginForm.removeEventListener('submit', onSubmitLoginForm);
         loginForm.reset();
         loginForm.addEventListener('submit', onSubmitLoginForm);
-    }*/
+    }
 };
+
+function onSubmitLoginForm(evt) {
+    evt.preventDefault();
+    const fields = ['email', 'password'];
+
+    const form = evt.currentTarget;
+    const formElements = form.elements;
+
+    const formData = fields.reduce(function (allFields, fieldName) {
+        allFields[fieldName] = formElements[fieldName].value;
+        return allFields;
+    }, {});
+
+    console.info('Authorization: ', formData);
+
+    loginUser(formData, function (err, response) {
+        if (err) {
+            loginForm.reset();
+            alert('Неверно!');
+            return;
+        }
+
+        //checkAuth();
+        openSection('menu');
+    });
+}
 
 application.addEventListener('click', function (evt) {
     const target = evt.target;
@@ -64,6 +90,14 @@ application.addEventListener('click', function (evt) {
     console.log(`Open section: `, section);
     openSection(section);
 });
+
+function loginUser(user, callback) {
+    httpModule.doPost({
+        url: '/login',
+        callback,
+        data: user
+    });
+}
 
 
 

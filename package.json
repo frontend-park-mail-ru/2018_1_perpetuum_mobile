@@ -12,6 +12,8 @@
     "uuid": "^3.2.1"
   },
   "scripts": {
-    "start": "static-livereload --path static"
+    "build": "fest-build --dir=public",
+    "start": "npm run build && DEBUG=mylogger node server",
+    "start:raw": "node server"
   }
 }
