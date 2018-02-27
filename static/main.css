@@ -130,7 +130,7 @@ a {
 }
 
 a:hover {
-	color: white;
+	color: blueviolet;
 }
 
 #changeImage {
@@ -154,16 +154,16 @@ a:hover {
 }
 
 .registerButton {
-	width: 20vw;
-	/*height: 6vh;*/
+	width: 15vw;
+	height: 7vh;
 	font-family: 'Orbitron', sans-serif;
 	background: #2b2b2b;
 	color: #e7e7e7;
 	font-size: 2vw;
 	border: #2b2b2b 3px solid;
+	transition: all 0.3s ease;
 }
 
 .registerButton:hover {
-	border: darkmagenta 3px solid;
-	border-radius: 3px;
+	border-bottom: blueviolet 3px solid;
 }
