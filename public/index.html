@@ -77,41 +77,43 @@
         </section>
 
         <section class="profileSettings">
-            <div class="changeProfile">
-                <div class="changeProfileHead">Profile</div>
-                <div class="changeProfileImage">
-                    <img src="/img.jpg">
-                    <a href="lol"> <div id="changeImage">change</div></a>
+            <div class="profile-flex">
+                <div class="changeProfile">
+                    <div class="changeProfileHead">Profile</div>
+                    <div class="changeProfileImage">
+                        <img src="/img.jpg">
+                        <a href="lol"> <div id="changeImage">change</div></a>
+                    </div>
+                    <form class="changeProfileNick">
+
+                        <div class="descriptionText">Name</div>
+                        <input required class="inputSize" type="text" name="name" >
+
+                        <div class="descriptionText descriptionTextWidth">Email</div>
+                        <input required class="inputSize" type="text" name="email">
+
+                        <div class="changeButtonBlock">
+                            <input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
+                        </div>
+                    </form>
                 </div>
-                <form class="changeProfileNick">
+                <form class="changePassword">
+                    <div class="changeProfileHead">Change password</div>
 
-                    <div class="descriptionText">Name</div>
-                    <input required class="inputSize" type="text" name="name" >
+                    <div class="descriptionText">Old password</div>
+                    <input required class="inputSize" type="text" name="text">
 
-                    <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input required class="inputSize" type="text" name="email">
+                    <div class="descriptionText">New password</div>
+                    <input required class="inputSize" type="text" name="text">
 
-                    <div class="changeButtonBlock">
-                        <input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
+                    <div class="descriptionText">Repeat password</div>
+                    <input required class="inputSize" type="text" name="text">
+
+                    <div class="newBlock">
+                        <input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
                     </div>
                 </form>
             </div>
-            <form class="changePassword">
-                <div class="changeProfileHead">Change password</div>
-
-                <div class="descriptionText">Old password</div>
-                <input required class="inputSize" type="text" name="text">
-
-                <div class="descriptionText">New password</div>
-                <input required class="inputSize" type="text" name="text">
-
-                <div class="descriptionText">Repeat password</div>
-                <input required class="inputSize" type="text" name="text">
-
-                <div class="newBlock">
-                    <input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
-                </div>
-            </form>
         </section>
 
 		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>

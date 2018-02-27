@@ -175,7 +175,7 @@ function checkAuth() {
             <div class="submenu">
                 <ul>
                     <li><a>Log out</a></li>
-                    <li><a>Settings</a></li>
+                    <li><a data-section="profileSettings">Settings</a></li>
                 </ul>
             </div>`;
 
@@ -195,6 +195,6 @@ function checkAuth() {
 }
 
 
-
+checkAuth();
 openSection('menu');
 

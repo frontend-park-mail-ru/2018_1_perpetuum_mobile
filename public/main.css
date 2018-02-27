@@ -12,7 +12,7 @@ body {
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
 }
 
-.menu, .login, .scoreboard, .registration {
+.menu, .login, .scoreboard, .registration, .profileSettings {
 	font-size: 4vw;
 	text-align: center;
 	grid-row: 2/6;
@@ -137,6 +137,12 @@ a:hover {
 	border-radius: 5px;
 }
 
+.profile-flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
 
 .loginDiv {
 	display: flex;
