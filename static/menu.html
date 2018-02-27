@@ -8,14 +8,14 @@
 
 <body>
 
-	<div class="wrapper">
+	<div class="wrapper" id="application">
 		<header class="logo"> Blendocu </header>
 
 		<section class="menu">
 			<ul class="p-0">
-				<a href="#" data-section="singlePlayer"><li> New game </li>   </a>
-				<a href="#" data-section="multiPlayer"><li> Campaign </li>   </a>
-				<a href="#" data-section="scoreboard"><li> Scoreboard </li> </a>
+				<li><a href="#" data-section="singlePlayer"> New game </a> </li>
+				<li><a href="#" data-section="multiPlayer"> Campaign </a> </li>
+				<li><a href="#" data-section="scoreboard"> Scoreboard </a> </li>
 			</ul>
 		</section>
 
@@ -28,6 +28,14 @@
         </section>
 
         <section class="scoreboard">
+
+        </section>
+
+        <section class="login">
+            <p>Login</p>
+        </section>
+
+        <section class="registration">
 
         </section>
 
@@ -60,7 +68,7 @@
                 <div class="descriptionText">New password</div>
                 <input class="inputSize" type="text" name="text">
 
-                <div class="descriptionText">Repead password</div>
+                <div class="descriptionText">Repeat password</div>
                 <input class="inputSize" type="text" name="text">
 
                 <div class="newBlock">
@@ -69,11 +77,11 @@
             </form>
         </section>
 
-		<footer class="profile"><a href="#">Log in | Register</a></footer>
+		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>
 
 	</div>
 
-
+    <script src="./js/application.js"></script>
 </body>
 
 </html>
