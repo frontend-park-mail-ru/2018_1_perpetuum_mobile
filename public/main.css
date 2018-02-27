@@ -12,7 +12,7 @@ body {
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
 }
 
-.menu, .login, .scoreboard__table, .registration {
+.menu, .login, .scoreboard, .registration {
 	font-size: 4vw;
 	text-align: center;
 	grid-row: 2/6;

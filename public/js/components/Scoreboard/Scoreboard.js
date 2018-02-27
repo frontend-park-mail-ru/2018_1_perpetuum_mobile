@@ -17,13 +17,13 @@
 			this._el.innerHTML = '';
 		}
 
-		renderTmpl() {
+		render() {
 			if (!this._data) {
 				return;
 			}
 
-			const template = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
-			this._el.innerHTML = template;
+			const templateFest = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
+			this._el.innerHTML = templateFest;
 		}
 
 	}

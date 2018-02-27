@@ -115,9 +115,7 @@ function openScoreboard() {
 
         console.dir(users);
         scoreboardComponent.data = users;
-        // scoreboardComponent.renderDOM();
-        //scoreboardComponent.renderString();
-        scoreboardComponent.renderTmpl();
+        scoreboardComponent.render();
     });
 }
 
