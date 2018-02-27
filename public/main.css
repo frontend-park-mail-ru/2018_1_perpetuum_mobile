@@ -12,7 +12,6 @@ body {
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
 }
 
-
 .menu, .login, .scoreboard, .registration {
 	font-size: 4vw;
 	text-align: center;
@@ -69,7 +68,6 @@ li {
 }
 
 .inputSize {
-
 	width: 50vh;
 	height: 3vh;
 }
@@ -122,11 +120,12 @@ li {
 
 a {
 	text-decoration: none;
-	color: #bcbcbc;
+    color: #e7e7e7;
+    transition: all 0.3s linear;
 }
 
 a:hover {
-	color: blueviolet;
+    border-bottom: blueviolet 3px solid;
 }
 
 #changeImage {
@@ -150,7 +149,7 @@ a:hover {
 }
 
 .registerButton {
-	width: 15vw;
+	width: 20vw;
 	height: 7vh;
 	font-family: 'Orbitron', sans-serif;
 	background: #2b2b2b;
@@ -178,4 +177,41 @@ th {
     border: #bcbcbc 2px solid;
     border-radius: 3px;
     width: 3vw;
+}
+
+
+
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.topmenu {
+    text-align: center;
+    padding: 10px 0;
+}
+.topmenu > li {
+    display: inline-block;
+    position: relative;
+}
+.submenu {
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 210px;
+    margin-left: -105px;
+    border: 1px solid #ededed;
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(200px);
+    transition: .4s ease-in-out;
+}
+
+.topmenu > li:hover .submenu {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
 }
