@@ -47,12 +47,6 @@ li {
 	text-align: center;
 }
 
-/*div {*/
-  /*border: 2px solid rgb(233,171,88);*/
-  /*border-radius: 5px;*/
-  /*background-color: rgba(233,171,88,.5);*/
-/*}*/
-
 .changeProfile {
 	grid-row: 2/4;
 	grid-column: 2/3;
@@ -132,7 +126,7 @@ a {
 }
 
 a:hover {
-	color: white;
+	color: blueviolet;
 }
 
 #changeImage {
@@ -167,5 +161,21 @@ a:hover {
 }
 
 .registerButton:hover {
-    border-bottom: blueviolet 3px solid;
+	border-bottom: blueviolet 3px solid;
+}
+
+table {
+    margin: auto;
+    text-align: center;
+    border-bottom: blueviolet 1px solid;
+    width: 90%;
+    font-size: 2vw;
+}
+th {
+    border-bottom: blueviolet 1px solid;
+}
+.imgInProfile {
+    border: #bcbcbc 2px solid;
+    border-radius: 3px;
+    width: 3vw;
 }
