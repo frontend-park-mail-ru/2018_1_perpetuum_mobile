@@ -12,7 +12,7 @@ body {
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh; 
 }
 
-.menu, .login, .scoreboard, .registration {
+.menu, .login, .scoreboard__table, .registration {
 	font-size: 4vw;
 	text-align: center;
 	grid-row: 2/6;
@@ -179,39 +179,18 @@ th {
     width: 3vw;
 }
 
-
-
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.topmenu {
-    text-align: center;
-    padding: 10px 0;
-}
-.topmenu > li {
-    display: inline-block;
-    position: relative;
-}
 .submenu {
+    background: #e7e7e7;
+    display: block;
     position: absolute;
-    left: 50%;
-    top: 100%;
-    width: 210px;
-    margin-left: -105px;
-    border: 1px solid #ededed;
-    z-index: 5;
-    visibility: hidden;
+    height: 1vh;
     opacity: 0;
-    transform: translateY(200px);
-    transition: .4s ease-in-out;
+    list-style: none;
+    overflow: hidden;
+    transition: max-height 0.7s ease-in;
 }
 
-.topmenu > li:hover .submenu {
-    visibility: visible;
+.profile:hover .submenu {
+    max-height: 10vh;
     opacity: 1;
-    transform: scale(1);
 }
