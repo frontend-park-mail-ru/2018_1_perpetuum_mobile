@@ -23,11 +23,9 @@ body {
     grid-row: 1/2;
     grid-column: 2/3;
 	align-self: center;
-
 	font-size: 7vw;
 	text-align: center;
 	height: 7vw;
-
     color: blueviolet;
 }
 
@@ -44,6 +42,7 @@ li {
 	grid-column: 3;
 	grid-row: 6/7;
 	text-align: center;
+    z-index: 1;
 }
 
 .changeProfile {
@@ -180,17 +179,18 @@ th {
 }
 
 .submenu {
-    background: #e7e7e7;
-    display: block;
+    margin-top: -18vh;
+    margin-left: 5.5vw;
+    border-right: blueviolet 1px solid;
+    z-index: -5;
+    width: 13vw;
     position: absolute;
-    height: 1vh;
+    height: 10vh;
     opacity: 0;
     list-style: none;
-    overflow: hidden;
-    transition: max-height 0.7s ease-in;
+    transition: opacity 0.7s ease-in;
 }
 
 .profile:hover .submenu {
-    max-height: 10vh;
     opacity: 1;
 }
