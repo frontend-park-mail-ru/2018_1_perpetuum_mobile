@@ -38,23 +38,40 @@
                     <form class="loginForm">
                         <div>
                             <div class="descriptionText"> Username or email address </div>
-                            <input class="inputSize" type="text" name="email">
+                            <input required class="inputSize" type="text" name="email">
                             <div class="descriptionText">Password</div>
-                            <input class="inputSize" type="password" name="password">
+                            <input required class="inputSize" type="password" name="password">
                         </div>
                         <input class="registerButton" type="submit" value="Login">
                     </form>
                 </div>
                 <div>
                     <div class="descriptionText">  You are not registered? </div>
-                    <input class="registerButton" type="submit" value="Register">
+                    <button class="registerButton" data-section="register">Register</button>
                 </div>
             </div>
 
         </section>
 
         <section class="registration">
+            <div class="loginDiv">
+                <div class="changeProfileHead">Login to Blendocu</div>
+                <form class="registrationForm">
+                    <div class="descriptionText"> Username or email address </div>
+                    <input required class="inputSize" type="text" name="email">
 
+                    <div class="descriptionText">Password</div>
+                    <input required class="inputSize" type="password" name="password">
+
+                    <div class="descriptionText">Password again</div>
+                    <input required class="inputSize" type="password" name="password_repeat">
+
+                    <input class="registerButton" type="submit" value="Register">
+                </form>
+
+                <div class="descriptionText">  Have an account? </div>
+                <button class="registerButton" data-section="login">Login</button>
+            </div>
         </section>
 
         <section class="profileSettings">
@@ -67,10 +84,10 @@
                 <form class="changeProfileNick">
 
                     <div class="descriptionText">Name</div>
-                    <input class="inputSize" type="text" name="name" >
+                    <input required class="inputSize" type="text" name="name" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input class="inputSize" type="text" name="email">
+                    <input required class="inputSize" type="text" name="email">
 
                     <div class="changeButtonBlock">
                         <input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
@@ -81,13 +98,13 @@
                 <div class="changeProfileHead">Change password</div>
 
                 <div class="descriptionText">Old password</div>
-                <input class="inputSize" type="text" name="text">
+                <input required class="inputSize" type="text" name="text">
 
                 <div class="descriptionText">New password</div>
-                <input class="inputSize" type="text" name="text">
+                <input required class="inputSize" type="text" name="text">
 
                 <div class="descriptionText">Repeat password</div>
-                <input class="inputSize" type="text" name="text">
+                <input required class="inputSize" type="text" name="text">
 
                 <div class="newBlock">
                     <input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">

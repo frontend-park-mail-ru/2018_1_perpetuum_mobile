@@ -1,6 +1,7 @@
 'use strict';
 
 const httpModule = new window.HttpModule();
+const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
 
 const menuSection = document.getElementsByClassName('menu')[0];
 const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
@@ -38,12 +39,12 @@ function openSection(name) {
 }
 
 const openFunctions = {
-    //scoreboard: openScoreboard,
-    /*register: function () {
+    scoreboard: openScoreboard,
+    register: function () {
         registrationForm.removeEventListener('submit', onSubmitRegisterForm);
         registrationForm.reset();
         registrationForm.addEventListener('submit', onSubmitRegisterForm);
-    },*/
+    },
     login: function () {
         loginForm.removeEventListener('submit', onSubmitLoginForm);
         loginForm.reset();
@@ -77,18 +78,59 @@ function onSubmitLoginForm(evt) {
     });
 }
 
+function onSubmitRegisterForm(evt) {
+    evt.preventDefault();
+    const fields = ['email', 'password', 'password_repeat'];
+
+    const form = evt.currentTarget;
+    const formElements = form.elements;
+
+    const formdata = fields.reduce(function (allfields, fieldname) {
+        allfields[fieldname] = formElements[fieldname].value;
+        return allfields;
+    }, {});
+
+    console.info('User registration: ', formdata);
+
+    registerUser(formdata, function (err, response) {
+        if (err) {
+            registrationForm.reset();
+            alert('Неверно!');
+            return;
+        }
+
+        //checkAuth();
+        openSection('menu');
+    });
+}
+
+function openScoreboard() {
+    scoreboardComponent.clear();
+
+    loadAllUsers(function (err, users) {
+        if (err) {
+            console.error(err);
+            return;
+        }
+
+        console.dir(users);
+        scoreboardComponent.data = users;
+        // scoreboardComponent.renderDOM();
+        //scoreboardComponent.renderString();
+        scoreboardComponent.renderTmpl();
+    });
+}
+
 application.addEventListener('click', function (evt) {
     const target = evt.target;
-    if (target.tagName.toLowerCase() !== 'a') {
-        return;
+    if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
+        evt.preventDefault();
+
+        const section = target.getAttribute('data-section');
+
+        console.log(`Open section: `, section);
+        openSection(section);
     }
-
-    evt.preventDefault();
-
-    const section = target.getAttribute('data-section');
-
-    console.log(`Open section: `, section);
-    openSection(section);
 });
 
 function loginUser(user, callback) {
@@ -96,6 +138,21 @@ function loginUser(user, callback) {
         url: '/login',
         callback,
         data: user
+    });
+}
+
+function registerUser(user, callback) {
+    httpModule.doPost({
+        url: '/register',
+        callback,
+        data: user
+    });
+}
+
+function loadAllUsers(callback) {
+    httpModule.doGet({
+        url: '/users',
+        callback
     });
 }
 
