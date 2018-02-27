@@ -3,7 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "static-livereload": "^0.1.4"
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "debug": "^3.1.0",
+    "express": "^4.16.2",
+    "fest": "^0.12.1",
+    "morgan": "^1.9.0",
+    "uuid": "^3.2.1"
   },
   "scripts": {
     "start": "static-livereload --path static"

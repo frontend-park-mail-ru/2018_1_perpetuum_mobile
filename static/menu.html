@@ -6,24 +6,72 @@
 	<title> menu </title>
 </head>
 
+<body>
 
-<div class="wrapper">
-	<header class="logo"> Blendocu </header>
-	<div class="three">
+	<div class="wrapper">
+		<header class="logo"> Blendocu </header>
+
+		<section class="menu">
+			<ul class="p-0">
+				<a href="#" data-section="singlePlayer"><li> New game </li>   </a>
+				<a href="#" data-section="multiPlayer"><li> Campaign </li>   </a>
+				<a href="#" data-section="scoreboard"><li> Scoreboard </li> </a>
+			</ul>
+		</section>
+
+        <section class="singlePlayer">
+
+        </section>
+
+        <section class="multiPlayer">
+
+        </section>
+
+        <section class="scoreboard">
+
+        </section>
+
+        <section class="profileSettings">
+            <div class="changeProfile">
+                <div class="changeProfileHead">Profile</div>
+                <div class="changeProfileImage">
+                    <img src="img.jpg">
+                    <a href="lol"> <div id="changeImage">change</div></a>
+                </div>
+                <form class="changeProfileNick">
+
+                    <div class="descriptionText">Name</div>
+                    <input class="inputSize" type="text" name="name" >
+
+                    <div class="descriptionText descriptionTextWidth">Email</div>
+                    <input class="inputSize" type="text" name="email">
+
+                    <div class="changeButtonBlock">
+                        <input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
+                    </div>
+                </form>
+            </div>
+            <form class="changePassword">
+                <div class="changeProfileHead">Change password</div>
+
+                <div class="descriptionText">Old password</div>
+                <input class="inputSize" type="text" name="text">
+
+                <div class="descriptionText">New password</div>
+                <input class="inputSize" type="text" name="text">
+
+                <div class="descriptionText">Repead password</div>
+                <input class="inputSize" type="text" name="text">
+
+                <div class="newBlock">
+                    <input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
+                </div>
+            </form>
+        </section>
+
+		<footer class="profile"><a href="#">Log in | Register</a></footer>
 
 	</div>
-	<section class="menu">
-		<ul class="p-0">
-   			<a href="#"><li> New game </li>   </a>
-   			<a href="#"><li> Campaign </li>   </a>	
-   			<a href="#"><li> Scoreboard </li> </a>	
-   			<a href="#"><li> Settings </li>   </a>
-   		</ul>
-	</section>
-	<div class="four"></div>
-	<footer class="profile"><a href="#">Log in | Register</a></footer>
-
-</div>
 
 
 </body>
