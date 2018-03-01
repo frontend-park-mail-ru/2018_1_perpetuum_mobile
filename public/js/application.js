@@ -13,6 +13,7 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
+const logoutForm = document.getElementsByClassName('logoutForm')[0];
 const profileFooter = document.getElementsByClassName('profile')[0];
 
 
@@ -58,7 +59,9 @@ function onSubmitLoginForm(evt) {
     const fields = ['email', 'password'];
 
     const form = evt.currentTarget;
+    console.log(form);
     const formElements = form.elements;
+    console.log(formElements);
 
     const formData = fields.reduce(function (allFields, fieldName) {
         allFields[fieldName] = formElements[fieldName].value;
@@ -81,22 +84,25 @@ function onSubmitLoginForm(evt) {
 
 function onSubmitRegisterForm(evt) {
     evt.preventDefault();
-    const fields = ['email', 'password', 'password_repeat'];
+    const fields = ['email', 'login', 'password', 'password_repeat'];
 
     const form = evt.currentTarget;
+    console.log(form);
     const formElements = form.elements;
+    console.log(formElements);
 
-    const formdata = fields.reduce(function (allfields, fieldname) {
-        allfields[fieldname] = formElements[fieldname].value;
-        return allfields;
+    const formData = fields.reduce(function (allFields, fieldName) {
+        allFields[fieldName] = formElements[fieldName].value;
+        return allFields;
     }, {});
 
-    console.info('User registration: ', formdata);
+    console.info('User registration: ', formData);
 
-    registerUser(formdata, function (err, response) {
+
+    registerUser(formData, function (err, response) {
         if (err) {
             registrationForm.reset();
-            alert('Неверно!');
+            alert('Неверно123!');
             return;
         }
 
@@ -134,7 +140,7 @@ application.addEventListener('click', function (evt) {
 
 function loginUser(user, callback) {
     httpModule.doPost({
-        url: '/login',
+        url: 'http://127.0.0.1:3050/login',
         callback,
         data: user
     });
@@ -142,7 +148,7 @@ function loginUser(user, callback) {
 
 function registerUser(user, callback) {
     httpModule.doPost({
-        url: '/register',
+        url: 'http://127.0.0.1:3050/register',
         callback,
         data: user
     });
@@ -157,7 +163,7 @@ function loadAllUsers(callback) {
 
 function loadMe(callback) {
     httpModule.doGet({
-        url: '/me',
+        url: 'http://127.0.0.1:3050/me',
         callback
     });
 }
@@ -165,16 +171,17 @@ function loadMe(callback) {
 function checkAuth() {
     loadMe(function (err, me) {
         if (err) {
+            console.log("ya tut, oshibka", me);
             profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
             return;
         }
 
         console.log('me is', me);
-        profileFooter.innerHTML = `${me.email}
+        profileFooter.innerHTML = `${me.login}
             <img src="img.jpg" class="imgInProfile">
             <div class="submenu">
                 <ul>
-                    <li><a>Log out</a></li>
+                    <li><form class="logoutForm" method="post"><input type="submit" value="Logout"></form></li>
                     <li><a data-section="profileSettings">Settings</a></li>
                 </ul>
             </div>`;

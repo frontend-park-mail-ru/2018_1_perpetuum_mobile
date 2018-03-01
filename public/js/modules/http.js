@@ -1,5 +1,4 @@
 (function () {
-
 	const noop = () => null;
 
 	class HttpModule {
@@ -13,7 +12,7 @@
 					return;
 				}
 
-				if (xhr.status === 200) {
+				if (xhr.status < 300) {
 					const responseText = xhr.responseText;
 					try {
 						const response = JSON.parse(responseText);
