@@ -1,0 +1,107 @@
+BLENDOCU API
+
+
+/users
+GET
+
+no parameters
+
+response:
+200
+{
+	{
+		"login":"warning",
+		"score":"15"
+	},
+	{
+		"login":"gangster",
+		"score":"10"
+	}
+}
+
+
+
+/login
+POST
+
+parameters:
+depends on what user inputted
+{
+  "email": "string",
+  "password": "string"
+}
+or
+{
+  "login": "string",
+  "password": "string"
+}
+
+response:
+202
+{
+	"status": "successful authorize"
+}
+
+400
+{
+	"status": "invalid login or password"
+}
+
+403
+{
+	"status": "not enough data"
+}.
+
+403
+{
+	"status": "already authorized"
+}
+
+
+
+/register
+POST
+
+parameters:
+{
+  "username": "string",
+  "email": "string",
+  "password": "string"
+}
+
+response:
+202
+{
+	"status":"you are registered!!!"
+}
+
+403
+{
+	"status":"not enough data"
+}
+or
+{
+	"status":"this email already registered" //исправить в Java и затем в API на "this email is already registered"
+}
+or
+{
+	"status":"this login already registered" //исправить в Java и затем в API на "this login is already registered"
+}
+
+
+/me
+GET
+
+no parameters
+
+response:
+200
+{
+	"login":"string",
+	"img":"link"
+}
+
+401
+{
+	"status":"you are not authorized"
+}
