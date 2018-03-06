@@ -7,57 +7,62 @@
 </head>
 
 <body>
-
 	<div class="wrapper" id="application">
-		<header class="logo"> Blendocu </header>
+		<header class="logoBlendocu"> Blendocu </header>
+
+        <!--menu-->
 
 		<section class="menu">
-			<ul class="p-0">
-				<li><a href="#" data-section="singlePlayer"> New game </a> </li>
-				<li><a href="#" data-section="multiPlayer"> Campaign </a> </li>
-				<li><a href="#" data-section="scoreboard"> Scoreboard </a> </li>
-			</ul>
+            <ul>
+                <li><a href="#" data-section="singlePlayer"> New game </a> </li>
+                <li><a href="#" data-section="multiPlayer"> Campaign </a> </li>
+                <li><a href="#" data-section="scoreboard"> Scoreboard </a> </li>
+            </ul>
 		</section>
+
+        <!--singleplayer-->
 
         <section class="singlePlayer">
 
         </section>
 
+        <!--multiplaeyer-->
+
         <section class="multiPlayer">
 
         </section>
+
+        <!--scoreboard-->
 
         <section class="scoreboard">
             <div class="js-scoreboard-table">
 
             </div>
+            <a href="lol" data-section="paginator-left"><</a>
+            <a href="lol" data-section="paginator-right">></a>
         </section>
 
+        <!--login-->
+
         <section class="login">
+            <div class="sectionHeader">Login</div>
             <div class="loginDiv">
-                <div class="changeProfileHead">Hello</div>
-                <div>
-                    <form class="loginForm">
-                        <div>
-                            <div class="descriptionText"> Username or email address </div>
-                            <input required class="inputSize" type="text" name="email">
-                            <div class="descriptionText">Password</div>
-                            <input required class="inputSize" type="password" name="password">
-                        </div>
+                    <form>
+                        <div class="descriptionText"> Username or email address </div>
+                        <input required class="inputSize" type="text" name="email">
+                        <div class="descriptionText">Password</div>
+                        <input required class="inputSize" type="password" name="password">
                         <input class="registerButton" type="submit" value="Login">
                     </form>
-                </div>
-                <div>
+
                     <div class="descriptionText">  You are not registered? </div>
                     <button class="registerButton" data-section="register">Register</button>
-                </div>
-            </div>
-
+             </div>
         </section>
 
         <section class="registration">
+            <div class="sectionHeader">Register</div>
             <div class="loginDiv">
-                <div class="changeProfileHead">Login to Blendocu</div>
                 <form class="registrationForm">
                     <div class="descriptionText"> Email </div>
                     <input required class="inputSize" type="text" name="email">
@@ -68,55 +73,18 @@
                     <div class="descriptionText">Password</div>
                     <input required class="inputSize" type="password" name="password">
 
-                    <div class="descriptionText">Password again</div>
-                    <input required class="inputSize" type="password" name="password_repeat">
-
-                    <input class="registerButton" type="submit" value="Register">
                 </form>
+                <input class="registerButton" type="submit" value="Register">
 
                 <div class="descriptionText">  Have an account? </div>
                 <button class="registerButton" data-section="login">Login</button>
             </div>
         </section>
 
+        <!--profile settings-->
+
         <section class="profileSettings">
-            <div class="profile-flex">
-                <div class="changeProfile">
-                    <div class="changeProfileHead">Profile</div>
-                    <div class="changeProfileImage">
-                        <img src="/img.jpg">
-                        <a href="lol"> <div id="changeImage">change</div></a>
-                    </div>
-                    <form class="changeProfileNick">
-
-                        <div class="descriptionText">Name</div>
-                        <input required class="inputSize" type="text" name="name" >
-
-                        <div class="descriptionText descriptionTextWidth">Email</div>
-                        <input required class="inputSize" type="text" name="email">
-
-                        <div class="changeButtonBlock">
-                            <input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
-                        </div>
-                    </form>
-                </div>
-                <form class="changePassword">
-                    <div class="changeProfileHead">Change password</div>
-
-                    <div class="descriptionText">Old password</div>
-                    <input required class="inputSize" type="text" name="text">
-
-                    <div class="descriptionText">New password</div>
-                    <input required class="inputSize" type="text" name="text">
-
-                    <div class="descriptionText">Repeat password</div>
-                    <input required class="inputSize" type="text" name="text">
-
-                    <div class="newBlock">
-                        <input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
-                    </div>
-                </form>
-            </div>
+>
         </section>
 
 		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>

@@ -140,7 +140,8 @@ application.addEventListener('click', function (evt) {
 
 function loginUser(user, callback) {
     httpModule.doPost({
-        url: 'http://127.0.0.1:3050/login',
+        // url: 'http://127.0.0.1:3050/login',
+        url: '/login',
         callback,
         data: user
     });
@@ -148,7 +149,8 @@ function loginUser(user, callback) {
 
 function registerUser(user, callback) {
     httpModule.doPost({
-        url: 'http://127.0.0.1:3050/register',
+        // url: 'http://127.0.0.1:3050/register',
+        url: '/register',
         callback,
         data: user
     });
@@ -163,7 +165,8 @@ function loadAllUsers(callback) {
 
 function loadMe(callback) {
     httpModule.doGet({
-        url: 'http://127.0.0.1:3050/me',
+        url: '/me',
+        // url: 'http://127.0.0.1:3050/me',
         callback
     });
 }
