@@ -13,7 +13,6 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
-const logoutForm = document.getElementsByClassName('logoutForm')[0];
 const profileFooter = document.getElementsByClassName('profile')[0];
 
 
@@ -59,9 +58,7 @@ function onSubmitLoginForm(evt) {
     const fields = ['email', 'password'];
 
     const form = evt.currentTarget;
-    console.log(form);
     const formElements = form.elements;
-    console.log(formElements);
 
     const formData = fields.reduce(function (allFields, fieldName) {
         allFields[fieldName] = formElements[fieldName].value;
@@ -87,22 +84,30 @@ function onSubmitRegisterForm(evt) {
     const fields = ['email', 'login', 'password', 'password_repeat'];
 
     const form = evt.currentTarget;
-    console.log(form);
     const formElements = form.elements;
-    console.log(formElements);
 
     const formData = fields.reduce(function (allFields, fieldName) {
         allFields[fieldName] = formElements[fieldName].value;
         return allFields;
     }, {});
 
+    /*
+    if(formData["password"] !== formData["password_repeat"]) {
+        registrationForm.reset();
+        alert('Пароли не совпадают');
+        return;
+    }
+
+    console.log(typeof(formData));
+    */
+    //formdata.delete["password_repeat"]; //password repeat delete
     console.info('User registration: ', formData);
 
 
     registerUser(formData, function (err, response) {
         if (err) {
             registrationForm.reset();
-            alert('Неверно123!');
+            alert('Неверно!');
             return;
         }
 
@@ -114,7 +119,7 @@ function onSubmitRegisterForm(evt) {
 function openScoreboard() {
     scoreboardComponent.clear();
 
-    loadAllUsers(function (err, users) {
+    /*loadAllUsers(function (err, users) {
         if (err) {
             console.error(err);
             return;
@@ -123,7 +128,13 @@ function openScoreboard() {
         console.dir(users);
         scoreboardComponent.data = users;
         scoreboardComponent.render();
-    });
+    });*/
+
+    loadAllUsers(function (response) {
+        const data = response.json();
+        scoreboardComponent.data = data.users;
+        scoreboardComponent.render();
+    })
 }
 
 application.addEventListener('click', function (evt) {
@@ -155,15 +166,16 @@ function registerUser(user, callback) {
 }
 
 function loadAllUsers(callback) {
-    httpModule.doGet({
+    /*httpModule.doGet({
         url: '/users',
         callback
-    });
+    });*/
+    httpModule.doGetFetch({url: 'http://127.0.0.1:3050/users'}).then(callback);
 }
 
 function loadMe(callback) {
     httpModule.doGet({
-        url: 'http://127.0.0.1:3050/me',
+        url: '/me',
         callback
     });
 }
@@ -171,7 +183,7 @@ function loadMe(callback) {
 function checkAuth() {
     loadMe(function (err, me) {
         if (err) {
-            console.log("ya tut, oshibka", me);
+            console.log("check auth error", me);
             profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
             return;
         }

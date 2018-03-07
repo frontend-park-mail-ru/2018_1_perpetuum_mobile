@@ -1,6 +1,21 @@
 (function () {
 	const noop = () => null;
 
+	const getCors = new Headers({
+        "Origin": "http://127.0.0.1:3000"
+    });
+
+	const postCors = {
+
+    };
+
+	function checkAllRight(response){
+	    if(response.ok){
+	        return response;
+        }
+        throw new Error('Network problems');
+    }
+
 	class HttpModule {
 
 		doGet({url = '/', callback = noop} = {}) {
@@ -30,6 +45,21 @@
 
 			xhr.send();
 		}
+
+		doGetFetch({url = '/', customHeaders = getCors} = {}){
+		    const initSettings = {
+		        method: 'get',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                headers: customHeaders
+            };
+            return fetch(url, initSettings).then(checkAllRight);
+        }
+
+        doPostFetch({url = '/', settings = postCors, data = {}} = {}){
+		    return fetch(url, settings);
+        }
 
 		doPost({url = '/', callback = noop, data = {}} = {}) {
 			const xhr = new XMLHttpRequest();
