@@ -61,23 +61,33 @@ function onSubmitLoginForm(evt) {
     const form = evt.currentTarget;
     const formElements = form.elements;
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = {};
+
+    const emailPattern = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
+
+    let emailOrLogin = formElements['email'].value;
+
+    if (emailOrLogin.search(emailPattern) === -1) {
+        formData['login'] = emailOrLogin;
+    } else {
+        formData['email'] = emailOrLogin;
+    }
+
+    formData['password'] = formElements['password'].value;
 
     console.info('Authorization: ', formData);
 
     loginUser(formData,
         function (response) {
-        checkAuth();
-        openSection('menu');
-    },
+            checkAuth();
+            openSection('menu');
+        },
         function (err){
             loginForm.reset();
             alert('Неверно!');
             return;
-        });
+        }
+    );
 }
 
 function onSubmitRegisterForm(evt) {
@@ -150,27 +160,29 @@ function loadAllUsers(callback) {
 }
 
 function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: '/me'}).then(callback).catch(catchFunc);
+    httpModule.doGetFetch({url: 'http://127.0.0.1:3050/users'}).then(callback).catch(catchFunc);
 }
 
 function checkAuth() {
-    loadMe(function (me) {
-        console.log('me is ', me);
-        profileFooter.innerHTML = `${me.login}
-            <img src="img.jpg" class="imgInProfile">
-            <div class="submenu">
-                <ul>
-                    <li><form class="logoutForm" method="post"><input type="submit" value="Logout"></form></li>
-                    <li><a data-section="profileSettings">Settings</a></li>
-                </ul>
-            </div>`;
-    },
+    loadMe(
+        function (me) {
+            console.log('me is ', me);
+            profileFooter.innerHTML = `${me.login}
+                <img src="img.jpg" class="imgInProfile">
+                <div class="submenu">
+                    <ul>
+                        <li><form class="logoutForm" method="post"><input type="submit" value="Logout"></form></li>
+                        <li><a data-section="profileSettings">Settings</a></li>
+                    </ul>
+                </div>`;
+        },
         function (err) {
             console.log("check auth error ", err);
             profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
             return;
 
-        });
+        }
+    );
 }
 
 
