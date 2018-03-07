@@ -6,7 +6,8 @@
     });
 
 	const postCors = {
-        "Origin": "http://127.0.0.1:3000"
+        "Origin": "http://127.0.0.1:3000",
+        "Content-Type": "application/json"
     };
 
 	function checkAllRight(response){
@@ -17,6 +18,33 @@
     }
 
 	class HttpModule {
+
+        doGetFetch({url = '/', customHeaders = getCors} = {}){
+            const initSettings = {
+                method: 'get',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                headers: customHeaders
+            };
+            return fetch(url, initSettings).then(checkAllRight);
+        }
+
+        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}){
+            const initSettings = {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                headers: customHeaders,
+                body: JSON.stringify(data)
+            };
+            console.log(data);
+            return fetch(url, initSettings);
+        }
+
+
+        //deprecated, now unused
 
 		doGet({url = '/', callback = noop} = {}) {
 			const xhr = new XMLHttpRequest();
@@ -45,29 +73,6 @@
 
 			xhr.send();
 		}
-
-		doGetFetch({url = '/', customHeaders = getCors} = {}){
-		    const initSettings = {
-		        method: 'get',
-                mode: 'cors',
-                credentials: 'include',
-                cache: 'default',
-                headers: customHeaders
-            };
-            return fetch(url, initSettings).then(checkAllRight);
-        }
-
-        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}){
-            const initSettings = {
-                method: 'post',
-                mode: 'cors',
-                credentials: 'include',
-                cache: 'default',
-                headers: customHeaders,
-                body: data
-            };
-		    return fetch(url, initSettings);
-        }
 
 		doPost({url = '/', callback = noop, data = {}} = {}) {
 			const xhr = new XMLHttpRequest();

@@ -67,16 +67,16 @@ function onSubmitLoginForm(evt) {
 
     console.info('Authorization: ', formData);
 
-    loginUser(formData, function (err, response) {
-        if (err) {
+    loginUser(formData,
+        function (response) {
+        checkAuth();
+        openSection('menu');
+    },
+        function (err){
             loginForm.reset();
             alert('Неверно!');
             return;
-        }
-
-        checkAuth();
-        openSection('menu');
-    });
+        });
 }
 
 function onSubmitRegisterForm(evt) {
@@ -104,31 +104,18 @@ function onSubmitRegisterForm(evt) {
     console.info('User registration: ', formData);
 
 
-    registerUser(formData, function (err, response) {
-        if (err) {
-            registrationForm.reset();
-            alert('Неверно!');
-            return;
-        }
-
+    registerUser(formData, function (response) {
         checkAuth();
         openSection('menu');
-    });
+    },
+        function (err){
+            registrationForm.reset();
+            alert('Неверно!');
+        });
 }
 
 function openScoreboard() {
     scoreboardComponent.clear();
-
-    /*loadAllUsers(function (err, users) {
-        if (err) {
-            console.error(err);
-            return;
-        }
-
-        console.dir(users);
-        scoreboardComponent.data = users;
-        scoreboardComponent.render();
-    });*/
 
     loadAllUsers(function (data) {
         console.log('data: ', data);
@@ -149,36 +136,20 @@ application.addEventListener('click', function (evt) {
     }
 });
 
-function loginUser(user, callback) {
-    httpModule.doPost({
-        url: 'http://127.0.0.1:3050/login',
-        callback,
-        data: user
-    });
+function loginUser(user, callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/login', data: user}).then(callback).catch(catchFunc);
 }
 
-function registerUser(user, callback) {
-    httpModule.doPost({
-        url: 'http://127.0.0.1:3050/register',
-        callback,
-        data: user
-    });
+function registerUser(user, callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/register', data: user}).then(callback).catch(catchFunc);
 }
 
 function loadAllUsers(callback) {
-    /*httpModule.doGet({
-        url: '/users',
-        callback
-    });*/
     httpModule.doGetFetch({url: 'http://127.0.0.1:3050/users'}).then(callback);
 }
 
-function loadMe(callback, errFunc) {
-    /*httpModule.doGet({
-        url: '/me',
-        callback
-    });*/
-    httpModule.doGetFetch({url: '/me'}).then(callback).catch(errFunc);
+function loadMe(callback, catchFunc) {
+    httpModule.doGetFetch({url: '/me'}).then(callback).catch(catchFunc);
 }
 
 function checkAuth() {
@@ -192,19 +163,6 @@ function checkAuth() {
                     <li><a data-section="profileSettings">Settings</a></li>
                 </ul>
             </div>`;
-
-        /*
-        <footer class="profile">
-            @Warprobot
-            <img src="img.jpg" class="imgInProfile">
-            <div class="submenu">
-                <ul>
-                    <li><a>Log out</a></li>
-                    <li><a>Settings</a></li>
-                </ul>
-            </div>
-        </footer>
-         */
     },
         function (err) {
             console.log("check auth error ", err);
