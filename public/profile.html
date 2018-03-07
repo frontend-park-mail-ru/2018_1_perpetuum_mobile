@@ -8,49 +8,38 @@
 
 
 <div class="wrapper">
-	<div class="logo"> Blendocu</div>
-	<div class="three">
+	<div class="logoBlendocu"> Blendocu</div>
 
-	</div>
-	<div class="changeProfile">
-		<div class="changeProfileHead">Profile</div>
-		<div class="changeProfileImage">
-			<img src="img.jpg"></img>
-			<a href="lol"> <div id="changeImage">change</div></a>
-		</div>
-		<form class="changeProfileNick">
-
-			<div class="descriptionText">Name</div>
-			<input class="inputSize" type="text" name="name" >
-
-			<div class="descriptionText descriptionTextWidth">Email</div>
-			<input class="inputSize" type="text" name="email">
-
-			<div class="changeButtonBlock">
-				<input class="changeButton changeNickEmailButtonPosition" type="submit" value = "Change">
+	<section class="changeProfile">
+		<div class="sectionHeader">Profile</div>
+			<div class="changeProfileImage">
+				<img src="img.jpg">
+				<button class="changeImageButton" data-section="change">Change</button>
 			</div>
-		</form>
-	</div>
-	<form class="changePassword">
-		<div class="changeProfileHead">Change password</div>
+			<form class="changeProfileNick">
 
-		<div class="descriptionText">Old password</div>
-		<input class="inputSize" type="text" name="text">
+				<div class="descriptionText">Login</div>
+				<input class="inputSize" type="text" name="name" >
 
-		<div class="descriptionText">New password</div>
-		<input class="inputSize" type="text" name="text">
+				<div class="descriptionText descriptionTextWidth">Email</div>
+				<input class="inputSize" type="text" name="email">
 
-		<div class="descriptionText">Repead password</div>
-		<input class="inputSize" type="text" name="text">
+				<button class="changeImageButton" data-section="change">Change</button>
+			</form>
 
-		<div class="newBlock">
-			<input class="changeButton changePasswordButtonPosition" type="submit" value = "Change">
-		</div>
-	</form>
-	<div class="four"></div>
-	<div class="profile"><a href="#">Log in | Register</a></div>
+			<form class="changePassword">
+				<div class="changeProfilePassword">Change password</div>
 
+				<div class="descriptionText">Old password</div>
+				<input class="inputSize" type="text" name="text">
+
+				<div class="descriptionText">New password</div>
+				<input class="inputSize" type="text" name="text">
+
+				<button class="changeImageButton" data-section="change">Change</button>
+			</form>
+
+	</section>
 </div>
-</body>
 
 </html>

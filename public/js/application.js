@@ -13,6 +13,7 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
+//const logoutForm = document.getElementsByClassName('logoutForm')[0]; suppose not working because choose when no form initialized
 const profileFooter = document.getElementsByClassName('profile')[0];
 
 
