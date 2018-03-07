@@ -82,7 +82,7 @@ function onSubmitLoginForm(evt) {
 
 function onSubmitRegisterForm(evt) {
     evt.preventDefault();
-    const fields = ['email', 'login', 'password', 'password_repeat'];
+    const fields = ['email', 'login', 'password'];
 
     const form = evt.currentTarget;
     const formElements = form.elements;
