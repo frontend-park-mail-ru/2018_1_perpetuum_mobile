@@ -150,7 +150,7 @@ function loadAllUsers(callback) {
 }
 
 function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: '/me'}).then(callback).catch(catchFunc);
+    httpModule.doGetFetch({url: 'http://127.0.0.1:3050/me'}).then(callback).catch(catchFunc);
 }
 
 function checkAuth() {
