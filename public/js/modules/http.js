@@ -6,12 +6,12 @@
     });
 
 	const postCors = {
-
+        "Origin": "http://127.0.0.1:3000"
     };
 
 	function checkAllRight(response){
 	    if(response.ok){
-	        return response;
+	        return response.json();
         }
         throw new Error('Network problems');
     }
@@ -57,8 +57,16 @@
             return fetch(url, initSettings).then(checkAllRight);
         }
 
-        doPostFetch({url = '/', settings = postCors, data = {}} = {}){
-		    return fetch(url, settings);
+        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}){
+            const initSettings = {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                headers: customHeaders,
+                body: data
+            };
+		    return fetch(url, initSettings);
         }
 
 		doPost({url = '/', callback = noop, data = {}} = {}) {

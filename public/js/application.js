@@ -130,9 +130,9 @@ function openScoreboard() {
         scoreboardComponent.render();
     });*/
 
-    loadAllUsers(function (response) {
-        const data = response.json();
-        scoreboardComponent.data = data.users;
+    loadAllUsers(function (data) {
+        console.log('data: ', data);
+        scoreboardComponent.data = data;
         scoreboardComponent.render();
     })
 }
@@ -173,22 +173,17 @@ function loadAllUsers(callback) {
     httpModule.doGetFetch({url: 'http://127.0.0.1:3050/users'}).then(callback);
 }
 
-function loadMe(callback) {
-    httpModule.doGet({
+function loadMe(callback, errFunc) {
+    /*httpModule.doGet({
         url: '/me',
         callback
-    });
+    });*/
+    httpModule.doGetFetch({url: '/me'}).then(callback).catch(errFunc);
 }
 
 function checkAuth() {
-    loadMe(function (err, me) {
-        if (err) {
-            console.log("check auth error", me);
-            profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
-            return;
-        }
-
-        console.log('me is', me);
+    loadMe(function (me) {
+        console.log('me is ', me);
         profileFooter.innerHTML = `${me.login}
             <img src="img.jpg" class="imgInProfile">
             <div class="submenu">
@@ -210,7 +205,13 @@ function checkAuth() {
             </div>
         </footer>
          */
-    });
+    },
+        function (err) {
+            console.log("check auth error ", err);
+            profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
+            return;
+
+        });
 }
 
 
