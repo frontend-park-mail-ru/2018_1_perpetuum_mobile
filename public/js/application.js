@@ -13,8 +13,7 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
-//const logoutForm = document.getElementsByClassName('logoutForm')[0]; suppose not working because choose when no form initialized
-const profileFooter = document.getElementsByClassName('profile')[0];
+//const profileFooter = document.getElementsByClassName('profile')[0];
 
 
 const application = document.getElementById('application');
@@ -102,27 +101,30 @@ function onSubmitRegisterForm(evt) {
         return allFields;
     }, {});
 
-    /*
-    if(formData["password"] !== formData["password_repeat"]) {
-        registrationForm.reset();
-        alert('Пароли не совпадают');
-        return;
-    }
-
-    console.log(typeof(formData));
-    */
-    //formdata.delete["password_repeat"]; //password repeat delete
-    console.info('User registration: ', formData);
-
-
-    registerUser(formData, function (response) {
-        checkAuth();
-        openSection('menu');
-    },
+    registerUser(formData,
+        function (response) {
+            checkAuth();
+            openSection('menu');
+        },
         function (err){
             registrationForm.reset();
             alert('Неверно!');
-        });
+        }
+    );
+}
+
+function onSubmitLogoutForm(evt){
+    evt.preventDefault();
+
+    logoutUser(
+        function (response){
+            checkAuth();
+            openSection('menu');
+        },
+        function (err) {
+            alert('Не удалось выйти из аккаунта. Проверьте соединение.');
+        }
+    );
 }
 
 function openScoreboard() {
@@ -147,6 +149,10 @@ application.addEventListener('click', function (evt) {
     }
 });
 
+function logoutUser(callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/logout'}).then(callback).catch(catchFunc);
+}
+
 function loginUser(user, callback, catchFunc) {
     httpModule.doPostFetch({url: 'http://127.0.0.1:3050/login', data: user}).then(callback).catch(catchFunc);
 }
@@ -163,24 +169,23 @@ function loadMe(callback, catchFunc) {
     httpModule.doGetFetch({url: 'http://127.0.0.1:3050/me'}).then(callback).catch(catchFunc);
 }
 
+
+const userFooterComponent = new window.UserFooterComponent( '.profile',
+                                                            {
+                                                                event: 'submit',
+                                                                callback: onSubmitLogoutForm
+                                                            }
+                                                          );
 function checkAuth() {
     loadMe(
         function (me) {
             console.log('me is ', me);
-            profileFooter.innerHTML = `${me.login}
-                <img src="img.jpg" class="imgInProfile">
-                <div class="submenu">
-                    <ul>
-                        <li><form class="logoutForm" method="post"><input type="submit" value="Logout"></form></li>
-                        <li><a data-section="profileSettings">Settings</a></li>
-                    </ul>
-                </div>`;
+
+            userFooterComponent.data = me;
+            userFooterComponent.render();
         },
         function (err) {
-            console.log("check auth error ", err);
-            profileFooter.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
-            return;
-
+            userFooterComponent.clear();
         }
     );
 }
