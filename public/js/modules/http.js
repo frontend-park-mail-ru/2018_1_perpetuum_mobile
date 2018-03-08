@@ -14,7 +14,7 @@
 	    if(response.ok){
 	        return response.json();
         }
-        throw new Error('Network problems');
+        throw new Error('>= 300');
     }
 
 	class HttpModule {
@@ -40,7 +40,7 @@
                 body: JSON.stringify(data)
             };
             console.log(data);
-            return fetch(url, initSettings);
+            return fetch(url, initSettings).then(checkAllRight);
         }
 
 
