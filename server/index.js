@@ -22,26 +22,31 @@ app.use(cookie());
 const users = {
     'warprobot@corp.mail.ru': {
         email: 'warprobot@corp.mail.ru',
+        login: 'go',
         password: 'password',
         score: 72
     },
     'd.dorofeev@corp.mail.ru': {
         email: 'd.dorofeev@corp.mail.ru',
+        login: 'go',
         password: 'password',
         score: 100500
     },
     'a.udalov@corp.mail.ru': {
         email: 'a.udalov@corp.mail.ru',
+        login: 'go',
         password: 'password',
         score: 72
     },
     'marina.titova@corp.mail.ru': {
         email: 'marina.titova@corp.mail.ru',
+        login: 'go',
         password: 'password',
         score: 72
     },
     'a.tyuldyukov@corp.mail.ru': {
         email: 'a.tyuldyukov@corp.mail.ru',
+        login: 'go',
         password: 'password',
         score: 72
     }
@@ -111,7 +116,7 @@ app.get('/me', function (req, res) {
 
     users[email].score += 1;
 
-    res.json(users[email]);
+    res.json(users[login]);
 });
 
 
