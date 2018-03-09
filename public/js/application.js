@@ -66,9 +66,9 @@ const openFunctions = {
         changeProfileNickForm.removeEventListener('submit', onSubmitChangeProfileNickForm);
         changeProfileNickForm.reset();
         changeProfileNickForm.addEventListener('submit', onSubmitChangeProfileNickForm);
-        /*changeImageForm.removeEventListener('submit', onSubmitChangeImageForm);
+        changeImageForm.removeEventListener('submit', onSubmitChangeImageForm);
         changeImageForm.reset();
-        changeImageForm.addEventListener('submit', onSubmitChangeImageForm);*/
+        changeImageForm.addEventListener('submit', onSubmitChangeImageForm);
     }
 };
 
@@ -126,9 +126,10 @@ function changeProfileNick(data, callback, catchFunc) {
     httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
 }
 
-/*function onSubmitChangeImageForm(evt) {
+function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-    const fields = ['image'];
+    //const fields = ['image']; // TODO add input/handler/anything_else for downloading image
+    const fields = []; //now Java returning "not enough data". it`s normal. return to previous commit to hide it.
 
     const form = evt.currentTarget;
     const formElements = form.elements;
@@ -151,7 +152,7 @@ function changeProfileNick(data, callback, catchFunc) {
 
 function changeImage(data, callback, catchFunc) {
     httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
-}*/
+}
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
