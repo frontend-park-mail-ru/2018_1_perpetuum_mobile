@@ -87,30 +87,32 @@
             <div class="changeProfile">
                 <div class="sectionHeader">Profile</div>
                 <div class="changeProfileImage">
-                    <img src="img.jpg">
-                    <button class="changeImageButton" data-section="change">Change</button>
+                    <form class="changeImageForm">
+                        <img src="img.jpg">
+                        <input class="changeButton" type="submit" value="Change">
+                    </form>
                 </div>
-                <form class="changeProfileNick">
+                <form class="changeProfileNickForm">
 
                     <div class="descriptionText">Login</div>
-                    <input class="inputSize" type="text" name="name" >
+                    <input class="inputSize" type="text" name="login">
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
                     <input class="inputSize" type="text" name="email">
 
-                    <button class="changeImageButton" data-section="change">Change</button>
+                    <input class="changeButton" type="submit" value="Change">
                 </form>
 
-                <form class="changePassword">
+                <form class="changePasswordForm">
                     <div class="changeProfilePassword">Change password</div>
 
                     <div class="descriptionText">Old password</div>
-                    <input class="inputSize" type="text" name="text">
+                    <input class="inputSize" type="text" name="oldPassword">
 
                     <div class="descriptionText">New password</div>
-                    <input class="inputSize" type="text" name="text">
+                    <input class="inputSize" type="text" name="newPassword">
 
-                    <button class="changeImageButton" data-section="change">Change</button>
+                    <input class="changeButton" type="submit" value="Change">
                 </form>
             </div>
         </section>
