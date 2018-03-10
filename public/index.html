@@ -47,11 +47,11 @@
         <section class="login">
             <div class="sectionHeader">Login</div>
             <div class="loginDiv">
-                    <form class="loginForm">
+                    <form class="loginForm" id="login">
                         <div class="descriptionText"> Username or email address </div>
-                        <input required class="inputSize" type="text" name="email">
+                        <input class="inputSize loginInput" type="text" name="email">
                         <div class="descriptionText">Password</div>
-                        <input required class="inputSize" type="password" name="password">
+                        <input class="inputSize password" type="password" name="password">
                         <input class="registerButton" type="submit" value="Login">
                     </form>
 
@@ -65,13 +65,13 @@
             <div class="loginDiv">
                 <form class="registrationForm">
                     <div class="descriptionText"> Email </div>
-                    <input required class="inputSize" type="text" name="email">
+                    <input class="inputSize email" type="text" name="email">
 
                     <div class="descriptionText"> Login </div>
-                    <input required class="inputSize" type="text" name="login">
+                    <input class="inputSize loginInput" type="text" name="login">
 
                     <div class="descriptionText">Password</div>
-                    <input required class="inputSize" type="password" name="password">
+                    <input class="inputSize password" type="password" name="password">
 
                     <input class="registerButton" type="submit" value="Register">
                 </form>
@@ -93,10 +93,10 @@
                 <form class="changeProfileNick">
 
                     <div class="descriptionText">Login</div>
-                    <input class="inputSize" type="text" name="name" >
+                    <input class="inputSize loginInput" type="text" name="name" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input class="inputSize" type="text" name="email">
+                    <input class="inputSize email" type="text" name="email">
 
                     <button class="changeImageButton" data-section="change">Change</button>
                 </form>
@@ -105,10 +105,10 @@
                     <div class="changeProfilePassword">Change password</div>
 
                     <div class="descriptionText">Old password</div>
-                    <input class="inputSize" type="text" name="text">
+                    <input class="inputSize password" type="text" name="text">
 
                     <div class="descriptionText">New password</div>
-                    <input class="inputSize" type="text" name="text">
+                    <input class="inputSize password" type="text" name="text">
 
                     <button class="changeImageButton" data-section="change">Change</button>
                 </form>
@@ -125,6 +125,7 @@
     <script src="./js/components/UserFooter/UserFooter.js"></script>
     <script src="./js/modules/http.js"></script>
     <script src="./js/application.js"></script>
+    <script src="./js/validation.js"></script>
 
 </body>
 
