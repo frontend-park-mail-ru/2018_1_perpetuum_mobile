@@ -89,7 +89,7 @@ for( let i = 0; i < emailInput.length; i++) {
 }
 
 let inputs = document.querySelectorAll('input:not([type="submit"])');
-let submit = document.querySelectorAll('input[type="submit"');
+let submit = document.querySelectorAll('input[type="submit"]');
 
 function validate() {
     for (let i = 0; i < inputs.length; i++) {

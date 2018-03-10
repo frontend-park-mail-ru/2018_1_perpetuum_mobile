@@ -231,7 +231,11 @@ function onSubmitLogoutForm(evt){
 function openScoreboard() {
     scoreboardComponent.clear();
 
-    loadAllUsers(function (data) {
+    const page = {
+        page: 1
+    };
+
+    loadAllUsers(page, function (data) {
         console.log('data: ', data);
         scoreboardComponent.data = data;
         scoreboardComponent.render();
@@ -262,8 +266,8 @@ function registerUser(user, callback, catchFunc) {
     httpModule.doPostFetch({url: 'http://127.0.0.1:3050/register', data: user}).then(callback).catch(catchFunc);
 }
 
-function loadAllUsers(callback) {
-    httpModule.doGetFetch({url: 'http://127.0.0.1:3050/users'}).then(callback);
+function loadAllUsers(data, callback) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/users', data: data}).then(callback);
 }
 
 function loadMe(callback, catchFunc) {
