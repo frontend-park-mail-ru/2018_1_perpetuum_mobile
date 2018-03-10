@@ -2,6 +2,12 @@
 
 const httpModule = new window.HttpModule();
 const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
+const userFooterComponent = new window.UserFooterComponent( '.profile',
+    {
+        event: 'submit',
+        callback: onSubmitLogoutForm
+    }
+);
 
 const menuSection = document.getElementsByClassName('menu')[0];
 const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
@@ -13,7 +19,9 @@ const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
-//const profileFooter = document.getElementsByClassName('profile')[0];
+const changeImageForm = document.getElementsByClassName('changeImageForm')[0];
+const changeProfileNickForm = document.getElementsByClassName('changeProfileNickForm')[0];
+const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
 
 
 const application = document.getElementById('application');
@@ -50,8 +58,101 @@ const openFunctions = {
         loginForm.removeEventListener('submit', onSubmitLoginForm);
         loginForm.reset();
         loginForm.addEventListener('submit', onSubmitLoginForm);
+    },
+    profileSettings: function () {
+        changePasswordForm.removeEventListener('submit', onSubmitChangePasswordForm);
+        changePasswordForm.reset();
+        changePasswordForm.addEventListener('submit', onSubmitChangePasswordForm);
+        changeProfileNickForm.removeEventListener('submit', onSubmitChangeProfileNickForm);
+        changeProfileNickForm.reset();
+        changeProfileNickForm.addEventListener('submit', onSubmitChangeProfileNickForm);
+        changeImageForm.removeEventListener('submit', onSubmitChangeImageForm);
+        changeImageForm.reset();
+        changeImageForm.addEventListener('submit', onSubmitChangeImageForm);
     }
 };
+
+function onSubmitChangePasswordForm(evt) {
+    evt.preventDefault();
+    const fields = ['oldPassword', 'newPassword'];
+
+    const form = evt.currentTarget;
+    const formElements = form.elements;
+
+    const formData = fields.reduce(function (allFields, fieldName) {
+        allFields[fieldName] = formElements[fieldName].value;
+        return allFields;
+    }, {});
+
+    changePassword(formData,
+        function (response) {
+
+        },
+        function (err) {
+            changePasswordForm.reset();
+            alert('Неверно!');
+        }
+    );
+}
+
+function changePassword(data, callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+}
+
+function onSubmitChangeProfileNickForm(evt) {
+    evt.preventDefault();
+    const fields = ['login', 'email'];
+
+    const form = evt.currentTarget;
+    const formElements = form.elements;
+
+    const formData = fields.reduce(function (allFields, fieldName) {
+        allFields[fieldName] = formElements[fieldName].value;
+        return allFields;
+    }, {});
+
+    changeProfileNick(formData,
+        function (response) {
+            checkAuth();
+        },
+        function (err) {
+            changeProfileNickForm.reset();
+            alert('Неверно!');
+        }
+    );
+}
+
+function changeProfileNick(data, callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+}
+
+function onSubmitChangeImageForm(evt) {
+    evt.preventDefault();
+    //const fields = ['image']; // TODO add input/handler/anything_else for downloading image
+    const fields = []; //now Java returning "not enough data". it`s normal. return to previous commit to hide it.
+
+    const form = evt.currentTarget;
+    const formElements = form.elements;
+
+    const formData = fields.reduce(function (allFields, fieldName) {
+        allFields[fieldName] = formElements[fieldName].value;
+        return allFields;
+    }, {});
+
+    changeImage(formData,
+        function (response) {
+            changeImageForm.reset();
+        },
+        function (err) {
+            changeImageForm.reset();
+            alert('Неверно!');
+        }
+    );
+}
+
+function changeImage(data, callback, catchFunc) {
+    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+}
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
@@ -170,12 +271,7 @@ function loadMe(callback, catchFunc) {
 }
 
 
-const userFooterComponent = new window.UserFooterComponent( '.profile',
-                                                            {
-                                                                event: 'submit',
-                                                                callback: onSubmitLogoutForm
-                                                            }
-                                                          );
+
 function checkAuth() {
     loadMe(
         function (me) {

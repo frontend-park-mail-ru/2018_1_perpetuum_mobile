@@ -74,13 +74,13 @@ li {
 	font-size: 2vw;
 }
 
-.changeProfileNick {
+.changeProfileNickForm {
 	grid-row: 2/3;
 	grid-column: 2/3;
 	margin-top: 4vh;
 }
 
-.changePassword {
+.changePasswordForm {
 	grid-row: 4/7;
 	grid-column: 2/3;
 }
@@ -95,7 +95,7 @@ a:hover {
     border-bottom: blueviolet 3px solid;
 }
 
-.changeImageButton {
+.changeButton {
 	width: 22vh;
 	height: 5vh;
 	font-family: 'Orbitron', sans-serif;
@@ -108,7 +108,7 @@ a:hover {
 	margin-top: 1vw;
 }
 
-.changeImageButton:hover {
+.changeButton:hover {
 	border-bottom: blueviolet 3px solid;
 }
 
