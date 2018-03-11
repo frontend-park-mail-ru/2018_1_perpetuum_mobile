@@ -55,6 +55,14 @@ const sections = {
     menu: menuSection
 };
 
+
+/**
+ * openSection "name"
+ *
+ * @param {string} section what you want to open.
+ *
+ */
+
 function openSection(name) {
     Object.keys(sections).forEach(function (key) {
         sections[key].hidden = key !== name;
@@ -337,7 +345,6 @@ function loadAllUsers(data, callback) {
 function loadMe(callback, catchFunc) {
     httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
 }
-
 
 
 function checkAuth() {
