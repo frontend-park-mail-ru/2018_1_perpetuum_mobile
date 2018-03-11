@@ -8,16 +8,16 @@
         'Content-Type': 'application/json'
     };
 
-    function checkAllRight(response){
-        if(response.ok){
-            return response.json();
+	function checkAllRight(response){
+	    if(response.ok){
+	        return response.json();
         }
         throw new Error('>= 300');
     }
 
-    class HttpModule {
+	class HttpModule {
 
-        doGetFetch({url = '/', customHeaders = getCors} = {}){
+        doGetFetch({url = '/', customHeaders = getCors} = {}) {
             const initSettings = {
                 method: 'get',
                 mode: 'cors',
@@ -28,7 +28,7 @@
             return fetch(url, initSettings).then(checkAllRight);
         }
 
-        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}){
+        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}) {
             const initSettings = {
                 method: 'post',
                 mode: 'cors',
@@ -42,7 +42,7 @@
         }
 		
 
-        doPostDataFetch({url = '/', data = {}} = {}){
+        doPostDataFetch({url = '/', data = {}} = {}) {
             const initSettings = {
                 method: 'post',
                 mode: 'cors',
@@ -52,7 +52,7 @@
             };
 
             console.log(data);
-            return fetch(url, initSettings);
+            return fetch(url, initSettings).then(checkAllRight);
         }
 
 

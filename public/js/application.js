@@ -43,7 +43,9 @@ const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboard
 
 
 const application = document.getElementById('application');
-const image = document.getElementById('image');
+const changeImageButton = document.getElementById('changeImageButtonId');
+const imageInProfile = document.getElementById('imageInProfile');
+const imageInDownMenu = document.getElementById('imageInDownMenu');
 
 const sections = {
     login: loginSection,
@@ -157,19 +159,23 @@ function changeProfileNick(data, callback, catchFunc) {
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-    // TODO add input/handler/anything_else for downloading image
+     // TODO add input/handler/anything_else for downloading image
 
-    let selectedImage = image.files[0];
+    let selectedImage = changeImageButton.files[0];
     console.log(selectedImage);
 
     const formData = new FormData();
-    formData.append('file', selectedImage);
+    formData.append("file", selectedImage);
 
     changeImage(formData,
         function (response) {
             console.log(response);
             changeImageForm.reset();
-            alert('OK!');
+
+            imageInProfile.setAttribute("src", HttpModule.baseUrl + '/files/' + response.fileName);
+            imageInDownMenu.setAttribute("src", HttpModule.baseUrl + '/files/' + response.fileName);
+
+            alert("OK!");
         },
         function (err) {
             console.log(err);
@@ -180,7 +186,7 @@ function onSubmitChangeImageForm(evt) {
 }
 
 function changeImage(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/change_avatar', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitLoginForm(evt) {
@@ -351,8 +357,12 @@ function checkAuth() {
     loadMe(
         function (me) {
             console.log('me is ', me);
+            let imageSource = window.HttpModule.baseUrl + "/files/" + me.image;
 
-            userFooterComponent.data = me;
+            imageInProfile.setAttribute("src", imageSource); // avatar in profile
+
+            me.image = imageSource;
+            userFooterComponent.data = me; // avatar in drop-down menu
             userFooterComponent.render();
         },
         function (err) {
