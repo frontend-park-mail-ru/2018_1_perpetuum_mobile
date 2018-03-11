@@ -15,5 +15,12 @@
     "build": "fest-build --dir=public",
     "start": "npm run build && DEBUG=mylogger node server",
     "start:raw": "node server"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }
