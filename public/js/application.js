@@ -1,20 +1,21 @@
 'use strict';
 
-switch (window.location.hostname) {
-	case 'localhost':
-		window.HttpModule.baseUrl = 'http://localhost:3050';
+const httpModule = new window.HttpModule();
+
+switch(window.location.hostname) {
+    case 'localhost':
+        httpModule.baseUrl = 'http://localhost:3050';
         break;
     case '127.0.0.1':
-		window.HttpModule.baseUrl = 'http://127.0.0.1:3050';
-		break;
-	case 'blend-front.herokuapp.com':
-		window.HttpModule.baseUrl = '//blend-back.herokuapp.com';
-		break;
-	default:
-		window.HttpModule.baseUrl = '';
+        httpModule.baseUrl = 'http://127.0.0.1:3050';
+        break;
+    case 'blend-front.herokuapp.com':
+        httpModule.baseUrl = '//blend-back.herokuapp.com';
+        break;
+    default:
+        httpModule.baseUrl = '';
 }
 
-const httpModule = new window.HttpModule();
 const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
 const userFooterComponent = new window.UserFooterComponent( '.profile',
     {
@@ -100,9 +101,10 @@ function onSubmitChangePasswordForm(evt) {
 
     changePassword(formData,
         function (response) {
-
+            console.log(response);
         },
         function (err) {
+            console.log(err);
             changePasswordForm.reset();
             alert('Неверно!');
         }
@@ -110,7 +112,7 @@ function onSubmitChangePasswordForm(evt) {
 }
 
 function changePassword(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeProfileNickForm(evt) {
@@ -127,9 +129,11 @@ function onSubmitChangeProfileNickForm(evt) {
 
     changeProfileNick(formData,
         function (response) {
+            console.log(response);
             checkAuth();
         },
         function (err) {
+            console.log(err);
             changeProfileNickForm.reset();
             alert('Неверно!');
         }
@@ -137,25 +141,27 @@ function onSubmitChangeProfileNickForm(evt) {
 }
 
 function changeProfileNick(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-     // TODO add input/handler/anything_else for downloading image
+    // TODO add input/handler/anything_else for downloading image
 
     let selectedImage = image.files[0];
     console.log(selectedImage);
 
     const formData = new FormData();
-    formData.append("file", selectedImage);
+    formData.append('file', selectedImage);
 
     changeImage(formData,
         function (response) {
+            console.log(response);
             changeImageForm.reset();
-            alert("OK!");
+            alert('OK!');
         },
         function (err) {
+            console.log(err);
             changeImageForm.reset();
             alert('Неверно!');
         }
@@ -163,12 +169,12 @@ function onSubmitChangeImageForm(evt) {
 }
 
 function changeImage(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
-    const fields = ['email', 'password'];
+    //const fields = ['email', 'password'];
 
     const form = evt.currentTarget;
     const formElements = form.elements;
@@ -191,10 +197,12 @@ function onSubmitLoginForm(evt) {
 
     loginUser(formData,
         function (response) {
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err){
+            console.log(err);
             loginForm.reset();
             alert('Неверно!');
             return;
@@ -216,10 +224,12 @@ function onSubmitRegisterForm(evt) {
 
     registerUser(formData,
         function (response) {
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err){
+            console.log(err);
             registrationForm.reset();
             alert('Неверно!');
         }
@@ -231,10 +241,12 @@ function onSubmitLogoutForm(evt){
 
     logoutUser(
         function (response){
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err) {
+            console.log(err);
             alert('Не удалось выйти из аккаунта. Проверьте соединение.');
         }
     );
@@ -251,7 +263,7 @@ function openScoreboard() {
         console.log('data: ', data);
         scoreboardComponent.data = data;
         scoreboardComponent.render();
-    })
+    });
 }
 
 application.addEventListener('click', function (evt) {
@@ -261,29 +273,29 @@ application.addEventListener('click', function (evt) {
 
         const section = target.getAttribute('data-section');
 
-        console.log(`Open section: `, section);
+        console.log('Open section: ', section);
         openSection(section);
     }
 });
 
 function logoutUser(callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
 }
 
 function loginUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
 }
 
 function registerUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
 }
 
 function loadAllUsers(data, callback) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/users', data: data}).then(callback);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data}).then(callback);
 }
 
 function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: HttpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
+    httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
 }
 
 
@@ -297,6 +309,7 @@ function checkAuth() {
             userFooterComponent.render();
         },
         function (err) {
+            console.log(err);
             userFooterComponent.clear();
         }
     );

@@ -1,21 +1,21 @@
 (function () {
-	const noop = () => null;
+    const noop = () => null;
 
-	const getCors = new Headers({
+    const getCors = new Headers({
     });
 
-	const postCors = {
-        "Content-Type": "application/json"
+    const postCors = {
+        'Content-Type': 'application/json'
     };
 
-	function checkAllRight(response){
-	    if(response.ok){
-	        return response.json();
+    function checkAllRight(response){
+        if(response.ok){
+            return response.json();
         }
         throw new Error('>= 300');
     }
 
-	class HttpModule {
+    class HttpModule {
 
         doGetFetch({url = '/', customHeaders = getCors} = {}){
             const initSettings = {
@@ -40,7 +40,7 @@
 
             console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
-		}
+        }
 		
 
         doPostDataFetch({url = '/', data = {}} = {}){
@@ -59,65 +59,65 @@
 
         //deprecated, now unused
 
-		doGet({url = '/', callback = noop} = {}) {
-			const xhr = new XMLHttpRequest();
-			xhr.open('GET', url, true);
+        doGet({url = '/', callback = noop} = {}) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
 
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState != 4) {
-					return;
-				}
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) {
+                    return;
+                }
 
-				if (xhr.status < 300) {
-					const responseText = xhr.responseText;
-					try {
-						const response = JSON.parse(responseText);
-						callback(null, response);
-					} catch (err) {
-						console.error('doGet error: ', err);
-						callback(err);
-					}
-				} else {
-					callback(xhr);
-				}
-			};
+                if (xhr.status < 300) {
+                    const responseText = xhr.responseText;
+                    try {
+                        const response = JSON.parse(responseText);
+                        callback(null, response);
+                    } catch (err) {
+                        console.error('doGet error: ', err);
+                        callback(err);
+                    }
+                } else {
+                    callback(xhr);
+                }
+            };
 
-			xhr.withCredentials = true;
+            xhr.withCredentials = true;
 
-			xhr.send();
-		}
+            xhr.send();
+        }
 
-		doPost({url = '/', callback = noop, data = {}} = {}) {
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', url, true);
+        doPost({url = '/', callback = noop, data = {}} = {}) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
 
-			xhr.onreadystatechange = function () {
-				if (xhr.readyState != 4) {
-					return;
-				}
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState != 4) {
+                    return;
+                }
 
-				if (xhr.status < 300) {
-					const responseText = xhr.responseText;
+                if (xhr.status < 300) {
+                    const responseText = xhr.responseText;
 
-					try {
-						const response = JSON.parse(responseText);
-						callback(null, response);
-					} catch (err) {
-						console.error('doPost error: ', err);
-						callback(err);
-					}
-				} else {
-					callback(xhr);
-				}
-			};
+                    try {
+                        const response = JSON.parse(responseText);
+                        callback(null, response);
+                    } catch (err) {
+                        console.error('doPost error: ', err);
+                        callback(err);
+                    }
+                } else {
+                    callback(xhr);
+                }
+            };
 
-			xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-			xhr.withCredentials = true;
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xhr.withCredentials = true;
 
-			xhr.send(JSON.stringify(data));
-		}
-	}
-	HttpModule.baseUrl = ''; //  for local or heroku starting
+            xhr.send(JSON.stringify(data));
+        }
+    }
+    HttpModule.baseUrl = ''; //  for local or heroku starting
 
-	window.HttpModule = HttpModule;
+    window.HttpModule = HttpModule;
 })();
