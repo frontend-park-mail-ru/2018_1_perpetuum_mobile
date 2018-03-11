@@ -23,9 +23,8 @@ const changeImageForm = document.getElementsByClassName('changeImageForm')[0];
 const changeProfileNickForm = document.getElementsByClassName('changeProfileNickForm')[0];
 const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
 
-
 const application = document.getElementById('application');
-
+const image = document.getElementById('image');
 
 const sections = {
     login: loginSection,
@@ -128,20 +127,37 @@ function changeProfileNick(data, callback, catchFunc) {
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-    //const fields = ['image']; // TODO add input/handler/anything_else for downloading image
-    const fields = []; //now Java returning "not enough data". it`s normal. return to previous commit to hide it.
+    const fields = ['file']; // TODO add input/handler/anything_else for downloading image
 
-    const form = evt.currentTarget;
-    const formElements = form.elements;
+    let selectedImage = image.files[0];
+    console.log(selectedImage);
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = new FormData();
+    formData.append("file", selectedImage);
+
+
+    // const form = evt.currentTarget;
+    // console.log(form);
+    // let imageElement = form.
+    // const formElements = form.elements;
+
+    // console.log("Form elements:" + form.elements[0]);
+    //
+    // const formData = fields.reduce(function (allFields, fieldName) {
+    //     allFields[fieldName] = formElements[fieldName].value;
+    //     return allFields;
+    // }, {});
+    //
+    // console.log(formData);
+    // formData.comment = "foo";
+    // formData.minorEdit = "true";
+    // formData.append('comment', "foo");
+    // formData.append('minorEdit', "true");
 
     changeImage(formData,
         function (response) {
             changeImageForm.reset();
+            alert("OK!");
         },
         function (err) {
             changeImageForm.reset();
@@ -151,7 +167,8 @@ function onSubmitChangeImageForm(evt) {
 }
 
 function changeImage(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+
+    httpModule.doPostDataFetch({url: 'http://127.0.0.1:3050/change_avatar', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitLoginForm(evt) {

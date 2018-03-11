@@ -1,14 +1,14 @@
 (function () {
 	const noop = () => null;
 
-	const getCors = new Headers({
-        "Origin": "http://127.0.0.1:3000"
-    });
-
-	const postCors = {
-        "Origin": "http://127.0.0.1:3000",
-        "Content-Type": "application/json"
-    };
+    // const getCors = new Headers({
+    //     "Origin": "http://127.0.0.1:3000"
+    // });
+    //
+    // const postCors = {
+    //     "Origin": "http://127.0.0.1:3000",
+    //     "Content-Type": "application/json"
+    // };
 
 	function checkAllRight(response){
 	    if(response.ok){
@@ -19,28 +19,40 @@
 
 	class HttpModule {
 
-        doGetFetch({url = '/', customHeaders = getCors} = {}){
+        doGetFetch({url = '/'} = {}){
             const initSettings = {
                 method: 'get',
                 mode: 'cors',
                 credentials: 'include',
                 cache: 'default',
-                headers: customHeaders
             };
             return fetch(url, initSettings).then(checkAllRight);
         }
 
-        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}){
+        doPostFetch({url = '/', data = {}} = {}){
             const initSettings = {
                 method: 'post',
                 mode: 'cors',
                 credentials: 'include',
                 cache: 'default',
-                headers: customHeaders,
                 body: JSON.stringify(data)
             };
+
             console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
+        }
+
+        doPostDataFetch({url = '/', data = {}} = {}){
+            const initSettings = {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                body: data
+            };
+
+            console.log(data);
+            return fetch(url, initSettings);
         }
 
 
