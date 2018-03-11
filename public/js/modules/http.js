@@ -40,7 +40,8 @@
 
             console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
-        }
+		}
+		
 
         doPostDataFetch({url = '/', data = {}} = {}){
             const initSettings = {
@@ -116,6 +117,7 @@
 			xhr.send(JSON.stringify(data));
 		}
 	}
+	HttpModule.baseUrl = ''; //  for local or heroku starting
 
 	window.HttpModule = HttpModule;
 })();

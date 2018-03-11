@@ -22,19 +22,19 @@
 
         <!--singleplayer-->
 
-        <section class="singlePlayer">
+        <section class="singlePlayer" hidden>
 
         </section>
 
         <!--multiplayer-->
 
-        <section class="multiPlayer">
+        <section class="multiPlayer" hidden>
 
         </section>
 
         <!--scoreboard-->
 
-        <section class="scoreboard">
+        <section class="scoreboard" hidden>
             <div class="js-scoreboard-table">
 
             </div>
@@ -44,14 +44,14 @@
 
         <!--login-->
 
-        <section class="login">
+        <section class="login" hidden>
             <div class="sectionHeader">Login</div>
             <div class="loginDiv">
                     <form class="loginForm">
                         <div class="descriptionText"> Username or email address </div>
-                        <input required class="inputSize" type="text" name="email">
+                        <input class="inputSize loginInput" type="text" name="email">
                         <div class="descriptionText">Password</div>
-                        <input required class="inputSize" type="password" name="password">
+                        <input class="inputSize password" type="password" name="password">
                         <input class="registerButton" type="submit" value="Login">
                     </form>
 
@@ -60,18 +60,18 @@
              </div>
         </section>
 
-        <section class="registration">
+        <section class="registration" hidden>
             <div class="sectionHeader">Register</div>
             <div class="loginDiv">
                 <form class="registrationForm">
                     <div class="descriptionText"> Email </div>
-                    <input required class="inputSize" type="text" name="email">
+                    <input class="inputSize email" type="text" name="email">
 
                     <div class="descriptionText"> Login </div>
-                    <input required class="inputSize" type="text" name="login">
+                    <input class="inputSize loginInput" type="text" name="login">
 
                     <div class="descriptionText">Password</div>
-                    <input required class="inputSize" type="password" name="password">
+                    <input class="inputSize password" type="password" name="password">
 
                     <input class="registerButton" type="submit" value="Register">
                 </form>
@@ -83,7 +83,7 @@
 
         <!--profile settings-->
 
-        <section class="profileSettings">
+        <section class="profileSettings" hidden>
             <div class="changeProfile">
                 <div class="sectionHeader">Profile</div>
                 <div class="changeProfileImage">
@@ -93,27 +93,27 @@
                         <input class="changeButton" type="submit" value="Change">
                     </form>
                 </div>
-                <form class="changeProfileNickForm">
+                <form class="changeProfileNick">
 
                     <div class="descriptionText">Login</div>
-                    <input class="inputSize" type="text" name="login">
+                    <input class="inputSize loginInput" type="text" name="name" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input class="inputSize" type="text" name="email">
+                    <input class="inputSize email" type="text" name="email">
 
-                    <input class="changeButton" type="submit" value="Change">
+                    <button class="changeImageButton" data-section="change">Change</button>
                 </form>
 
-                <form class="changePasswordForm">
+                <form class="changePassword">
                     <div class="changeProfilePassword">Change password</div>
 
                     <div class="descriptionText">Old password</div>
-                    <input class="inputSize" type="text" name="oldPassword">
+                    <input class="inputSize password" type="text" name="text">
 
                     <div class="descriptionText">New password</div>
-                    <input class="inputSize" type="text" name="newPassword">
+                    <input class="inputSize password" type="text" name="text">
 
-                    <input class="changeButton" type="submit" value="Change">
+                    <button class="changeImageButton" data-section="change">Change</button>
                 </form>
             </div>
         </section>
@@ -128,6 +128,7 @@
     <script src="./js/components/UserFooter/UserFooter.js"></script>
     <script src="./js/modules/http.js"></script>
     <script src="./js/application.js"></script>
+    <script src="./js/validation.js"></script>
 
 </body>
 

@@ -120,8 +120,8 @@ app.get('/me', function (req, res) {
 });
 
 
-app.listen(port, function () {
-    logger(`Server listening port ${port}`);
+app.listen(process.env.PORT || port, function () {
+    logger(`Server listening port ${process.env.PORT || port}`);
 });
 
 
