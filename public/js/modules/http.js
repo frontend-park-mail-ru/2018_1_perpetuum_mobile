@@ -41,7 +41,8 @@
             };
             console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
-        }
+		}
+		
 
 
         //deprecated, now unused
@@ -104,6 +105,7 @@
 			xhr.send(JSON.stringify(data));
 		}
 	}
+	HttpModule.baseUrl = ''; //  for local or heroku starting
 
 	window.HttpModule = HttpModule;
 })();

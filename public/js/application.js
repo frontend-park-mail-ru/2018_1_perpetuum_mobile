@@ -1,5 +1,19 @@
 'use strict';
 
+switch (window.location.hostname) {
+	case 'localhost':
+		window.HttpModule.baseUrl = 'http://localhost:3050';
+        break;
+    case '127.0.0.1':
+		window.HttpModule.baseUrl = 'http://127.0.0.1:3050';
+		break;
+	case 'blend-front.herokuapp.com':
+		window.HttpModule.baseUrl = '//blend-back.herokuapp.com';
+		break;
+	default:
+		window.HttpModule.baseUrl = '';
+}
+
 const httpModule = new window.HttpModule();
 const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
 const userFooterComponent = new window.UserFooterComponent( '.profile',
@@ -96,7 +110,7 @@ function onSubmitChangePasswordForm(evt) {
 }
 
 function changePassword(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeProfileNickForm(evt) {
@@ -123,7 +137,7 @@ function onSubmitChangeProfileNickForm(evt) {
 }
 
 function changeProfileNick(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeImageForm(evt) {
@@ -151,7 +165,7 @@ function onSubmitChangeImageForm(evt) {
 }
 
 function changeImage(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitLoginForm(evt) {
@@ -255,23 +269,23 @@ application.addEventListener('click', function (evt) {
 });
 
 function logoutUser(callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/logout'}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
 }
 
 function loginUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/login', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
 }
 
 function registerUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/register', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
 }
 
 function loadAllUsers(data, callback) {
-    httpModule.doPostFetch({url: 'http://127.0.0.1:3050/users', data: data}).then(callback);
+    httpModule.doPostFetch({url: HttpModule.baseUrl + '/users', data: data}).then(callback);
 }
 
 function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: 'http://127.0.0.1:3050/me'}).then(callback).catch(catchFunc);
+    httpModule.doGetFetch({url: HttpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
 }
 
 
@@ -293,4 +307,3 @@ function checkAuth() {
 
 checkAuth();
 openSection('menu');
-
