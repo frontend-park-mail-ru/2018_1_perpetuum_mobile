@@ -3,7 +3,7 @@
     <img src="img.jpg" class="imgInProfile"/>
     <div class="submenu">
         <ul>
-            <li><form class="logoutForm" method="post"><input type="submit" value="Logout"/></form></li>
+            <li><form class="logoutForm" method="post"><input type="submit" value="Logout" class="logoutButton"/></form></li>
             <li><a data-section="profileSettings">Settings</a></li>
         </ul>
     </div>
