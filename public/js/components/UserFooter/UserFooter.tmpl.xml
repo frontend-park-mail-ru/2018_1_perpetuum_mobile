@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <fest:value>data.login</fest:value>
-    <img src="img.jpg" class="imgInProfile"/>
+    <img src="${data.image}" class="imgInProfile"/>
     <div class="submenu">
         <ul>
             <li><form class="logoutForm" method="post"><input type="submit" value="Logout" class="logoutButton"/></form></li>

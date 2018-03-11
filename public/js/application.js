@@ -39,7 +39,7 @@ const changePasswordForm = document.getElementsByClassName('changePasswordForm')
 
 
 const application = document.getElementById('application');
-
+const image = document.getElementById('image');
 
 const sections = {
     login: loginSection,
@@ -142,20 +142,18 @@ function changeProfileNick(data, callback, catchFunc) {
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-    //const fields = ['image']; // TODO add input/handler/anything_else for downloading image
-    const fields = []; //now Java returning "not enough data". it`s normal. return to previous commit to hide it.
+     // TODO add input/handler/anything_else for downloading image
 
-    const form = evt.currentTarget;
-    const formElements = form.elements;
+    let selectedImage = image.files[0];
+    console.log(selectedImage);
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = new FormData();
+    formData.append("file", selectedImage);
 
     changeImage(formData,
         function (response) {
             changeImageForm.reset();
+            alert("OK!");
         },
         function (err) {
             changeImageForm.reset();

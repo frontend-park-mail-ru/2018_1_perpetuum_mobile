@@ -37,10 +37,24 @@
                 headers: customHeaders,
                 body: JSON.stringify(data)
             };
+
             console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
 		}
 		
+
+        doPostDataFetch({url = '/', data = {}} = {}){
+            const initSettings = {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'include',
+                cache: 'default',
+                body: data
+            };
+
+            console.log(data);
+            return fetch(url, initSettings);
+        }
 
 
         //deprecated, now unused
