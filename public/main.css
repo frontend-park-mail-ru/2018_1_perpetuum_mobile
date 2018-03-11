@@ -142,7 +142,7 @@ a:hover {
 }
 
 table {
-    margin: auto;
+    margin: 2vw auto auto auto;
     text-align: center;
     border-bottom: blueviolet 1px solid;
     width: 90%;
@@ -188,4 +188,18 @@ th {
 .logoutButton:hover {
 	transition: all 0.3s linear;
 	border-bottom: blueviolet 3px solid;
+}
+
+.paginator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.paginatorButton {
+    color: #e7e7e7;
+    background: none;
+    border: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5vh;
 }

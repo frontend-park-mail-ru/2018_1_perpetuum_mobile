@@ -93,6 +93,9 @@ let submit = document.querySelectorAll('input[type="submit"]');
 
 function validate() {
     for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i].CustomValidation === undefined) {
+            return;
+        }
         inputs[i].CustomValidation.checkInput();
     }
 }

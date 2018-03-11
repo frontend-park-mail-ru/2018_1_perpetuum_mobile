@@ -35,11 +35,18 @@
         <!--scoreboard-->
 
         <section class="scoreboard" hidden>
+            <div class="sectionHeader">Scoreboard</div>
             <div class="js-scoreboard-table">
 
             </div>
-            <a href="lol" data-section="paginator-left"><</a>
-            <a href="lol" data-section="paginator-right">></a>
+            <div class="paginator">
+                <form class="scoreboardPaginatorLeftForm">
+                    <input class="paginatorButton" type="submit" value="<">
+                </form>
+                <form class="scoreboardPaginatorRightForm">
+                    <input class="paginatorButton" type="submit" value=">">
+                </form>
+            </div>
         </section>
 
         <!--login-->
@@ -47,17 +54,17 @@
         <section class="login" hidden>
             <div class="sectionHeader">Login</div>
             <div class="loginDiv">
-                    <form class="loginForm">
-                        <div class="descriptionText"> Username or email address </div>
-                        <input class="inputSize loginInput" type="text" name="email">
-                        <div class="descriptionText">Password</div>
-                        <input class="inputSize password" type="password" name="password">
-                        <input class="registerButton" type="submit" value="Login">
-                    </form>
+                <form class="loginForm">
+                    <div class="descriptionText"> Username or email address </div>
+                    <input class="inputSize loginInput" type="text" name="email">
+                    <div class="descriptionText">Password</div>
+                    <input class="inputSize password" type="password" name="password">
+                    <input class="registerButton" type="submit" value="Login">
+                </form>
 
-                    <div class="descriptionText">  You are not registered? </div>
-                    <button class="registerButton" data-section="register">Register</button>
-             </div>
+                <div class="descriptionText">  You are not registered? </div>
+                <button class="registerButton" data-section="register">Register</button>
+            </div>
         </section>
 
         <section class="registration" hidden>
@@ -124,6 +131,7 @@
     <script src="./js/components/Scoreboard/Scoreboard.js"></script>
     <script src="./js/components/UserFooter/UserFooter.tmpl.js"></script>
     <script src="./js/components/UserFooter/UserFooter.js"></script>
+    <script src="./js/components/Paginator/Paginator.js"></script>
     <script src="./js/modules/http.js"></script>
     <script src="./js/application.js"></script>
     <script src="./js/validation.js"></script>

@@ -22,6 +22,7 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
         callback: onSubmitLogoutForm
     }
 );
+const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 
 const menuSection = document.getElementsByClassName('menu')[0];
 const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
@@ -36,6 +37,8 @@ const registrationForm = document.getElementsByClassName('registrationForm')[0];
 const changeImageForm = document.getElementsByClassName('changeImageForm')[0];
 const changeProfileNickForm = document.getElementsByClassName('changeProfileNickForm')[0];
 const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
+const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
+const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];
 
 
 const application = document.getElementById('application');
@@ -240,6 +243,36 @@ function onSubmitLogoutForm(evt){
     );
 }
 
+function onSubmitScoreboardPaginatorLeftForm(evt) {
+    evt.preventDefault();
+
+    const page = {
+        page: scoreboardPaginatorComponent.decrement()
+    };
+
+    loadAllUsers(page, function (data) {
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+        scoreboardComponent.data = data;
+        scoreboardComponent.render();
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+    })
+}
+
+function onSubmitScoreboardPaginatorRightForm(evt) {
+    evt.preventDefault();
+
+    const page = {
+        page: scoreboardPaginatorComponent.increment()
+    };
+
+    loadAllUsers(page, function (data) {
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+        scoreboardComponent.data = data;
+        scoreboardComponent.render();
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+    })
+}
+
 function openScoreboard() {
     scoreboardComponent.clear();
 
@@ -247,10 +280,17 @@ function openScoreboard() {
         page: 1
     };
 
+    scoreboardPaginatorComponent.clear();
+    scoreboardPaginatorLeftForm.removeEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
+    scoreboardPaginatorLeftForm.addEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
+    scoreboardPaginatorRightForm.removeEventListener('submit', onSubmitScoreboardPaginatorRightForm);
+    scoreboardPaginatorRightForm.addEventListener('submit', onSubmitScoreboardPaginatorRightForm);
+
     loadAllUsers(page, function (data) {
-        console.log('data: ', data);
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
         scoreboardComponent.data = data;
         scoreboardComponent.render();
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
     })
 }
 

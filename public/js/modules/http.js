@@ -38,7 +38,6 @@
                 body: JSON.stringify(data)
             };
 
-            console.log(data);
             return fetch(url, initSettings).then(checkAllRight);
 		}
 		
