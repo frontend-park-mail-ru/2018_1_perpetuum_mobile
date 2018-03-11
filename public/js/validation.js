@@ -55,9 +55,9 @@ let usernameValidityChecks = [
 let passwordValidityChecks = [
     {
         isInvalid: function(input) {
-            return input.value.length < 4;
+            return input.value.length < 3;
         },
-        invalidityMessage: 'This input needs to be at least 4 characters',
+        invalidityMessage: 'This input needs to be at least 3 characters',
     }
 ];
 

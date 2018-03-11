@@ -2,11 +2,9 @@
 	const noop = () => null;
 
 	const getCors = new Headers({
-        "Origin": "http://127.0.0.1:3000"
     });
 
 	const postCors = {
-        "Origin": "http://127.0.0.1:3000",
         "Content-Type": "application/json"
     };
 

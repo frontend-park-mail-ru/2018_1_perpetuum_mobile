@@ -86,22 +86,22 @@
         <section class="profileSettings" hidden>
             <div class="changeProfile">
                 <div class="sectionHeader">Profile</div>
-                <div class="changeProfileImage">
+                <form class="changeImageForm">
                     <img src="img.jpg">
-                    <button class="changeImageButton" data-section="change">Change</button>
-                </div>
-                <form class="changeProfileNick">
+                    <input type="submit" class="changeButton" value="Change">
+                </form>
+                <form class="changeProfileNickForm">
 
                     <div class="descriptionText">Login</div>
-                    <input class="inputSize loginInput" type="text" name="name" >
+                    <input class="inputSize loginInput" type="text" name="login" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
                     <input class="inputSize email" type="text" name="email">
 
-                    <button class="changeImageButton" data-section="change">Change</button>
+                    <input type="submit" class="changeButton" value="Change">
                 </form>
 
-                <form class="changePassword">
+                <form class="changePasswordForm">
                     <div class="changeProfilePassword">Change password</div>
 
                     <div class="descriptionText">Old password</div>
@@ -110,7 +110,7 @@
                     <div class="descriptionText">New password</div>
                     <input class="inputSize password" type="text" name="text">
 
-                    <button class="changeImageButton" data-section="change">Change</button>
+                    <input type="submit" class="changeButton" value="Change">
                 </form>
             </div>
         </section>
