@@ -116,16 +116,9 @@ app.get('/me', function (req, res) {
 
     users[email].score += 1;
 
-    res.json(users[login]);
+    res.json(users[email]['login']);
 });
-
 
 app.listen(process.env.PORT || port, function () {
     logger(`Server listening port ${process.env.PORT || port}`);
 });
-
-
-
-
-
-

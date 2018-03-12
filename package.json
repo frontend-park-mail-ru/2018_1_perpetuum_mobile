@@ -6,8 +6,10 @@
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
     "debug": "^3.1.0",
+    "eslint": "^4.18.2",
     "express": "^4.16.2",
     "fest": "^0.12.1",
+    "jsdoc": "^3.5.5",
     "morgan": "^1.9.0",
     "uuid": "^3.2.1"
   },
@@ -15,5 +17,12 @@
     "build": "fest-build --dir=public",
     "start": "npm run build && DEBUG=mylogger node server",
     "start:raw": "node server"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

@@ -59,3 +59,5 @@ typings/
 
 #some examples
 ./static/
+
+.idea

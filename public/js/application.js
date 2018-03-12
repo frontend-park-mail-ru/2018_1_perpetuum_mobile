@@ -1,20 +1,21 @@
 'use strict';
 
-switch (window.location.hostname) {
-	case 'localhost':
-		window.HttpModule.baseUrl = 'http://localhost:3050';
+const httpModule = new window.HttpModule();
+
+switch(window.location.hostname) {
+    case 'localhost':
+        httpModule.baseUrl = 'http://localhost:3050';
         break;
     case '127.0.0.1':
-		window.HttpModule.baseUrl = 'http://127.0.0.1:3050';
-		break;
-	case 'blend-front.herokuapp.com':
-		window.HttpModule.baseUrl = '//blend-back.herokuapp.com';
-		break;
-	default:
-		window.HttpModule.baseUrl = '';
+        httpModule.baseUrl = 'http://127.0.0.1:3050';
+        break;
+    case 'blend-front.herokuapp.com':
+        httpModule.baseUrl = '//blend-back.herokuapp.com';
+        break;
+    default:
+        httpModule.baseUrl = '';
 }
 
-const httpModule = new window.HttpModule();
 const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
 const userFooterComponent = new window.UserFooterComponent( '.profile',
     {
@@ -22,6 +23,7 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
         callback: onSubmitLogoutForm
     }
 );
+const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 
 const menuSection = document.getElementsByClassName('menu')[0];
 const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
@@ -36,10 +38,14 @@ const registrationForm = document.getElementsByClassName('registrationForm')[0];
 const changeImageForm = document.getElementsByClassName('changeImageForm')[0];
 const changeProfileNickForm = document.getElementsByClassName('changeProfileNickForm')[0];
 const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
+const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
+const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];
 
 
 const application = document.getElementById('application');
-const image = document.getElementById('image');
+const changeImageButton = document.getElementById('changeImageButtonId');
+const imageInProfile = document.getElementById('imageInProfile');
+
 
 const sections = {
     login: loginSection,
@@ -50,6 +56,14 @@ const sections = {
     profileSettings: profileSettingsSection,
     menu: menuSection
 };
+
+
+/**
+ * openSection "name"
+ *
+ * @param {string} section what you want to open.
+ *
+ */
 
 function openSection(name) {
     Object.keys(sections).forEach(function (key) {
@@ -100,9 +114,10 @@ function onSubmitChangePasswordForm(evt) {
 
     changePassword(formData,
         function (response) {
-
+            console.log(response);
         },
         function (err) {
+            console.log(err);
             changePasswordForm.reset();
             alert('Неверно!');
         }
@@ -110,7 +125,7 @@ function onSubmitChangePasswordForm(evt) {
 }
 
 function changePassword(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeProfileNickForm(evt) {
@@ -127,9 +142,11 @@ function onSubmitChangeProfileNickForm(evt) {
 
     changeProfileNick(formData,
         function (response) {
+            console.log(response);
             checkAuth();
         },
         function (err) {
+            console.log(err);
             changeProfileNickForm.reset();
             alert('Неверно!');
         }
@@ -137,38 +154,45 @@ function onSubmitChangeProfileNickForm(evt) {
 }
 
 function changeProfileNick(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-     // TODO add input/handler/anything_else for downloading image
+    // TODO add input/handler/anything_else for downloading image
 
-    let selectedImage = image.files[0];
+    let selectedImage = changeImageButton.files[0];
     console.log(selectedImage);
 
     const formData = new FormData();
-    formData.append("file", selectedImage);
+    formData.append('file', selectedImage);
 
     changeImage(formData,
         function (response) {
+            console.log(response);
             changeImageForm.reset();
-            alert("OK!");
+
+            const imageInDownMenu = document.getElementById('imageInDownMenu');
+            imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
+            imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
+
+            alert('OK!');
         },
         function (err) {
+            console.log(err);
             changeImageForm.reset();
-            alert('Неверно!');
+            alert('Неверно!!!');
         }
     );
 }
 
 function changeImage(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
+    httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data}).then(callback).catch(catchFunc);
 }
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
-    const fields = ['email', 'password'];
+    //const fields = ['email', 'password'];
 
     const form = evt.currentTarget;
     const formElements = form.elements;
@@ -191,10 +215,12 @@ function onSubmitLoginForm(evt) {
 
     loginUser(formData,
         function (response) {
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err){
+            console.log(err);
             loginForm.reset();
             alert('Неверно!');
             return;
@@ -216,10 +242,12 @@ function onSubmitRegisterForm(evt) {
 
     registerUser(formData,
         function (response) {
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err){
+            console.log(err);
             registrationForm.reset();
             alert('Неверно!');
         }
@@ -231,13 +259,45 @@ function onSubmitLogoutForm(evt){
 
     logoutUser(
         function (response){
+            console.log(response);
             checkAuth();
             openSection('menu');
         },
         function (err) {
+            console.log(err);
             alert('Не удалось выйти из аккаунта. Проверьте соединение.');
         }
     );
+}
+
+function onSubmitScoreboardPaginatorLeftForm(evt) {
+    evt.preventDefault();
+
+    const page = {
+        page: scoreboardPaginatorComponent.decrement()
+    };
+
+    loadAllUsers(page, function (data) {
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+        scoreboardComponent.data = data;
+        scoreboardComponent.render();
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+    });
+}
+
+function onSubmitScoreboardPaginatorRightForm(evt) {
+    evt.preventDefault();
+
+    const page = {
+        page: scoreboardPaginatorComponent.increment()
+    };
+
+    loadAllUsers(page, function (data) {
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+        scoreboardComponent.data = data;
+        scoreboardComponent.render();
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+    });
 }
 
 function openScoreboard() {
@@ -247,11 +307,18 @@ function openScoreboard() {
         page: 1
     };
 
+    scoreboardPaginatorComponent.clear();
+    scoreboardPaginatorLeftForm.removeEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
+    scoreboardPaginatorLeftForm.addEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
+    scoreboardPaginatorRightForm.removeEventListener('submit', onSubmitScoreboardPaginatorRightForm);
+    scoreboardPaginatorRightForm.addEventListener('submit', onSubmitScoreboardPaginatorRightForm);
+
     loadAllUsers(page, function (data) {
-        console.log('data: ', data);
+        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
         scoreboardComponent.data = data;
         scoreboardComponent.render();
-    })
+        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+    });
 }
 
 application.addEventListener('click', function (evt) {
@@ -261,42 +328,46 @@ application.addEventListener('click', function (evt) {
 
         const section = target.getAttribute('data-section');
 
-        console.log(`Open section: `, section);
+        console.log('Open section: ', section);
         openSection(section);
     }
 });
 
 function logoutUser(callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
 }
 
 function loginUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
 }
 
 function registerUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
 }
 
 function loadAllUsers(data, callback) {
-    httpModule.doPostFetch({url: HttpModule.baseUrl + '/users', data: data}).then(callback);
+    httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data}).then(callback);
 }
 
 function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: HttpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
+    httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
 }
-
 
 
 function checkAuth() {
     loadMe(
         function (me) {
             console.log('me is ', me);
+            let imageSource = httpModule.baseUrl + '/files/' + me.image;
 
-            userFooterComponent.data = me;
+            imageInProfile.setAttribute('src', imageSource); // avatar in profile
+
+            me.image = imageSource;
+            userFooterComponent.data = me; // avatar in drop-down menu
             userFooterComponent.render();
         },
         function (err) {
+            console.log(err);
             userFooterComponent.clear();
         }
     );

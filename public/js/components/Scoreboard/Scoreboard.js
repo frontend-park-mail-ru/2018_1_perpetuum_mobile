@@ -1,35 +1,33 @@
 (function () {
-    noop = () => null;
-	class ScoreboardComponent {
-		constructor(selector = 'body', {event = 'click', callback = noop} = {}) {
-			this._el = document.querySelector(selector);
-			this._event = event;
-			this._callback = callback;
-		}
 
-		get data() {
-			return this._data;
-		}
+    class ScoreboardComponent {
+        constructor(selector = 'body') {
+            this._el = document.querySelector(selector);
+        }
 
-		set data(data) {
-			this._data = data;
-		}
+        get data() {
+            return this._data;
+        }
 
-		clear() {
-			this._el.innerHTML = '';
-		}
+        set data(data) {
+            this._data = data;
+        }
 
-		render() {
-			if (!this._data) {
-				return;
-			}
+        clear() {
+            this._el.innerHTML = '';
+        }
 
-			const templateFest = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
-			this._el.innerHTML = templateFest;
-		}
+        render() {
+            if (!this._data) {
+                return;
+            }
 
-	}
+            const templateFest = window.fest['js/components/Scoreboard/Scoreboard.tmpl'](this._data);
+            this._el.innerHTML = templateFest;
+        }
 
-	window.ScoreboardComponent = ScoreboardComponent;
+    }
+
+    window.ScoreboardComponent = ScoreboardComponent;
 
 })();

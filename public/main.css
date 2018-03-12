@@ -2,7 +2,6 @@ body {
 	font-family: 'Orbitron', sans-serif;
   	background: linear-gradient(-45deg , #37333c, #0e0e0e);
   	color: #e7e7e7;
-    /*margin: 0 0 0 0 !important;*/
 }
 
 .wrapper {
@@ -24,11 +23,8 @@ body {
     grid-column: 2/3;
 	font-size: 7vw;
 	text-align: center;
+    color: blueviolet;
 }
-
-/*.logoBlendocu > a {*/
-    /*color: blueviolet;*/
-/*}*/
 
 li {
 	list-style-type: none;
@@ -146,7 +142,7 @@ a:hover {
 }
 
 table {
-    margin: auto;
+    margin: 2vw auto auto auto;
     text-align: center;
     border-bottom: blueviolet 1px solid;
     width: 90%;
@@ -180,10 +176,6 @@ th {
     opacity: 1;
 }
 
-/*.inputSize:invalid {*/
-	/*box-shadow: 0 0 1px 2px rgb(255, 0, 24);*/
-/*}*/
-
 .logoutButton{
 	color: #e7e7e7;
 	background: none;
@@ -196,4 +188,18 @@ th {
 .logoutButton:hover {
 	transition: all 0.3s linear;
 	border-bottom: blueviolet 3px solid;
+}
+
+.paginator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.paginatorButton {
+    color: #e7e7e7;
+    background: none;
+    border: 0;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5vh;
 }

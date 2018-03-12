@@ -20,7 +20,7 @@
         clear() {
             // delete if had been authorized and invoked logout
             const findLogout = document.getElementsByClassName('logoutForm')[0];
-            if(findLogout != null) {
+            if (findLogout != null) {
                 findLogout.removeEventListener(this._event, this._callback);
             }
             this._el.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
