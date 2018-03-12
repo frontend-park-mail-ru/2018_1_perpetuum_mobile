@@ -1,0 +1,7 @@
+.scoreboard__row:hover {
+	color: red;
+}
+
+.scoreboard__table {
+	font-size: 20px;
+}

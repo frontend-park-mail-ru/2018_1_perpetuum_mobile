@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"> 
+	<title> menu </title>
+</head>
+
+<body>
+	<div class="wrapper" id="application">
+		<header class="logoBlendocu"> <a href="#" data-section="menu"> Blendocu </a> </header>
+
+        <!--menu-->
+
+		<section class="menu">
+            <ul>
+                <li><a href="#" data-section="singlePlayer"> New game </a> </li>
+                <li><a href="#" data-section="multiPlayer"> Campaign </a> </li>
+                <li><a href="#" data-section="scoreboard"> Scoreboard </a> </li>
+            </ul>
+		</section>
+
+        <!--singleplayer-->
+
+        <section class="singlePlayer" hidden>
+
+        </section>
+
+        <!--multiplayer-->
+
+        <section class="multiPlayer" hidden>
+
+        </section>
+
+        <!--scoreboard-->
+
+        <section class="scoreboard" hidden>
+            <div class="sectionHeader">Scoreboard</div>
+            <div class="js-scoreboard-table">
+
+            </div>
+            <div class="paginator">
+                <form class="scoreboardPaginatorLeftForm">
+                    <input class="paginatorButton" type="submit" value="<">
+                </form>
+                <form class="scoreboardPaginatorRightForm">
+                    <input class="paginatorButton" type="submit" value=">">
+                </form>
+            </div>
+        </section>
+
+        <!--login-->
+
+        <section class="login" hidden>
+            <div class="sectionHeader">Login</div>
+            <div class="loginDiv">
+                <form class="loginForm">
+                    <div class="descriptionText"> Username or email address </div>
+                    <input class="inputSize loginInput" type="text" name="email">
+                    <div class="descriptionText">Password</div>
+                    <input class="inputSize password" type="password" name="password">
+                    <input class="registerButton" type="submit" value="Login">
+                </form>
+
+                <div class="descriptionText">  You are not registered? </div>
+                <button class="registerButton" data-section="register">Register</button>
+            </div>
+        </section>
+
+        <section class="registration" hidden>
+            <div class="sectionHeader">Register</div>
+            <div class="loginDiv">
+                <form class="registrationForm">
+                    <div class="descriptionText"> Email </div>
+                    <input class="inputSize email" type="text" name="email">
+
+                    <div class="descriptionText"> Login </div>
+                    <input class="inputSize loginInput" type="text" name="login">
+
+                    <div class="descriptionText">Password</div>
+                    <input class="inputSize password" type="password" name="password">
+
+                    <input class="registerButton" type="submit" value="Register">
+                </form>
+
+                <div class="descriptionText">  Have an account? </div>
+                <button class="registerButton" data-section="login">Login</button>
+            </div>
+        </section>
+
+        <!--profile settings-->
+
+        <section class="profileSettings" hidden>
+            <div class="changeProfile">
+                <div class="sectionHeader">Profile</div>
+                <form class="changeImageForm">
+                    <img src="img.jpg" id="imageInProfile">
+                    <input type="file" name="file" id="changeImageButtonId"/>
+                    <input type="submit" class="changeButton" value="Change">
+                </form>
+                <form class="changeProfileNickForm">
+
+                    <div class="descriptionText">Login</div>
+                    <input class="inputSize loginInput" type="text" name="login" >
+
+                    <div class="descriptionText descriptionTextWidth">Email</div>
+                    <input class="inputSize email" type="text" name="email">
+
+                    <input type="submit" class="changeButton" value="Change">
+                </form>
+
+                <form class="changePasswordForm">
+                    <div class="changeProfilePassword">Change password</div>
+
+                    <div class="descriptionText">Old password</div>
+                    <input class="inputSize password" type="password" name="oldPassword">
+
+                    <div class="descriptionText">New password</div>
+                    <input class="inputSize password" type="password" name="newPassword">
+
+                    <input type="submit" class="changeButton" value="Change">
+                </form>
+            </div>
+        </section>
+
+		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>
+
+	</div>
+
+    <script src="./js/components/Scoreboard/Scoreboard.tmpl.js"></script>
+    <script src="./js/components/Scoreboard/Scoreboard.js"></script>
+    <script src="./js/components/UserFooter/UserFooter.tmpl.js"></script>
+    <script src="./js/components/UserFooter/UserFooter.js"></script>
+    <script src="./js/components/Paginator/Paginator.js"></script>
+    <script src="./js/modules/http.js"></script>
+    <script src="./js/application.js"></script>
+    <script src="./js/validation.js"></script>
+
+</body>
+
+</html>
