@@ -12,6 +12,9 @@ switch(window.location.hostname) {
     case 'blend-front.herokuapp.com':
         httpModule.baseUrl = '//blend-back.herokuapp.com';
         break;
+    case 'blendocu.herokuapp.com':
+        httpModule.baseUrl = '//blendocu-back.herokuapp.com';
+        break;
     default:
         httpModule.baseUrl = '';
 }
