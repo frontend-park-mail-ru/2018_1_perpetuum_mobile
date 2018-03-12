@@ -1,8 +1,10 @@
 (function () {
-
+    noop = () => null;
 	class ScoreboardComponent {
-		constructor(selector = 'body') {
+		constructor(selector = 'body', {event = 'click', callback = noop} = {}) {
 			this._el = document.querySelector(selector);
+			this._event = event;
+			this._callback = callback;
 		}
 
 		get data() {
