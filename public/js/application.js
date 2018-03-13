@@ -28,13 +28,6 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
 );
 const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 
-const menuSection = document.getElementsByClassName('menu')[0];
-const singlePlayerSection = document.getElementsByClassName('singlePlayer')[0];
-const multiPlayerSection  = document.getElementsByClassName('multiPlayer')[0];
-const scoreboardSection   = document.getElementsByClassName('scoreboard')[0];
-const profileSettingsSection = document.getElementsByClassName('profileSettings')[0];
-const registerSection = document.getElementsByClassName('registration')[0];
-const loginSection = document.getElementsByClassName('login')[0];
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
@@ -50,35 +43,17 @@ const changeImageButton = document.getElementById('changeImageButtonId');
 const imageInProfile = document.getElementById('imageInProfile');
 
 
-const sections = {
-    login: loginSection,
-    register: registerSection,
-    singlePlayer: singlePlayerSection,
-    multiPlayer: multiPlayerSection,
-    scoreboard: scoreboardSection,
-    profileSettings: profileSettingsSection,
-    menu: menuSection
+const sectionsForManager = {
+    login: '.login',
+    register: '.registration',
+    singlePlayer: '.singlePlayer',
+    multiPlayer: '.multiPlayer',
+    scoreboard: '.scoreboard',
+    profileSettings: '.profileSettings',
+    menu: '.menu'
 };
 
-
-/**
- * openSection "name"
- *
- * @param {string} section what you want to open.
- *
- */
-
-function openSection(name) {
-    Object.keys(sections).forEach(function (key) {
-        sections[key].hidden = key !== name;
-    });
-
-    if (typeof openFunctions[name] === 'function') {
-        openFunctions[name]();
-    }
-}
-
-const openFunctions = {
+const openFunctionsForManager = {
     scoreboard: openScoreboard,
     register: function () {
         registrationForm.removeEventListener('submit', onSubmitRegisterForm);
@@ -102,6 +77,9 @@ const openFunctions = {
         changeImageForm.addEventListener('submit', onSubmitChangeImageForm);
     }
 };
+
+const sectionManager = new window.SectionManager({sections: sectionsForManager, openFunctions: openFunctionsForManager});
+
 
 function onSubmitChangePasswordForm(evt) {
     evt.preventDefault();
@@ -162,7 +140,6 @@ function changeProfileNick(data, callback, catchFunc) {
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
-    // TODO add input/handler/anything_else for downloading image
 
     let selectedImage = changeImageButton.files[0];
     console.log(selectedImage);
@@ -220,7 +197,7 @@ function onSubmitLoginForm(evt) {
         function (response) {
             console.log(response);
             checkAuth();
-            openSection('menu');
+            sectionManager.openSection('menu');
         },
         function (err){
             console.log(err);
@@ -247,7 +224,7 @@ function onSubmitRegisterForm(evt) {
         function (response) {
             console.log(response);
             checkAuth();
-            openSection('menu');
+            sectionManager.openSection('menu');
         },
         function (err){
             console.log(err);
@@ -264,7 +241,7 @@ function onSubmitLogoutForm(evt){
         function (response){
             console.log(response);
             checkAuth();
-            openSection('menu');
+            sectionManager.openSection('menu');
         },
         function (err) {
             console.log(err);
@@ -332,7 +309,7 @@ application.addEventListener('click', function (evt) {
         const section = target.getAttribute('data-section');
 
         console.log('Open section: ', section);
-        openSection(section);
+        sectionManager.openSection(section);
     }
 });
 
@@ -378,4 +355,4 @@ function checkAuth() {
 
 
 checkAuth();
-openSection('menu');
+sectionManager.openSection('menu');

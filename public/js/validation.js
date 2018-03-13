@@ -24,6 +24,7 @@ CustomValidation.prototype = {
             }
         }
     },
+    //убрать кастомную валидацию
     checkInput: function() {
         this.inputNode.CustomValidation.invalidities = [];
         this.checkValidity(this.inputNode);
