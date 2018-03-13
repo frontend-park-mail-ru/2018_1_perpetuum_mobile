@@ -1,5 +1,4 @@
 (function () {
-    const noop = () => null;
 
     class SectionManager {
 
