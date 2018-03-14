@@ -318,35 +318,35 @@ application.addEventListener('click', function (evt) {
 
 
 function changePassword(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
 }
 
 function changeProfileNick(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
 }
 
 function changeImage(data) {
-    return httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data});
 }
 
 function logoutUser() {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'});
 }
 
 function loginUser(user) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user});
 }
 
 function registerUser(user) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user}); //.then(callback).catch(catchFunc);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user});
 }
 
 function loadAllUsers(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data}); //.then(callback);
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data});
 }
 
 function loadMe() {
-    return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}); //.then(callback).catch(catchFunc);
+    return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'});
 }
 
 
