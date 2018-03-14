@@ -93,11 +93,12 @@ function onSubmitChangePasswordForm(evt) {
         return allFields;
     }, {});
 
-    changePassword(formData,
-        function (response) {
+    changePassword(formData).then(
+        (response) => {
             console.log(response);
-        },
-        function (err) {
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             changePasswordForm.reset();
             alert('Неверно!');
@@ -105,9 +106,6 @@ function onSubmitChangePasswordForm(evt) {
     );
 }
 
-function changePassword(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
-}
 
 function onSubmitChangeProfileNickForm(evt) {
     evt.preventDefault();
@@ -121,12 +119,13 @@ function onSubmitChangeProfileNickForm(evt) {
         return allFields;
     }, {});
 
-    changeProfileNick(formData,
-        function (response) {
+    changeProfileNick(formData).then(
+        (response) => {
             console.log(response);
             checkAuth();
-        },
-        function (err) {
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             changeProfileNickForm.reset();
             alert('Неверно!');
@@ -134,9 +133,6 @@ function onSubmitChangeProfileNickForm(evt) {
     );
 }
 
-function changeProfileNick(data, callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}).then(callback).catch(catchFunc);
-}
 
 function onSubmitChangeImageForm(evt) {
     evt.preventDefault();
@@ -147,8 +143,8 @@ function onSubmitChangeImageForm(evt) {
     const formData = new FormData();
     formData.append('file', selectedImage);
 
-    changeImage(formData,
-        function (response) {
+    changeImage(formData).then(
+        (response) => {
             console.log(response);
             changeImageForm.reset();
 
@@ -157,8 +153,9 @@ function onSubmitChangeImageForm(evt) {
             imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
 
             alert('OK!');
-        },
-        function (err) {
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             changeImageForm.reset();
             alert('Неверно!!!');
@@ -166,9 +163,6 @@ function onSubmitChangeImageForm(evt) {
     );
 }
 
-function changeImage(data, callback, catchFunc) {
-    httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data}).then(callback).catch(catchFunc);
-}
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
@@ -193,13 +187,14 @@ function onSubmitLoginForm(evt) {
 
     console.info('Authorization: ', formData);
 
-    loginUser(formData,
-        function (response) {
+    loginUser(formData).then(
+        (response) => {
             console.log(response);
             checkAuth();
             sectionManager.openSection('menu');
-        },
-        function (err){
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             loginForm.reset();
             alert('Неверно!');
@@ -220,13 +215,14 @@ function onSubmitRegisterForm(evt) {
         return allFields;
     }, {});
 
-    registerUser(formData,
-        function (response) {
+    registerUser(formData).then(
+        (response) => {
             console.log(response);
             checkAuth();
             sectionManager.openSection('menu');
-        },
-        function (err){
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             registrationForm.reset();
             alert('Неверно!');
@@ -237,13 +233,14 @@ function onSubmitRegisterForm(evt) {
 function onSubmitLogoutForm(evt){
     evt.preventDefault();
 
-    logoutUser(
-        function (response){
+    logoutUser().then(
+        (response) => {
             console.log(response);
             checkAuth();
             sectionManager.openSection('menu');
-        },
-        function (err) {
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             alert('Не удалось выйти из аккаунта. Проверьте соединение.');
         }
@@ -257,12 +254,14 @@ function onSubmitScoreboardPaginatorLeftForm(evt) {
         page: scoreboardPaginatorComponent.decrement()
     };
 
-    loadAllUsers(page, function (data) {
-        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-        scoreboardComponent.data = data;
-        scoreboardComponent.render();
-        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-    });
+    loadAllUsers(page).then(
+        (data) => {
+            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+            scoreboardComponent.data = data;
+            scoreboardComponent.render();
+            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+        }
+    );
 }
 
 function onSubmitScoreboardPaginatorRightForm(evt) {
@@ -272,12 +271,14 @@ function onSubmitScoreboardPaginatorRightForm(evt) {
         page: scoreboardPaginatorComponent.increment()
     };
 
-    loadAllUsers(page, function (data) {
-        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-        scoreboardComponent.data = data;
-        scoreboardComponent.render();
-        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-    });
+    loadAllUsers(page).then(
+        (data) => {
+            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+            scoreboardComponent.data = data;
+            scoreboardComponent.render();
+            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+        }
+    );
 }
 
 function openScoreboard() {
@@ -293,12 +294,14 @@ function openScoreboard() {
     scoreboardPaginatorRightForm.removeEventListener('submit', onSubmitScoreboardPaginatorRightForm);
     scoreboardPaginatorRightForm.addEventListener('submit', onSubmitScoreboardPaginatorRightForm);
 
-    loadAllUsers(page, function (data) {
-        data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-        scoreboardComponent.data = data;
-        scoreboardComponent.render();
-        scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-    });
+    loadAllUsers(page).then(
+        (data) => {
+            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
+            scoreboardComponent.data = data;
+            scoreboardComponent.render();
+            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
+        }
+    );
 }
 
 application.addEventListener('click', function (evt) {
@@ -313,30 +316,43 @@ application.addEventListener('click', function (evt) {
     }
 });
 
-function logoutUser(callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'}).then(callback).catch(catchFunc);
+
+function changePassword(data) {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}); //.then(callback).catch(catchFunc);
 }
 
-function loginUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user}).then(callback).catch(catchFunc);
+function changeProfileNick(data) {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data}); //.then(callback).catch(catchFunc);
 }
 
-function registerUser(user, callback, catchFunc) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user}).then(callback).catch(catchFunc);
+function changeImage(data) {
+    return httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data}); //.then(callback).catch(catchFunc);
 }
 
-function loadAllUsers(data, callback) {
-    httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data}).then(callback);
+function logoutUser() {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'}); //.then(callback).catch(catchFunc);
 }
 
-function loadMe(callback, catchFunc) {
-    httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}).then(callback).catch(catchFunc);
+function loginUser(user) {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user}); //.then(callback).catch(catchFunc);
+}
+
+function registerUser(user) {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user}); //.then(callback).catch(catchFunc);
+}
+
+function loadAllUsers(data) {
+    return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data}); //.then(callback);
+}
+
+function loadMe() {
+    return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'}); //.then(callback).catch(catchFunc);
 }
 
 
 function checkAuth() {
-    loadMe(
-        function (me) {
+    loadMe().then(
+        (me) => {
             console.log('me is ', me);
             let imageSource = httpModule.baseUrl + '/files/' + me.image;
 
@@ -345,8 +361,9 @@ function checkAuth() {
             me.image = imageSource;
             userFooterComponent.data = me; // avatar in drop-down menu
             userFooterComponent.render();
-        },
-        function (err) {
+        }
+    ).catch(
+        (err) => {
             console.log(err);
             userFooterComponent.clear();
         }
