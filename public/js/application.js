@@ -55,17 +55,17 @@ const sectionsForManager = {
 
 const openFunctionsForManager = {
     scoreboard: openScoreboard,
-    register: function () {
+    register: () => {
         registrationForm.removeEventListener('submit', onSubmitRegisterForm);
         registrationForm.reset();
         registrationForm.addEventListener('submit', onSubmitRegisterForm);
     },
-    login: function () {
+    login: () => {
         loginForm.removeEventListener('submit', onSubmitLoginForm);
         loginForm.reset();
         loginForm.addEventListener('submit', onSubmitLoginForm);
     },
-    profileSettings: function () {
+    profileSettings: () => {
         changePasswordForm.removeEventListener('submit', onSubmitChangePasswordForm);
         changePasswordForm.reset();
         changePasswordForm.addEventListener('submit', onSubmitChangePasswordForm);
@@ -88,10 +88,7 @@ function onSubmitChangePasswordForm(evt) {
     const form = evt.currentTarget;
     const formElements = form.elements;
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = reduceWithValues(formElements, fields);
 
     changePassword(formData).then(
         (response) => {
@@ -114,10 +111,7 @@ function onSubmitChangeProfileNickForm(evt) {
     const form = evt.currentTarget;
     const formElements = form.elements;
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = reduceWithValues(formElements, fields);
 
     changeProfileNick(formData).then(
         (response) => {
@@ -166,7 +160,6 @@ function onSubmitChangeImageForm(evt) {
 
 function onSubmitLoginForm(evt) {
     evt.preventDefault();
-    //const fields = ['email', 'password'];
 
     const form = evt.currentTarget;
     const formElements = form.elements;
@@ -210,10 +203,7 @@ function onSubmitRegisterForm(evt) {
     const form = evt.currentTarget;
     const formElements = form.elements;
 
-    const formData = fields.reduce(function (allFields, fieldName) {
-        allFields[fieldName] = formElements[fieldName].value;
-        return allFields;
-    }, {});
+    const formData = reduceWithValues(formElements, fields);
 
     registerUser(formData).then(
         (response) => {
