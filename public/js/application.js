@@ -131,12 +131,43 @@ function onSubmitChangeProfileNickForm(evt) {
     );
 }
 
-
 function onSubmitChangeImageForm(evt) {
+
+    function getTypeFromMimeType(mimeTypeName) {
+        const slashPosition = mimeTypeName.lastIndexOf('/');
+        if (slashPosition === -1)
+            throw Error('Неподдерживаемый тип файла');
+        return mimeTypeName.substring(slashPosition + 1);
+
+    }
+
     evt.preventDefault();
 
-    let selectedImage = changeImageButton.files[0];
-    console.log(selectedImage);
+    const selectedImage = changeImageButton.files[0];
+    const selectedImageMimeType = selectedImage.type;
+
+    if (selectedImageMimeType !== 'image/jpg' && selectedImageMimeType !== 'image/jpeg' && selectedImageMimeType !== 'image/png') {
+        try {
+            let selectedImageType = getTypeFromMimeType(selectedImageMimeType);
+            alert('Тип файла \"' + selectedImageType + '\" не поддерживается. ' +
+                  'Допустимые форматы данных: \"jpg\", \"jpeg\", \"png\". ');
+        } catch(e) {
+            alert(e.name + ': ' + e.message);
+        }
+        return;
+    }
+
+    const selectedImageSizeB = selectedImage.size;
+    const selectedImageSizeMB = selectedImageSizeB / 1024 / 1024;
+
+    const maxImageSizeMB = 2;
+    const maxImageSizeB = maxImageSizeMB * 1024 * 1024;
+
+    if (selectedImageSizeB > maxImageSizeB) {
+        alert('Размер изображения слишком велик: ' + selectedImageSizeMB.toFixed(2) + ' MB.\n' +
+              'Выберите изображение, размер которого меньше 2 MB.');
+        return;
+    }
 
     const formData = new FormData();
     formData.append('file', selectedImage);
@@ -149,8 +180,6 @@ function onSubmitChangeImageForm(evt) {
             const imageInDownMenu = document.getElementById('imageInDownMenu');
             imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
             imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
-
-            alert('OK!');
         }
     ).catch(
         (err) => {
