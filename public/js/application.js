@@ -27,7 +27,7 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
     }
 );
 const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
-
+const colorComponent = new window.ColorComponent('html');
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
@@ -36,6 +36,7 @@ const changeProfileNickForm = document.getElementsByClassName('changeProfileNick
 const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
 const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
 const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];
+const paintForm = document.getElementsByClassName('changeColor')[0];
 
 
 const application = document.getElementById('application');
@@ -80,6 +81,9 @@ const openFunctionsForManager = {
 
 const sectionManager = new window.SectionManager({sections: sectionsForManager, openFunctions: openFunctionsForManager});
 
+paintForm.addEventListener('mousedown', function (evt) {
+    colorComponent.setRandomScheme();
+});
 
 function onSubmitChangePasswordForm(evt) {
     evt.preventDefault();
@@ -296,7 +300,7 @@ function openScoreboard() {
 
 application.addEventListener('click', function (evt) {
     const target = evt.target;
-    if (target.tagName.toLowerCase() === 'a' || target.tagName.toLowerCase() === 'button') {
+    if (target.tagName.toLowerCase() === 'a') {
         evt.preventDefault();
 
         const section = target.getAttribute('data-section');

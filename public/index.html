@@ -2,8 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="main.css">
-	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"> 
-	<title> menu </title>
+	<title> Blendocu </title>
 </head>
 
 <body>
@@ -56,14 +55,18 @@
             <div class="loginDiv">
                 <form class="loginForm">
                     <div class="descriptionText"> Username or email address </div>
-                    <input class="inputSize loginInput" type="text" name="email">
+                    <label>
+                        <input class="inputSize loginInput" type="text" name="email">
+                    </label>
                     <div class="descriptionText">Password</div>
-                    <input class="inputSize password" type="password" name="password">
+                    <label>
+                        <input class="inputSize password" type="password" name="password">
+                    </label>
                     <input class="registerButton" type="submit" value="Login">
                 </form>
 
                 <div class="descriptionText">  You are not registered? </div>
-                <button class="registerButton" data-section="register">Register</button>
+                <a href="" class="registerButton" data-section="register">Register</a>
             </div>
         </section>
 
@@ -72,19 +75,25 @@
             <div class="loginDiv">
                 <form class="registrationForm">
                     <div class="descriptionText"> Email </div>
-                    <input class="inputSize email" type="text" name="email">
+                    <label>
+                        <input class="inputSize email" type="email" name="email">
+                    </label>
 
                     <div class="descriptionText"> Login </div>
-                    <input class="inputSize loginInput" type="text" name="login">
+                    <label>
+                        <input class="inputSize loginInput" type="text" name="login">
+                    </label>
 
                     <div class="descriptionText">Password</div>
-                    <input class="inputSize password" type="password" name="password">
+                    <label>
+                        <input class="inputSize password" type="password" name="password">
+                    </label>
 
                     <input class="registerButton" type="submit" value="Register">
                 </form>
 
                 <div class="descriptionText">  Have an account? </div>
-                <button class="registerButton" data-section="login">Login</button>
+                <a href="#" class="registerButton" data-section="login">Login</a>
             </div>
         </section>
 
@@ -104,7 +113,7 @@
                     <input class="inputSize loginInput" type="text" name="login" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input class="inputSize email" type="text" name="email">
+                    <input class="inputSize email" type="email" name="email">
 
                     <input type="submit" class="changeButton" value="Change">
                 </form>
@@ -123,6 +132,7 @@
             </div>
         </section>
 
+        <button class="changeColor"></button>
 		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>
 
 	</div>
@@ -134,6 +144,7 @@
     <script src="./js/components/UserFooter/UserFooter.tmpl.js"></script>
     <script src="./js/components/UserFooter/UserFooter.js"></script>
     <script src="./js/components/Paginator/Paginator.js"></script>
+    <script src="./js/components/ColorComponent/ColorComponent.js"></script>
     <script src="./js/modules/http.js"></script>
     <script src="./js/modules/sectionManager.js"></script>
     <script src="./js/application.js"></script>

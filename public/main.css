@@ -1,7 +1,23 @@
+@font-face {
+    font-family: Orbitron;
+    src: local(Orbitron), url(fonts/Orbitron-Regular.ttf);
+}
+
+html {
+    --secondColor: #FFFFFF;
+    --greyColor: #393939;
+    --secondGradientColor: #0e0e0e;
+
+    --baseColor: #ffc107;
+    --logoColor: #ffa000;
+    --firstGradientColor: #2e2e02;
+}
+
 body {
 	font-family: 'Orbitron', sans-serif;
-  	background: linear-gradient(-45deg , #37333c, #0e0e0e);
-  	color: #e7e7e7;
+  	background: linear-gradient(-45deg , var(--firstGradientColor) , var(--secondGradientColor));
+  	color: var(--secondColor);
+    margin: 0 0 0 0 !important;
 }
 
 .wrapper {
@@ -9,6 +25,17 @@ body {
    	height: 100vh;
    	grid-template-columns: 1fr 2fr 1fr;
    	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh;
+}
+
+.changeColor {
+    width: 10vh;
+    height: 10vh;
+    grid-column: 1;
+    grid-row: 6;
+    margin: 0 0 0 5vh;
+    border: transparent 2px solid;
+    background: transparent url("paint.png") no-repeat;
+    background-size: 7vh 7vh;
 }
 
 .menu, .login, .scoreboard, .registration, .profileSettings {
@@ -23,7 +50,16 @@ body {
     grid-column: 2/3;
 	font-size: 7vw;
 	text-align: center;
-    color: blueviolet;
+    transition: all 0.3s linear;
+}
+
+.logoBlendocu > a {
+    color: var(--logoColor);
+}
+
+.logoBlendocu > a:hover {
+    border: initial;
+    color: var(--baseColor);
 }
 
 li {
@@ -87,74 +123,76 @@ li {
 
 a {
 	text-decoration: none;
-    color: #e7e7e7;
+    color: var(--secondColor);
     transition: all 0.3s linear;
 }
 
 a:hover {
-    border-bottom: blueviolet 3px solid;
+    border-bottom: var(--baseColor) 3px solid;
 }
 
 .changeButton {
 	width: 22vh;
 	height: 5vh;
 	font-family: 'Orbitron', sans-serif;
-	background: #444444;
-	color: #e7e7e7;
+	background: var(--greyColor);
+	color: var(--secondColor);
 	font-size: 3vh;
-	border: #444444 3px solid;
+	border: var(--greyColor) 3px solid;
 	transition: all 0.3s linear;
 	border-radius: 2px;
 	margin-top: 1vw;
 }
 
 .changeButton:hover {
-	border-bottom: blueviolet 3px solid;
+	border-bottom: var(--baseColor) 3px solid;
 }
 
 .changeImageForm img {
 	width: 20vh;
-	border: 4px solid #bcbcbc;
+	border: 4px solid var(--secondColor);
 	border-radius: 5px;
 	margin-top: -1.6vh;
 }
 
 .loginDiv {
+    align-content: center;
     font-size: initial;
 	margin-top: 4vh;
 }
 
 .registerButton {
-	width: 50vh;
-	height: 7vh;
+	width: 53vh;
+	height: 6vh;
 	font-family: 'Orbitron', sans-serif;
-	background: #444444;
-	color: #e7e7e7;
+	background: var(--greyColor);
+	color: var(--secondColor);
 	font-size: 3vh;
-	border: #444444 3px solid;
+	border: var(--greyColor) 3px solid;
     transition: all 0.3s linear;
     border-radius: 2px;
     margin: 3vh 2vh 2vh 2vh;
+    align-self: center;
 }
 
 .registerButton:hover {
-	border-bottom: blueviolet 3px solid;
+	border-bottom: var(--baseColor) 3px solid;
 }
 
 table {
     margin: 2vw auto auto auto;
     text-align: center;
-    border-bottom: blueviolet 1px solid;
+    border-bottom: var(--baseColor) 1px solid;
     width: 90%;
     font-size: 2vw;
 }
 
 th {
-    border-bottom: blueviolet 1px solid;
+    border-bottom: var(--baseColor) 1px solid;
 }
 
 .imgInProfile {
-    border: #bcbcbc 2px solid;
+    border: var(--secondColor) 2px solid;
     border-radius: 3px;
     width: 5vw;
 }
@@ -162,7 +200,7 @@ th {
 .submenu {
     margin-top: -18vh;
     margin-left: 5.5vw;
-    border-right: blueviolet 1px solid;
+    border-right: var(--baseColor) 1px solid;
     z-index: -5;
     width: 13vw;
     position: absolute;
@@ -177,7 +215,7 @@ th {
 }
 
 .logoutButton{
-	color: #e7e7e7;
+	color: var(--secondColor);
 	background: none;
 	border: 0;
 	font-family: 'Orbitron', sans-serif;
@@ -187,7 +225,7 @@ th {
 
 .logoutButton:hover {
 	transition: all 0.3s linear;
-	border-bottom: blueviolet 3px solid;
+	border-bottom: var(--baseColor) 3px solid;
 }
 
 .paginator {
@@ -197,9 +235,13 @@ th {
 }
 
 .paginatorButton {
-    color: #e7e7e7;
+    color: var(--secondColor);
     background: none;
     border: 0;
     font-family: 'Orbitron', sans-serif;
     font-size: 5vh;
+}
+
+.paginatorButton:disabled {
+    color: var(--firstGradientColor);
 }
