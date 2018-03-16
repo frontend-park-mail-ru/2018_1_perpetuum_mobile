@@ -55,12 +55,14 @@
             <div class="loginDiv">
                 <form class="loginForm">
                     <div class="descriptionText"> Username or email address </div>
-                    <label>
+                    <label class="loginLabel">
                         <input class="inputSize loginInput" type="text" name="email">
+                        <div class="error">Login min 3</div>
                     </label>
                     <div class="descriptionText">Password</div>
-                    <label>
+                    <label class="passwordLabel">
                         <input class="inputSize password" type="password" name="password">
+                        <div class="error">Password min 3</div>
                     </label>
                     <input class="registerButton" type="submit" value="Login">
                 </form>
@@ -75,18 +77,21 @@
             <div class="loginDiv">
                 <form class="registrationForm">
                     <div class="descriptionText"> Email </div>
-                    <label>
+                    <label class="emailLabel">
                         <input class="inputSize email" type="email" name="email">
+                        <div class="error">This is not email</div>
                     </label>
 
                     <div class="descriptionText"> Login </div>
-                    <label>
+                    <label class="loginLabel">
                         <input class="inputSize loginInput" type="text" name="login">
+                        <div class="error">Login min 3</div>
                     </label>
 
                     <div class="descriptionText">Password</div>
-                    <label>
+                    <label class="passwordLabel">
                         <input class="inputSize password" type="password" name="password">
+                        <div class="error">Password min 3</div>
                     </label>
 
                     <input class="registerButton" type="submit" value="Register">
@@ -147,6 +152,7 @@
     <script src="./js/components/ColorComponent/ColorComponent.js"></script>
     <script src="./js/modules/http.js"></script>
     <script src="./js/modules/sectionManager.js"></script>
+    <script src="./js/modules/errorForm.js"></script>
     <script src="./js/modules/loginForm.js"></script>
     <script src="./js/modules/registrationForm.js"></script>
     <script src="./js/application.js"></script>

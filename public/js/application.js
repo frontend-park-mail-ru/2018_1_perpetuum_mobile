@@ -28,9 +28,8 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
 );
 const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 const colorComponent = new window.ColorComponent('html');
-const loginFormValidation = new window.LoginForm('.loginForm');
+const loginFormValidation = new window.LoginForm();
 const registrationFormValidation = new window.RegistrationForm('.registrationForm');
-
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];

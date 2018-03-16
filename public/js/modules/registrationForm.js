@@ -1,63 +1,49 @@
 (function () {
 
-    class RegistrationForm {
-        constructor(form) {
-            this.loginForm = document.querySelector(form).getElementsByClassName('loginInput')[0];
-            this.emailForm = document.querySelector(form).getElementsByClassName('email')[0];
-            this.passwordForm = document.querySelector(form).getElementsByClassName('password')[0];
+    const ErrorForm = window.ErrorForm;
 
-            this.validateLogin = this.validateLogin.bind(this);
-            this.validatePassword = this.validatePassword.bind(this);
-            this.validateEmail = this.validateEmail.bind(this);
+    class RegistrationForm {
+        constructor() {
+            this.loginForm = document.querySelector('.registrationForm .loginLabel .loginInput');
+            this.passwordForm = document.querySelector('.registrationForm .passwordLabel .password');
+            this.emailForm = document.querySelector('.registrationForm .emailLabel .email');
 
             this.login = null;
             this.password = null;
             this.email = null;
 
-            this.loginForm.addEventListener('keyup', this.validateLogin);
-            this.passwordForm.addEventListener('keyup', this.validatePassword);
-            this.emailForm.addEventListener('keyup', this.validateEmail);
+            this.loginForm.addEventListener('keyup', this.validateLogin.bind(this));
+            this.passwordForm.addEventListener('keyup', this.validatePassword.bind(this));
+            this.emailForm.addEventListener('keyup', this.validateEmail.bind(this));
 
-            this.ok = false;
+            this.errors = new ErrorForm();
         }
 
         validateLogin() {
-            const ALLOW_INPUT_LENGTH = 4;
-            const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if(this.loginForm.value.length < ALLOW_INPUT_LENGTH || EMAIL_PATTERN.test(this.loginForm.value)) {
-                this.loginForm.style.boxShadow = '0 0 10px red';
-                this.ok = true;
+            if(isEmail(this.loginForm.value) || this.loginForm.value.length < 4) {
+                this.errors.displayErrors('.registrationForm .loginLabel');
             } else {
-                this.loginForm.style.boxShadow = '0 0 5px green';
-                this.ok = false;
+                this.errors.hideErrors('.registrationForm .loginLabel');
                 this.login = this.loginForm.value;
-                console.log(this.login);
             }
         }
 
         validateEmail() {
-            const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if(!EMAIL_PATTERN.test(this.emailForm.value)) {
-                this.emailForm.style.boxShadow = '0 0 10px red';
-                this.ok = true;
+            if(!isEmail(this.emailForm.value)) {
+                this.errors.displayErrors('.registrationForm .emailLabel');
             } else {
-                this.emailForm.style.boxShadow = '0 0 5px green';
+                this.errors.hideErrors('.registrationForm .emailLabel');
                 this.email = this.emailForm.value;
-                this.ok = false;
-                console.log(this.email);
             }
         }
 
         validatePassword() {
             const ALLOW_INPUT_LENGTH = 4;
             if(this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
-                this.passwordForm.style.boxShadow = '0 0 10px red';
-                this.ok = true;
+                this.errors.displayErrors('.registrationForm .passwordLabel');
             } else {
-                this.passwordForm.style.boxShadow = '0 0 5px green';
+                this.errors.hideErrors('.registrationForm .passwordLabel');
                 this.password = this.passwordForm.value;
-                this.ok = false;
-                console.log( this.password);
             }
         }
 

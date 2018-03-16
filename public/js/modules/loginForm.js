@@ -1,33 +1,29 @@
 (function () {
 
-    class LoginForm {
-        constructor(form) {
-            this.loginForm = document.querySelector(form).getElementsByClassName('loginInput')[0];
-            this.passwordForm = document.querySelector(form).getElementsByClassName('password')[0];
+    const ErrorForm = window.ErrorForm;
 
-            this.validateLogin = this.validateLogin.bind(this);
-            this.validatePassword = this.validatePassword.bind(this);
+    class LoginForm {
+        constructor() {
+            this.loginForm = document.querySelector('.loginForm .loginLabel .loginInput');
+            this.passwordForm = document.querySelector('.loginForm .passwordLabel .password');
 
             this.login = null;
             this.password = null;
             this.email = null;
 
-            this.loginForm.addEventListener('keyup', this.validateLogin);
-            this.passwordForm.addEventListener('keyup', this.validatePassword);
+            this.loginForm.addEventListener('keyup', this.validateLogin.bind(this));
+            this.passwordForm.addEventListener('keyup', this.validatePassword.bind(this));
 
-            this.ok = false;
+            this.errors = new ErrorForm();
         }
 
         validateLogin() {
             const ALLOW_INPUT_LENGTH = 4;
             if(this.loginForm.value.length < ALLOW_INPUT_LENGTH) {
-                this.loginForm.style.boxShadow = '0 0 10px red';
-                this.ok = true;
+                this.errors.displayErrors('.loginForm .loginLabel');
             } else {
-                this.loginForm.style.boxShadow = '0 0 5px green';
-                this.ok = false;
-                const EMAIL_PATTERN = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                if(EMAIL_PATTERN.test(this.loginForm.value)) {
+                this.errors.hideErrors('.loginForm .loginLabel');
+                if(isEmail(this.loginForm.value)) {
                     this.email = this.loginForm.value;
                     this.login = null;
                 } else {
@@ -40,18 +36,15 @@
         validatePassword() {
             const ALLOW_INPUT_LENGTH = 4;
             if(this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
-                this.passwordForm.style.boxShadow = '0 0 10px red';
-                this.ok = true;
+                this.errors.displayErrors('.loginForm .passwordLabel');
             } else {
-                this.passwordForm.style.boxShadow = '0 0 5px green';
+                this.errors.hideErrors('.loginForm .passwordLabel');
                 this.password = this.passwordForm.value;
-                this.ok = false;
             }
-
         }
 
         prepare() {
-            return this.ok ? this.ok : {'login': this.login, 'email': this.email, 'password': this.password};
+            return this.errors.getErr() ? this.ok : {'login': this.login, 'email': this.email, 'password': this.password};
         }
 
         removeListeners() {
