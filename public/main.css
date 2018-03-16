@@ -7,10 +7,6 @@ html {
     --secondColor: #FFFFFF;
     --greyColor: #393939;
     --secondGradientColor: #0e0e0e;
-
-    --baseColor: #ffc107;
-    --logoColor: #ffa000;
-    --firstGradientColor: #2e2e02;
 }
 
 body {
@@ -173,6 +169,13 @@ a:hover {
     border-radius: 2px;
     margin: 3vh 2vh 2vh 2vh;
     align-self: center;
+}
+
+a.registerButton {
+    display: block;
+    width: 40vh;
+    height: 3.5vh;
+    margin: auto;
 }
 
 .registerButton:hover {

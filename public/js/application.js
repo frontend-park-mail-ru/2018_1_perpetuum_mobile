@@ -28,6 +28,9 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
 );
 const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 const colorComponent = new window.ColorComponent('html');
+const loginFormValidation = new window.LoginForm('.loginForm');
+const registrationFormValidation = new window.RegistrationForm('.registrationForm');
+
 
 const loginForm = document.getElementsByClassName('loginForm')[0];
 const registrationForm = document.getElementsByClassName('registrationForm')[0];
@@ -53,6 +56,17 @@ const sectionsForManager = {
     profileSettings: '.profileSettings',
     menu: '.menu'
 };
+
+//телефон, тестовое
+
+    let orientation = window.matchMedia('(orientation: portrait)');
+
+    if(orientation.matches) {
+        alert('переверните телефон');
+    }
+
+//
+
 
 const openFunctionsForManager = {
     scoreboard: openScoreboard,
@@ -80,6 +94,10 @@ const openFunctionsForManager = {
 };
 
 const sectionManager = new window.SectionManager({sections: sectionsForManager, openFunctions: openFunctionsForManager});
+
+document.addEventListener('DOMContentLoaded', function (evt) {
+    colorComponent.setRandomScheme();
+});
 
 paintForm.addEventListener('mousedown', function (evt) {
     colorComponent.setRandomScheme();
@@ -170,7 +188,7 @@ function onSubmitLoginForm(evt) {
 
     const formData = {};
 
-    const emailPattern = /^[\w\.\d-_]+@[\w\.\d-_]+\.\w{2,4}$/i;
+    const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     let emailOrLogin = formElements['email'].value;
 
