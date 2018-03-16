@@ -58,7 +58,6 @@
             this.loginForm.removeEventListener('keyup', this.validateLogin);
             this.passwordForm.removeEventListener('keyup', this.validatePassword);
         }
-
     }
     window.LoginForm = LoginForm;
 })();
