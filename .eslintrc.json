@@ -30,7 +30,7 @@
             "off"
         ],
         "no-useless-escape": [
-            "warn"
+            "off"
         ]
     }
 }
