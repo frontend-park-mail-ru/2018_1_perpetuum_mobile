@@ -3,9 +3,9 @@
     const ErrorForm = window.ErrorForm;
 
     class LoginForm {
-        constructor() {
-            this.loginForm = document.querySelector('.loginForm .loginLabel .loginInput');
-            this.passwordForm = document.querySelector('.loginForm .passwordLabel .password');
+        constructor(formEl) {
+            this.loginForm = formEl.querySelector('.loginLabel .loginInput');
+            this.passwordForm = formEl.querySelector('.passwordLabel .password');
 
             this.login = null;
             this.password = null;
@@ -18,9 +18,9 @@
 
         validateLogin() {
             if (validateLength(this.loginForm.value)) {
-                this.errors.displayErrors('.loginForm .loginLabel', 'Login must contain at list 4 symbols');
+                ErrorForm.displayErrors(this.loginForm, 'Login must contain at least 4 symbols');
             } else {
-                this.errors.hideErrors('.loginForm .loginLabel');
+                ErrorForm.hideErrors(this.loginForm);
                 if (isEmail(this.loginForm.value)) {
                     this.email = this.loginForm.value;
                     this.login = null;
@@ -30,27 +30,33 @@
                 }
             }
             if (!this.loginForm.value.length) {
-                this.errors.removeError('.loginForm .loginLabel');
+                ErrorForm.removeError(this.loginForm);
             }
         }
 
         validatePassword() {
             if (validateLength(this.passwordForm.value)) {
-                this.errors.displayErrors('.loginForm .passwordLabel', 'Password must contain at list 4 symbols');
+                ErrorForm.displayErrors(this.passwordForm, 'Password must contain at least 4 symbols');
             } else {
-                this.errors.hideErrors('.loginForm .passwordLabel');
+                ErrorForm.hideErrors(this.passwordForm);
                 this.password = this.passwordForm.value;
             }
             if (!this.passwordForm.value.length) {
-                this.errors.removeError('.loginForm .passwordLabel');
+                ErrorForm.removeError(this.passwordForm);
             }
         }
 
         prepare() {
-            return this.errors.getErr() ? this.errors.getErr() : {'login': this.login, 'email': this.email, 'password': this.password};
+            return this.getError() ? false : {'login': this.login, 'email': this.email, 'password': this.password};
+        }
+
+        getError() {
+            return !this.email && !this.login || !this.password;
         }
 
         removeListeners() {
+            ErrorForm.removeError(this.passwordForm);
+            ErrorForm.removeError(this.loginForm);
             this.loginForm.removeEventListener('keyup', this.validateLogin);
             this.passwordForm.removeEventListener('keyup', this.validatePassword);
         }

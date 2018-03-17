@@ -1,8 +1,8 @@
 'use strict';
 
 function reduceWithValues(fromArray, keyArray) {
-    keyArray.reduce((allFields, fieldName) => {
-        allFields[fieldName] = allFields[fieldName].value;
+    return keyArray.reduce((allFields, fieldName) => {
+        allFields[fieldName] = fromArray[fieldName].value;
         return allFields;
     }, {});
 }

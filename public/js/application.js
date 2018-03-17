@@ -2,23 +2,6 @@
 
 const httpModule = new window.HttpModule();
 
-switch (window.location.hostname) {
-    case 'localhost':
-        httpModule.baseUrl = 'http://localhost:3050';
-        break;
-    case '127.0.0.1':
-        httpModule.baseUrl = 'http://127.0.0.1:3050';
-        break;
-    case 'blend-front.herokuapp.com':
-        httpModule.baseUrl = '//blend-back.herokuapp.com';
-        break;
-    case 'blendocu.herokuapp.com':
-        httpModule.baseUrl = '//blendocu-back.herokuapp.com';
-        break;
-    default:
-        httpModule.baseUrl = '';
-}
-
 const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
 const userFooterComponent = new window.UserFooterComponent( '.profile',
     {
@@ -28,14 +11,8 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
 );
 const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 const colorComponent = new window.ColorComponent('html');
-const loginFormValidation = new window.LoginForm();
-const registrationFormValidation = new window.RegistrationForm('.registrationForm');
 
-const loginForm = document.getElementsByClassName('loginForm')[0];
-const registrationForm = document.getElementsByClassName('registrationForm')[0];
-const changeImageForm = document.getElementsByClassName('changeImageForm')[0];
-const changeProfileNickForm = document.getElementsByClassName('changeProfileNickForm')[0];
-const changePasswordForm = document.getElementsByClassName('changePasswordForm')[0];
+
 const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
 const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];
 const paintForm = document.getElementsByClassName('changeColor')[0];
@@ -45,6 +22,8 @@ const application = document.getElementById('application');
 const changeImageButton = document.getElementById('changeImageButtonId');
 const imageInProfile = document.getElementById('imageInProfile');
 
+
+const user = new User();
 
 const sectionsForManager = {
     login: '.login',
@@ -56,39 +35,19 @@ const sectionsForManager = {
     menu: '.menu'
 };
 
-//телефон, тестовое
-
-let orientation = window.matchMedia('(orientation: portrait)');
-
-if (orientation.matches) {
-    alert('переверните телефон');
-}
-
-//
-
 
 const openFunctionsForManager = {
     scoreboard: openScoreboard,
     register: () => {
-        registrationForm.removeEventListener('submit', onSubmitRegisterForm);
-        registrationForm.reset();
-        registrationForm.addEventListener('submit', onSubmitRegisterForm);
+        user.registerForm = '.registrationForm';
     },
     login: () => {
-        loginForm.removeEventListener('submit', onSubmitLoginForm);
-        loginForm.reset();
-        loginForm.addEventListener('submit', onSubmitLoginForm);
+        user.loginForm = '.loginForm';
     },
     profileSettings: () => {
-        changePasswordForm.removeEventListener('submit', onSubmitChangePasswordForm);
-        changePasswordForm.reset();
-        changePasswordForm.addEventListener('submit', onSubmitChangePasswordForm);
-        changeProfileNickForm.removeEventListener('submit', onSubmitChangeProfileNickForm);
-        changeProfileNickForm.reset();
-        changeProfileNickForm.addEventListener('submit', onSubmitChangeProfileNickForm);
-        changeImageForm.removeEventListener('submit', onSubmitChangeImageForm);
-        changeImageForm.reset();
-        changeImageForm.addEventListener('submit', onSubmitChangeImageForm);
+        user.changePasswordForm = '.changePasswordForm';
+        user.changeProfileNickForm = '.changeProfileNickForm';
+        user.changeImageForm = '.changeImageForm';
     }
 };
 
@@ -102,173 +61,7 @@ paintForm.addEventListener('mousedown', function (evt) {
     colorComponent.setRandomScheme();
 });
 
-function onSubmitChangePasswordForm(evt) {
-    evt.preventDefault();
-    const fields = ['oldPassword', 'newPassword'];
 
-    const form = evt.currentTarget;
-    const formElements = form.elements;
-
-    const formData = reduceWithValues(formElements, fields);
-
-    changePassword(formData).then(
-        (response) => {
-            console.log(response);
-        }
-    ).catch(
-        (err) => {
-            console.log(err);
-            changePasswordForm.reset();
-            alert('Неверно!');
-        }
-    );
-}
-
-
-function onSubmitChangeProfileNickForm(evt) {
-    evt.preventDefault();
-    const fields = ['login', 'email'];
-
-    const form = evt.currentTarget;
-    const formElements = form.elements;
-
-    const formData = reduceWithValues(formElements, fields);
-
-    changeProfileNick(formData).then(
-        (response) => {
-            console.log(response);
-            checkAuth();
-        }
-    ).catch(
-        (err) => {
-            console.log(err);
-            changeProfileNickForm.reset();
-            alert('Неверно!');
-        }
-    );
-}
-
-function onSubmitChangeImageForm(evt) {
-
-    function getTypeFromMimeType(mimeTypeName) {
-        const slashPosition = mimeTypeName.lastIndexOf('/');
-        if (slashPosition === -1)
-            throw Error('Неподдерживаемый тип файла');
-        return mimeTypeName.substring(slashPosition + 1);
-
-    }
-
-    evt.preventDefault();
-
-    const selectedImage = changeImageButton.files[0];
-    const selectedImageMimeType = selectedImage.type;
-
-    if (selectedImageMimeType !== 'image/jpg' && selectedImageMimeType !== 'image/jpeg' && selectedImageMimeType !== 'image/png') {
-        try {
-            let selectedImageType = getTypeFromMimeType(selectedImageMimeType);
-            alert('Тип файла \"' + selectedImageType + '\" не поддерживается. ' +
-                  'Допустимые форматы данных: \"jpg\", \"jpeg\", \"png\". ');
-        } catch (e) {
-            alert(e.name + ': ' + e.message);
-        }
-        return;
-    }
-
-    const selectedImageSizeB = selectedImage.size;
-    const selectedImageSizeMB = selectedImageSizeB / 1024 / 1024;
-
-    const maxImageSizeMB = 2;
-    const maxImageSizeB = maxImageSizeMB * 1024 * 1024;
-
-    if (selectedImageSizeB > maxImageSizeB) {
-        alert('Размер изображения слишком велик: ' + selectedImageSizeMB.toFixed(2) + ' MB.\n' +
-              'Выберите изображение, размер которого меньше 2 MB.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('file', selectedImage);
-
-    changeImage(formData).then(
-        (response) => {
-            console.log(response);
-            changeImageForm.reset();
-
-            const imageInDownMenu = document.getElementById('imageInDownMenu');
-            imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
-            imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
-        }
-    ).catch(
-        (err) => {
-            console.log(err);
-            changeImageForm.reset();
-            alert('Неверно!!!');
-        }
-    );
-}
-
-
-function onSubmitLoginForm(evt) {
-    evt.preventDefault();
-
-    const form = evt.currentTarget;
-    const formElements = form.elements;
-
-    const formData = {};
-
-    const emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    let emailOrLogin = formElements['email'].value;
-
-    if (emailOrLogin.search(emailPattern) === -1) {
-        formData['login'] = emailOrLogin;
-    } else {
-        formData['email'] = emailOrLogin;
-    }
-
-    formData['password'] = formElements['password'].value;
-
-    console.info('Authorization: ', formData);
-
-    loginUser(formData).then(
-        (response) => {
-            console.log(response);
-            checkAuth();
-            sectionManager.openSection('menu');
-        }
-    ).catch(
-        (err) => {
-            console.log(err);
-            loginForm.reset();
-            alert('Неверно!');
-            return;
-        }
-    );
-}
-
-function onSubmitRegisterForm(evt) {
-    evt.preventDefault();
-    const fields = ['email', 'login', 'password'];
-
-    const form = evt.currentTarget;
-    const formElements = form.elements;
-
-    const formData = reduceWithValues(formElements, fields);
-
-    registerUser(formData).then(
-        (response) => {
-            console.log(response);
-            checkAuth();
-            sectionManager.openSection('menu');
-        }
-    ).catch(
-        (err) => {
-            console.log(err);
-            registrationForm.reset();
-            alert('Неверно!');
-        }
-    );
-}
 
 function onSubmitLogoutForm(evt) {
     evt.preventDefault();
@@ -357,28 +150,8 @@ application.addEventListener('click', function (evt) {
 });
 
 
-function changePassword(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
-}
-
-function changeProfileNick(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
-}
-
-function changeImage(data) {
-    return httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data});
-}
-
 function logoutUser() {
     return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'});
-}
-
-function loginUser(user) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user});
-}
-
-function registerUser(user) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user});
 }
 
 function loadAllUsers(data) {
@@ -413,3 +186,17 @@ function checkAuth() {
 
 checkAuth();
 sectionManager.openSection('menu');
+
+
+
+
+
+//телефон, тестовое
+
+/*let orientation = window.matchMedia('(orientation: portrait)');
+
+if (orientation.matches) {
+    alert('переверните телефон');
+}*/
+
+//
