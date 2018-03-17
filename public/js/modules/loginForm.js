@@ -19,11 +19,11 @@
 
         validateLogin() {
             const ALLOW_INPUT_LENGTH = 4;
-            if(this.loginForm.value.length < ALLOW_INPUT_LENGTH) {
+            if (this.loginForm.value.length < ALLOW_INPUT_LENGTH) {
                 this.errors.displayErrors('.loginForm .loginLabel');
             } else {
                 this.errors.hideErrors('.loginForm .loginLabel');
-                if(isEmail(this.loginForm.value)) {
+                if (isEmail(this.loginForm.value)) {
                     this.email = this.loginForm.value;
                     this.login = null;
                 } else {
@@ -35,7 +35,7 @@
 
         validatePassword() {
             const ALLOW_INPUT_LENGTH = 4;
-            if(this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
+            if (this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
                 this.errors.displayErrors('.loginForm .passwordLabel');
             } else {
                 this.errors.hideErrors('.loginForm .passwordLabel');

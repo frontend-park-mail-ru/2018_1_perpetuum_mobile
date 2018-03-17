@@ -20,7 +20,7 @@
         }
 
         validateLogin() {
-            if(isEmail(this.loginForm.value) || this.loginForm.value.length < 4) {
+            if (isEmail(this.loginForm.value) || this.loginForm.value.length < 4) {
                 this.errors.displayErrors('.registrationForm .loginLabel');
             } else {
                 this.errors.hideErrors('.registrationForm .loginLabel');
@@ -29,7 +29,7 @@
         }
 
         validateEmail() {
-            if(!isEmail(this.emailForm.value)) {
+            if (!isEmail(this.emailForm.value)) {
                 this.errors.displayErrors('.registrationForm .emailLabel');
             } else {
                 this.errors.hideErrors('.registrationForm .emailLabel');
@@ -39,7 +39,7 @@
 
         validatePassword() {
             const ALLOW_INPUT_LENGTH = 4;
-            if(this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
+            if (this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
                 this.errors.displayErrors('.registrationForm .passwordLabel');
             } else {
                 this.errors.hideErrors('.registrationForm .passwordLabel');

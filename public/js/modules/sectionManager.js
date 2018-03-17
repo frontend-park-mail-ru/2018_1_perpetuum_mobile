@@ -65,7 +65,7 @@
             this._openFunctions[sectionName] = sectionOpenFunction;
         }
 
-        reinit(){
+        reinit() {
             this._openFunctions = {};
             this._sections = {};
         }
