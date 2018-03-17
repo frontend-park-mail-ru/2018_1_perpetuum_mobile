@@ -10,20 +10,29 @@ html {
     --firstGradientColor: #0e0e0e;
     --logoColor: #0e0e0e;
     --baseColor: #0e0e0e;
+    --inputColor: #b1b1b1;
 }
 
 body {
 	font-family: 'Orbitron', sans-serif;
-  	background: linear-gradient(-45deg , var(--firstGradientColor) , var(--secondGradientColor));
+  	background: linear-gradient(-45deg, var(--firstGradientColor) -20%, var(--secondGradientColor) 50%, black 150%);
   	color: var(--secondColor);
     margin: 0 0 0 0 !important;
+    animation: background 10s infinite alternate;
+    transition: all 0.3s linear;
+}
+
+@keyframes background {
+    100% {
+        box-shadow: -1vh -1vh 90vh 1vh var(--firstGradientColor) inset;;
+    }
 }
 
 .wrapper {
    	display: grid;
    	height: 100vh;
    	grid-template-columns: 1fr 2fr 1fr;
-   	grid-template-rows: 15vh 0.5fr 1fr 1fr 1fr 10vh;
+   	grid-template-rows: 19vh 0.5fr 1fr 1fr 1fr 10vh;
 }
 
 .changeColor {
@@ -32,7 +41,7 @@ body {
     grid-column: 1;
     grid-row: 6;
     margin: 0 0 0 5vh;
-    border: transparent 2px solid;
+    border: transparent;
     background: transparent url("paint.png") no-repeat;
     background-size: 7vh 7vh;
 }
@@ -47,7 +56,7 @@ body {
 .logoBlendocu {
     grid-row: 1/2;
     grid-column: 2/3;
-	font-size: 7vw;
+	font-size: 8.5vw;
 	text-align: center;
     transition: all 0.3s linear;
 }
@@ -93,21 +102,26 @@ li {
 }
 
 .descriptionText {
-	font-size: 3vh;
+	font-size: 2.5vh;
     padding: 2vh 0 0 0;
 }
 
 .inputSize {
-	width: 50vh;
-	height: 4vh;
+	width: 52vh;
+	height: 6vh;
+    background-color: var(--inputColor);
+    border: var(--firstGradientColor) 2px solid;
+    border-radius: 3px;
+    transition: all 0.3s linear;
 }
 
 .wrongInputSize {
-    box-shadow: 0 0 10px red;
+    box-shadow: 0 0 20px #ff4845;
+    height: 5vh;
 }
 
 .rightInputSize {
-    box-shadow: 0 0 10px green;
+    box-shadow: 0 0 20px #6a9c2a;
 }
 
 .sectionHeader {
@@ -170,7 +184,7 @@ a:hover {
 .loginDiv {
     align-content: center;
     font-size: initial;
-	margin-top: 4vh;
+	margin-top: 3vh;
 }
 
 .registerButton {
@@ -264,10 +278,28 @@ th {
 .paginatorButton:disabled {
     color: var(--firstGradientColor);
 }
-.error {
-    text-align: center;
-    display: none;
-    color: #8b1f1b;
-    margin-top: 1vh;
-    transition: opacity 0.7s ease-in;
+
+.userFooterButton {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3vh;
+    transition: all 0.3s linear;
+    margin: auto 3vh auto 3vh;
+    color: var(--logoColor);
+}
+
+.userFooterButton:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+/** {*/
+    /*border: #6a9c2a 1px solid;*/
+/*}*/
+
+.wannaRegisterLogin {
+    margin-top: 3vh;
+}
+
+.errorForm {
+    color: darkred;
+    margin-top: 2vh;
+    font-size: 2vh;
 }

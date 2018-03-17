@@ -15,6 +15,7 @@
 
             errorForm.innerHTML = stringError;
             inputForm.parentNode.appendChild(errorForm);
+            errorForm.classList.add('errorForm')
         }
 
         static hideErrors(inputForm) {

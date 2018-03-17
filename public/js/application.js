@@ -10,10 +10,7 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
     }
 );
 
-const colorComponent = new window.ColorComponent('html');
-
-const paintForm = document.getElementsByClassName('changeColor')[0];
-
+const design = new window.Design('html');
 
 const application = document.getElementById('application');
 const changeImageButton = document.getElementById('changeImageButtonId');
@@ -54,14 +51,6 @@ const openFunctionsForManager = {
 
 const sectionManager = new window.SectionManager({sections: sectionsForManager, openFunctions: openFunctionsForManager});
 
-document.addEventListener('DOMContentLoaded', function (evt) {
-    colorComponent.setRandomScheme();
-});
-
-paintForm.addEventListener('mousedown', function (evt) {
-    colorComponent.setRandomScheme();
-});
-
 
 
 function onSubmitLogoutForm(evt) {
@@ -93,17 +82,13 @@ application.addEventListener('click', function (evt) {
     }
 });
 
-
 function logoutUser() {
     return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'});
 }
 
-
-
 function loadMe() {
     return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'});
 }
-
 
 function checkAuth() {
     loadMe().then(

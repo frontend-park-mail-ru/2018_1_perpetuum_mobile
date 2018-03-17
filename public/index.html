@@ -66,9 +66,10 @@
                     </label>
                     <input class="registerButton" type="submit" value="Login">
                 </form>
-
-                <div class="descriptionText">  You are not registered? </div>
-                <a href="" class="registerButton" data-section="register">Register</a>
+                <div class="wannaRegisterLogin">
+                    <div class="descriptionText">  You are not registered? </div>
+                    <a href="" class="registerButton" data-section="register">Register</a>
+                </div>
             </div>
         </section>
 
@@ -79,26 +80,24 @@
                     <div class="descriptionText"> Email </div>
                     <label class="emailLabel">
                         <input class="inputSize email" type="email" name="email">
-                        <div class="error">This is not email</div>
                     </label>
 
                     <div class="descriptionText"> Login </div>
                     <label class="loginLabel">
                         <input class="inputSize loginInput" type="text" name="login">
-                        <div class="error">Login min 3</div>
                     </label>
 
                     <div class="descriptionText">Password</div>
                     <label class="passwordLabel">
                         <input class="inputSize password" type="password" name="password">
-                        <div class="error">Password min 3</div>
                     </label>
 
                     <input class="registerButton" type="submit" value="Register">
                 </form>
-
-                <div class="descriptionText">  Have an account? </div>
-                <a href="#" class="registerButton" data-section="login">Login</a>
+                <div class="wannaRegisterLogin">
+                    <div class="descriptionText">  Have an account? </div>
+                    <a href="#" class="registerButton" data-section="login">Login</a>
+                </div>
             </div>
         </section>
 
@@ -138,7 +137,10 @@
         </section>
 
         <button class="changeColor"></button>
-		<footer class="profile"><a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a></footer>
+		<footer class="profile">
+            <a class="userFooterButton" data-section="login" href="#">Log in&nbsp;</a>
+            <a class="userFooterButton" data-section="register" href="#">Register</a>
+        </footer>
 
 	</div>
 
@@ -148,15 +150,16 @@
     <script defer src="./js/components/Scoreboard/Scoreboard.js"></script>
     <script defer src="./js/components/UserFooter/UserFooter.tmpl.js"></script>
     <script defer src="./js/components/UserFooter/UserFooter.js"></script>
-    <script defer src="js/modules/Paginator/Paginator.js"></script>
+    <script defer src="./js/modules/Paginator/Paginator.js"></script>
     <script defer src="./js/components/ColorComponent/ColorComponent.js"></script>
     <script defer src="./js/modules/http.js"></script>
     <script defer src="./js/modules/sectionManager.js"></script>
-    <script defer src="js/modules/Forms/errorForm.js"></script>
-    <script defer src="js/modules/Forms/loginForm.js"></script>
-    <script defer src="js/modules/Forms/registrationForm.js"></script>
-    <script defer src="js/essences/User.js"></script>
-    <script defer src="js/essences/Scoreboard.js"></script>
+    <script defer src="./js/modules/Forms/errorForm.js"></script>
+    <script defer src="./js/modules/Forms/loginForm.js"></script>
+    <script defer src="./js/modules/Forms/registrationForm.js"></script>
+    <script defer src="./js/essences/User.js"></script>
+    <script defer src="./js/essences/Design.js"></script>
+    <script defer src="./js/essences/Scoreboard.js"></script>
     <script defer src="./js/application.js"></script>
 
 </body>
