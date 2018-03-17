@@ -108,33 +108,30 @@
                 <div class="sectionHeader">Profile</div>
                 <form class="changeImageForm">
                     <img src="img.jpg" id="imageInProfile">
-                    <input type="file" name="file" id="changeImageButtonId"/>
+                    <input type="file" class="changeButton" name="file" id="changeImageButtonId">
                     <input type="submit" class="changeButton" value="Change">
                 </form>
-                <form class="changeProfileNickForm">
-
+                <div class="changeProfileNickForm">
                     <div class="descriptionText">Login</div>
                     <input class="inputSize loginInput" type="text" name="login" >
 
                     <div class="descriptionText descriptionTextWidth">Email</div>
                     <input class="inputSize email" type="email" name="email">
+                </div>
 
-                    <input type="submit" class="changeButton" value="Change">
-                </form>
-
-                <form class="changePasswordForm">
-                    <div class="changeProfilePassword">Change password</div>
-
+                <div class="changePasswordForm">
                     <div class="descriptionText">Old password</div>
                     <input class="inputSize password" type="password" name="oldPassword">
 
                     <div class="descriptionText">New password</div>
                     <input class="inputSize password" type="password" name="newPassword">
 
-                    <input type="submit" class="changeButton" value="Change">
-                </form>
+                </div>
+                <input type="submit" class="changeButton" value="Save">
             </div>
         </section>
+
+        <a class="userFooterButton" data-section="profileSettings">NADINA</a>
 
         <button class="changeColor"></button>
 		<footer class="profile">
