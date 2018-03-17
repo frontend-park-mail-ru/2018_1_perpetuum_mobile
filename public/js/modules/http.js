@@ -8,14 +8,14 @@
         'Content-Type': 'application/json'
     };
 
-	function checkAllRight(response){
-	    if(response.ok){
-	        return response.json();
+    function checkAllRight(response) {
+        if (response.ok) {
+            return response.json();
         }
         throw new Error('>= 300');
     }
 
-	class HttpModule {
+    class HttpModule {
 
         doGetFetch({url = '/', customHeaders = getCors} = {}) {
             const initSettings = {

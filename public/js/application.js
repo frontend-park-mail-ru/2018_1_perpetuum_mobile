@@ -2,7 +2,7 @@
 
 const httpModule = new window.HttpModule();
 
-switch(window.location.hostname) {
+switch (window.location.hostname) {
     case 'localhost':
         httpModule.baseUrl = 'http://localhost:3050';
         break;
@@ -58,11 +58,11 @@ const sectionsForManager = {
 
 //телефон, тестовое
 
-    let orientation = window.matchMedia('(orientation: portrait)');
+let orientation = window.matchMedia('(orientation: portrait)');
 
-    if(orientation.matches) {
-        alert('переверните телефон');
-    }
+if (orientation.matches) {
+    alert('переверните телефон');
+}
 
 //
 
@@ -168,7 +168,7 @@ function onSubmitChangeImageForm(evt) {
             let selectedImageType = getTypeFromMimeType(selectedImageMimeType);
             alert('Тип файла \"' + selectedImageType + '\" не поддерживается. ' +
                   'Допустимые форматы данных: \"jpg\", \"jpeg\", \"png\". ');
-        } catch(e) {
+        } catch (e) {
             alert(e.name + ': ' + e.message);
         }
         return;
@@ -270,7 +270,7 @@ function onSubmitRegisterForm(evt) {
     );
 }
 
-function onSubmitLogoutForm(evt){
+function onSubmitLogoutForm(evt) {
     evt.preventDefault();
 
     logoutUser().then(
