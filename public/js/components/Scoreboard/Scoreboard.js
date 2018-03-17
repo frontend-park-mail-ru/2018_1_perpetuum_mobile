@@ -1,8 +1,8 @@
 (function () {
 
     class ScoreboardComponent {
-        constructor(selector = 'body') {
-            this._el = document.querySelector(selector);
+        constructor(elem) {
+            this._el = elem;
         }
 
         get data() {

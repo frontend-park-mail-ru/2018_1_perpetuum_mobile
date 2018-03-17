@@ -1,10 +1,11 @@
 (function () {
 
-    class PaginatorComponent {
-        constructor(selectorLeft, selectorRight) {
+    class PaginatorModule {
+        constructor(leftEl, rightEl) {
             this._pageNum = 1;
-            this._left = document.querySelector(selectorLeft);
-            this._right = document.querySelector(selectorRight);
+            this._left = leftEl;
+            this._right = rightEl;
+            this._left.disabled = true;
         }
 
         get pageNum() {
@@ -67,6 +68,6 @@
 
     }
 
-    window.PaginatorComponent = PaginatorComponent;
+    window.PaginatorModule = PaginatorModule;
 
 })();

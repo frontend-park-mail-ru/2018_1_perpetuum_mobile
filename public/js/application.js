@@ -9,12 +9,12 @@ const userFooterComponent = new window.UserFooterComponent( '.profile',
         callback: onSubmitLogoutForm
     }
 );
-const scoreboardPaginatorComponent = new window.PaginatorComponent('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
+//const scoreboardPaginatorComponent = new window.PaginatorModule('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
 const colorComponent = new window.ColorComponent('html');
 
 
-const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
-const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];
+/*const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
+const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];*/
 const paintForm = document.getElementsByClassName('changeColor')[0];
 
 
@@ -24,6 +24,7 @@ const imageInProfile = document.getElementById('imageInProfile');
 
 
 const user = new User();
+const scoreboard = new Scoreboard();
 
 const sectionsForManager = {
     login: '.login',
@@ -37,7 +38,10 @@ const sectionsForManager = {
 
 
 const openFunctionsForManager = {
-    scoreboard: openScoreboard,
+    scoreboard: () => {
+        scoreboard.scoreboardTable = '.js-scoreboard-table';
+        scoreboard.setPaginator('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
+    },
     register: () => {
         user.registerForm = '.registrationForm';
     },
@@ -80,7 +84,7 @@ function onSubmitLogoutForm(evt) {
     );
 }
 
-function onSubmitScoreboardPaginatorLeftForm(evt) {
+/*function onSubmitScoreboardPaginatorLeftForm(evt) {
     evt.preventDefault();
 
     const page = {
@@ -135,7 +139,7 @@ function openScoreboard() {
             scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
         }
     );
-}
+}*/
 
 application.addEventListener('click', function (evt) {
     const target = evt.target;
@@ -154,9 +158,7 @@ function logoutUser() {
     return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'});
 }
 
-function loadAllUsers(data) {
-    return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data});
-}
+
 
 function loadMe() {
     return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'});
