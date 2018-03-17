@@ -2,19 +2,16 @@
 
 const httpModule = new window.HttpModule();
 
-const scoreboardComponent = new window.ScoreboardComponent('.js-scoreboard-table');
+
 const userFooterComponent = new window.UserFooterComponent( '.profile',
     {
         event: 'submit',
         callback: onSubmitLogoutForm
     }
 );
-//const scoreboardPaginatorComponent = new window.PaginatorModule('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
+
 const colorComponent = new window.ColorComponent('html');
 
-
-/*const scoreboardPaginatorLeftForm = document.getElementsByClassName('scoreboardPaginatorLeftForm')[0];
-const scoreboardPaginatorRightForm = document.getElementsByClassName('scoreboardPaginatorRightForm')[0];*/
 const paintForm = document.getElementsByClassName('changeColor')[0];
 
 
@@ -83,63 +80,6 @@ function onSubmitLogoutForm(evt) {
         }
     );
 }
-
-/*function onSubmitScoreboardPaginatorLeftForm(evt) {
-    evt.preventDefault();
-
-    const page = {
-        page: scoreboardPaginatorComponent.decrement()
-    };
-
-    loadAllUsers(page).then(
-        (data) => {
-            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-            scoreboardComponent.data = data;
-            scoreboardComponent.render();
-            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-        }
-    );
-}
-
-function onSubmitScoreboardPaginatorRightForm(evt) {
-    evt.preventDefault();
-
-    const page = {
-        page: scoreboardPaginatorComponent.increment()
-    };
-
-    loadAllUsers(page).then(
-        (data) => {
-            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-            scoreboardComponent.data = data;
-            scoreboardComponent.render();
-            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-        }
-    );
-}
-
-function openScoreboard() {
-    scoreboardComponent.clear();
-
-    const page = {
-        page: 1
-    };
-
-    scoreboardPaginatorComponent.clear();
-    scoreboardPaginatorLeftForm.removeEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
-    scoreboardPaginatorLeftForm.addEventListener('submit', onSubmitScoreboardPaginatorLeftForm);
-    scoreboardPaginatorRightForm.removeEventListener('submit', onSubmitScoreboardPaginatorRightForm);
-    scoreboardPaginatorRightForm.addEventListener('submit', onSubmitScoreboardPaginatorRightForm);
-
-    loadAllUsers(page).then(
-        (data) => {
-            data['currentPage'] = scoreboardPaginatorComponent.pageNum;
-            scoreboardComponent.data = data;
-            scoreboardComponent.render();
-            scoreboardPaginatorComponent.maxPageNum = data['maxPageNum'];
-        }
-    );
-}*/
 
 application.addEventListener('click', function (evt) {
     const target = evt.target;
