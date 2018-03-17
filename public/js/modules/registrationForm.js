@@ -15,40 +15,53 @@
             this.login = null;
             this.password = null;
             this.email = null;
-
             this.errors = new ErrorForm();
-        }
-
-        validateLogin() {
-            if (isEmail(this.loginForm.value) || validateLength(this.loginForm.value.length)) {
-                this.errors.displayErrors('.registrationForm .loginLabel');
-            } else {
-                this.errors.hideErrors('.registrationForm .loginLabel');
-                this.login = this.loginForm.value;
-            }
         }
 
         validateEmail() {
             if (!isEmail(this.emailForm.value)) {
-                this.errors.displayErrors('.registrationForm .emailLabel');
+                this.errors.displayErrors('.registrationForm .emailLabel', 'This is not email');
             } else {
                 this.errors.hideErrors('.registrationForm .emailLabel');
-                this.email = this.emailForm.value;
+                this.login = this.loginForm.value;
+            }
+            if (!this.emailForm.value.length) {
+                this.errors.removeError('.registrationForm .emailLabel');
+            }
+        }
+
+        validateLogin() {
+            if (validateLength(this.loginForm.value)) {
+                this.errors.displayErrors('.registrationForm .loginLabel', 'Login must contain at list 4 symbols');
+            } else {
+                this.errors.hideErrors('.registrationForm .loginLabel');
+                if (isEmail(this.loginForm.value)) {
+                    this.email = this.loginForm.value;
+                    this.login = null;
+                } else {
+                    this.login = this.loginForm.value;
+                    this.email = null;
+                }
+            }
+            if (!this.loginForm.value.length) {
+                this.errors.removeError('.registrationForm .loginLabel');
             }
         }
 
         validatePassword() {
-            const ALLOW_INPUT_LENGTH = 4;
-            if (this.passwordForm.value.length < ALLOW_INPUT_LENGTH) {
-                this.errors.displayErrors('.registrationForm .passwordLabel');
+            if (validateLength(this.passwordForm.value)) {
+                this.errors.displayErrors('.registrationForm .passwordLabel', 'Password must contain at list 4 symbols');
             } else {
                 this.errors.hideErrors('.registrationForm .passwordLabel');
                 this.password = this.passwordForm.value;
             }
+            if (!this.passwordForm.value.length) {
+                this.errors.removeError('.registrationForm .passwordLabel');
+            }
         }
 
         prepare() {
-            return this.ok ? this.ok : {'login': this.login, 'email': this.email, 'password': this.password};
+            return this.errors.getErr() ? this.errors.getErr() : {'login': this.login, 'email': this.email, 'password': this.password};
         }
 
         removeListeners() {
