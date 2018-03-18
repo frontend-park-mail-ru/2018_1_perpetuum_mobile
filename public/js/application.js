@@ -7,8 +7,6 @@ const user = new User();
 const scoreboard = new Scoreboard();
 
 const application = document.getElementById('application');
-const imageInProfile = document.getElementById('imageInProfile');
-
 
 
 const sectionsForManager = {
@@ -25,7 +23,7 @@ const sectionsForManager = {
 const openFunctionsForManager = {
     scoreboard: () => {
         scoreboard.scoreboardTable = '.js-scoreboard-table';
-        scoreboard.setPaginator('.scoreboardPaginatorLeftForm>.paginatorButton', '.scoreboardPaginatorRightForm>.paginatorButton');
+        scoreboard.setPaginator('.js-scoreboardPaginatorLeft>.js-paginatorButton', '.js-scoreboardPaginatorRight>.js-paginatorButton');
     },
     register: () => {
         user.registerForm = '.registrationForm';
