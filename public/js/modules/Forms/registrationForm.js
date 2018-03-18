@@ -15,7 +15,6 @@
             this.login = null;
             this.password = null;
             this.email = null;
-            this.errors = new ErrorForm();
         }
 
         validateEmail() {

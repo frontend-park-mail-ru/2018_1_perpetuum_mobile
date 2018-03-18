@@ -2,10 +2,8 @@
 
 const httpModule = new window.HttpModule();
 
-const colorComponent = new window.ColorComponent('html');
 
-const paintForm = document.getElementsByClassName('changeColor')[0];
-
+const design = new window.Design('html');
 
 const application = document.getElementById('application');
 const changeImageButton = document.getElementById('changeImageButtonId');
@@ -13,7 +11,6 @@ const imageInProfile = document.getElementById('imageInProfile');
 
 
 const user = new User();
-//user.userFooter = '.profile';
 const scoreboard = new Scoreboard();
 
 const sectionsForManager = {
@@ -47,13 +44,6 @@ const openFunctionsForManager = {
 
 const sectionManager = new window.SectionManager({sections: sectionsForManager, openFunctions: openFunctionsForManager});
 
-document.addEventListener('DOMContentLoaded', function (evt) {
-    colorComponent.setRandomScheme();
-});
-
-paintForm.addEventListener('mousedown', function (evt) {
-    colorComponent.setRandomScheme();
-});
 
 application.addEventListener('click', function (evt) {
     const target = evt.target;

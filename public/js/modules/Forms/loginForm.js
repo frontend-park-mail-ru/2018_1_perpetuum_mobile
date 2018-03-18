@@ -10,7 +10,6 @@
             this.login = null;
             this.password = null;
             this.email = null;
-            this.errors = new ErrorForm();
 
             this.loginForm.addEventListener('keyup', this.validateLogin.bind(this));
             this.passwordForm.addEventListener('keyup', this.validatePassword.bind(this));

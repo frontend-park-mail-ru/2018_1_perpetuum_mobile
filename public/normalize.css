@@ -339,3 +339,7 @@ template {
 [hidden] {
     display: none;
 }
+
+* {
+    outline: none !important;
+}
