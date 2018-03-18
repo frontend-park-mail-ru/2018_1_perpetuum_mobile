@@ -3,11 +3,12 @@
     const noop = () => null;
 
     class UserFooterComponent {
-        constructor(elem, {invokeOnClass = 'body', event = 'submit', callback = noop}) {
+        constructor(elem) {
             this._el = elem;
-            this._event = event;
-            this._callback = callback;
-            this._logoutClass = invokeOnClass;
+        }
+
+        set logoutClass(logoutClass) {
+            this._logoutClass = logoutClass;
         }
 
         get data() {
@@ -19,11 +20,6 @@
         }
 
         clear() {
-            // delete if had been authorized and invoked logout
-            const findLogout = document.getElementsByClassName(this._logoutClass)[0];
-            if (findLogout != null) {
-                findLogout.removeEventListener(this._event, this._callback);
-            }
             this._el.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
         }
 
@@ -32,18 +28,15 @@
                 return;
             }
 
-            // delete if had been authorized and rerendered
-            let findLogout = document.getElementsByClassName(this._logoutClass)[0];
-            if (findLogout != null) {
-                findLogout.removeEventListener(this._event, this._callback);
+            if (!this._logoutClass) {
+                console.warn('No logout class defined: ', this._logoutClass, '\nNo render!');
+                return;
             }
 
             this._data['logoutClass'] = this._logoutClass;
 
             const templateFest = window.fest['js/components/UserFooter/UserFooter.tmpl'](this._data);
             this._el.innerHTML = templateFest;
-            findLogout = document.getElementsByClassName(this._logoutClass)[0];
-            findLogout.addEventListener(this._event, this._callback); // will be deleted when logout or rerendered
         }
 
     }

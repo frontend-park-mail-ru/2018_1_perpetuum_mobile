@@ -13,7 +13,7 @@ const imageInProfile = document.getElementById('imageInProfile');
 
 
 const user = new User();
-user.userFooter = '.profile';
+//user.userFooter = '.profile';
 const scoreboard = new Scoreboard();
 
 const sectionsForManager = {

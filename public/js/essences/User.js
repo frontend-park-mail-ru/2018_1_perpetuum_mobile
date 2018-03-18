@@ -42,86 +42,88 @@
 
     class User {
 
-        /*constructor () {
+        constructor () {
+            this._logoutClass = 'logoutForm';
             this._userFooter = new UserFooterComponent(isQuerySelector('.profile'));
-        }*/
+            this._userFooter.logoutClass = this._logoutClass;
 
-        set userFooter(userFooterQs) {
-            if (this._userFooter) {
-                this._userFooter.clear();
-            }
-
-            this._userFooter = new UserFooterComponent(isQuerySelector(userFooterQs), {invokeOnClass: 'logoutForm',event: 'submit', callback: this.logout.bind(this)});
-            this._userFooter.clear();
+            this._loginBindFunc = this.login.bind(this);
+            this._registerBindFunc = this.register.bind(this);
+            this._logoutBindFunc = this.logout.bind(this);
+            this._changeImageBindFunc = this.changeImage.bind(this);
+            this._changePasswordBindFunc = this.changePassword.bind(this);
+            this._changeProfileNickBindFunc = this.changeProfileNick.bind(this);
         }
 
         set changeProfileNickForm(changeProfileNickFormQs) {
             if (this._changeProfileNickEl) {
                 //this._changeProfileNickForm.removeListener();
-                this._changeProfileNickEl.removeEventListener('submit', this.changeProfileNick);
+                this._changeProfileNickEl.removeEventListener('submit', this._changeProfileNickBindFunc);
             }
 
             //this._changeProfileNickForm = new ChangeProfileNickForm(changeProfileNickFormQs);
             this._changeProfileNickEl = isQuerySelector(changeProfileNickFormQs);
             this._changeProfileNickEl.reset();
-            this._changeProfileNickEl.addEventListener('submit', this.changeProfileNick.bind(this));
+            this._changeProfileNickEl.addEventListener('submit', this._changeProfileNickBindFunc);
         }
 
         set changePasswordForm(changePasswordFormQs) {
             if (this._changePasswordEl) {
                 //this._changePasswordForm.removeListeners();
-                this._changePasswordEl.removeEventListener('submit', this.changePassword);
+                this._changePasswordEl.removeEventListener('submit', this._changePasswordBindFunc);
             }
 
             //this._changePasswordForm = new ChangePasswordForm(changePasswordFormQs);
             this._changePasswordEl = isQuerySelector(changePasswordFormQs);
             this._changePasswordEl.reset();
-            this._changePasswordEl.addEventListener('submit', this.changePassword.bind(this));
+            this._changePasswordEl.addEventListener('submit', this._changePasswordBindFunc);
         }
 
         set changeImageForm(changeImageFormQs) {
             if (this._changeImageEl) {
                 //this._changeImageForm.removeListeners();
-                this._changeImageEl.removeEventListener('submit', this.changeProfileNick);
+                this._changeImageEl.removeEventListener('submit', this._changeImageBindFunc);
             }
 
             //this._changeImageForm = new ChangeImageForm(changeLoginFormQs);
             this._changeImageEl = isQuerySelector(changeImageFormQs);
             this._changeImageEl.reset();
-            this._changeImageEl.addEventListener('submit', this.changeImage.bind(this));
+            this._changeImageEl.addEventListener('submit', this._changeImageBindFunc);
         }
 
         set registerForm(registerFormQs) {
             if (this._registerEl) {
                 this._registerForm.removeListeners();
-                this._registerEl.removeEventListener('submit', this.register);
+                this._registerEl.removeEventListener('submit', this._registerBindFunc);
             }
 
             this._registerEl = isQuerySelector(registerFormQs);
             this._registerForm = new RegistrationForm(this._registerEl);
             this._registerEl.reset();
-            this._registerEl.addEventListener('submit', this.register.bind(this));
+            this._registerEl.addEventListener('submit', this._registerBindFunc);
         }
 
         set loginForm(loginFormQs) {
             if (this._loginEl) {
+
                 this._loginForm.removeListeners();
-                this._loginEl.removeEventListener('submit', this.login);
+                this._loginEl.removeEventListener('submit', this._loginBindFunc);
+                console.log('disable login listeners');
             }
 
             this._loginEl = isQuerySelector(loginFormQs);
             this._loginForm = new LoginForm(this._loginEl);
             this._loginEl.reset();
-            this._loginEl.addEventListener('submit', this.login.bind(this));
+            this._loginEl.addEventListener('submit', this._loginBindFunc);
         }
 
         set logoutBtn(logoutBtnQs) {
             if (this._logoutBtn) {
-                this._logoutBtn.removeEventListener('click', this.logout);
+                this._logoutBtn.removeEventListener('click', this._logoutBindFunc);
             }
 
             this._logoutBtn = isQuerySelector(logoutBtnQs);
-            this._logoutBtn.addEventListener('click', this.logout.bind(this));
+            this._logoutBtn.addEventListener('click', this._logoutBindFunc);
         }
 
         checkAuth() {
@@ -135,6 +137,7 @@
                     me.image = imageSource;
                     this._userFooter.data = me; // avatar in drop-down menu
                     this._userFooter.render();
+                    this.logoutBtn = '.' + this._logoutClass;
                 }
             ).catch(
                 (err) => {
