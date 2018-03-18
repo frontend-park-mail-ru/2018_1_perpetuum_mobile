@@ -1,10 +1,11 @@
 (function () {
 
+    const UserFooter = window.UserFooterComponent;
 
     const HttpModule = window.HttpModule;
 /*    const ChangeProfileNickForm = window.ChangeProfileNickForm;
     const ChangePasswordForm = window.ChangePasswordForm;
-    const ChangeLoginForm = window.ChangeLoginForm;*/
+    const ChangeImageForm = window.ChangeImageForm;*/
     const RegistrationForm = window.RegistrationForm;
     const LoginForm = window.LoginForm;
 
@@ -34,10 +35,6 @@
         return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user});
     }
 
-    function loadAllUsers(data) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data});
-    }
-
     function loadMe() {
         return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'});
     }
@@ -45,6 +42,18 @@
 
     class User {
 
+        /*constructor () {
+            this._userFooter = new UserFooterComponent(isQuerySelector('.profile'));
+        }*/
+
+        set userFooter(userFooterQs) {
+            if (this._userFooter) {
+                this._userFooter.clear();
+            }
+
+            this._userFooter = new UserFooterComponent(isQuerySelector(userFooterQs), {invokeOnClass: 'logoutForm',event: 'submit', callback: this.logout.bind(this)});
+            this._userFooter.clear();
+        }
 
         set changeProfileNickForm(changeProfileNickFormQs) {
             if (this._changeProfileNickEl) {
@@ -115,12 +124,34 @@
             this._logoutBtn.addEventListener('click', this.logout.bind(this));
         }
 
+        checkAuth() {
+            loadMe().then(
+                (me) => {
+                    console.log('me is ', me);
+                    let imageSource = httpModule.baseUrl + '/files/' + me.image;
+
+                    imageInProfile.setAttribute('src', imageSource); // avatar in profile
+
+                    me.image = imageSource;
+                    this._userFooter.data = me; // avatar in drop-down menu
+                    this._userFooter.render();
+                }
+            ).catch(
+                (err) => {
+                    console.log(err);
+                    this._userFooter.clear();
+                }
+            );
+        }
+
         changeImage(evt) {
 
             function getTypeFromMimeType(mimeTypeName) {
                 const slashPosition = mimeTypeName.lastIndexOf('/');
-                if (slashPosition === -1)
+                if (slashPosition === -1) {
+                    this._changeImageEl.reset();
                     throw Error('Неподдерживаемый тип файла');
+                }
                 return mimeTypeName.substring(slashPosition + 1);
 
             }
@@ -137,6 +168,8 @@
                         'Допустимые форматы данных: \"jpg\", \"jpeg\", \"png\". ');
                 } catch(e) {
                     alert(e.name + ': ' + e.message);
+                } finally {
+                    this._changeImageEl.reset();
                 }
                 return;
             }
@@ -150,6 +183,7 @@
             if (selectedImageSizeB > maxImageSizeB) {
                 alert('Размер изображения слишком велик: ' + selectedImageSizeMB.toFixed(2) + ' MB.\n' +
                     'Выберите изображение, размер которого меньше 2 MB.');
+                this._changeImageEl.reset();
                 return;
             }
 
@@ -159,7 +193,7 @@
             changeImage(formData).then(
                 (response) => {
                     console.log(response);
-                    changeImageForm.reset();
+                    this._changeImageEl.reset();
 
                     const imageInDownMenu = document.getElementById('imageInDownMenu');
                     imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
@@ -168,7 +202,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    changeImageForm.reset();
+                    this._changeImageEl.reset();
                     alert('Неверно!!!');
                 }
             );
@@ -190,7 +224,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    changePasswordForm.reset();
+                    this._changePasswordEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -208,12 +242,12 @@
             changeProfileNick(formData).then(
                 (response) => {
                     console.log(response);
-                    checkAuth();
+                    this.checkAuth();
                 }
             ).catch(
                 (err) => {
                     console.log(err);
-                    changeProfileNickForm.reset();
+                    this._changeProfileNickEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -233,13 +267,13 @@
             loginUser(formData).then(
                 (response) => {
                     console.log(response);
-                    checkAuth();
+                    this.checkAuth();
                     sectionManager.openSection('menu');
                 }
             ).catch(
                 (err) => {
                     console.log(err);
-                    loginForm.reset();
+                    this._loginEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -257,13 +291,13 @@
             registerUser(formData).then(
                 (response) => {
                     console.log(response);
-                    checkAuth();
+                    this.checkAuth();
                     sectionManager.openSection('menu');
                 }
             ).catch(
                 (err) => {
                     console.log(err);
-                    registrationForm.reset();
+                    this._registerEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -275,7 +309,7 @@
             logoutUser().then(
                 (response) => {
                     console.log(response);
-                    checkAuth();
+                    this.checkAuth();
                     sectionManager.openSection('menu');
                 }
             ).catch(

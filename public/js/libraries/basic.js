@@ -9,7 +9,7 @@ function reduceWithValues(fromArray, keyArray) {
 
 function isQuerySelector(querySelector) {
     const elem = document.querySelector(querySelector);
-    if (elem === undefined) {
+    if (!elem) {
         throw Error("no element found by query selector" + querySelector);
     }
     return elem;
