@@ -83,15 +83,17 @@ li {
 .profile {
 	grid-column: 3;
 	grid-row: 6/7;
-	text-align: center;
+	text-align: right;
     z-index: 1;
+    bottom: 0;
+    right: 0;
 }
 
 .changeProfile {
 	grid-row: 2/4;
 	grid-column: 2/3;
 	display: grid;
-	grid-template-columns: 40% 50%;
+	grid-template-columns: 40% 60%;
     grid-template-rows: 35vh 35vh;
 }
 
@@ -176,9 +178,10 @@ a:hover {
 }
 
 .avatarProfile {
+    box-sizing: border-box;
 	width: 20vh;
     height: 20vh;
-	border: 1vh solid var(--secondColor);
+	border: 0.5vh solid var(--secondColor);
 	border-radius: 5px;
     z-index: -1;
 }
@@ -245,22 +248,32 @@ th {
 }
 
 .imgInProfile {
+    box-sizing: border-box;
     border: var(--secondColor) 2px solid;
     border-radius: 3px;
-    width: 10vh;
+    width: 8vh;
+    height: 8vh;
+    margin-right: 2vh;
 }
 
 .submenu {
-    margin-top: -18vh;
-    margin-left: 5.5vw;
+    margin-top: -20vh;
     border-right: var(--baseColor) 1px solid;
     z-index: -5;
-    width: 13vw;
+    width: 24vh;
     position: absolute;
     height: 10vh;
     opacity: 0;
     list-style: none;
     transition: opacity 0.7s ease-in;
+    right: 0;
+    margin-right: 2vh;
+}
+
+.submenu li {
+    line-height: initial;
+    text-align: right;
+    margin-right: 1vh;
 }
 
 .profile:hover .submenu {
@@ -326,27 +339,31 @@ th {
 /*///////////*/
 
 .file-upload input[type="file"]{
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    font-size: 100px;
 }
 .file-upload {
-    height: 10vh;
+    height: 5vh;
     opacity: 0;
     font-size: 2vh;
     transition: all 0.3s linear;
     z-index: 5;
-    margin-top: -7.5vh;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
 }
 .file-upload:hover {
     opacity: 0.8;
 }
-.file-upload label {
-    width: 100%;
-    height: 100%;
-}
 
-.file-upload button {
+.triggerUploadImage {
     background-color: var(--greyColor);
-    width: 22vh;
+    width: 20vh;
     border: transparent;
     height: 5vh;
     border-bottom-left-radius: 5px;
@@ -363,7 +380,6 @@ th {
     border: var(--greyColor) 3px solid;
     transition: all 0.3s linear;
     border-radius: 2px;
-    margin: auto auto auto 3vh;
 }
 
 .changeButtonProfile:hover {

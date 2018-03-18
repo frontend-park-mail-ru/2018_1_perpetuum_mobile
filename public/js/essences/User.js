@@ -47,7 +47,7 @@
             this._userFooter = new UserFooterComponent(isQuerySelector('.profile'));
             this._userFooter.logoutClass = this._logoutClass;
 
-            this._loginBindFunc = this.login.bind(this);
+            this._loginBindFunction = this.login.bind(this);
             this._registerBindFunc = this.register.bind(this);
             this._logoutBindFunc = this.logout.bind(this);
             this._changeImageBindFunc = this.changeImage.bind(this);
@@ -107,14 +107,14 @@
             if (this._loginEl) {
 
                 this._loginForm.removeListeners();
-                this._loginEl.removeEventListener('submit', this._loginBindFunc);
+                this._loginEl.removeEventListener('submit', this._loginBindFunction);
                 console.log('disable login listeners');
             }
 
             this._loginEl = isQuerySelector(loginFormQs);
             this._loginForm = new LoginForm(this._loginEl);
             this._loginEl.reset();
-            this._loginEl.addEventListener('submit', this._loginBindFunc);
+            this._loginEl.addEventListener('submit', this._loginBindFunction);
         }
 
         set logoutBtn(logoutBtnQs) {
@@ -161,7 +161,7 @@
 
             evt.preventDefault();
 
-            const selectedImage = changeImageButton.files[0];
+            const selectedImage = this._changeImageEl.getElementsByClassName('js-upload-image')[0].files[0];
             const selectedImageMimeType = selectedImage.type;
 
             if (selectedImageMimeType !== 'image/jpg' && selectedImageMimeType !== 'image/jpeg' && selectedImageMimeType !== 'image/png') {

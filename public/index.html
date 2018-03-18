@@ -103,33 +103,24 @@
 
         <!--profile settings-->
 
-        <script>
-            function getFileName () {
-                let file = document.getElementById('uploaded-file').files[0].name;
-                document.getElementsByClassName('fileName')[0].innerHTML = file;
-            }
-        </script>
 
         <section class="profileSettings" hidden>
             <div class="sectionHeader">Profile</div>
-            <form class="changeProfile">
-                <div class="changeImageForm">
+            <div class="changeProfile">
+                <form class="changeImageForm js-changeImageForm">
                     <div class="imgAndChangeButton">
                         <img src="img.jpg" class="avatarProfile" id="imageInProfile">
                         <!--button to change image on avatar-->
                         <div class="file-upload">
-                            <label>
-                                <input type="file" name="file" onchange="getFileName();" id="uploaded-file">
-                                <button>Select img</button>
-                            </label>
+                            <button class="triggerUploadImage" type="button">Select img</button>
+                            <input class="js-upload-image uploadImage" type="file" name="file" id="uploaded-file">
                         </div>
                     </div>
                     <div class="fileName"></div>
-                    <!--<input type="file" class="fileSelectbutton" name="file" id="changeImageButtonId">-->
 
                     <input type="submit" class="changeButtonProfile" value="Change">
-                </div>
-                <div class="changeProfileNickForm">
+                </form>
+                <form class="changeProfileNickForm">
                     <div class="labelProfile">
                         <div class="descriptionText">Login</div>
                         <label>
@@ -155,17 +146,12 @@
                     </div>
 
                     <input type="submit" class="changeButton" value="Save">
-                </div>
-            </form>
+                </form>
+            </div>
         </section>
 
-        <a class="userFooterButton" data-section="profileSettings">NADINA</a>
-
         <button class="changeColor"></button>
-		<footer class="profile">
-            <a class="userFooterButton" data-section="login" href="#">Log in&nbsp;</a>
-            <a class="userFooterButton" data-section="register" href="#">Register</a>
-        </footer>
+		<footer class="profile"></footer>
 
 	</div>
 

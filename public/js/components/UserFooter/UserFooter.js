@@ -20,7 +20,8 @@
         }
 
         clear() {
-            this._el.innerHTML = '<a data-section="login" href="#">Log in&nbsp;</a>|&nbsp;<a data-section="register" href="#">Register</a>';
+            this._el.innerHTML = '<a class="userFooterButton" data-section="login" href="#">Login&nbsp;</a>\n' +
+                '            <a class="userFooterButton" data-section="register" href="#">Register</a>';
         }
 
         render() {

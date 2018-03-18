@@ -6,8 +6,21 @@ const httpModule = new window.HttpModule();
 const design = new window.Design('html');
 
 const application = document.getElementById('application');
-const changeImageButton = document.getElementById('changeImageButtonId');
 const imageInProfile = document.getElementById('imageInProfile');
+
+(function () {
+    function getFileName () {
+        console.log(document.getElementsByClassName('js-upload-image')[0].files);
+        let file = document.getElementsByClassName('js-upload-image')[0].files[0].name;
+        document.getElementsByClassName('fileName')[0].innerHTML = file;
+    }
+
+    const trigger = document.getElementsByClassName('js-upload-image')[0].addEventListener('change',
+        getFileName)
+})();
+
+/*const changeImageButton = document.getElementById('changeImageButtonId');
+const imageInProfile = document.getElementById('imageInProfile');*/
 
 
 const user = new User();
@@ -36,9 +49,9 @@ const openFunctionsForManager = {
         user.loginForm = '.loginForm';
     },
     profileSettings: () => {
-        user.changePasswordForm = '.changePasswordForm';
-        user.changeProfileNickForm = '.changeProfileNickForm';
-        user.changeImageForm = '.changeImageForm';
+        //user.changePasswordForm = '.changePasswordForm';
+        //user.changeProfileNickForm = '.changeProfileNickForm';
+        user.changeImageForm = '.js-changeImageForm';
     }
 };
 
