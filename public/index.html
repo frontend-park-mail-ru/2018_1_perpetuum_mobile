@@ -119,29 +119,30 @@
                     <div class="fileName"></div>
 
                     <input type="submit" class="changeButtonProfile" value="Change">
+                    <div class="errorFormWidth"><div class="errorFormImage"></div></div>
                 </form>
-                <form class="changeProfileNickForm">
+                <form class="changeProfileNickForm js-changeProfileForm">
                     <div class="labelProfile">
                         <div class="descriptionText">Login</div>
-                        <label>
-                            <input class="inputSize loginInput inputFormInProfile" type="text" name="login">
+                        <label class="js-loginLabel">
+                            <input class="inputSize js-loginInput inputFormInProfile" type="text" name="login">
                         </label>
                     </div>
                     <div class="labelProfile">
                         <div class="descriptionText descriptionTextWidth">Email</div>
-                        <label>
-                            <input class="inputSize email inputFormInProfile" type="email" name="email">
+                        <label class="js-emailLabel">
+                            <input class="inputSize js-email inputFormInProfile" type="email" name="email">
                         </label>
                     </div>
                     <div class="labelProfilePassword">
                         <div class="descriptionText">Old password</div>
-                        <label>
-                            <input class="inputSize password inputFormInProfile" type="password" name="oldPassword">
+                        <label class="js-old-passwordLabel">
+                            <input class="inputSize js-old-password inputFormInProfile" type="password" name="oldPassword">
                         </label>
 
                         <div class="descriptionText">New password</div>
-                        <label>
-                            <input class="inputSize password inputFormInProfile" type="password" name="newPassword">
+                        <label class="js-passwordLabel">
+                            <input class="inputSize js-password inputFormInProfile" type="password" name="newPassword">
                         </label>
                     </div>
 
@@ -168,6 +169,8 @@
     <script defer src="./js/modules/Forms/errorForm.js"></script>
     <script defer src="./js/modules/Forms/loginForm.js"></script>
     <script defer src="./js/modules/Forms/registrationForm.js"></script>
+    <script defer src="./js/modules/Forms/settingsForm.js"></script>
+    <script defer src="./js/modules/Forms/changeImageForm.js"></script>
     <script defer src="./js/essences/User.js"></script>
     <script defer src="./js/essences/Design.js"></script>
     <script defer src="./js/essences/Scoreboard.js"></script>

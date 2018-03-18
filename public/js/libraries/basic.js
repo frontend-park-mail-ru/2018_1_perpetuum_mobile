@@ -22,6 +22,6 @@ function isEmail(email) {
 
 function validateLength(value) {
     const ALLOW_INPUT_LENGTH = 4;
-    return (ALLOW_INPUT_LENGTH > value.length) && (value.length > 0);
+    return ((ALLOW_INPUT_LENGTH > value.length) && (value.length > 0));
 }
 

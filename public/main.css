@@ -59,6 +59,8 @@ body {
 	font-size: 18vh;
 	text-align: center;
     transition: all 0.3s linear;
+    max-height: 10vw;
+    overflow: hidden;
 }
 
 .logoBlendocu > a {
@@ -388,12 +390,23 @@ th {
 
 .fileName {
     font-size: 2vh;
-    margin-top: 4vh;
+    margin: 4vh auto auto auto;
+    overflow: hidden;
+    width: 20vh;
 }
 
 .imgAndChangeButton {
     width: 20vh;
     height: 20vh;
     position: relative;
+    margin: auto;
+}
+.errorFormImage {
+    opacity: 0;
+    height: 0px;
+    width: 0px;
+}
+.errorFormWidth {
+    width: 20vh;
     margin: auto;
 }

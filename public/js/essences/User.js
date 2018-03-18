@@ -3,19 +3,14 @@
     const UserFooter = window.UserFooterComponent;
 
     const HttpModule = window.HttpModule;
-/*    const ChangeProfileNickForm = window.ChangeProfileNickForm;
-    const ChangePasswordForm = window.ChangePasswordForm;
-    const ChangeImageForm = window.ChangeImageForm;*/
     const RegistrationForm = window.RegistrationForm;
     const LoginForm = window.LoginForm;
+    const ChangeProfileForm = window.SettingsForm;
+    const ChangeImageForm = window.ChangeImageForm;
 
     const httpModule = new HttpModule();
 
-    function changePassword(data) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
-    }
-
-    function changeProfileNick(data) {
+    function changeProfile(data) {
         return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
     }
 
@@ -51,42 +46,32 @@
             this._registerBindFunc = this.register.bind(this);
             this._logoutBindFunc = this.logout.bind(this);
             this._changeImageBindFunc = this.changeImage.bind(this);
-            this._changePasswordBindFunc = this.changePassword.bind(this);
-            this._changeProfileNickBindFunc = this.changeProfileNick.bind(this);
+            this._changeProfileBindFunc = this.changeProfile.bind(this);
+            this._imageInProfile = document.getElementById('imageInProfile');
         }
 
-        set changeProfileNickForm(changeProfileNickFormQs) {
-            if (this._changeProfileNickEl) {
-                //this._changeProfileNickForm.removeListener();
-                this._changeProfileNickEl.removeEventListener('submit', this._changeProfileNickBindFunc);
+        set changeProfileForm(changeProfileFormQs) {
+            if (this._changeProfileEl) {
+                this._changeProfileForm.removeListeners();
+                this._changeProfileEl.removeEventListener('submit', this._changeProfileBindFunc);
             }
 
-            //this._changeProfileNickForm = new ChangeProfileNickForm(changeProfileNickFormQs);
-            this._changeProfileNickEl = isQuerySelector(changeProfileNickFormQs);
-            this._changeProfileNickEl.reset();
-            this._changeProfileNickEl.addEventListener('submit', this._changeProfileNickBindFunc);
+
+            this._changeProfileEl = isQuerySelector(changeProfileFormQs);
+            this._changeProfileForm = new ChangeProfileForm(this._changeProfileEl);
+            this._changeProfileEl.reset();
+            this._changeProfileEl.addEventListener('submit', this._changeProfileBindFunc);
         }
 
-        set changePasswordForm(changePasswordFormQs) {
-            if (this._changePasswordEl) {
-                //this._changePasswordForm.removeListeners();
-                this._changePasswordEl.removeEventListener('submit', this._changePasswordBindFunc);
-            }
-
-            //this._changePasswordForm = new ChangePasswordForm(changePasswordFormQs);
-            this._changePasswordEl = isQuerySelector(changePasswordFormQs);
-            this._changePasswordEl.reset();
-            this._changePasswordEl.addEventListener('submit', this._changePasswordBindFunc);
-        }
 
         set changeImageForm(changeImageFormQs) {
             if (this._changeImageEl) {
-                //this._changeImageForm.removeListeners();
+                this._changeImageForm.removeListeners();
                 this._changeImageEl.removeEventListener('submit', this._changeImageBindFunc);
             }
 
-            //this._changeImageForm = new ChangeImageForm(changeLoginFormQs);
             this._changeImageEl = isQuerySelector(changeImageFormQs);
+            this._changeImageForm = new ChangeImageForm(this._changeImageEl);
             this._changeImageEl.reset();
             this._changeImageEl.addEventListener('submit', this._changeImageBindFunc);
         }
@@ -108,7 +93,6 @@
 
                 this._loginForm.removeListeners();
                 this._loginEl.removeEventListener('submit', this._loginBindFunction);
-                console.log('disable login listeners');
             }
 
             this._loginEl = isQuerySelector(loginFormQs);
@@ -132,7 +116,7 @@
                     console.log('me is ', me);
                     let imageSource = httpModule.baseUrl + '/files/' + me.image;
 
-                    imageInProfile.setAttribute('src', imageSource); // avatar in profile
+                    this._imageInProfile.setAttribute('src', imageSource); // avatar in profile
 
                     me.image = imageSource;
                     this._userFooter.data = me; // avatar in drop-down menu
@@ -149,49 +133,13 @@
 
         changeImage(evt) {
 
-            function getTypeFromMimeType(mimeTypeName) {
-                const slashPosition = mimeTypeName.lastIndexOf('/');
-                if (slashPosition === -1) {
-                    this._changeImageEl.reset();
-                    throw Error('Неподдерживаемый тип файла');
-                }
-                return mimeTypeName.substring(slashPosition + 1);
-
-            }
-
             evt.preventDefault();
 
-            const selectedImage = this._changeImageEl.getElementsByClassName('js-upload-image')[0].files[0];
-            const selectedImageMimeType = selectedImage.type;
+            const formData = this._changeImageForm.prepare();
 
-            if (selectedImageMimeType !== 'image/jpg' && selectedImageMimeType !== 'image/jpeg' && selectedImageMimeType !== 'image/png') {
-                try {
-                    let selectedImageType = getTypeFromMimeType(selectedImageMimeType);
-                    alert('Тип файла \"' + selectedImageType + '\" не поддерживается. ' +
-                        'Допустимые форматы данных: \"jpg\", \"jpeg\", \"png\". ');
-                } catch(e) {
-                    alert(e.name + ': ' + e.message);
-                } finally {
-                    this._changeImageEl.reset();
-                }
+            if (!formData) {
                 return;
             }
-
-            const selectedImageSizeB = selectedImage.size;
-            const selectedImageSizeMB = selectedImageSizeB / 1024 / 1024;
-
-            const maxImageSizeMB = 2;
-            const maxImageSizeB = maxImageSizeMB * 1024 * 1024;
-
-            if (selectedImageSizeB > maxImageSizeB) {
-                alert('Размер изображения слишком велик: ' + selectedImageSizeMB.toFixed(2) + ' MB.\n' +
-                    'Выберите изображение, размер которого меньше 2 MB.');
-                this._changeImageEl.reset();
-                return;
-            }
-
-            const formData = new FormData();
-            formData.append('file', selectedImage);
 
             changeImage(formData).then(
                 (response) => {
@@ -199,7 +147,7 @@
                     this._changeImageEl.reset();
 
                     const imageInDownMenu = document.getElementById('imageInDownMenu');
-                    imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
+                    this._imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                     imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                 }
             ).catch(
@@ -211,38 +159,16 @@
             );
         }
 
-        changePassword(evt) {
+        changeProfile(evt) {
             evt.preventDefault();
-            const fields = ['oldPassword', 'newPassword'];
 
-            const form = evt.currentTarget;
-            const formElements = form.elements;
+            const formData = this._changeProfileForm.prepare();
 
-            const formData = reduceWithValues(formElements, fields);
+            if (!formData) {
+                return;
+            }
 
-            changePassword(formData).then(
-                (response) => {
-                    console.log(response);
-                }
-            ).catch(
-                (err) => {
-                    console.log(err);
-                    this._changePasswordEl.reset();
-                    alert('Неверно!');
-                }
-            );
-        }
-
-        changeProfileNick(evt) {
-            evt.preventDefault();
-            const fields = ['login', 'email'];
-
-            const form = evt.currentTarget;
-            const formElements = form.elements;
-
-            const formData = reduceWithValues(formElements, fields);
-
-            changeProfileNick(formData).then(
+            changeProfile(formData).then(
                 (response) => {
                     console.log(response);
                     this.checkAuth();
@@ -250,7 +176,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._changeProfileNickEl.reset();
+                    this._changeProfileEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -264,8 +190,6 @@
             if (!formData) {
                 return;
             }
-
-            console.info('Authorization: ', formData);
 
             loginUser(formData).then(
                 (response) => {

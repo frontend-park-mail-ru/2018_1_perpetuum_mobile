@@ -11,8 +11,11 @@
             this.password = null;
             this.email = null;
 
-            this.loginForm.addEventListener('keyup', this.validateLogin.bind(this));
-            this.passwordForm.addEventListener('keyup', this.validatePassword.bind(this));
+            this.validateLoginBind = this.validateLogin.bind(this);
+            this.validatePasswordBind =  this.validatePassword.bind(this);
+
+            this.loginForm.addEventListener('keyup', this.validateLoginBind);
+            this.passwordForm.addEventListener('keyup', this.validatePasswordBind);
         }
 
         validateLogin() {
@@ -56,8 +59,8 @@
         removeListeners() {
             ErrorForm.removeError(this.passwordForm);
             ErrorForm.removeError(this.loginForm);
-            this.loginForm.removeEventListener('keyup', this.validateLogin);
-            this.passwordForm.removeEventListener('keyup', this.validatePassword);
+            this.loginForm.removeEventListener('keyup', this.validateLoginBind);
+            this.passwordForm.removeEventListener('keyup', this.validatePasswordBind);
         }
     }
     window.LoginForm = LoginForm;

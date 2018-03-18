@@ -2,29 +2,14 @@
 
 const httpModule = new window.HttpModule();
 
-
 const design = new window.Design('html');
+const user = new User();
+const scoreboard = new Scoreboard();
 
 const application = document.getElementById('application');
 const imageInProfile = document.getElementById('imageInProfile');
 
-(function () {
-    function getFileName () {
-        console.log(document.getElementsByClassName('js-upload-image')[0].files);
-        let file = document.getElementsByClassName('js-upload-image')[0].files[0].name;
-        document.getElementsByClassName('fileName')[0].innerHTML = file;
-    }
 
-    const trigger = document.getElementsByClassName('js-upload-image')[0].addEventListener('change',
-        getFileName)
-})();
-
-/*const changeImageButton = document.getElementById('changeImageButtonId');
-const imageInProfile = document.getElementById('imageInProfile');*/
-
-
-const user = new User();
-const scoreboard = new Scoreboard();
 
 const sectionsForManager = {
     login: '.login',
@@ -49,8 +34,7 @@ const openFunctionsForManager = {
         user.loginForm = '.loginForm';
     },
     profileSettings: () => {
-        //user.changePasswordForm = '.changePasswordForm';
-        //user.changeProfileNickForm = '.changeProfileNickForm';
+        user.changeProfileForm = '.js-changeProfileForm';
         user.changeImageForm = '.js-changeImageForm';
     }
 };
@@ -69,11 +53,6 @@ application.addEventListener('click', function (evt) {
         sectionManager.openSection(section);
     }
 });
-
-
-
-
-
 
 user.checkAuth();
 sectionManager.openSection('menu');
