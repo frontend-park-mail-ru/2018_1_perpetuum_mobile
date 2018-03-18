@@ -2,7 +2,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="main.css">
-    <!--<link rel="stylesheet" href="normalize.css">-->
+    <link rel="stylesheet" href="normalize.css">
 	<title> Blendocu </title>
 </head>
 
@@ -103,32 +103,60 @@
 
         <!--profile settings-->
 
+        <script>
+            function getFileName () {
+                let file = document.getElementById('uploaded-file').files[0].name;
+                document.getElementsByClassName('fileName')[0].innerHTML = file;
+            }
+        </script>
+
         <section class="profileSettings" hidden>
-            <div class="changeProfile">
-                <div class="sectionHeader">Profile</div>
-                <form class="changeImageForm">
-                    <img src="img.jpg" id="imageInProfile">
-                    <input type="file" class="changeButton" name="file" id="changeImageButtonId">
-                    <input type="submit" class="changeButton" value="Change">
-                </form>
+            <div class="sectionHeader">Profile</div>
+            <form class="changeProfile">
+                <div class="changeImageForm">
+                    <div class="imgAndChangeButton">
+                        <img src="img.jpg" class="avatarProfile" id="imageInProfile">
+                        <!--button to change image on avatar-->
+                        <div class="file-upload">
+                            <label>
+                                <input type="file" name="file" onchange="getFileName();" id="uploaded-file">
+                                <button>Select img</button>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="fileName"></div>
+                    <!--<input type="file" class="fileSelectbutton" name="file" id="changeImageButtonId">-->
+
+                    <input type="submit" class="changeButtonProfile" value="Change">
+                </div>
                 <div class="changeProfileNickForm">
-                    <div class="descriptionText">Login</div>
-                    <input class="inputSize loginInput" type="text" name="login" >
+                    <div class="labelProfile">
+                        <div class="descriptionText">Login</div>
+                        <label>
+                            <input class="inputSize loginInput inputFormInProfile" type="text" name="login">
+                        </label>
+                    </div>
+                    <div class="labelProfile">
+                        <div class="descriptionText descriptionTextWidth">Email</div>
+                        <label>
+                            <input class="inputSize email inputFormInProfile" type="email" name="email">
+                        </label>
+                    </div>
+                    <div class="labelProfilePassword">
+                        <div class="descriptionText">Old password</div>
+                        <label>
+                            <input class="inputSize password inputFormInProfile" type="password" name="oldPassword">
+                        </label>
 
-                    <div class="descriptionText descriptionTextWidth">Email</div>
-                    <input class="inputSize email" type="email" name="email">
+                        <div class="descriptionText">New password</div>
+                        <label>
+                            <input class="inputSize password inputFormInProfile" type="password" name="newPassword">
+                        </label>
+                    </div>
+
+                    <input type="submit" class="changeButton" value="Save">
                 </div>
-
-                <div class="changePasswordForm">
-                    <div class="descriptionText">Old password</div>
-                    <input class="inputSize password" type="password" name="oldPassword">
-
-                    <div class="descriptionText">New password</div>
-                    <input class="inputSize password" type="password" name="newPassword">
-
-                </div>
-                <input type="submit" class="changeButton" value="Save">
-            </div>
+            </form>
         </section>
 
         <a class="userFooterButton" data-section="profileSettings">NADINA</a>
