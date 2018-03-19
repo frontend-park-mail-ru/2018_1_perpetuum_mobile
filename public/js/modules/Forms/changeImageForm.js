@@ -6,7 +6,7 @@
         constructor(formEl) {
             this.imageForm = formEl.querySelector('.js-upload-image');
 
-            this.image = false;
+            this.isRightImage = false;
             this.selectedImage = null;
             this.err = document.querySelector('.errorFormImage');
             this.validateImageBind = this.validateImage.bind(this);
@@ -16,36 +16,34 @@
         }
 
         getFileName () {
-            let file = this.imageForm.files[0].name;
-            document.getElementsByClassName('fileName')[0].innerHTML = file;
+            document.getElementsByClassName('fileName')[0].innerHTML = this.imageForm.files[0].name;
         }
 
         validateImage(evt) {
-            console.log('dddd');
             this.selectedImage = this.imageForm.files[0];
-            const selectedImageMimeType = this.selectedImage.type;
 
-            if (selectedImageMimeType !== 'image/jpg' && selectedImageMimeType !== 'image/jpeg' && selectedImageMimeType !== 'image/png') {
+            const MIME_TYPE = ['image/jpeg', 'image/png', 'image/jpeg'];
+
+            if (MIME_TYPE.indexOf( this.selectedImage.type) === -1) {
                 ErrorForm.displayErrors(this.err, 'Unknown file type, you can upload .jpg .jpeg .png');
-                this.image = false;
+                this.isRightImage = false;
                 return;
             } else {
                 ErrorForm.hideErrors(this.err);
-                this.image = true;
+                this.isRightImage = true;
             }
-            const selectedImageSizeB = this.selectedImage.size;
-            const selectedImageSizeMB = selectedImageSizeB / 1024 / 1024;
 
+            const selectedImageSizeMB = this.selectedImage.size / 1024 / 1024;
             const maxImageSizeMB = 2;
             const maxImageSizeB = maxImageSizeMB * 1024 * 1024;
 
-            if (selectedImageSizeB > maxImageSizeB) {
+            if (this.selectedImage.size > maxImageSizeB) {
                 ErrorForm.displayErrors(this.err, 'Размер изображения слишком велик: ' + selectedImageSizeMB.toFixed(2) + ' MB. \n' +
                     '                    Выберите изображение, размер которого меньше 2 MB.');
-                this.image = false;
+                this.isRightImage = false;
             } else {
                 ErrorForm.hideErrors(this.err);
-                this.image = true;
+                this.isRightImage = true;
             }
         }
 
@@ -56,7 +54,7 @@
         }
 
         getError() {
-            return !this.image;
+            return !this.isRightImage;
         }
 
         removeListeners() {

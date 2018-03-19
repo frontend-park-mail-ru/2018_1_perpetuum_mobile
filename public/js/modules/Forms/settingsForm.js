@@ -13,78 +13,74 @@
             this.validatePasswordBind =  this.validatePassword.bind(this);
             this.validateEmailBind = this.validateEmail.bind(this);
 
-            this.loginForm.addEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.addEventListener('keyup', this.validatePasswordBind);
-            this.emailForm.addEventListener('keyup', this.validateEmailBind);
-            this.oldPasswordForm.addEventListener('keyup', this.validatePasswordBind);
+            this.forms = [this.emailForm, this.passwordForm, this.oldPasswordForm, this.loginForm];
+            this.binds = [this.validateEmailBind, this.validatePasswordBind, this.validatePasswordBind, this.validateLoginBind];
 
+            this.forms.forEach((item, i) => {
+                item.addEventListener('keyup', this.binds[i]);
+            });
 
-            this.login = true;
-            this.password = false;
-            this.email = false;
-            this.oldPassword = false;
+            this.isRightLogin = true;
+            this.isRightPassword = false;
+            this.isRightEmail = false;
+            this.isRightOldPassword = false;
         }
 
         validateEmail(evt) {
             if (!isEmail(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'This is not email');
-                this.email = false;
+                this.isRightEmail = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.email = true;
+                this.isRightEmail = true;
             }
             if (!evt.currentTarget.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.email = false;
+                this.isRightEmail = false;
             }
         }
 
         validateLogin(evt) {
             if (validateLength(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'Login must contain at list 4 symbols');
-                this.login = false;
+                this.isRightLogin = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.login = true;
+                this.isRightLogin = true;
             }
             if (!evt.currentTarget.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.login = false;
+                this.isRightLogin = false;
             }
         }
 
         validatePassword(evt) {
             if (validateLength(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'Password must contain at list 4 symbols');
-                this.password = false;
+                this.isRightPassword = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.password = true;
+                this.isRightPassword = true;
             }
             if (!evt.target.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.password = false;
+                this.isRightPassword = false;
             }
         }
 
         getError() {
-            return !(((this.password || this.passwordForm.value) && (this.oldPassword || this.oldPasswordForm.value)) && (this.email || this.emailForm.value) && (this.login || this.loginForm.value)) && (this.oldPasswordForm.value && this.passwordForm.value || this.emailForm.value || this.loginForm.value);
+            return !(((this.isRightPassword || this.passwordForm.value) && (this.isRightOldPassword || this.oldPasswordForm.value)) && (this.isRightEmail || this.emailForm.value) && (this.isRightLogin || this.loginForm.value)) && (this.oldPasswordForm.value && this.passwordForm.value || this.emailForm.value || this.loginForm.value);
         }
-
 
         prepare() {
             return this.getError() ? false : {'login': this.loginForm.value, 'email': this.emailForm.value, 'oldPassword': this.oldPasswordForm.value, 'password': this.passwordForm.value};
         }
 
         removeListeners() {
-            ErrorForm.removeError(this.passwordForm);
-            ErrorForm.removeError(this.emailForm);
-            ErrorForm.removeError(this.loginForm);
-            ErrorForm.removeError(this.oldPasswordForm);
-            this.loginForm.removeEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.removeEventListener('keyup', this.validatePasswordBind);
-            this.emailForm.removeEventListener('keyup', this.validateEmailBind);
-            this.oldPasswordForm.removeEventListener('keyup', this.validatePasswordBind);
+            this.forms.forEach((item, i) => {
+                ErrorForm.removeError(item);
+                item.removeEventListener('keyup', this.binds[i]);
+            });
         }
     }
     window.SettingsForm = SettingsForm;

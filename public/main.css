@@ -18,15 +18,15 @@ body {
   	background: linear-gradient(-45deg, var(--firstGradientColor) -20%, var(--secondGradientColor) 50%, black 150%);
   	color: var(--secondColor);
     margin: 0 0 0 0 !important;
-    animation: background 10s infinite alternate;
+    //animation: background 10s infinite alternate;
     transition: all 0.3s linear;
 }
 
-@keyframes background {
-    100% {
-        box-shadow: -1vh -1vh 90vh 1vh var(--firstGradientColor) inset;
-    }
-}
+/*@keyframes background {*/
+    /*100% {*/
+        /*box-shadow: -1vh -1vh 90vh 1vh var(--firstGradientColor) inset;*/
+    /*}*/
+/*}*/
 
 .wrapper {
    	display: grid;
@@ -117,7 +117,7 @@ li {
     background-color: var(--inputColor);
     border: var(--firstGradientColor) 2px solid;
     border-radius: 3px;
-    transition: all 0.1s linear;
+    transition: all 0.3s linear;
 }
 
 .wrongInputSize {
@@ -403,8 +403,8 @@ th {
 }
 .errorFormImage {
     opacity: 0;
-    height: 0px;
-    width: 0px;
+    height: 0;
+    width: 0;
 }
 .errorFormWidth {
     width: 20vh;

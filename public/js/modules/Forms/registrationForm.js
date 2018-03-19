@@ -12,59 +12,62 @@
             this.validatePasswordBind =  this.validatePassword.bind(this);
             this.validateEmailBind = this.validateEmail.bind(this);
 
-            this.loginForm.addEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.addEventListener('keyup', this.validatePasswordBind);
-            this.emailForm.addEventListener('keyup', this.validateEmailBind);
+            this.forms = [this.emailForm, this.passwordForm, this.loginForm];
+            this.binds = [this.validateEmailBind, this.validatePasswordBind, this.validateLoginBind];
 
-            this.login = false;
-            this.password = false;
-            this.email = false;
+            this.forms.forEach((item, i) => {
+                item.addEventListener('keyup', this.binds[i]);
+            });
+
+            this.isRightLogin = false;
+            this.isRigthPassword = false;
+            this.isRigthEmail = false;
         }
 
         validateEmail(evt) {
             if (!isEmail(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'This is not email');
-                this.email = false;
+                this.isRigthEmail = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.email = true;
+                this.isRigthEmail = true;
             }
             if (!evt.currentTarget.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.email = false;
+                this.isRigthEmail = false;
             }
         }
 
         validateLogin(evt) {
             if (validateLength(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'Login must contain at list 4 symbols');
-                this.login = false;
+                this.isRightLogin = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.login = true;
+                this.isRightLogin = true;
             }
             if (!evt.currentTarget.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.login = false;
+                this.isRightLogin = false;
             }
         }
 
         validatePassword(evt) {
             if (validateLength(evt.currentTarget.value)) {
                 ErrorForm.displayErrors(evt.currentTarget, 'Password must contain at list 4 symbols');
-                this.password = false;
+                this.isRigthPassword = false;
             } else {
                 ErrorForm.hideErrors(evt.currentTarget);
-                this.password = true;
+                this.isRigthPassword = true;
             }
             if (!evt.target.value.length) {
                 ErrorForm.removeError(evt.currentTarget);
-                this.password = false;
+                this.isRigthPassword = false;
             }
         }
 
         getError() {
-            return !this.password || !this.login || !this.email;
+            return !this.isRigthPassword || !this.isRightLogin || !this.isRigthEmail;
         }
 
 
@@ -73,12 +76,10 @@
         }
 
         removeListeners() {
-            ErrorForm.removeError(this.passwordForm);
-            ErrorForm.removeError(this.emailForm);
-            ErrorForm.removeError(this.loginForm);
-            this.loginForm.removeEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.removeEventListener('keyup', this.validatePasswordBind);
-            this.emailForm.removeEventListener('keyup', this.validateEmailBind);
+            this.forms.forEach((item, i) => {
+                ErrorForm.removeError(item);
+                item.removeEventListener('keyup', this.binds[i]);
+            });
         }
     }
     window.RegistrationForm = RegistrationForm;

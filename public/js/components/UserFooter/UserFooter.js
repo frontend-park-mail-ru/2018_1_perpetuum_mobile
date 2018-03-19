@@ -8,7 +8,7 @@
         }
 
         set logoutClass(logoutClass) {
-            this._logoutClass = logoutClass;
+            this.logoutClassQs = logoutClass;
         }
 
         get data() {
@@ -29,12 +29,12 @@
                 return;
             }
 
-            if (!this._logoutClass) {
-                console.warn('No logout class defined: ', this._logoutClass, '\nNo render!');
+            if (!this.logoutClassQs) {
+                console.warn('No logout class defined: ', this.logoutClassQs, '\nNo render!');
                 return;
             }
 
-            this._data['logoutClass'] = this._logoutClass;
+            this._data['logoutClass'] = this.logoutClassQs;
 
             const templateFest = window.fest['js/components/UserFooter/UserFooter.tmpl'](this._data);
             this._el.innerHTML = templateFest;

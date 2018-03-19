@@ -23,9 +23,6 @@
                 return initial;
             }, {});
 
-            console.log(sections);
-            console.log(openFunctions);
-
             this._sections = sections;
             this._openFunctions = openFunctions;
         }

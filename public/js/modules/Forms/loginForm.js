@@ -14,8 +14,12 @@
             this.validateLoginBind = this.validateLogin.bind(this);
             this.validatePasswordBind =  this.validatePassword.bind(this);
 
-            this.loginForm.addEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.addEventListener('keyup', this.validatePasswordBind);
+            this.forms = [this.passwordForm, this.loginForm];
+            this.binds = [this.validatePasswordBind, this.validateLoginBind];
+
+            this.forms.forEach((item, i) => {
+                item.addEventListener('keyup', this.binds[i]);
+            });
         }
 
         validateLogin() {
@@ -57,10 +61,10 @@
         }
 
         removeListeners() {
-            ErrorForm.removeError(this.passwordForm);
-            ErrorForm.removeError(this.loginForm);
-            this.loginForm.removeEventListener('keyup', this.validateLoginBind);
-            this.passwordForm.removeEventListener('keyup', this.validatePasswordBind);
+            this.forms.forEach((item, i) => {
+                ErrorForm.removeError(item);
+                item.removeEventListener('keyup', this.binds[i]);
+            });
         }
     }
     window.LoginForm = LoginForm;

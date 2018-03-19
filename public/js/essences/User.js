@@ -38,76 +38,74 @@
     class User {
 
         constructor () {
-            this._logoutClass = 'logoutForm';
-            this._userFooter = new UserFooterComponent(isQuerySelector('.profile'));
-            this._userFooter.logoutClass = this._logoutClass;
+            this.logoutClassQs = 'logoutForm';
+            this.userFooter = new UserFooterComponent(isQuerySelector('.profile'));
+            this.userFooter.logoutClass = this.logoutClassQs;
 
-            this._loginBindFunction = this.login.bind(this);
-            this._registerBindFunc = this.register.bind(this);
-            this._logoutBindFunc = this.logout.bind(this);
-            this._changeImageBindFunc = this.changeImage.bind(this);
-            this._changeProfileBindFunc = this.changeProfile.bind(this);
-            this._imageInProfile = document.getElementById('imageInProfile');
+            this.loginBindFunction = this.login.bind(this);
+            this.registerBindFunc = this.register.bind(this);
+            this.logoutBindFunc = this.logout.bind(this);
+            this.changeImageBindFunc = this.changeImage.bind(this);
+            this.changeProfileBindFunc = this.changeProfile.bind(this);
+            this.imageInProfile = document.getElementById('imageInProfile');
         }
 
         set changeProfileForm(changeProfileFormQs) {
-            if (this._changeProfileEl) {
-                this._changeProfileForm.removeListeners();
-                this._changeProfileEl.removeEventListener('submit', this._changeProfileBindFunc);
+            if (this.changeProfileEl) {
+                this.changeProfileFormEl.removeListeners();
+                this.changeProfileEl.removeEventListener('submit', this.changeProfileBindFunc);
             }
 
-
-            this._changeProfileEl = isQuerySelector(changeProfileFormQs);
-            this._changeProfileForm = new ChangeProfileForm(this._changeProfileEl);
-            this._changeProfileEl.reset();
-            this._changeProfileEl.addEventListener('submit', this._changeProfileBindFunc);
+            this.changeProfileEl = isQuerySelector(changeProfileFormQs);
+            this.changeProfileFormEl = new ChangeProfileForm(this.changeProfileEl);
+            this.changeProfileEl.reset();
+            this.changeProfileEl.addEventListener('submit', this.changeProfileBindFunc);
         }
 
 
         set changeImageForm(changeImageFormQs) {
-            if (this._changeImageEl) {
-                this._changeImageForm.removeListeners();
-                this._changeImageEl.removeEventListener('submit', this._changeImageBindFunc);
+            if (this.changeImageEl) {
+                this.changeImageFormEl.removeListeners();
+                this.changeImageEl.removeEventListener('submit', this.changeImageBindFunc);
             }
 
-            this._changeImageEl = isQuerySelector(changeImageFormQs);
-            this._changeImageForm = new ChangeImageForm(this._changeImageEl);
-            this._changeImageEl.reset();
-            this._changeImageEl.addEventListener('submit', this._changeImageBindFunc);
+            this.changeImageEl = isQuerySelector(changeImageFormQs);
+            this.changeImageFormEl = new ChangeImageForm(this.changeImageEl);
+            this.changeImageEl.reset();
+            this.changeImageEl.addEventListener('submit', this.changeImageBindFunc);
         }
 
         set registerForm(registerFormQs) {
-            if (this._registerEl) {
-                this._registerForm.removeListeners();
-                this._registerEl.removeEventListener('submit', this._registerBindFunc);
+            if (this.registerEl) {
+                this.registerFormEl.removeListeners();
+                this.registerEl.removeEventListener('submit', this.registerBindFunc);
             }
 
-            this._registerEl = isQuerySelector(registerFormQs);
-            this._registerForm = new RegistrationForm(this._registerEl);
-            this._registerEl.reset();
-            this._registerEl.addEventListener('submit', this._registerBindFunc);
+            this.registerEl = isQuerySelector(registerFormQs);
+            this.registerFormEl = new RegistrationForm(this.registerEl);
+            this.registerEl.reset();
+            this.registerEl.addEventListener('submit', this.registerBindFunc);
         }
 
         set loginForm(loginFormQs) {
-            if (this._loginEl) {
-
-                this._loginForm.removeListeners();
-                this._loginEl.removeEventListener('submit', this._loginBindFunction);
+            if (this.loginEl) {
+                this.loginFormEl.removeListeners();
+                this.loginEl.removeEventListener('submit', this.loginBindFunction);
             }
 
-            this._loginEl = isQuerySelector(loginFormQs);
-            this._loginForm = new LoginForm(this._loginEl);
-            this._loginEl.reset();
-            this._loginEl.addEventListener('submit', this._loginBindFunction);
+            this.loginEl = isQuerySelector(loginFormQs);
+            this.loginFormEl = new LoginForm(this.loginEl);
+            this.loginEl.reset();
+            this.loginEl.addEventListener('submit', this.loginBindFunction);
         }
 
         set logoutBtn(logoutBtnQs) {
-            if (this._logoutBtn) {
-                this._logoutBtn.removeEventListener('click', this._logoutBindFunc);
+            if (this.logoutBtnEl) {
+                this.logoutBtnEl.removeEventListener('click', this.logoutBindFunc);
             }
 
-            this._logoutBtn = isQuerySelector(logoutBtnQs);
-            this._logoutBtn.addEventListener('click', this._logoutBindFunc);
+            this.logoutBtnEl = isQuerySelector(logoutBtnQs);
+            this.logoutBtnEl.addEventListener('click', this.logoutBindFunc);
         }
 
         checkAuth() {
@@ -116,17 +114,17 @@
                     console.log('me is ', me);
                     let imageSource = httpModule.baseUrl + '/files/' + me.image;
 
-                    this._imageInProfile.setAttribute('src', imageSource); // avatar in profile
+                    this.imageInProfile.setAttribute('src', imageSource); // avatar in profile
 
                     me.image = imageSource;
-                    this._userFooter.data = me; // avatar in drop-down menu
-                    this._userFooter.render();
-                    this.logoutBtn = '.' + this._logoutClass;
+                    this.userFooter.data = me; // avatar in drop-down menu
+                    this.userFooter.render();
+                    this.logoutBtn = '.' + this.logoutClassQs;
                 }
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._userFooter.clear();
+                    this.userFooter.clear();
                 }
             );
         }
@@ -135,7 +133,7 @@
 
             evt.preventDefault();
 
-            const formData = this._changeImageForm.prepare();
+            const formData = this.changeImageFormEl.prepare();
 
             if (!formData) {
                 return;
@@ -144,16 +142,16 @@
             changeImage(formData).then(
                 (response) => {
                     console.log(response);
-                    this._changeImageEl.reset();
+                    this.changeImageEl.reset();
 
                     const imageInDownMenu = document.getElementById('imageInDownMenu');
-                    this._imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
+                    this.imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                     imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                 }
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._changeImageEl.reset();
+                    this.changeImageEl.reset();
                     alert('Неверно!!!');
                 }
             );
@@ -162,7 +160,7 @@
         changeProfile(evt) {
             evt.preventDefault();
 
-            const formData = this._changeProfileForm.prepare();
+            const formData = this.changeProfileFormEl.prepare();
 
             if (!formData) {
                 return;
@@ -176,7 +174,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._changeProfileEl.reset();
+                    this.changeProfileEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -185,7 +183,7 @@
         login(evt) {
             evt.preventDefault();
 
-            const formData = this._loginForm.prepare();
+            const formData = this.loginFormEl.prepare();
 
             if (!formData) {
                 return;
@@ -200,7 +198,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._loginEl.reset();
+                    this.loginEl.reset();
                     alert('Неверно!');
                 }
             );
@@ -209,7 +207,7 @@
         register(evt) {
             evt.preventDefault();
 
-            const formData = this._registerForm.prepare();
+            const formData = this.registerFormEl.prepare();
 
             if (!formData) {
                 return;
@@ -224,7 +222,7 @@
             ).catch(
                 (err) => {
                     console.log(err);
-                    this._registerEl.reset();
+                    this.registerEl.reset();
                     alert('Неверно!');
                 }
             );
