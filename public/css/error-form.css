@@ -10,7 +10,9 @@
 }
 
 .error-form_input {
-    color: darkred;
+    color: #e11525;
     margin-top: 2vh;
     font-size: 2vh;
+    margin-bottom: 1vh;
+    opacity: 0.8;
 }

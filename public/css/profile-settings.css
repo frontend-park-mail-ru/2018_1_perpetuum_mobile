@@ -5,6 +5,7 @@
 }
 
 .profile-settings__avatar-form {
+    margin-top: 2vh;
     grid-row: 1;
     grid-column: 1;
 }
