@@ -20,12 +20,13 @@
         }
 
         clear() {
-            this._el.innerHTML = '<a class="userFooterButton" data-section="login" href="#">Login&nbsp;</a>\n' +
-                '            <a class="userFooterButton" data-section="register" href="#">Register</a>';
+            this._el.innerHTML = '<a class="button__user-footer" data-section="login">Login</a>\n' +
+                '<a class="button__user-footer" data-section="register">Register</a>';
         }
 
         render() {
             if (!this._data) {
+                console.log('lol');
                 return;
             }
 
@@ -37,6 +38,7 @@
             this._data['logoutClass'] = this.logoutClassQs;
 
             const templateFest = window.fest['js/components/UserFooter/UserFooter.tmpl'](this._data);
+
             this._el.innerHTML = templateFest;
         }
 

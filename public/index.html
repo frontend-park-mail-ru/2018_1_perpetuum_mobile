@@ -1,162 +1,175 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="css/paginator-block.css">
+    <link rel="stylesheet" href="css/register-login-change.css">
+    <link rel="stylesheet" href="css/menu-list-block.css">
+    <link rel="stylesheet" href="css/wrapper-block.css">
+    <link rel="stylesheet" href="css/login-register-form-block.css">
+    <link rel="stylesheet" href="css/description-text.css">
+    <link rel="stylesheet" href="css/input-form.css">
+    <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/file-upload-button.css">
+    <link rel="stylesheet" href="css/avatar-and-change-button.css">
+    <link rel="stylesheet" href="css/profile-settings.css">
+    <link rel="stylesheet" href="css/error-form.css">
+    <link rel="stylesheet" href="css/profile-footer.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/colors.css">
 	<title> Blendocu </title>
 </head>
 
 <body>
-	<div class="wrapper" id="application">
-		<header class="logoBlendocu"> <a href="#" data-section="menu"> Blendocu </a> </header>
+    <div class="colors">
+	<div class="wrapper-block js-application">
+		<a class="wrapper-block__logo" data-section="menu"> Blendocu </a>
 
         <!--menu-->
 
-		<section class="menu">
-            <ul>
-                <li><a href="#" data-section="singlePlayer"> Start game </a> </li>
-                <li><a href="#" data-section="multiPlayer"> Multiplayer </a> </li>
-                <li><a href="#" data-section="scoreboard"> Scoreboard </a> </li>
-                <li><a href="#" data-section="about"> About </a> </li>
+		<section class="wrapper-block__main js-wrapper-menu">
+            <ul class="menu-list-block">
+                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="singlePlayer"> Start game </a> </li>
+                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="multiPlayer"> Multiplayer </a> </li>
+                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="scoreboard"> Scoreboard </a> </li>
+                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="about"> About </a> </li>
             </ul>
 		</section>
 
         <!--singleplayer-->
 
-        <section class="singlePlayer" hidden>
+        <section class="js-wrapper-singleplayer" hidden>
 
         </section>
 
         <!--multiplayer-->
 
-        <section class="multiPlayer" hidden>
+        <section class="js-wrapper-multiplayer" hidden>
 
         </section>
 
         <!--scoreboard-->
 
-        <section class="scoreboard" hidden>
-            <div class="sectionHeader">Scoreboard</div>
+        <section class="js-wrapper-scoreboard wrapper-block__main" hidden>
+            <div class="wrapper-block__section-header">Scoreboard</div>
             <div class="js-scoreboard-table">
                 <!-- scoreboard generics by js and will be placed here -->
             </div>
-            <div class="paginator">
-                <div class="js-scoreboardPaginatorLeft">
-                    <input class="js-paginatorButton paginatorButton" type="submit" value="<">
-                </div>
-                <div class="js-scoreboardPaginatorRight">
-                    <input class="js-paginatorButton paginatorButton" type="submit" value=">">
-                </div>
+
+            <div class="scoreboard-paginator">
+                <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value="<">
+                <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value=">">
             </div>
         </section>
 
         <!--login-->
 
-        <section class="login" hidden>
-            <div class="sectionHeader">Login</div>
-            <div class="loginDiv">
-                <form class="loginForm">
-                    <div class="descriptionText"> Username or email address </div>
-                    <label class="loginLabel">
-                        <input class="inputSize loginInput" type="text" name="email">
-                    </label>
-                    <div class="descriptionText">Password</div>
-                    <label class="passwordLabel">
-                        <input class="inputSize password" type="password" name="password">
-                    </label>
-                    <input class="registerButton" type="submit" value="Login">
-                </form>
-                <div class="wannaRegisterLogin">
-                    <div class="descriptionText">  You are not registered? </div>
-                    <a href="" class="registerButton" data-section="register">Register</a>
-                </div>
+        <section class="wrapper-block__main js-wrapper-login" hidden>
+            <div class="wrapper-block__section-header">Login</div>
+            <form class="login-register-form-block js-login-form ">
+                <div class="description-text"> Username or email address </div>
+                <label>
+                    <input class="input-form js-login-form__login" type="text" name="email">
+                </label>
+                <div class="description-text">Password</div>
+                <label>
+                    <input class="input-form js-login-form__password" type="password" name="password">
+                </label>
+                <input class="button_big button js-login-button" type="submit" value="Login">
+            </form>
+
+            <div class="register-login-change">
+                <div class="description-text">  You are not registered? </div>
+                <a class="register-login-change__button" data-section="register">Register</a>
             </div>
         </section>
 
-        <section class="registration" hidden>
-            <div class="sectionHeader">Register</div>
-            <div class="loginDiv">
-                <form class="registrationForm">
-                    <div class="descriptionText"> Email </div>
-                    <label class="emailLabel">
-                        <input class="inputSize email" type="email" name="email">
-                    </label>
+        <!--registration-->
 
-                    <div class="descriptionText"> Login </div>
-                    <label class="loginLabel">
-                        <input class="inputSize loginInput" type="text" name="login">
-                    </label>
+        <section class="wrapper-block__main js-wrapper-registration" hidden>
+            <div class="wrapper-block__section-header">Register</div>
+            <form class="login-register-form-block js-register-form">
+                <div class="description-text"> Email </div>
+                <label>
+                    <input class="input-form js-register-form__email" type="email" name="email">
+                </label>
+                <div class="description-text"> Login </div>
+                <label>
+                    <input class="input-form js-register-form__login" type="text" name="login">
+                </label>
+                <div class="description-text">Password</div>
+                <label>
+                    <input class="input-form js-register-form__password" type="password" name="password">
+                </label>
+                <input class="button_big button js-login-button" type="submit" value="Register">
+            </form>
 
-                    <div class="descriptionText">Password</div>
-                    <label class="passwordLabel">
-                        <input class="inputSize password" type="password" name="password">
-                    </label>
-
-                    <input class="registerButton" type="submit" value="Register">
-                </form>
-                <div class="wannaRegisterLogin">
-                    <div class="descriptionText">  Have an account? </div>
-                    <a href="#" class="registerButton" data-section="login">Login</a>
-                </div>
+            <div class="register-login-change">
+                <div class="description-text">  Have an account? </div>
+                <a class="register-login-change__button" data-section="login">Login</a>
             </div>
         </section>
 
         <!--profile settings-->
 
+        <section class="wrapper-block__main js-wrapper-profile-settings" hidden>
+            <div class="wrapper-block__section-header">Profile</div>
 
-        <section class="profileSettings" hidden>
-            <div class="sectionHeader">Profile</div>
-            <div class="changeProfile">
-                <form class="changeImageForm js-changeImageForm">
-                    <div class="imgAndChangeButton">
-                        <img src="img.jpg" class="avatarProfile" id="imageInProfile">
-                        <!--button to change image on avatar-->
-                        <div class="file-upload">
-                            <button class="triggerUploadImage" type="button">Select img</button>
-                            <input class="js-upload-image uploadImage" type="file" name="file" id="uploaded-file">
+
+            <div class="profile-settings">
+
+                <form class="profile-settings__avatar-form js-changeImageForm">
+                    <div class="avatar-and-change-button">
+                        <img src="img.jpg" class="avatar-and-change-button__avatar">
+
+                        <div class="file-upload-button">
+                            <button class="file-upload-button__trigger" type="button">Select img</button>
+                            <input class="js-upload-image file-upload-button__input" type="file" name="file">
                         </div>
                     </div>
-                    <div class="fileName"></div>
+                    <div class="profile-settings__file-name js-profile-settings-file-name"></div>
 
-                    <input type="submit" class="changeButtonProfile" value="Change">
-                    <div class="errorFormWidth"><div class="errorFormImage"></div></div>
+                    <input type="submit" class="button_little button" value="Change">
+                    <div class="error-form"><div class="error-form_image js-error-form-image"></div></div>
                 </form>
-                <form class="changeProfileNickForm js-changeProfileForm">
-                    <div class="labelProfile">
-                        <div class="descriptionText">Login</div>
-                        <label class="js-loginLabel">
-                            <input class="inputSize js-loginInput inputFormInProfile" type="text" name="login">
+
+                <form class="profile-settings__inputs-form js-changeProfileForm">
+                    <div class="profile-settings__labelProfile">
+                        <div class="description-text">Login</div>
+                        <label>
+                            <input class="input-form js-change-profile-form__login " type="text" name="login">
                         </label>
                     </div>
-                    <div class="labelProfile">
-                        <div class="descriptionText descriptionTextWidth">Email</div>
-                        <label class="js-emailLabel">
-                            <input class="inputSize js-email inputFormInProfile" type="email" name="email">
+                    <div class="profile-settings__labelProfile">
+                        <div class="description-text descriptionTextWidth">Email</div>
+                        <label>
+                            <input class="input-form js-change-profile-form__email" type="email" name="email">
                         </label>
                     </div>
-                    <div class="labelProfilePassword">
-                        <div class="descriptionText">Old password</div>
-                        <label class="js-old-passwordLabel">
-                            <input class="inputSize js-old-password inputFormInProfile" type="password" name="oldPassword">
+                    <div class="profile-settings__labelProfile">
+                        <div class="description-text">Old password</div>
+                        <label>
+                            <input class="input-form js-change-profile-form__old-password" type="password" name="oldPassword">
                         </label>
 
-                        <div class="descriptionText">New password</div>
-                        <label class="js-passwordLabel">
-                            <input class="inputSize js-password inputFormInProfile" type="password" name="newPassword">
+                        <div class="description-text">New password</div>
+                        <label>
+                            <input class="input-form js-change-profile-form__new-password" type="password" name="newPassword">
                         </label>
                     </div>
 
-                    <input type="submit" class="changeButton" value="Save">
+                    <input type="submit" class="button button_big" value="Save">
                 </form>
             </div>
         </section>
 
-        <a data-section="profileSettings">lol</a>
-        <button class="changeColor"></button>
-		<footer class="profile"></footer>
+        <button class="wrapper-block__change-color"></button>
+		<footer class="wrapper-block__profile">
+            <div class="js-profile profile-footer"></div>
+        </footer>
 
 	</div>
-
+    </div>
 
     <script defer src="./js/libraries/basic.js"></script>
     <script defer src="./js/components/Scoreboard/Scoreboard.tmpl.js"></script>

@@ -1,0 +1,20 @@
+.input-form {
+    width: 52vh;
+    height: 6vh;
+    background-color: var(--inputColor);
+    border: var(--firstGradientColor) 2px solid;
+    border-radius: 3px;
+    transition: all 0.3s linear;
+    margin-bottom: 1vh;
+}
+
+.input-form_wrong {
+    box-shadow: 0 0 20px #ff4845;
+    height: 5vh;
+    margin-bottom: 1vh;
+}
+
+.input-form_right {
+    box-shadow: 0 0 20px #6a9c2a;
+    margin-bottom: 1vh;
+}

@@ -12,7 +12,7 @@
             this.colorSetKeys = ['--baseColor', '--logoColor', '--firstGradientColor'];
 
             this.colorComponent = new ColorComponent();
-            this.paintForm = isQuerySelector('.changeColor');
+            this.paintForm = isQuerySelector('.wrapper-block__change-color');
             document.addEventListener('DOMContentLoaded', this.setRandomScheme.bind(this));
             this.paintForm.addEventListener('mousedown', this.setRandomScheme.bind(this));
 

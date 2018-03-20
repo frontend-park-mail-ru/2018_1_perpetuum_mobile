@@ -2,34 +2,34 @@
 
 const httpModule = new window.HttpModule();
 
-const design = new window.Design('html');
+const design = new window.Design('.colors');
 const user = new User();
 const scoreboard = new Scoreboard();
 
-const application = document.getElementById('application');
+const application = document.getElementsByClassName('js-application')[0];
 
 
 const sectionsForManager = {
-    login: '.login',
-    register: '.registration',
-    singlePlayer: '.singlePlayer',
-    multiPlayer: '.multiPlayer',
-    scoreboard: '.scoreboard',
-    profileSettings: '.profileSettings',
-    menu: '.menu'
+    login: '.js-wrapper-login',
+    register: '.js-wrapper-registration',
+    singlePlayer: '.js-wrapper-singleplayer',
+    multiPlayer: '.js-wrapper-multiplayer',
+    scoreboard: '.js-wrapper-scoreboard',
+    profileSettings: '.js-wrapper-profile-settings',
+    menu: '.js-wrapper-menu'
 };
 
 
 const openFunctionsForManager = {
     scoreboard: () => {
         scoreboard.scoreboardTable = '.js-scoreboard-table';
-        scoreboard.setPaginator('.js-scoreboardPaginatorLeft>.js-paginatorButton', '.js-scoreboardPaginatorRight>.js-paginatorButton');
+        scoreboard.setPaginator('.js-scoreboardPaginatorButtonLeft', '.js-scoreboardPaginatorButtonRight');
     },
     register: () => {
-        user.registerForm = '.registrationForm';
+        user.registerForm = '.js-register-form';
     },
     login: () => {
-        user.loginForm = '.loginForm';
+        user.loginForm = '.js-login-form';
     },
     profileSettings: () => {
         user.changeProfileForm = '.js-changeProfileForm';
@@ -54,17 +54,3 @@ application.addEventListener('click', function (evt) {
 
 user.checkAuth();
 sectionManager.openSection('menu');
-
-
-
-
-
-//телефон, тестовое
-
-/*let orientation = window.matchMedia('(orientation: portrait)');
-
-if (orientation.matches) {
-    alert('переверните телефон');
-}*/
-
-//

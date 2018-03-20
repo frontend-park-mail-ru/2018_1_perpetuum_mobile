@@ -3,8 +3,8 @@
 
         static displayErrors(inputForm, stringError) {
 
-            inputForm.classList.remove('rightInputSize');
-            inputForm.classList.add('wrongInputSize');
+            inputForm.classList.remove('input-form_right');
+            inputForm.classList.add('input-form_wrong');
 
             let errorForm = inputForm.parentNode.querySelector('.js-selector-errors');
 
@@ -15,12 +15,12 @@
 
             errorForm.innerHTML = stringError;
             inputForm.parentNode.appendChild(errorForm);
-            errorForm.classList.add('errorForm')
+            errorForm.classList.add('error-form_input')
         }
 
         static hideErrors(inputForm) {
-            inputForm.classList.add('rightInputSize');
-            inputForm.classList.remove('wrongInputSize');
+            inputForm.classList.add('input-form_right');
+            inputForm.classList.remove('input-form_wrong');
 
             let errorForm = inputForm.parentNode.querySelector('.js-selector-errors');
 
@@ -30,15 +30,15 @@
         }
 
         static removeError(inputForm) {
-            inputForm.classList.add('rightInputSize');
+            inputForm.classList.add('input-form_right');
 
             let errorForm = inputForm.parentNode.querySelector('.js-selector-errors');
 
             if (errorForm) {
                 inputForm.parentNode.removeChild(errorForm);
             }
-            inputForm.classList.remove('wrongInputSize');
-            inputForm.classList.remove('rightInputSize');
+            inputForm.classList.remove('input-form_wrong');
+            inputForm.classList.remove('input-form_right');
         }
     }
 

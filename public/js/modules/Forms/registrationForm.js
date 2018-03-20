@@ -4,9 +4,9 @@
 
     class RegistrationForm {
         constructor(formEl) {
-            this.loginForm = formEl.querySelector('.loginLabel .loginInput');
-            this.passwordForm = formEl.querySelector('.passwordLabel .password');
-            this.emailForm = formEl.querySelector('.emailLabel .email');
+            this.loginForm = formEl.querySelector('.js-register-form__login');
+            this.passwordForm = formEl.querySelector('.js-register-form__password');
+            this.emailForm = formEl.querySelector('.js-register-form__email');
 
             this.validateLoginBind = this.validateLogin.bind(this);
             this.validatePasswordBind =  this.validatePassword.bind(this);

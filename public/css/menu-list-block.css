@@ -1,0 +1,19 @@
+.menu-list-block {
+    padding: 0;
+}
+
+.menu-list-block__item {
+    list-style-type: none;
+    text-align: center;
+    line-height: 13vh;
+}
+
+.menu-list-block__data {
+    text-decoration: none;
+    color: var(--secondColor);
+    transition: all 0.3s linear;
+}
+
+.menu-list-block__data:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}

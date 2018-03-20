@@ -4,10 +4,10 @@
 
     class SettingsForm {
         constructor(formEl) {
-            this.loginForm = formEl.querySelector('.js-loginLabel .js-loginInput');
-            this.passwordForm = formEl.querySelector('.js-passwordLabel .js-password');
-            this.oldPasswordForm = formEl.querySelector('.js-old-passwordLabel .js-old-password');
-            this.emailForm = formEl.querySelector('.js-emailLabel .js-email');
+            this.loginForm = formEl.querySelector('.js-change-profile-form__login');
+            this.passwordForm = formEl.querySelector('.js-change-profile-form__new-password');
+            this.oldPasswordForm = formEl.querySelector('.js-change-profile-form__old-password');
+            this.emailForm = formEl.querySelector('.js-change-profile-form__email');
 
             this.validateLoginBind = this.validateLogin.bind(this);
             this.validatePasswordBind =  this.validatePassword.bind(this);

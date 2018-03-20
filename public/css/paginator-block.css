@@ -1,0 +1,16 @@
+.scoreboard-paginator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.scoreboard-paginator__button {
+    color: var(--secondColor);
+    background: none;
+    border: 0;
+    font-size: 5vh;
+}
+
+.scoreboard-paginator__button:disabled {
+    color: var(--firstGradientColor);
+}

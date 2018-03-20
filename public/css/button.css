@@ -1,0 +1,34 @@
+.button {
+    background: var(--greyColor);
+    color: var(--secondColor);
+    font-size: 3vh;
+    border: var(--greyColor) 3px solid;
+    transition: all 0.3s linear;
+    border-radius: 2px;
+    margin: 3vh 2vh 2vh 2vh;
+    align-self: center;
+}
+
+.button_big {
+    width: 53vh;
+    height: 6vh;
+}
+
+.button_little {
+    width: 18vh;
+    height: 4vh;
+}
+
+.button__user-footer {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3vh;
+    transition: all 0.3s linear;
+    margin: auto 3vh auto 3vh;
+    color: var(--logoColor);
+    text-decoration: none;
+}
+
+
+.button_big:hover, .button_little:hover, .button__user-footer:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}

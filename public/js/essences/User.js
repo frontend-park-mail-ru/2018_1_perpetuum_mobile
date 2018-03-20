@@ -11,43 +11,42 @@
     const httpModule = new HttpModule();
 
     function changeProfile(data) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/settings', data: data});
+        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/settings`, data: data});
     }
 
     function changeImage(data) {
-        return httpModule.doPostDataFetch({url: httpModule.baseUrl + '/change_avatar', data: data});
+        return HttpModule.doPostDataFetch({url: `${httpModule.baseUrl}/change_avatar`, data: data});
     }
 
     function logoutUser() {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/logout'});
+        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/logout`});
     }
 
     function loginUser(user) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/login', data: user});
+        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/login`, data: user});
     }
 
     function registerUser(user) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/register', data: user});
+        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/register`, data: user});
     }
 
     function loadMe() {
-        return httpModule.doGetFetch({url: httpModule.baseUrl + '/me'});
+        return HttpModule.doGetFetch({url: `${httpModule.baseUrl}/me`});
     }
 
 
     class User {
 
         constructor () {
-            this.logoutClassQs = 'logoutForm';
-            this.userFooter = new UserFooterComponent(isQuerySelector('.profile'));
+            this.logoutClassQs = 'js-logout-form';
+            this.userFooter = new UserFooterComponent(isQuerySelector('.js-profile'));
             this.userFooter.logoutClass = this.logoutClassQs;
-
             this.loginBindFunction = this.login.bind(this);
             this.registerBindFunc = this.register.bind(this);
             this.logoutBindFunc = this.logout.bind(this);
             this.changeImageBindFunc = this.changeImage.bind(this);
             this.changeProfileBindFunc = this.changeProfile.bind(this);
-            this.imageInProfile = document.getElementById('imageInProfile');
+            this.imageInProfile = document.getElementsByClassName('avatar-and-change-button__avatar')[0];
         }
 
         set changeProfileForm(changeProfileFormQs) {
@@ -112,14 +111,14 @@
             loadMe().then(
                 (me) => {
                     console.log('me is ', me);
-                    let imageSource = httpModule.baseUrl + '/files/' + me.image;
+                    const imageSource = `${httpModule.baseUrl}/files/${me.image}`;
 
                     this.imageInProfile.setAttribute('src', imageSource); // avatar in profile
 
                     me.image = imageSource;
                     this.userFooter.data = me; // avatar in drop-down menu
                     this.userFooter.render();
-                    this.logoutBtn = '.' + this.logoutClassQs;
+                    this.logoutBtn = `.${this.logoutClassQs}`;
                 }
             ).catch(
                 (err) => {
@@ -144,7 +143,7 @@
                     console.log(response);
                     this.changeImageEl.reset();
 
-                    const imageInDownMenu = document.getElementById('imageInDownMenu');
+                    const imageInDownMenu = document.getElementsByClassName('js-profile-footer__avatar')[0];
                     this.imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                     imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
                 }

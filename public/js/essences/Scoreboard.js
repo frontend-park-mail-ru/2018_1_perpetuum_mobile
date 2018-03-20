@@ -5,7 +5,7 @@
 
 
     function loadAllUsers(data) {
-        return httpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data});
+        return HttpModule.doPostFetch({url: httpModule.baseUrl + '/users', data: data});
     }
 
 

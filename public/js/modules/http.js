@@ -22,9 +22,11 @@
             switch (window.location.hostname) {
                 case 'localhost':
                     this.baseUrl = 'http://localhost:3050';
+                    // this.baseUrl = '//blendocu-back.herokuapp.com';
                     break;
                 case '127.0.0.1':
                     this.baseUrl = 'http://127.0.0.1:3050';
+                    // this.baseUrl = '//blendocu-back.herokuapp.com';
                     break;
                 case 'blend-front.herokuapp.com':
                     httpModule.baseUrl = '//blend-back.herokuapp.com';
@@ -37,7 +39,7 @@
             }
         }
 
-        doGetFetch({url = '/', customHeaders = getCors} = {}) {
+        static doGetFetch({url = '/', customHeaders = getCors} = {}) {
             const initSettings = {
                 method: 'get',
                 mode: 'cors',
@@ -48,7 +50,7 @@
             return fetch(url, initSettings).then(checkAllRight);
         }
 
-        doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}) {
+        static doPostFetch({url = '/', customHeaders = postCors, data = {}} = {}) {
             const initSettings = {
                 method: 'post',
                 mode: 'cors',
@@ -62,7 +64,7 @@
         }
 		
 
-        doPostDataFetch({url = '/', data = {}} = {}) {
+        static doPostDataFetch({url = '/', data = {}} = {}) {
             const initSettings = {
                 method: 'post',
                 mode: 'cors',

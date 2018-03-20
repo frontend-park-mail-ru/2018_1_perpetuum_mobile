@@ -1,0 +1,16 @@
+.error-form {
+    width: 20vh;
+    margin: auto;
+}
+
+.error-form_image {
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.error-form_input {
+    color: darkred;
+    margin-top: 2vh;
+    font-size: 2vh;
+}

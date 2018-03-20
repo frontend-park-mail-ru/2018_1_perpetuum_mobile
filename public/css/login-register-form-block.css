@@ -1,0 +1,5 @@
+.login-register-form-block {
+    font-size: initial;
+    display: flex;
+    flex-direction: column;
+}

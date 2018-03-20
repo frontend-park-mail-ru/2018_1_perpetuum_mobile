@@ -1,11 +1,11 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
 
-	<table>
+	<table class="table">
 		<tbody>
             <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Score</th>
+                <th class="table__th">#</th>
+                <th class="table__th">Name</th>
+                <th class="table__th">Score</th>
             </tr>
 			<fest:for iterate="data.filling" index="i" value="v">
 				<tr>

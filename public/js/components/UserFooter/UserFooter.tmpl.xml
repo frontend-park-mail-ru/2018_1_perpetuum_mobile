@@ -1,10 +1,10 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
-    <fest:value>data.login</fest:value>
-    <img src="{data.image}" class="imgInProfile" id="imageInDownMenu"/>
-    <div class="submenu">
+    <div class="profile-footer__login"><fest:value>data.login</fest:value></div>
+    <img src="{data.image}" class="profile-footer__avatar js-profile-footer__avatar"/>
+    <div class="profile-footer__submenu">
         <ul>
-            <li><form class="{data.logoutClass}" method="post"><input type="submit" value="Logout" class="logoutButton"/></form></li>
-            <li><a data-section="profileSettings">Settings</a></li>
+            <li class="profile-footer__list"><form class="{data.logoutClass}" method="post"><input type="submit" value="Logout" class="profile-footer__logout-button"/></form></li>
+            <li class="profile-footer__list"><a data-section="profileSettings">Settings</a></li>
         </ul>
     </div>
 </fest:template>

@@ -4,8 +4,8 @@
 
     class LoginForm {
         constructor(formEl) {
-            this.loginForm = formEl.querySelector('.loginLabel .loginInput');
-            this.passwordForm = formEl.querySelector('.passwordLabel .password');
+            this.loginForm = formEl.querySelector('.js-login-form__login');
+            this.passwordForm = formEl.querySelector('.js-login-form__password');
 
             this.login = null;
             this.password = null;
