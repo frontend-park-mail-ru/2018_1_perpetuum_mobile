@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="stylesheet" href="css/paginator-block.css">
     <link rel="stylesheet" href="css/register-login-change.css">
@@ -22,173 +23,50 @@
 
 <body>
     <div class="colors">
-	<div class="wrapper-block js-application">
-		<a class="wrapper-block__logo" data-section="menu"> Blendocu </a>
+        <div class="wrapper-block js-application">
+            <a class="wrapper-block__logo" data-section="menu"> Blendocu </a>
+            <div class="wrapper-block__main">
 
-        <!--menu-->
-
-		<!--<section class="wrapper-block__main js-wrapper-menu">
-            <ul class="menu-list-block">
-                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="singlePlayer"> Start game </a> </li>
-                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="multiPlayer"> Multiplayer </a> </li>
-                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="scoreboard"> Scoreboard </a> </li>
-                <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="about"> About </a> </li>
-            </ul>
-		</section>-->
-
-        <!--singleplayer-->
-
-        <section class="js-wrapper-singleplayer" hidden>
-
-        </section>
-
-        <!--multiplayer-->
-
-        <section class="js-wrapper-multiplayer" hidden>
-
-        </section>
-
-        <!--scoreboard-->
-
-        <section class="js-wrapper-scoreboard wrapper-block__main" hidden>
-            <div class="wrapper-block__section-header">Scoreboard</div>
-            <div class="js-scoreboard-table">
-                <!-- scoreboard generics by js and will be placed here -->
             </div>
 
-            <div class="scoreboard-paginator">
-                <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value="<">
-                <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value=">">
-            </div>
-        </section>
+            <!--scoreboard-->
 
-        <!--login-->
+    <!--        <section class="js-wrapper-scoreboard wrapper-block__main" hidden>
+                <div class="wrapper-block__section-header">Scoreboard</div>
+                <div class="js-scoreboard-table">
+                    &lt;!&ndash; scoreboard generics by js and will be placed here &ndash;&gt;
+                </div>
 
-        <!--<section class="wrapper-block__main js-wrapper-login" hidden>
-            <div class="wrapper-block__section-header">Login</div>
-            <form class="login-register-form-block js-login-form ">
-                <div class="description-text"> Username or email address </div>
-                <label>
-                    <input class="input-form js-login-form__login" type="text" name="email">
-                </label>
-                <div class="description-text">Password</div>
-                <label>
-                    <input class="input-form js-login-form__password" type="password" name="password">
-                </label>
-                <input class="button_big button js-login-button" type="submit" value="Login">
-            </form>
-
-            <div class="register-login-change">
-                <div class="description-text">  You are not registered? </div>
-                <a class="register-login-change__button" data-section="register">Register</a>
-            </div>
-        </section>-->
-
-        <!--registration-->
-
-        <section class="wrapper-block__main js-wrapper-registration" hidden>
-            <div class="wrapper-block__section-header">Register</div>
-            <form class="login-register-form-block js-register-form">
-                <div class="description-text"> Email </div>
-                <label>
-                    <input class="input-form js-register-form__email" type="email" name="email">
-                </label>
-                <div class="description-text"> Login </div>
-                <label>
-                    <input class="input-form js-register-form__login" type="text" name="login">
-                </label>
-                <div class="description-text">Password</div>
-                <label>
-                    <input class="input-form js-register-form__password" type="password" name="password">
-                </label>
-                <input class="button_big button js-login-button" type="submit" value="Register">
-            </form>
-
-            <div class="register-login-change">
-                <div class="description-text">  Have an account? </div>
-                <a class="register-login-change__button" data-section="login">Login</a>
-            </div>
-        </section>
-
-        <!--profile settings-->
-
-        <!--<section class="wrapper-block__main js-wrapper-profile-settings" hidden>
-            <div class="wrapper-block__section-header">Profile</div>
+                <div class="scoreboard-paginator">
+                    <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value="<">
+                    <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value=">">
+                </div>
+            </section>-->
 
 
-            <div class="profile-settings">
+            <button class="wrapper-block__change-color"></button>
+            <footer class="wrapper-block__profile">
+                <div class="js-profile profile-footer"></div>
+            </footer>
 
-                <form class="profile-settings__avatar-form js-changeImageForm">
-                    <div class="avatar-and-change-button">
-                        <img src="img.jpg" class="avatar-and-change-button__avatar">
-
-                        <div class="file-upload-button">
-                            <button class="file-upload-button__trigger" type="button">Select img</button>
-                            <input class="js-upload-image file-upload-button__input" type="file" name="file">
-                        </div>
-                    </div>
-                    <div class="profile-settings__file-name js-profile-settings-file-name"></div>
-
-                    <input type="submit" class="button_little button" value="Change">
-                    <div class="error-form"><div class="error-form_image js-error-form-image"></div></div>
-                </form>
-
-                <form class="profile-settings__inputs-form js-changeProfileForm">
-                    <div class="profile-settings__labelProfile">
-                        <div class="description-text">Login</div>
-                        <label>
-                            <input class="input-form js-change-profile-form__login " type="text" name="login">
-                        </label>
-                    </div>
-                    <div class="profile-settings__labelProfile">
-                        <div class="description-text descriptionTextWidth">Email</div>
-                        <label>
-                            <input class="input-form js-change-profile-form__email" type="email" name="email">
-                        </label>
-                    </div>
-                    <div class="profile-settings__labelProfile">
-                        <div class="description-text">Old password</div>
-                        <label>
-                            <input class="input-form js-change-profile-form__old-password" type="password" name="oldPassword">
-                        </label>
-
-                        <div class="description-text">New password</div>
-                        <label>
-                            <input class="input-form js-change-profile-form__new-password" type="password" name="newPassword">
-                        </label>
-                    </div>
-
-                    <input type="submit" class="button button_big" value="Save">
-                </form>
-            </div>
-        </section>-->
-
-        <button class="wrapper-block__change-color"></button>
-		<footer class="wrapper-block__profile">
-            <div class="js-profile profile-footer"></div>
-        </footer>
-
-	</div>
+        </div>
     </div>
 
-    <script defer src="./js/libraries/basic.js"></script>
-    <script defer src="./js/components/Scoreboard/Scoreboard.tmpl.js"></script>
-    <script defer src="./js/components/Scoreboard/Scoreboard.js"></script>
-    <script defer src="./js/components/UserFooter/UserFooter.tmpl.js"></script>
-    <script defer src="./js/components/UserFooter/UserFooter.js"></script>
-    <script defer src="./js/modules/Paginator/Paginator.js"></script>
-    <script defer src="./js/components/ColorComponent/ColorComponent.js"></script>
-    <script defer src="./js/modules/http.js"></script>
-    <script defer src="./js/modules/sectionManager.js"></script>
-    <script defer src="./js/modules/Forms/errorForm.js"></script>
-    <script defer src="./js/modules/Forms/loginForm.js"></script>
-    <script defer src="./js/modules/Forms/registrationForm.js"></script>
-    <script defer src="./js/modules/Forms/settingsForm.js"></script>
-    <script defer src="./js/modules/Forms/changeImageForm.js"></script>
-    <script defer src="./js/essences/User.js"></script>
-    <script defer src="./js/essences/Design.js"></script>
-    <script defer src="./js/essences/Scoreboard.js"></script>
-    <script defer src="./js/application.js"></script>
+
+
+    <script type="module" src="./jsMvc/Modules/HttpModule.js"></script>
+    <script type="module" src="./jsMvc/Models/userModel.js"></script>
+    <script type="module" src="./jsMvc/Views/MenuView/menuView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Views/MenuView/menuView.js"></script>
+    <script type="module" src="./jsMvc/Views/LoginView/loginView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Views/LoginView/LoginView.js"></script>
+    <script type="module" src="./jsMvc/Views/ProfileView/profileView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Views/ProfileView/profileView.js"></script>
+    <script type="module" src="./jsMvc/Views/RegisterView/registerView.js"></script>
+    <script type="module" src="./jsMvc/Views/RegisterView/registerView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Controller/userController.js"></script>
+    <script type="module" src="./jsMvc/Modules/router.js"></script>
+    <script type="module" src="./jsMvc/application.js"></script>
 
 </body>
 

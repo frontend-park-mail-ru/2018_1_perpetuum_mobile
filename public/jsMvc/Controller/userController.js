@@ -1,10 +1,11 @@
-import {ProfileView} from '../Views/ProfileView/ProfileView';
-import {LoginView} from '../Views/LoginView/LoginView';
-import {RegisterView} from '../Views/RegisterView/RegisterView';
+'use strict';
+import {ProfileView} from '../Views/ProfileView/profileView.js';
+import {LoginView} from '../Views/LoginView/LoginView.js';
+import {RegisterView} from '../Views/RegisterView/registerView.js';
 
-import {UserModel} from '../Models/userModel';
+import {UserModel} from '../Models/userModel.js';
 
-import {bus} from '../Modules/bus';
+import {bus} from '../Modules/bus.js';
 
 class userController {
     constructor() {

@@ -4,13 +4,13 @@
         <form class="login-register-form-block js-login-form ">
             <div class="description-text"> Username or email address </div>
             <label>
-                <input class="input-form js-login-form__login" type="text" name="email">
+                <input class="input-form js-login-form__login" type="text" name="email"/>
             </label>
             <div class="description-text">Password</div>
             <label>
-                <input class="input-form js-login-form__password" type="password" name="password">
+                <input class="input-form js-login-form__password" type="password" name="password"/>
             </label>
-            <input class="button_big button js-login-button" type="submit" value="Login">
+            <input class="button_big button js-login-button" type="submit" value="Login"/>
         </form>
 
         <div class="register-login-change">

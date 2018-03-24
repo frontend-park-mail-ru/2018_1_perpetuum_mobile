@@ -1,4 +1,4 @@
-import {HttpModule} from '../Modules/HttpModule';
+import {HttpModule} from '../Modules/HttpModule.js';
 
 
 class UserModel {

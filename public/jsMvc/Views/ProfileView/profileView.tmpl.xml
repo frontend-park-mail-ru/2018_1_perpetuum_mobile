@@ -7,16 +7,16 @@
 
             <form class="profile-settings__avatar-form js-changeImageForm">
                 <div class="avatar-and-change-button">
-                    <img src="img.jpg" class="avatar-and-change-button__avatar">
+                    <img src="img.jpg" class="avatar-and-change-button__avatar"/>
 
                     <div class="file-upload-button">
                         <button class="file-upload-button__trigger" type="button">Select img</button>
-                        <input class="js-upload-image file-upload-button__input" type="file" name="file">
+                        <input class="js-upload-image file-upload-button__input" type="file" name="file"/>
                     </div>
                 </div>
                 <div class="profile-settings__file-name js-profile-settings-file-name"></div>
 
-                <input type="submit" class="button_little button" value="Change">
+                <input type="submit" class="button_little button" value="Change"/>
                 <div class="error-form"><div class="error-form_image js-error-form-image"></div></div>
             </form>
 
@@ -24,28 +24,28 @@
                 <div class="profile-settings__labelProfile">
                     <div class="description-text">Login</div>
                     <label>
-                        <input class="input-form js-change-profile-form__login " type="text" name="login">
+                        <input class="input-form js-change-profile-form__login " type="text" name="login"/>
                     </label>
                 </div>
                 <div class="profile-settings__labelProfile">
                     <div class="description-text descriptionTextWidth">Email</div>
                     <label>
-                        <input class="input-form js-change-profile-form__email" type="email" name="email">
+                        <input class="input-form js-change-profile-form__email" type="email" name="email"/>
                     </label>
                 </div>
                 <div class="profile-settings__labelProfile">
                     <div class="description-text">Old password</div>
                     <label>
-                        <input class="input-form js-change-profile-form__old-password" type="password" name="oldPassword">
+                        <input class="input-form js-change-profile-form__old-password" type="password" name="oldPassword"/>
                     </label>
 
                     <div class="description-text">New password</div>
                     <label>
-                        <input class="input-form js-change-profile-form__new-password" type="password" name="newPassword">
+                        <input class="input-form js-change-profile-form__new-password" type="password" name="newPassword"/>
                     </label>
                 </div>
 
-                <input type="submit" class="button button_big" value="Save">
+                <input type="submit" class="button button_big" value="Save"/>
             </form>
         </div>
     </section>

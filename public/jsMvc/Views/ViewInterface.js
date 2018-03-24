@@ -18,19 +18,29 @@ class ViewInterface {
 
     render(params) {
         this.params = params || this.params;
-        this.el.innerHTML = this.tmpl(this.params);
+        this.el.innerHTML = this.fest(this.params);
         return this;
     }
 
-    appendTo(root) {
+    renderTo(root) {
         root.appendChild(this.el);
         return this;
+    }
+
+    isAllowed() {
+        return true;
     }
 
     destroy() {
         this.el.remove();
         this.el = document.createElement('div');
         return this;
+    }
+
+    create(attrs) {
+        return this
+            .render(attrs)
+            .show();
     }
 }
 

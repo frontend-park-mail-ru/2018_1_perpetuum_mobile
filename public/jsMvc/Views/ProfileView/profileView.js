@@ -1,4 +1,4 @@
-import {ViewInterface} from '../ViewInterface';
+import {ViewInterface} from '../ViewInterface.js';
 
 class ProfileView extends ViewInterface {
     constructor() {

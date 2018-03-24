@@ -1,3 +1,17 @@
+const getCors = new Headers({
+});
+
+const postCors = {
+    'Content-Type': 'application/json'
+};
+
+function checkAllRight(response) {
+    if (response.ok) {
+        return response.json();
+    }
+    throw new Error('>= 300');
+}
+
 class HttpModule {
 
     constructor() {
