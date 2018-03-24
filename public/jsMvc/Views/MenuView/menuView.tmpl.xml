@@ -1,0 +1,10 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <section class="wrapper-block__main js-wrapper-menu">
+        <ul class="menu-list-block">
+            <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="singlePlayer"> Start game </a> </li>
+            <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="multiPlayer"> Multiplayer </a> </li>
+            <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="scoreboard"> Scoreboard </a> </li>
+            <li class="menu-list-block__item"><a class="menu-list-block__data" data-section="about"> About </a> </li>
+        </ul>
+    </section>
+</fest:template>
