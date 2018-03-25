@@ -1,0 +1,25 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <section class="wrapper-block__main js-wrapper-registration">
+        <div class="wrapper-block__section-header">Register</div>
+        <form class="login-register-form-block js-register-form">
+            <div class="description-text"> Email </div>
+            <label>
+                <input class="input-form js-register-form__email" type="email" name="email"/>
+            </label>
+            <div class="description-text"> Login </div>
+            <label>
+                <input class="input-form js-register-form__login" type="text" name="login"/>
+            </label>
+            <div class="description-text">Password</div>
+            <label>
+                <input class="input-form js-register-form__password" type="password" name="password"/>
+            </label>
+            <input class="button_big button js-login-button" type="submit" value="Register"/>
+        </form>
+
+        <div class="register-login-change">
+            <div class="description-text">  Have an account? </div>
+            <a class="register-login-change__button" href="/login">Login</a>
+        </div>
+    </section>
+</fest:template>

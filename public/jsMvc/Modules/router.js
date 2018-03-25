@@ -1,12 +1,16 @@
+import {bus} from './bus.js';
+
 class Router {
     constructor(root) {
         this.pages = {};
         this.root = root;
         this.active = null;
+
+        bus.on('login', this.open.bind(this));
     }
 
-    add(path, View) {
-        this.pages[path] = new View().renderTo(this.root);
+    add(path, view) {
+        this.pages[path] = view.renderTo(this.root);
         return this;
     }
 
@@ -37,6 +41,7 @@ class Router {
         this.root.addEventListener('click', function (evt) {
             if (evt.target.tagName.toLowerCase() === 'a') {
                 evt.preventDefault();
+                debugger;
                 this.open(evt.target.pathname);
             }
         }.bind(this));

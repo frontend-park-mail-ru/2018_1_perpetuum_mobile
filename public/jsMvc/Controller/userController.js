@@ -5,15 +5,19 @@ import {RegisterView} from '../Views/RegisterView/registerView.js';
 
 import {UserModel} from '../Models/userModel.js';
 
+import {reduceWithValues} from '../Modules/basic.js';
+
 import {bus} from '../Modules/bus.js';
 
-class userController {
+class UserController {
     constructor() {
         this.loginView = new LoginView();
         this.registerView = new RegisterView();
         this.profileView = new ProfileView();
 
         this.userModel = new UserModel();
+
+        this.loginView.onClickLogin = this.login.bind(this);
     }
 
     changeImage(evt) {
@@ -57,7 +61,7 @@ class userController {
     login(evt) {
         evt.preventDefault();
 
-        const form = evt.target.form;
+        const form = evt.target;
 
         const fields = ['email', 'password'];
 
@@ -66,6 +70,7 @@ class userController {
         this.userModel.login(data).then(
             (response) => {
                 console.log(response);
+                bus.emit('login', '/register');
                 /*this.checkAuth();
                 sectionManager.openSection('menu');*/
             }
@@ -135,3 +140,5 @@ class userController {
     }
 
 }
+
+export {UserController};

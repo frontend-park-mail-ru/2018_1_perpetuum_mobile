@@ -15,7 +15,7 @@
 
         <div class="register-login-change">
             <div class="description-text">  You are not registered? </div>
-            <a class="register-login-change__button" data-section="register">Register</a>
+            <a class="register-login-change__button" href="/register">Register</a>
         </div>
     </section>
 </fest:template>
