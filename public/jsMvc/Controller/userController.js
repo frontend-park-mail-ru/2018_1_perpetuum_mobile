@@ -2,7 +2,6 @@
 import {ProfileView} from '../Views/ProfileView/profileView.js';
 import {LoginView} from '../Views/LoginView/LoginView.js';
 import {RegisterView} from '../Views/RegisterView/registerView.js';
-
 import {UserModel} from '../Models/userModel.js';
 
 import {reduceWithValues} from '../Modules/basic.js';

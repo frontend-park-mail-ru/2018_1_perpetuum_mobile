@@ -1,0 +1,77 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <section class="wrapper-block__main js-wrapper-login">
+        <div class="wrapper-block__section-header">Select level</div>
+        <div class="level">
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+            <div class="level__item">
+                <div class="star-rating">
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                    <div class="star-rating__one-star"/>
+                </div>
+                <div class="level__image"/>
+            </div>
+
+            <div class="scoreboard-paginator">
+                <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value='<'/>
+                <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value='>'/>
+            </div>
+
+        </div>
+    </section>
+</fest:template>

@@ -2,7 +2,6 @@
     <section class="wrapper-block__main js-wrapper-profile-settings">
         <div class="wrapper-block__section-header">Profile</div>
 
-
         <div class="profile-settings">
 
             <form class="profile-settings__avatar-form js-changeImageForm">
@@ -14,39 +13,31 @@
                         <input class="js-upload-image file-upload-button__input" type="file" name="file"/>
                     </div>
                 </div>
-                <div class="profile-settings__file-name js-profile-settings-file-name"></div>
 
-                <input type="submit" class="button_little button" value="Change"/>
-                <div class="error-form"><div class="error-form_image js-error-form-image"></div></div>
+                <div class="profile-settings__file-name js-profile-settings-file-name"/>
+
+                <div class="error-form">
+                    <div class="error-form_image js-error-form-image"/>
+                </div>
             </form>
 
-            <form class="profile-settings__inputs-form js-changeProfileForm">
-                <div class="profile-settings__labelProfile">
-                    <div class="description-text">Login</div>
-                    <label>
-                        <input class="input-form js-change-profile-form__login " type="text" name="login"/>
-                    </label>
+            <div class="profile-settings__info">
+                <div class="profile-row">
+                    <div class="profile-row__predict-label"> Login: </div>
+                    <div class="profile-row__center-label"> warprobot </div>
+                    <button type="button" class="profile-row__edit-icon js-profile-login-change-button"/>
                 </div>
-                <div class="profile-settings__labelProfile">
-                    <div class="description-text descriptionTextWidth">Email</div>
-                    <label>
-                        <input class="input-form js-change-profile-form__email" type="email" name="email"/>
-                    </label>
+                <div class="profile-row">
+                    <div class="profile-row__predict-label"> Email: </div>
+                    <div class="profile-row__center-label"> warprobot@mail.com </div>
+                    <button type="button" class="profile-row__edit-icon js-profile-email-change-button"/>
                 </div>
-                <div class="profile-settings__labelProfile">
-                    <div class="description-text">Old password</div>
-                    <label>
-                        <input class="input-form js-change-profile-form__old-password" type="password" name="oldPassword"/>
-                    </label>
-
-                    <div class="description-text">New password</div>
-                    <label>
-                        <input class="input-form js-change-profile-form__new-password" type="password" name="newPassword"/>
-                    </label>
+                <div class="profile-row">
+                    <div class="profile-row__predict-label"> Password: </div>
+                    <div class="profile-row__center-label"> ********* </div>
+                    <button class="profile-row__edit-icon js-profile-password-change-button"/>
                 </div>
-
-                <input type="submit" class="button button_big" value="Save"/>
-            </form>
+            </div>
         </div>
     </section>
 </fest:template>

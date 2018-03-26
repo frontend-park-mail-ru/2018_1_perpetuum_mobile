@@ -1,0 +1,27 @@
+.profile-row {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 3vh;
+    font-size: 3vh;
+    height: 6%;
+}
+
+.profile-row__predict-label {
+    text-align: right;
+    width: 30%;
+}
+
+.profile-row__center-label {
+    text-align: left;
+    margin-left: 3%;
+}
+
+.profile-row__edit-icon {
+    background: url("../pen.png") no-repeat;
+    background-size: auto 70%;
+    margin-left: 5%;
+    text-align: right;
+    width: 5%;
+    border: none;
+}

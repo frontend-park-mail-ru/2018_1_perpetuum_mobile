@@ -1,0 +1,30 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+
+    <section class="js-wrapper-scoreboard wrapper-block__main">
+        <div class="wrapper-block__section-header">Scoreboard</div>
+        <div class="js-scoreboard-table">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th class="table__th">#</th>
+                        <th class="table__th">Name</th>
+                        <th class="table__th">Score</th>
+                    </tr>
+                    <fest:for iterate="data.filling" index="i" value="v">
+                        <tr>
+                            <td><fest:value>(params.currentPage - 1) * 10 + i + 1</fest:value></td>
+                            <td><fest:value>v.login</fest:value></td>
+                            <td><fest:value>v.score</fest:value></td>
+                        </tr>
+                    </fest:for>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="scoreboard-paginator">
+            <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value='<'/>
+            <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value='>'/>
+        </div>
+    </section>
+
+</fest:template>

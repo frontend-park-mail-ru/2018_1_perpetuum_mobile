@@ -1,18 +1,19 @@
 (function () {
 
     const UserFooter = window.UserFooterComponent;
+    const UserProfile = window.UserFooterComponent;
 
     const HttpModule = window.HttpModule;
     const RegistrationForm = window.RegistrationForm;
     const LoginForm = window.LoginForm;
-    const ChangeProfileForm = window.SettingsForm;
+    //const ChangeProfileForm = window.SettingsForm;
     const ChangeImageForm = window.ChangeImageForm;
 
     const httpModule = new HttpModule();
 
-    function changeProfile(data) {
-        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/settings`, data: data});
-    }
+    // function changeProfile(data) {
+    //     return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/settings`, data: data});
+    // }
 
     function changeImage(data) {
         return HttpModule.doPostDataFetch({url: `${httpModule.baseUrl}/change_avatar`, data: data});
@@ -30,6 +31,10 @@
         return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/register`, data: user});
     }
 
+    function profileUser(user) {
+        return HttpModule.doPostFetch({url: `${httpModule.baseUrl}/profile`, data: user});
+    }
+
     function loadMe() {
         return HttpModule.doGetFetch({url: `${httpModule.baseUrl}/me`});
     }
@@ -41,25 +46,29 @@
             this.logoutClassQs = 'js-logout-form';
             this.userFooter = new UserFooterComponent(isQuerySelector('.js-profile'));
             this.userFooter.logoutClass = this.logoutClassQs;
+            this.userProfile = new UserProfileComponent(isQuerySelector('.js-changeProfileForm'));
             this.loginBindFunction = this.login.bind(this);
             this.registerBindFunc = this.register.bind(this);
             this.logoutBindFunc = this.logout.bind(this);
             this.changeImageBindFunc = this.changeImage.bind(this);
-            this.changeProfileBindFunc = this.changeProfile.bind(this);
+            this.profileBindFunc = this.profile.bind(this);
+            //this.changeProfileBindFunc = this.changeProfile.bind(this);
             this.imageInProfile = document.getElementsByClassName('avatar-and-change-button__avatar')[0];
         }
 
-        set changeProfileForm(changeProfileFormQs) {
-            if (this.changeProfileEl) {
-                this.changeProfileFormEl.removeListeners();
-                this.changeProfileEl.removeEventListener('submit', this.changeProfileBindFunc);
-            }
-
-            this.changeProfileEl = isQuerySelector(changeProfileFormQs);
-            this.changeProfileFormEl = new ChangeProfileForm(this.changeProfileEl);
-            this.changeProfileEl.reset();
-            this.changeProfileEl.addEventListener('submit', this.changeProfileBindFunc);
-        }
+        // set changeProfileForm(changeProfileFormQs) {
+        //     if (this.changeProfileEl) {
+        //         // this.changeProfileFormEl.removeListeners();
+        //         // this.changeProfileEl.removeEventListener('submit', this.changeProfileBindFunc);
+        //     }
+        //
+        //
+        //
+        //     // this.changeProfileEl = isQuerySelector(changeProfileFormQs);
+        //     // this.changeProfileFormEl = new ChangeProfileForm(this.changeProfileEl);
+        //     // this.changeProfileEl.reset();
+        //     // this.changeProfileEl.addEventListener('submit', this.changeProfileBindFunc);
+        // }
 
 
         set changeImageForm(changeImageFormQs) {
@@ -156,28 +165,28 @@
             );
         }
 
-        changeProfile(evt) {
-            evt.preventDefault();
-
-            const formData = this.changeProfileFormEl.prepare();
-
-            if (!formData) {
-                return;
-            }
-
-            changeProfile(formData).then(
-                (response) => {
-                    console.log(response);
-                    this.checkAuth();
-                }
-            ).catch(
-                (err) => {
-                    console.log(err);
-                    this.changeProfileEl.reset();
-                    alert('Неверно!');
-                }
-            );
-        }
+        // changeProfile(evt) {
+        //     evt.preventDefault();
+        //
+        //     const formData = this.changeProfileFormEl.prepare();
+        //
+        //     if (!formData) {
+        //         return;
+        //     }
+        //
+        //     changeProfile(formData).then(
+        //         (response) => {
+        //             console.log(response);
+        //             this.checkAuth();
+        //         }
+        //     ).catch(
+        //         (err) => {
+        //             console.log(err);
+        //             this.changeProfileEl.reset();
+        //             alert('Неверно!');
+        //         }
+        //     );
+        // }
 
         login(evt) {
             evt.preventDefault();
@@ -235,6 +244,22 @@
                     console.log(response);
                     this.checkAuth();
                     sectionManager.openSection('menu');
+                }
+            ).catch(
+                (err) => {
+                    console.log(err);
+                    alert('Не удалось выйти из аккаунта. Проверьте соединение.');
+                }
+            );
+        }
+
+        profile(evt) {
+            evt.preventDefault();
+
+            profileUser().then(
+                (response) => {
+                    console.log(response);
+                    sectionManager.openSection('profileSettings');
                 }
             ).catch(
                 (err) => {
