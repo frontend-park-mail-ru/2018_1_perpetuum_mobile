@@ -1,0 +1,18 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="profile">
+    <fest:set name="footer">
+        <fest:if test="!(params === null || params === undefined)">
+            <div class="profile-footer__login"><fest:value>params.login</fest:value></div>
+            <img src="{params.image}" class="profile-footer__avatar js-profile-footer__avatar"/>
+            <div class="profile-footer__submenu">
+                <ul>
+                    <li class="profile-footer__list"><form class="js-logout-form" method="post"><input type="submit" value="Logout" class="profile-footer__logout-button"/></form></li>
+                    <li class="profile-footer__list"><a href="/profile">Settings</a></li>
+                </ul>
+            </div>
+        </fest:if>
+        <fest:if test="params === null || params === undefined">
+            <a class="button__user-footer" href="/login">Login</a>
+            <a class="button__user-footer" href="/register">Register</a>
+        </fest:if>
+    </fest:set>
+</fest:template>
