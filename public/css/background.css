@@ -1,0 +1,5 @@
+.background {
+    background: linear-gradient(-45deg, var(--firstGradientColor) -20%, var(--secondGradientColor) 50%, black 150%);
+    color: var(--secondColor);
+    transition: all 0.3s linear;
+}

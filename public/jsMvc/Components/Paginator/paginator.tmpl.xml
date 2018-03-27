@@ -1,0 +1,24 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <fest:set name="paginator-buttons">
+        <fest:if test="params">
+            <div class="scoreboard-paginator">
+                <button class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="button">
+                    <fest:attributes>
+                        <fest:if test="params.leftDisabled">
+                            <fest:attribute name="disabled">disabled</fest:attribute>
+                        </fest:if>
+                    </fest:attributes>
+                    &lt;
+                </button>
+                <button class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="button">
+                    <fest:attributes>
+                        <fest:if test="params.rightDisabled">
+                            <fest:attribute name="disabled">disabled</fest:attribute>
+                        </fest:if>
+                    </fest:attributes>
+                    &gt;
+                </button>
+            </div>
+        </fest:if>
+    </fest:set>
+</fest:template>

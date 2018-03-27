@@ -22,29 +22,13 @@
     <link rel="stylesheet" href="css/star-rating.css">
     <link rel="stylesheet" href="css/colors.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/background.css">
 	<title> Blendocu </title>
 </head>
 
 <body>
-    <div class="colors js-application">
-
-
-            <!--scoreboard-->
-
-    <!--        <section class="js-wrapper-scoreboard wrapper-block__main" hidden>
-                <div class="wrapper-block__section-header">Scoreboard</div>
-                <div class="js-scoreboard-table">
-                    &lt;!&ndash; scoreboard generics by js and will be placed here &ndash;&gt;
-                </div>
-
-                <div class="scoreboard-paginator">
-                    <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value="<">
-                    <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value=">">
-                </div>
-            </section>-->
-
-
-
+    <div class="colors background js-application">
+        <!-- Here the view is rendered to -->
     </div>
 
 
@@ -54,6 +38,7 @@
     <script type="module" src="./jsMvc/Modules/sharedData.js"></script>
     <script type="module" src="./jsMvc/Modules/HttpModule.js"></script>
     <script type="module" src="./jsMvc/Models/userModel.js"></script>
+    <script type="module" src="./jsMvc/Modules/paginator.js"></script>
     <script type="module" src="./jsMvc/Views/MenuView/menuView.tmpl.js"></script>
     <script type="module" src="./jsMvc/Views/MenuView/menuView.js"></script>
     <script type="module" src="./jsMvc/Components/Popup/popup.tmpl.js"></script>
@@ -66,9 +51,12 @@
     <script type="module" src="./jsMvc/Views/ScoreboardView/scoreboardView.js"></script>
     <script type="module" src="./jsMvc/Views/LevelView/levelView.tmpl.js"></script>
     <script type="module" src="./jsMvc/Views/LevelView/levelView.js"></script>
-    <script type="module" src="./jsMvc/Views/RegisterView/registerView.js"></script>
     <script type="module" src="./jsMvc/Views/RegisterView/registerView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Views/RegisterView/registerView.js"></script>
+    <script type="module" src="./jsMvc/Views/ScoreboardView/scoreboardView.tmpl.js"></script>
+    <script type="module" src="./jsMvc/Views/ScoreboardView/scoreboardView.js"></script>
     <script type="module" src="./jsMvc/Controller/userController.js"></script>
+    <script type="module" src="./jsMvc/Controller/scoreboardController.js"></script>
     <script type="module" src="./jsMvc/Modules/router.js"></script>
     <script type="module" src="./jsMvc/application.js"></script>
 
