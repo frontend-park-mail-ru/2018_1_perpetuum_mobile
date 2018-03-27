@@ -1,5 +1,6 @@
 .popup {
     line-height: initial;
+    font-size: initial !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,10 +11,10 @@
     top: 20vh;
     position: fixed;
     box-shadow: 0 0 5px 1px rgba(98, 98, 98, 0.4);
-    animation: lol 0.3s 1;
+    animation: forward 0.3s 1;
 }
 
-@keyframes lol {
+@keyframes forward {
     0% {
         transform: scale(0.01, 0.01);
         opacity: 0.7;
@@ -34,7 +35,7 @@
 
 .popup__title {
     font-size: 5vh;
-    color: #e2e2e2;
+    color: #ffffff;
     top: 2vh;
     margin: 1vh auto 4vh auto;
 }

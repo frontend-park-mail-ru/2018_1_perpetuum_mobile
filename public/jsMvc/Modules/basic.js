@@ -20,8 +20,21 @@ function isEmail(email) {
     return EMAIL_PATTERN.test(email);
 }
 
+function isLatin(value) {
+    const EXPR = /^[-0-9a-z]+$/i;
+    return !EXPR.test(value);
+}
+
+function isLogin(login) {
+    return validateLength(login);
+}
+
+function isPassword(password) {
+    return validateLength(password);
+}
+
 function validateLength(value) {
     const ALLOW_INPUT_LENGTH = 4;
     return ((ALLOW_INPUT_LENGTH > value.length) && (value.length > 0));
 }
-export {reduceWithValues};
+export {reduceWithValues, isLogin, isLatin, isPassword, isEmail};

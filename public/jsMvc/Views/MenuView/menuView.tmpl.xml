@@ -11,7 +11,7 @@
                 </ul>
             </section>
         </div>
-        <button class="wrapper-block__change-color"></button>
+        <button class="wrapper-block__change-color"/>
         <footer class="wrapper-block__profile">
             <div class="js-profile profile-footer">
                 <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
