@@ -33,8 +33,6 @@ class ViewInterface {
 
     destroy() {
         this.el.innerHTML = '';
-            /*.remove();
-        this.el = document.createElement('div');*/
         return this;
     }
 

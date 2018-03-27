@@ -56,7 +56,24 @@ class Router {
             }
         }.bind(this));
 
-        this.open(window.location.pathname);
+
+        const path = this.choosePath();
+        this.open(path.url, path.urlParams);
+    }
+
+    choosePath() {
+        if (window.location.pathname in this.pages)
+            return {url: window.location.pathname, params: {}};
+        let urlArr = window.location.pathname.split('/');
+        let urlParams = [];
+        let urlString = '';
+        while (urlArr.length > 0) {
+            urlParams = urlParams.concat(urlArr.splice(urlArr.length - 1, 1));
+            urlString = '/' + urlArr.join('/');
+            if (urlString in this.pages){
+                return {url: urlString, params: {urlParams: urlParams}};
+            }
+        }
     }
 }
 
