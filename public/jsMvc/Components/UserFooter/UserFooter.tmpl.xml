@@ -5,8 +5,8 @@
             <img src="{params.image}" class="profile-footer__avatar js-profile-footer__avatar"/>
             <div class="profile-footer__submenu">
                 <ul>
-                    <li class="profile-footer__list"><form class="js-logout-form" method="post"><input type="submit" value="Logout" class="profile-footer__logout-button"/></form></li>
-                    <li class="profile-footer__list"><a href="/profile">Settings</a></li>
+                    <li class="profile-footer__list"><form class="js-logout-form" method="post"><input type="submit" value="Logout" class="profile-footer__link"/></form></li>
+                    <li class="profile-footer__list"><a class="profile-footer__link" href="/profile">Settings</a></li>
                 </ul>
             </div>
         </fest:if>

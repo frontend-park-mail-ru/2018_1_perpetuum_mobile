@@ -22,8 +22,6 @@
                 </div>
             </section>
         </div>
-        <button class="wrapper-block__change-color"></button>
-
-
+        <button class="wrapper-block__change-color"/>
     </div>
 </fest:template>

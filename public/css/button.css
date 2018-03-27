@@ -20,13 +20,12 @@
 }
 
 .button__user-footer {
-    font-family: 'Orbitron', sans-serif;
     font-size: 3vh;
     transition: all 0.3s linear;
-    margin: auto 3vh auto 3vh;
+    margin: auto 0 auto auto;
     color: var(--logoColor);
     text-decoration: none;
-    box-sizing: border-box;
+    border: transparent 3px solid;
 }
 
 

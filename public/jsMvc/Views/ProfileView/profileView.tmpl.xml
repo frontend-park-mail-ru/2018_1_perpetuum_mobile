@@ -26,12 +26,12 @@
                 <div class="profile-settings__info">
                     <div class="profile-row">
                         <div class="profile-row__predict-label"> Login: </div>
-                        <div class="profile-row__center-label"> warprobot </div>
+                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.login</fest:value> </div>
                         <button type="button" class="profile-row__edit-icon js-profile-login-change-button"/>
                     </div>
                     <div class="profile-row">
                         <div class="profile-row__predict-label"> Email: </div>
-                        <div class="profile-row__center-label"> warprobot@mail.com </div>
+                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.email</fest:value> </div>
                         <button type="button" class="profile-row__edit-icon js-profile-email-change-button"/>
                     </div>
                     <div class="profile-row">

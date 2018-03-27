@@ -1,6 +1,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Popup} from "../../Components/Popup/popup.js";
 import {sharedData} from '../../Modules/sharedData.js';
+import {Validation} from "../../Modules/validation.js";
 
 class ProfileView extends ViewInterface {
     constructor() {
@@ -23,8 +24,8 @@ class ProfileView extends ViewInterface {
             this._popup.onSubmitForm = this.onChangeLogin;
             this._popup.render({
                 title: 'Change login',
-                fields: [['Login', 'js-profile-login-input', 'text', 'login'], ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword']],
-                formClasses: ['js-login-form'],
+                fields: [['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
+                         ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-password']],
                 buttonValue: 'Change login'
             });
         });
@@ -35,8 +36,8 @@ class ProfileView extends ViewInterface {
             this._popup.onSubmitForm = this.onChangeEmail;
             this._popup.render({
                 title: 'Change Email',
-                fields: [['Email', 'js-profile-email-input', 'email', 'email'], ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword']],
-                formClasses: ['js-email-form'],
+                fields: [['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
+                         ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-password']],
                 buttonValue: 'Change email'
             });
         });
@@ -49,8 +50,7 @@ class ProfileView extends ViewInterface {
                 title: 'Change password',
                 fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword'],
                          ['New password', 'js-profile-new-password-input', 'password', 'newPassword'],
-                         ['Confirm new password', 'js-profile-confirm-new-passeord-input', 'password', 'confirmNewPassword']],
-                formClasses: ['js-password-form'],
+                         ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword']],
                 buttonValue: 'Change password'
             });
         });

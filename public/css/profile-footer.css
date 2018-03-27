@@ -42,19 +42,17 @@
     list-style: none;
 }
 
-.profile-footer__logout-button{
+.profile-footer__link {
+    border: transparent 3px solid;
+    transition: all 0.3s linear;
     color: var(--secondColor);
     background: none;
-    border: 0;
     font-family: 'Orbitron', sans-serif;
     font-size: 3vh;
     margin-bottom: 2vh;
+    text-decoration: none;
 }
 
-.profile-footer__logout-button:hover {
-    transition: all 0.3s linear;
+.profile-footer__link:hover {
     border-bottom: var(--baseColor) 3px solid;
 }
-
-
-
