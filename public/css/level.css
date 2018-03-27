@@ -1,0 +1,25 @@
+.level {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: center;
+}
+
+.level__item {
+    width: 20vh;
+    height: 20vh;
+    margin: 2vh 2vh 2vh 2vh;
+    background: #1c1c1c;
+    border-radius: 5px;
+    flex-direction: column;
+}
+
+.level__image {
+    margin: 1vh auto;
+    font-size: 8vh;
+    width: 75%;
+    height: 65%;
+    background: var(--baseColor);
+    border-radius: 5px;
+}

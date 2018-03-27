@@ -3,9 +3,12 @@
     height: 6vh;
     background-color: var(--inputColor);
     border: var(--firstGradientColor) 2px solid;
-    border-radius: 3px;
+    border-radius: 1px;
     transition: all 0.3s linear;
     margin-bottom: 1vh;
+    font-size: 2.5vh;
+    text-align: center;
+    overflow: initial;
 }
 
 .input-form_wrong {

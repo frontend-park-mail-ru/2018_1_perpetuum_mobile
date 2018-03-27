@@ -26,6 +26,7 @@
     margin: auto 3vh auto 3vh;
     color: var(--logoColor);
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 

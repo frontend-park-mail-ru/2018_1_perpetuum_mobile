@@ -11,6 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     router.add('/login', userController.loginView);
     router.add('/profile', userController.profileView);
     router.add('/register', userController.registerView);
-    router.add('/', userController.loginView);
+    router.add('/', userController.profileView);
     router.start();
 });
