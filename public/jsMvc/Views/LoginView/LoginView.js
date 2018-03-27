@@ -13,8 +13,10 @@ class LoginView extends ViewInterface {
 
     init() {
         const toLoginForm = this.el.getElementsByClassName('js-login-form')[0];
-        toLoginForm.addEventListener('submit', this.onClickLogin);
+        toLoginForm.addEventListener('submit', this.onLogin);
     }
+
+
 }
 
 export {LoginView};

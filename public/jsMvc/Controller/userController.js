@@ -2,57 +2,131 @@
 import {ProfileView} from '../Views/ProfileView/profileView.js';
 import {LoginView} from '../Views/LoginView/LoginView.js';
 import {RegisterView} from '../Views/RegisterView/registerView.js';
+import {MenuView} from '../Views/MenuView/menuView.js';
+
 import {UserModel} from '../Models/userModel.js';
 
 import {reduceWithValues} from '../Modules/basic.js';
 
 import {bus} from '../Modules/bus.js';
+import {baseUrl} from '../Modules/HttpModule.js';
+
+import {sharedData} from '../Modules/sharedData.js';
+
 
 class UserController {
     constructor() {
         this.loginView = new LoginView();
         this.registerView = new RegisterView();
         this.profileView = new ProfileView();
+        this.menuView = new MenuView();
 
         this.userModel = new UserModel();
 
-        this.loginView.onClickLogin = this.login.bind(this);
+        this.loginView.onLogin = this.login.bind(this);
+
+        this.registerView.onRegister = this.register.bind(this);
+
+        this.profileView.onChangePassword = this.changePassword.bind(this);
+        this.profileView.onChangeLogin = this.changeLogin.bind(this);
+        this.profileView.onChangeEmail = this.changeEmail.bind(this);
+        this.profileView.onChangeImage = this.changeImage.bind(this);
+        this.profileView.onLogout = this.logout.bind(this);
+
+        this.menuView.onLogout = this.logout.bind(this);
     }
 
     changeImage(evt) {
         evt.preventDefault();
 
+        const imageForm = evt.target;
+
+        const data = new FormData();
+        data.append('file', imageForm.files[0]);
+
         this.userModel.changeImage(data).then(
             (response) => {
                 console.log(response);
-                /*this.changeImageEl.reset();
-
-                const imageInDownMenu = document.getElementsByClassName('js-profile-footer__avatar')[0];
-                this.imageInProfile.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);
-                imageInDownMenu.setAttribute('src', httpModule.baseUrl + '/files/' + response.fileName);*/
+                this.loadMe().then(() => {
+                    bus.emit('reload')
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*this.changeImageEl.reset();
-                alert('Неверно!!!');*/
+                alert('Неверно!!!');
             }
         );
     }
 
-    changeProfile(evt) {
+    changeLogin(evt) {
         evt.preventDefault();
+
+        const form = evt.target;
+
+        const fields = ['login', 'oldPassword'];
+
+        const data = reduceWithValues(form.elements, fields);
 
         this.userModel.changeProfile(data).then(
             (response) => {
                 console.log(response);
-                /*this.checkAuth();*/
+                this.loadMe().then(() => {
+                    bus.emit('reload')
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*this.changeProfileEl.reset();
-                alert('Неверно!');*/
+                alert('Неверно!');
+            }
+        );
+    }
+
+    changePassword(evt) {
+        evt.preventDefault();
+
+        const form = evt.target;
+
+        const fields = ['newPassword', 'oldPassword'];
+
+        const data = reduceWithValues(form.elements, fields);
+
+        this.userModel.changeProfile(data).then(
+            (response) => {
+                console.log(response);
+                this.loadMe().then(() => {
+                    bus.emit('reload')
+                });
+            }
+        ).catch(
+            (err) => {
+                console.log(err);
+                alert('Неверно!');
+            }
+        );
+    }
+
+    changeEmail(evt) {
+        evt.preventDefault();
+
+        const form = evt.target;
+
+        const fields = ['email', 'oldPassword'];
+
+        const data = reduceWithValues(form.elements, fields);
+
+        this.userModel.changeProfile(data).then(
+            (response) => {
+                console.log(response);
+                this.loadMe().then(() => {
+                    bus.emit('reload')
+                });
+            }
+        ).catch(
+            (err) => {
+                console.log(err);
+                alert('Неверно!');
             }
         );
     }
@@ -69,15 +143,15 @@ class UserController {
         this.userModel.login(data).then(
             (response) => {
                 console.log(response);
-                bus.emit('login', '/register');
-                /*this.checkAuth();
-                sectionManager.openSection('menu');*/
+                this.loadMe().then(() => {
+                    bus.emit('menu');
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*form.reset();
-                alert('Неверно!');*/
+                form.reset();
+                alert('Неверно!');
             }
         );
     }
@@ -85,17 +159,24 @@ class UserController {
     register(evt) {
         evt.preventDefault();
 
+        const form = evt.target;
+
+        const fields = ['login', 'email', 'password'];
+
+        const data = reduceWithValues(form.elements, fields);
+
         this.userModel.register(data).then(
             (response) => {
                 console.log(response);
-                /*this.checkAuth();
-                sectionManager.openSection('menu');*/
+                this.loadMe().then(() => {
+                    bus.emit('menu');
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*this.registerEl.reset();
-                alert('Неверно!');*/
+                form.reset();
+                alert('Неверно!');
             }
         );
     }
@@ -106,34 +187,32 @@ class UserController {
         this.userModel.logout().then(
             (response) => {
                 console.log(response);
-                /*this.checkAuth();
-                sectionManager.openSection('menu');*/
+                this.loadMe().then(() => {
+                    bus.emit('menu');
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*alert('Не удалось выйти из аккаунта. Проверьте соединение.');*/
             }
         );
     }
 
     loadMe() {
-        this.userModel.loadMe().then(
+        return this.userModel.loadMe().then(
             (me) => {
                 console.log('me is ', me);
-                /*const imageSource = `${httpModule.baseUrl}/files/${me.image}`;
-
-                this.imageInProfile.setAttribute('src', imageSource); // avatar in profile
-
-                me.image = imageSource;
-                this.userFooter.data = me; // avatar in drop-down menu
-                this.userFooter.render();
-                this.logoutBtn = `.${this.logoutClassQs}`;*/
+                sharedData.add('currentUser', {
+                    image: `${baseUrl}/files/${me.image}`,
+                    login: me.login,
+                    email: me.email,
+                    score: me.score
+                });
             }
         ).catch(
             (err) => {
                 console.log(err);
-                /*this.userFooter.clear();*/
+                sharedData.del('currentUser');
             }
         );
     }

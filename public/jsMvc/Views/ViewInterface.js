@@ -32,8 +32,9 @@ class ViewInterface {
     }
 
     destroy() {
-        this.el.remove();
-        this.el = document.createElement('div');
+        this.el.innerHTML = '';
+            /*.remove();
+        this.el = document.createElement('div');*/
         return this;
     }
 

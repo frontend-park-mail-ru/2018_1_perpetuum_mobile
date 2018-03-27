@@ -6,6 +6,18 @@ class RegisterView extends ViewInterface {
     }
 
 
+    render(params) {
+        super.render(params);
+        this.init();
+        return this;
+    }
+
+    init() {
+        const toRegisterForm = this.el.getElementsByClassName('js-register-form')[0];
+        toRegisterForm.addEventListener('submit', this.onRegister);
+    }
+
+
 }
 
 export {RegisterView};
