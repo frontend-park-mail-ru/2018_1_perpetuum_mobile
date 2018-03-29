@@ -1,9 +1,11 @@
 import {errorForm} from "../Error/error.js";
+import {bus} from "../../Modules/bus.js";
 
 class Popup {
     constructor() {
         this.el = document.createElement('div');
         this.fest = window.fest['jsMvc/Components/Popup/popup.tmpl'];
+        bus.on('changeProfileForm-err', this.serverError.bind(this));
     }
 
     renderTo(root) {
@@ -21,12 +23,12 @@ class Popup {
     init() {
         const closeButton = this.el.getElementsByClassName('js-button-close')[0];
         closeButton.addEventListener('click', this.deletePopup.bind(this));
-        const form = this.el.getElementsByClassName('js-popup-form')[0];
+        this.form = this.el.getElementsByClassName('js-popup-form')[0];
         this.formValid = [];
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = form.getElementsByClassName(value[1])[0];
+            this.formValid[i] = this.form.getElementsByClassName(value[1])[0];
 
             this.formValid[i].addEventListener('keyup', () => {
 
@@ -41,7 +43,7 @@ class Popup {
         });
 
 
-        form.addEventListener('submit', (evt) => {
+        this.form.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
             const allValid = this.formValid.reduce((res, current) => {
@@ -57,6 +59,12 @@ class Popup {
     deletePopup() {
         this.el.innerHTML = '';
         return this;
+    }
+
+    serverError(msg) {
+        const serverErr = this.form.getElementsByClassName('error-form__server-error')[0];
+        serverErr.style = 'display: block';
+        serverErr.innerHTML = msg;
     }
 
 }

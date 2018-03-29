@@ -2,10 +2,12 @@ import {ViewInterface} from '../ViewInterface.js';
 import {Validation} from "../../Modules/validation.js";
 import {errorForm} from "../../Components/Error/error.js";
 import {sharedData} from '../../Modules/sharedData.js';
+import {bus} from "../../Modules/bus.js";
 
 class LoginView extends ViewInterface {
     constructor() {
         super('jsMvc/Views/LoginView/loginView.tmpl');
+        bus.on('login-err', this.serverError.bind(this));
     }
 
     render(params) {
@@ -56,14 +58,10 @@ class LoginView extends ViewInterface {
         return !sharedData.data['currentUser'];
     }
 
-    destroy() {
-        console.log('ddd');
-        this.params.fields.forEach((value, i) => {
-            this.formValid[i] = this.toLoginForm.getElementsByClassName(value[1])[0];
-            errorForm.hideError(this.formValid[i], value[5])
-        });
-
-        super.destroy();
+    serverError(msg) {
+        const serverErr = this.toLoginForm.getElementsByClassName('error-form__server-error')[0];
+        serverErr.style = 'display: block';
+        serverErr.innerHTML = msg;
     }
 }
 
