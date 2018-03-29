@@ -130,6 +130,7 @@ class UserController {
             (err) => {
                 console.log(err);
                 alert('Неверно!');
+                bus.emit('changeEmail-err', [err.message]);
             }
         );
     }
