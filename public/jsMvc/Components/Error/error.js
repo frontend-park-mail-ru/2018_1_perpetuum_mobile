@@ -9,6 +9,7 @@ class Error {
         err.classList.add('error-form__message');
         err.innerHTML = errorMessage;
         errField.appendChild(err);
+        return false;
     }
 
     delError(input, errLocation) {
@@ -16,6 +17,7 @@ class Error {
         input.classList.remove('input-form_right');
         input.classList.remove('input-form_wrong');
         errField.innerHTML = '';
+        return false;
     }
 
     hideError(input, errLocation) {
@@ -23,6 +25,7 @@ class Error {
         input.classList.add('input-form_right');
         input.classList.remove('input-form_wrong');
         errField.innerHTML = '';
+        return true;
     }
 
 }

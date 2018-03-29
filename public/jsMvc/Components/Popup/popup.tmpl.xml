@@ -10,7 +10,6 @@
                     <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
                 </label>
             </fest:for>
-
             <input class="button_big button" type="submit" value="{params.buttonValue}"/>
         </form>
     </div>

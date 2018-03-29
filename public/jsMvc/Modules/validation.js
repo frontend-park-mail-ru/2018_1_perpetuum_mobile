@@ -12,8 +12,12 @@ class Validation {
     }
 
     static validateEmail(email) {
-        console.log(isEmail(email));
         return isEmail(email) ? true : 'This is not email';
+    }
+
+    static validateLoginOrEmail(login) {
+        const stat = isEmail(login) || !isLogin(login) ? true : 'This is not login or email';
+        return !isLatin(login) ? stat : 'This is not latin';
     }
 }
 

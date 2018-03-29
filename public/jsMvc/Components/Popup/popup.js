@@ -14,8 +14,7 @@ class Popup {
 
     render(params) {
         this.params = params;
-        const festGenerics = this.fest(params);
-        this.el.innerHTML = festGenerics;
+        this.el.innerHTML = this.fest(params);
         this.init();
         return this;
     }
@@ -24,24 +23,36 @@ class Popup {
         const closeButton = this.el.getElementsByClassName('js-button-close')[0];
         closeButton.addEventListener('click', this.deletePopup.bind(this));
         const form = this.el.getElementsByClassName('js-popup-form')[0];
-        form.addEventListener('submit', this.onSubmitForm);
+        this.formValid = [];
 
+        this.params.fields.forEach((value, i) => {
 
-        console.log(this.params.fields);
-        this.params.fields.forEach((value) => {
-            const formValid = this.el.getElementsByClassName(value[1])[0];
-            formValid.addEventListener('keyup', () => {
-                const status = value[4](formValid.value);
-                if(status !== true) {
-                    errorForm.showError(formValid, status, value[5]);
-                }
-                if(status === true) {
-                    errorForm.hideError(formValid, value[5]);
-                }
-                if(formValid.value.length === 0) {
-                    errorForm.delError(formValid, value[5]);
+            this.formValid[i] = this.el.getElementsByClassName(value[1])[0];
+            this.formValid[i].valid = false;
+
+            this.formValid[i].addEventListener('keyup', () => {
+
+                const isValid = value[4](this.formValid[i].value);
+
+                this.formValid[i].valid = (isValid === true) ? errorForm.hideError(this.formValid[i], value[5]) : errorForm.showError(this.formValid[i], isValid, value[5]);
+
+                if(this.formValid[i].value.length === 0) {
+                    this.formValid.valid = errorForm.delError(this.formValid[i], value[5]);
                 }
             });
+        });
+
+
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+
+            const allValid = this.formValid.reduce((res, current) => {
+                return current.valid && res;
+            }, true);
+
+            if(allValid === true) {
+                this.onSubmitForm(evt);
+            }
         });
     }
 

@@ -133,7 +133,6 @@ class UserController {
 
     login(evt) {
         evt.preventDefault();
-
         const form = evt.target;
 
         const fields = ['email', 'password'];

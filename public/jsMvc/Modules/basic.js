@@ -21,7 +21,7 @@ function isEmail(email) {
 }
 
 function isLatin(value) {
-    const EXPR = /^[-0-9a-z]+$/i;
+    const EXPR = /^[-0-9a-z@]+$/i;
     return !EXPR.test(value);
 }
 

@@ -17,3 +17,8 @@
 .input-form_right {
     box-shadow: 0 0 15px #6a9c2a;
 }
+
+.input-form:-webkit-autofill {
+    background-color: var(--inputColor) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
