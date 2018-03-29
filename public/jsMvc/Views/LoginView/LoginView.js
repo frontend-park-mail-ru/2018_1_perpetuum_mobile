@@ -19,13 +19,13 @@ class LoginView extends ViewInterface {
     }
 
     init() {
-        const toLoginForm = this.el.getElementsByClassName(this.params.form)[0];
+        this.toLoginForm = this.el.getElementsByClassName(this.params.form)[0];
 
         this.formValid = [];
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = toLoginForm.getElementsByClassName(value[1])[0];
+            this.formValid[i] = this.toLoginForm.getElementsByClassName(value[1])[0];
 
             this.formValid[i].addEventListener('keyup', () => {
                 const isValid = value[4](this.formValid[i].value);
@@ -38,7 +38,7 @@ class LoginView extends ViewInterface {
             });
         });
 
-        toLoginForm.addEventListener('submit', (evt) => {
+        this.toLoginForm.addEventListener('submit', (evt) => {
             evt.preventDefault();
 
             const allValid = this.formValid.reduce((res, current) => {
@@ -49,6 +49,16 @@ class LoginView extends ViewInterface {
                 this.onLogin(evt);
             }
         });
+    }
+
+    destroy() {
+        console.log('ddd');
+        this.params.fields.forEach((value, i) => {
+            this.formValid[i] = this.toLoginForm.getElementsByClassName(value[1])[0];
+            errorForm.hideError(this.formValid[i], value[5])
+        });
+
+        super.destroy();
     }
 }
 
