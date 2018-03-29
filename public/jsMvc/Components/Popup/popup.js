@@ -4,7 +4,6 @@ class Popup {
     constructor() {
         this.el = document.createElement('div');
         this.fest = window.fest['jsMvc/Components/Popup/popup.tmpl'];
-        this.params = null;
     }
 
     renderTo(root) {
