@@ -27,8 +27,7 @@ class Popup {
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = this.el.getElementsByClassName(value[1])[0];
-            this.formValid[i].valid = false;
+            this.formValid[i] = form.getElementsByClassName(value[1])[0];
 
             this.formValid[i].addEventListener('keyup', () => {
 
@@ -36,7 +35,7 @@ class Popup {
 
                 this.formValid[i].valid = (isValid === true) ? errorForm.hideError(this.formValid[i], value[5]) : errorForm.showError(this.formValid[i], isValid, value[5]);
 
-                if(this.formValid[i].value.length === 0) {
+                if (this.formValid[i].value.length === 0) {
                     this.formValid.valid = errorForm.delError(this.formValid[i], value[5]);
                 }
             });
@@ -47,7 +46,7 @@ class Popup {
             evt.preventDefault();
 
             const allValid = this.formValid.reduce((res, current) => {
-                return current.valid && res;
+                return !!current.valid && res;
             }, true);
 
             if(allValid === true) {

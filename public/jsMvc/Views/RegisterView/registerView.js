@@ -27,8 +27,7 @@ class RegisterView extends ViewInterface {
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = this.el.getElementsByClassName(value[1])[0];
-            this.formValid[i].valid = false;
+            this.formValid[i] = toRegisterForm.getElementsByClassName(value[1])[0];
 
             this.formValid[i].addEventListener('keyup', () => {
 
@@ -47,7 +46,7 @@ class RegisterView extends ViewInterface {
             evt.preventDefault();
 
             const allValid = this.formValid.reduce((res, current) => {
-                return current.valid && res;
+                return !!current.valid && res;
             }, true);
 
             if(allValid === true) {

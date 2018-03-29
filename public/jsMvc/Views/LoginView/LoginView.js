@@ -25,8 +25,7 @@ class LoginView extends ViewInterface {
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = this.el.getElementsByClassName(value[1])[0];
-            this.formValid[i].valid = false;
+            this.formValid[i] = toLoginForm.getElementsByClassName(value[1])[0];
 
             this.formValid[i].addEventListener('keyup', () => {
                 const isValid = value[4](this.formValid[i].value);
@@ -43,7 +42,7 @@ class LoginView extends ViewInterface {
             evt.preventDefault();
 
             const allValid = this.formValid.reduce((res, current) => {
-                return current.valid && res;
+                return !!current.valid && res;
             }, true);
 
             if(allValid === true) {
