@@ -58,22 +58,25 @@ class Router {
 
 
         const path = this.choosePath();
-        this.open(path.url, path.urlParams);
+        this.open(path.url, path.params);
     }
 
     choosePath() {
+        debugger;
         if (window.location.pathname in this.pages)
             return {url: window.location.pathname, params: {}};
         let urlArr = window.location.pathname.split('/');
+        urlArr.splice(0, 1);
         let urlParams = [];
         let urlString = '';
         while (urlArr.length > 0) {
-            urlParams = urlParams.concat(urlArr.splice(urlArr.length - 1, 1));
+            urlParams = urlArr.splice(urlArr.length - 1, 1).concat(urlParams);
             urlString = '/' + urlArr.join('/');
             if (urlString in this.pages){
                 return {url: urlString, params: {urlParams: urlParams}};
             }
         }
+        return {url: '/', params: {urlParams: urlParams}};
     }
 }
 
