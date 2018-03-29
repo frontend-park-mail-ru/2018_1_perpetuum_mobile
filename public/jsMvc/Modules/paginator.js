@@ -1,7 +1,7 @@
 class PaginatorModule {
-    constructor(leftEl, rightEl) {
+    constructor() {
         this._pageNum = 1;
-        this.leftDisabled = true;
+        this.leftDisabled = false;
         this.rightDisabled = false;
     }
 
@@ -9,16 +9,29 @@ class PaginatorModule {
         return this._pageNum;
     }
 
+    set pageNum(pageNum) {
+
+        if (pageNum < 1) {
+            pageNum = 1;
+            this.leftDisabled = true;
+        }
+
+        if (pageNum > this._maxPageNum) {
+            pageNum = this._maxPageNum;
+        }
+
+        this._pageNum = pageNum;
+
+        this.checkDisabled();
+    }
+
     get maxPageNum() {
         return this._maxPageNum;
     }
 
     set maxPageNum(maxPageNum) {
-        if (this._pageNum > maxPageNum) {
-            this._pageNum = maxPageNum;
-            this.rightDisabled = true;
-        }
         this._maxPageNum = maxPageNum;
+        this.checkDisabled();
     }
 
     clear() {
@@ -61,6 +74,23 @@ class PaginatorModule {
         }
 
         return this._pageNum;
+    }
+
+    checkDisabled() {
+        if (this._pageNum >= this._maxPageNum) {
+            this.rightDisabled = true;
+        }
+        else {
+            this.rightDisabled = false;
+        }
+
+        if (this._pageNum <= 1) {
+            this.leftDisabled = true;
+        }
+        else {
+            this.leftDisabled = false;
+        }
+        return this;
     }
 
 }

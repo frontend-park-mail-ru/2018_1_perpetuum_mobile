@@ -25,10 +25,14 @@ class Router {
         return this;
     }
 
-    open(path, attrs) {
+    open(path, attrs, pathAdding = '') {
+        const pathParamsDivided = this.choosePath(path, attrs);
+        const fullPath = path + pathAdding;
+        path = pathParamsDivided.url;
+        attrs = pathParamsDivided.params;
         const view = this.pages[path];
-        if (!view || !view.isAllowed()) {
-            return this;
+        if (!view.isAllowed()) {
+            return this.open('/');
         }
 
         if (this.active) {
@@ -37,8 +41,8 @@ class Router {
         }
 
         this.active = view.create(attrs);
-        if (window.location.pathname !== path) {
-            window.history.pushState(null, '', path);
+        if (window.location.pathname !== fullPath) {
+            window.history.pushState(null, '', fullPath);
         }
 
         return this;
@@ -56,16 +60,13 @@ class Router {
             }
         }.bind(this));
 
-
-        const path = this.choosePath();
-        this.open(path.url, path.params);
+        this.open(window.location.pathname);
     }
 
-    choosePath() {
-        debugger;
-        if (window.location.pathname in this.pages)
-            return {url: window.location.pathname, params: {}};
-        let urlArr = window.location.pathname.split('/');
+    choosePath(path, params = {}) {
+        if (path in this.pages)
+            return {url: path, params: params};
+        let urlArr = path.split('/');
         urlArr.splice(0, 1);
         let urlParams = [];
         let urlString = '';
@@ -73,10 +74,12 @@ class Router {
             urlParams = urlArr.splice(urlArr.length - 1, 1).concat(urlParams);
             urlString = '/' + urlArr.join('/');
             if (urlString in this.pages){
-                return {url: urlString, params: {urlParams: urlParams}};
+                params.urlParams = urlParams;
+                return {url: urlString, params: params};
             }
         }
-        return {url: '/', params: {urlParams: urlParams}};
+        params.urlParams = urlParams;
+        return {url: '/', params: params};
     }
 }
 

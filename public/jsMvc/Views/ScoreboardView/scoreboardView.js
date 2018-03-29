@@ -8,7 +8,11 @@ class ScoreboardView extends ViewInterface {
 
     render(params = {}) {
         if (Object.keys(params).length === 0 && params.constructor === Object) {
-            this.onOpenFirstTime();
+            this.onOpenPage();
+            return this;
+        }
+        if (!params['paginator']) {
+            this.onOpenPage({page: +params.urlParams[0]});
             return this;
         }
         params.sharedData = sharedData.data;

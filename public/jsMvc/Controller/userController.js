@@ -148,8 +148,8 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
-                form.reset();
+                console.log(err.message);
+                bus.emit('login-err', [err.message]);
                 alert('Неверно!');
             }
         );
@@ -174,7 +174,7 @@ class UserController {
         ).catch(
             (err) => {
                 console.log(err);
-                form.reset();
+                bus.emit('register-err', [err.message]);
                 alert('Неверно!');
             }
         );

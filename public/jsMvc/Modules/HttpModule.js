@@ -30,7 +30,14 @@ function checkAllRight(response) {
     if (response.ok) {
         return response.json();
     }
-    throw new Error('>= 300');
+    return response.json().catch((err) => {
+        console.warn(err);
+        throw new Error('Connection problems');
+    }).then(throwErr);
+}
+
+function throwErr(err){
+    throw new Error(err.message);
 }
 
 class HttpModule {

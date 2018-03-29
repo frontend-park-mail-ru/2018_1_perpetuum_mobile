@@ -1,6 +1,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Validation} from "../../Modules/validation.js";
 import {errorForm} from "../../Components/Error/error.js";
+import {sharedData} from '../../Modules/sharedData.js';
 
 class LoginView extends ViewInterface {
     constructor() {
@@ -49,6 +50,10 @@ class LoginView extends ViewInterface {
                 this.onLogin(evt);
             }
         });
+    }
+
+    isAllowed() {
+        return !sharedData.data['currentUser'];
     }
 
     destroy() {

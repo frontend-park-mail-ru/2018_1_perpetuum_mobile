@@ -61,6 +61,10 @@ class ProfileView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
     }
+
+    isAllowed() {
+        return !!sharedData.data['currentUser'];
+    }
 }
 
 export {ProfileView};

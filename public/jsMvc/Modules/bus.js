@@ -17,8 +17,8 @@ class Bus {
         return this;
     }
 
-    emit(event, data) {
-        (this.listeners[event] || (this.listeners[event] = [])).forEach(l => l(data));
+    emit(event, data = []) {
+        (this.listeners[event] || (this.listeners[event] = [])).forEach(l => l(...data));
         return this;
     }
 }

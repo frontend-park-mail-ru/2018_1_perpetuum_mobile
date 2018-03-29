@@ -1,6 +1,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Validation} from "../../Modules/validation.js";
 import {errorForm} from "../../Components/Error/error.js";
+import {sharedData} from '../../Modules/sharedData.js';
 
 class RegisterView extends ViewInterface {
     constructor() {
@@ -13,7 +14,7 @@ class RegisterView extends ViewInterface {
             form: 'js-register-form',
             fields: [['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
                 ['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
-                ['Password', 'js-profile-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-password']]
+                ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
         };
         super.render(this.params);
         this.init();
@@ -53,6 +54,10 @@ class RegisterView extends ViewInterface {
                 this.onRegister(evt);
             }
         });
+    }
+
+    isAllowed() {
+        return !sharedData.data['currentUser'];
     }
 }
 
