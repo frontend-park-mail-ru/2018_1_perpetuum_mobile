@@ -55,6 +55,7 @@ class UserController {
             (err) => {
                 console.log(err);
                 alert('Неверно!!!');
+                bus.emit('changeImage-err', [err.message]);
             }
         );
     }
@@ -79,6 +80,7 @@ class UserController {
             (err) => {
                 console.log(err);
                 alert('Неверно!');
+                bus.emit('changeLogin-err', [err.message]);
             }
         );
     }
@@ -103,6 +105,7 @@ class UserController {
             (err) => {
                 console.log(err);
                 alert('Неверно!');
+                bus.emit('changeLogin-err', [err.message]);
             }
         );
     }
