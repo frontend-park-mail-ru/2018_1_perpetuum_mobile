@@ -60,4 +60,7 @@ typings/
 #some examples
 ./static/
 
+#fest
+.tmpl.js
+
 .idea
