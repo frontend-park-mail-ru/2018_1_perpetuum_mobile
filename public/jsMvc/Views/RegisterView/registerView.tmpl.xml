@@ -13,6 +13,7 @@
                         </label>
                     </fest:for>
                     <input class="button_big button js-login-button" type="submit" value="Register"/>
+                    <div class="error-form__server-error"/>
                 </form>
 
                 <div class="register-login-change">

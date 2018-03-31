@@ -72,8 +72,6 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
-                alert('Неверно!!!');
                 bus.emit('changeImage-err', [err.message]);
             }
         );
@@ -103,9 +101,7 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
-                alert('Неверно!');
-                bus.emit('changeLogin-err', [err.message]);
+                bus.emit('changeProfileForm-err', [err.message]);
             }
         );
     }
@@ -134,9 +130,7 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
-                alert('Неверно!');
-                bus.emit('changeLogin-err', [err.message]);
+                bus.emit('changeProfileForm-err', [err.message]);
             }
         );
     }
@@ -165,9 +159,7 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
-                alert('Неверно!');
-                bus.emit('changeEmail-err', [err.message]);
+                bus.emit('changeProfileForm-err', [err.message]);
             }
         );
     }
@@ -195,9 +187,7 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err.message);
                 bus.emit('login-err', [err.message]);
-                alert('Неверно!');
             }
         );
     }
@@ -226,9 +216,7 @@ class UserController {
             }
         ).catch(
             (err) => {
-                console.log(err);
                 bus.emit('register-err', [err.message]);
-                alert('Неверно!');
             }
         );
     }
@@ -278,7 +266,6 @@ class UserController {
             }
         );
     }
-
 }
 
 export {UserController};

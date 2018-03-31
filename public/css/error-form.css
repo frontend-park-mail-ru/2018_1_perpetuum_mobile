@@ -1,22 +1,18 @@
 .error-form {
     width: 20vh;
-    margin: auto;
-}
-
-.error-form_image {
-    opacity: 0;
-    height: 0;
-    width: 0;
-}
-
-.error-form_input {
+    margin: 1vh auto;
     color: #e11525;
-    margin-top: 2vh;
-    font-size: 2vh;
-    margin-bottom: 1vh;
     opacity: 0.8;
+    font-size: 2vh;
 }
 
+/*.error-form_input {*/
+    /*color: #e11525;*/
+    /*margin-top: 2vh;*/
+    /*font-size: 2vh;*/
+    /*margin-bottom: 1vh;*/
+    /*opacity: 0.8;*/
+/*}*/
 
 .error-form__block {
     display: inline-block;
@@ -44,4 +40,11 @@
     border-right: 1vh solid rgba(133, 133, 133, 0.6);
     position: absolute;
     left: -1vh;
+}
+
+.error-form__server-error {
+    display: none;
+    font-size: 3vh;
+    margin-top: 2vh;
+    color: #c30f00;
 }

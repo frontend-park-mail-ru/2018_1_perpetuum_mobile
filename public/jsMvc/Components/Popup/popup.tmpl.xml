@@ -11,6 +11,7 @@
                 </label>
             </fest:for>
             <input class="button_big button" type="submit" value="{params.buttonValue}"/>
+            <div class="error-form__server-error"/>
         </form>
     </div>
 </fest:template>

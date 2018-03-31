@@ -41,6 +41,7 @@
 }
 
 .popup__close {
+    cursor: pointer;
     position: absolute;
     color: #b6b6b6;
     top: 0;

@@ -18,7 +18,7 @@
 }
 
 .profile-row__edit-icon {
-    background: url("../pen.png") no-repeat;
+    background: url("../images/pen.png") no-repeat;
     background-size: auto 70%;
     margin-left: 5%;
     text-align: right;
