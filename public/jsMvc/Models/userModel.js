@@ -7,7 +7,6 @@ class UserModel {
 
     }
 
-
     changeImage(data) {
 
         return HttpModule.doPostDataFetch({url: `${baseUrl}/change_avatar`, data: data})

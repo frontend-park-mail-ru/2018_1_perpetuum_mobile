@@ -8,7 +8,7 @@
 
                 <form class="profile-settings__avatar-form js-changeImageForm">
                     <div class="avatar-and-change-button">
-                        <img src="img.jpg" class="avatar-and-change-button__avatar"/>
+                        <img src="{params.sharedData.currentUser.image}" class="avatar-and-change-button__avatar"/>
 
                         <div class="file-upload-button">
                             <button class="file-upload-button__trigger" type="button">Select img</button>
@@ -18,9 +18,7 @@
 
                     <div class="profile-settings__file-name js-profile-settings-file-name"/>
 
-                    <div class="error-form">
-                        <div class="error-form_image js-error-form-image"/>
-                    </div>
+                    <div class="error-form js-error-form-image"/>
                 </form>
 
                 <div class="profile-settings__info">

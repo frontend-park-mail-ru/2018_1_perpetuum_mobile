@@ -37,8 +37,6 @@
     color: var(--logoColor);
     text-decoration: none;
     margin-top: 3vh;
-    /*text-shadow: var(--inputColor) 1px 1px 0, var(--inputColor) -1px -1px 0,*/
-    /*var(--inputColor) -1px 1px 0, var(--inputColor) 1px -1px 0;*/
 }
 
 .wrapper-block__logo:hover {
@@ -59,8 +57,8 @@
     grid-column: 1;
     grid-row: 6;
     margin: 0 0 0 5vh;
-    border: transparent;
-    background: transparent url("../paint.png") no-repeat;
+    border: none;
+    background: transparent url("../images/paint.png") no-repeat;
     background-size: 7vh 7vh;
 }
 

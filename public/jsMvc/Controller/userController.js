@@ -207,7 +207,6 @@ class UserController {
             }
         );
     }
-
 }
 
 export {UserController};

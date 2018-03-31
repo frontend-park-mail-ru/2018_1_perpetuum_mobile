@@ -7,7 +7,7 @@
 }
 
 .star-rating__one-star {
-    background: url("../star.png") no-repeat center;
+    background: url("../images/star.png") no-repeat center;
     background-size: auto 100%;
     width: 25%;
     height: 100%;
