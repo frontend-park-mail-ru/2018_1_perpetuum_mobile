@@ -97,9 +97,9 @@ class ProfileView extends ViewInterface {
 
         this.changePasswordParams = {
             title: 'Change password',
-            fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword'],
-            ['New password', 'js-profile-new-password-input', 'password', 'newPassword'],
-            ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword']],
+            fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-oldPassword'],
+            ['New password', 'js-profile-new-password-input', 'password', 'newPassword', () => {return 'NADYA SDELAY MENYA';}, 'js-error-newPassword'],
+            ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', () => {return 'NADYA SDELAY MENYA';}, 'js-error-confirmNewPassword']],
             buttonValue: 'Change password'
         };
     }

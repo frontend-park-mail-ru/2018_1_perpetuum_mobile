@@ -1,13 +1,11 @@
 'use strict';
 
-
 /**
  * @function reduceWithValues
- * @param {Array<>} fromArray -
- * @param {Array<>} keyArray -
- * @return {Array<>} -
- * @todo add describe;
- * */
+ * @param {Object|Array} fromArray - The item contains keyArray parameters and .value of them.
+ * @param {Array<String>} keyArray - Array of keys of item.
+ * @return {Object} - New object with properties like oldProperty: oldValue.value.
+ */
 
 function reduceWithValues(fromArray, keyArray) {
     return keyArray.reduce((allFields, fieldName) => {

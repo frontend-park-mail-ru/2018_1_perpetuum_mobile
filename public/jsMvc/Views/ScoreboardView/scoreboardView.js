@@ -1,11 +1,30 @@
+/**
+ * @module views/scoreboardView
+ */
+
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 
+
+/**
+ * Class implements displaying scoreboard.
+ * @extends ViewInterface
+ */
 class ScoreboardView extends ViewInterface {
+
+    /**
+     * Create a view.
+     * Associate with fest template.
+     */
     constructor() {
         super('jsMvc/Views/ScoreboardView/scoreboardView.tmpl');
     }
 
+    /**
+     * Render the view.
+     * @param {object} params - The object with page info and user info.
+     * @return {ScoreboardView} The current object instance.
+     */
     render(params = {}) {
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.onOpenPage();
@@ -21,6 +40,9 @@ class ScoreboardView extends ViewInterface {
         return this;
     }
 
+    /**
+     * Initialize event handlers for the page: pagination and logout.
+     */
     init() {
         if (sharedData.data['currentUser']) {
             const toLogoutForm = this.el.getElementsByClassName('js-logout-form')[0];

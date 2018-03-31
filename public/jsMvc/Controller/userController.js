@@ -1,4 +1,11 @@
 'use strict';
+
+/**
+ * @module controller/userController
+ */
+
+/** @typedef {object} Event */
+
 import {ProfileView} from '../Views/ProfileView/profileView.js';
 import {LoginView} from '../Views/LoginView/LoginView.js';
 import {RegisterView} from '../Views/RegisterView/registerView.js';
@@ -14,7 +21,14 @@ import {baseUrl} from '../Modules/HttpModule.js';
 import {sharedData} from '../Modules/sharedData.js';
 
 
+/**
+ * The class which connects functionality of user Model and View via proxy-functions.
+ */
 class UserController {
+
+    /**
+     * Create and link user Views with proxy-functions.
+     */
     constructor() {
         this.loginView = new LoginView();
         this.registerView = new RegisterView();
@@ -36,6 +50,11 @@ class UserController {
         this.menuView.onLogout = this.logout.bind(this);
     }
 
+    /**
+     * Change user avatar.
+     * Extract the image from html form and send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     changeImage(evt) {
         evt.preventDefault();
 
@@ -58,6 +77,12 @@ class UserController {
         );
     }
 
+    /**
+     * Change user login.
+     * Extract the new login and old password from html form and
+     * send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     changeLogin(evt) {
         evt.preventDefault();
 
@@ -81,6 +106,12 @@ class UserController {
         );
     }
 
+    /**
+     * Change user password.
+     * Extract the new password and old password from html form and
+     * send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     changePassword(evt) {
         evt.preventDefault();
 
@@ -104,6 +135,12 @@ class UserController {
         );
     }
 
+    /**
+     * Change user email.
+     * Extract the new email and old password from html form and
+     * send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     changeEmail(evt) {
         evt.preventDefault();
 
@@ -127,6 +164,12 @@ class UserController {
         );
     }
 
+    /**
+     * Authorize user.
+     * Extract the email and password from html form and
+     * send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     login(evt) {
         evt.preventDefault();
         const form = evt.target;
@@ -149,6 +192,12 @@ class UserController {
         );
     }
 
+    /**
+     * Register new user.
+     * Extract the email, login and password from html form and
+     * send it through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     register(evt) {
         evt.preventDefault();
 
@@ -172,6 +221,11 @@ class UserController {
         );
     }
 
+    /**
+     * Logout user.
+     * Send logout signal through user Model {@link } to server.
+     * @param {Event} evt - The form event signalized form is filled and valid.
+     */
     logout(evt) {
         evt.preventDefault();
 
@@ -189,6 +243,11 @@ class UserController {
         );
     }
 
+    /**
+     * Load user.
+     * Load user info and save it to shared data. {@see module:modules/sharedData}
+     * @return {Promise<object>}
+     */
     loadMe() {
         return this.userModel.loadMe().then(
             (me) => {
