@@ -1,11 +1,24 @@
+/**
+ * @module controller/scoreboardController
+ */
+
+/** @typedef {object} Event */
+
 import {ScoreboardView} from '../Views/ScoreboardView/scoreboardView.js';
 import {ScoreboardModel} from '../Models/scoreboardModel.js';
 
 import {PaginatorModule} from '../Modules/paginator.js';
 import {bus} from '../Modules/bus.js';
 
+
+/**
+ * The class which connects functionality of scoreboard Model and View via proxy-functions.
+ */
 class ScoreboardController {
 
+    /**
+     * Create and link scoreboard Views with proxy-functions.
+     */
     constructor() {
         this.scoreboardView = new ScoreboardView();
 
@@ -18,6 +31,10 @@ class ScoreboardController {
         this.scoreboardView.onOpenPage = this.openPage.bind(this);
     }
 
+    /**
+     * Turn back the page.
+     * @param {Event} evt - The event signalized turning one page back.
+     */
     onPaginatorLeft(evt) {
         evt.preventDefault();
 
@@ -28,6 +45,10 @@ class ScoreboardController {
         this.openPage(page);
     }
 
+    /**
+     * Turn next the page.
+     * @param {Event} evt - The event signalized turning one page back.
+     */
     onPaginatorRight(evt) {
         evt.preventDefault();
 
@@ -38,6 +59,10 @@ class ScoreboardController {
         this.openPage(page);
     }
 
+    /**
+     * Open the page by number.
+     * @param {object<page number>} page - The object contains the page number.
+     */
     openPage(page = { page : 1 }){
         this.scoreboardModel.loadAllUsers(page).then(
             (data) => {
@@ -46,10 +71,6 @@ class ScoreboardController {
                 this.paginator.pageNum = page.page;
                 data['paginator'] = this.paginator;
                 bus.emit('scoreboard', [data, `/${page.page}`]);
-                /*data['currentPage'] = this._paginator.pageNum; // for template user enumeration rendering
-                this._scoreboardTableComponent.data = data;
-                this._scoreboardTableComponent.render();
-                this._paginator.maxPageNum = data['maxPageNum'];*/
             }
         );
     }
