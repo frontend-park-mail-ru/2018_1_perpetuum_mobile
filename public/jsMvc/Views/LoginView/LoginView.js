@@ -1,15 +1,20 @@
+/**
+ * @module views/loginView
+ */
+
 import {ViewInterface} from '../ViewInterface.js';
 import {Validation} from "../../Modules/validation.js";
 import {Error} from "../../Components/Error/error.js";
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from "../../Modules/bus.js";
 
-/** Login view
- *  @class LoginView
- *  */
+/**
+ * Login view
+ * @extends ViewInterface
+ */
 class LoginView extends ViewInterface {
     /**
-     * create a LoginView instance
+     * Create a LoginView instance.
      */
     constructor() {
         super('jsMvc/Views/LoginView/loginView.tmpl');
@@ -17,17 +22,18 @@ class LoginView extends ViewInterface {
     }
 
     /**
-     * A method that specifies the place to render LoginView
-     * @param params - place to render view
-     * @return {ProfileView} current class instance.
+     * Render the view.
+     * @param {object} params - The object with info provided to fest.
+     * @return {LoginView} The current object instance.
      */
-    render(params) {
+    render(params = {}) {
         this.params = {
             form: 'js-login-form',
             fields: [['Username or email address', 'js-profile-login-input', 'text', 'email', Validation.validateLoginOrEmail, 'js-error-login'],
                      ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
         };
-        super.render(this.params);
+        Object.assign(params, this.params);
+        super.render(params);
         this.init();
         return this;
     }
@@ -44,8 +50,8 @@ class LoginView extends ViewInterface {
 
             this.formValid[i] = this.toLoginForm.getElementsByClassName(value[1])[0];
 
-            this.formValid[i].addEventListener('keyup', () => {
-                const isValid = value[4](this.formValid[i].value);
+            this.formValid[i].addEventListener('keyup', (evt) => {
+                const isValid = value[4](evt);
 
                 this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
 
@@ -69,7 +75,7 @@ class LoginView extends ViewInterface {
     }
 
     /**
-     * isAllowed - is there a current user in the data
+     * isAllowed - is the view allowed to show.
      * @return {boolean}
      */
     isAllowed() {

@@ -1,3 +1,8 @@
+/**
+ *  @module modules/validation
+ */
+
+
 /** function check email
  * @function isEmail
  * @param {string} email - The string that should be checked it is a email or not.
@@ -29,56 +34,87 @@ function validateLength(value) {
     return ((ALLOW_INPUT_LENGTH > value.length) && (value.length > 0));
 }
 
-/** validation class.
- *  @modules /validation
- *  */
+/**
+ * Validation class.
+ */
 class Validation {
     /**
-     * validates login
-     * @param {string} login - The string that should be checked it is a login or not.
-     * @return {(boolean|string)} - Check status - true or error description.
+     * Validate login.
+     * @static
+     * @param {object} evt - The evt invoked on input that should be
+     * checked it is a login or not.
+     * @return {boolean|string} Check status - true or error description.
      */
-    static validateLogin(login) {
+    static validateLogin(evt) {
+        const login = evt.target.value;
         const stat = !validateLength(login) ? true : 'Too short. Min 4 letters';
         return !isAllowed(login) ? stat : 'Not latin';
     }
 
     /**
-     * validates password
-     * @param {string} password - The string that should be checked it is a password or not.
-     * @return {(boolean|string)} - Check status - true or error description.
+     * Validate password.
+     * @static
+     * @param {object} evt - The evt invoked on input that should be
+     * checked it is a password or not.
+     * @return {(boolean|string)} Check status - true or error description.
      */
-    static validatePassword(password) {
+    static validatePassword(evt) {
+        const password = evt.target.value;
         const stat = !validateLength(password) ? true : 'Too short. Min 4 letters';
         return !isAllowed(password) ? stat : 'Not latin';
     }
 
     /**
-     * validates email
-     * @param {string} email - The string that should be checked it is a email or not.
-     * @return {(boolean|string)} - Check status - true or error description.
+     * Validate email.
+     * @static
+     * @param {object} evt - The evt invoked on input that should be
+     * checked it is a email or not.
+     * @return {boolean|string} Check status - true or error description.
      */
-    static validateEmail(email) {
+    static validateEmail(evt) {
+        const email = evt.target.value;
         return isEmail(email) ? true : 'This is not email';
     }
 
     /**
-     * validates email or login
-     * @param {string} loginOrEmail - The string that should be checked it is a login oe email or not.
-     * @return {(boolean|string)} - Check status - true or error description.
+     * Validate email or login.
+     * @static
+     * @param {object} evt - The evt invoked on input that should be
+     * checked it is a login or email or not.
+     * @return {boolean|string} Check status - true or error description.
      */
-    static validateLoginOrEmail(loginOrEmail) {
+    static validateLoginOrEmail(evt) {
+        const loginOrEmail = evt.target.value;
         const stat = isEmail(loginOrEmail) || !validateLength(loginOrEmail) ? true : 'This is not login or email';
         return !isAllowed(loginOrEmail) ? stat : 'This is not latin';
     }
 
+    /**
+     * Validate whether password is the same as it is in another field.
+     * @static
+     * @param {string} className - The input class where is situated password to compare with.
+     * @param evt - The event invoked on input of repeat password.
+     * @return {boolean|string} Check status - true or error description.
+     */
+    static validatePasswordRepeat(className, evt) {
+        const form = evt.target.form;
+        const password = form.getElementsByClassName(className)[0].value;
+        const repeatPassword = evt.target.value;
+
+        if (password !== repeatPassword) {
+            return 'Passwords do not match';
+        }
+        return true;
+    }
+
 
     /**
-     * validates size and type image
-     * @param {Object} file - The file that should be checked.
-     * @return {(boolean|string)} - Check status - true or error description.
+     * Validate size and type of the image.
+     * @static
+     * @param {object} file - The file that should be checked.
+     * @return {boolean|string} Check status - true or error description.
      */
-    static validateImage(file) {
+    static isValidImage(file) {
 
         const MIME_TYPE = ['image/jpeg', 'image/png', 'image/jpeg'];
 

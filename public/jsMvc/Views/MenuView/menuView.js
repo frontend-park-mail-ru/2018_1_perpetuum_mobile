@@ -13,8 +13,7 @@ import {sharedData} from '../../Modules/sharedData.js';
 class MenuView extends ViewInterface {
 
     /**
-     * Create a view.
-     * Associate with fest template.
+     * Create a menu view instance.
      */
     constructor() {
         super('jsMvc/Views/MenuView/menuView.tmpl');
@@ -22,7 +21,7 @@ class MenuView extends ViewInterface {
 
     /**
      * Render the view.
-     * @param {object} params - The object with user info.
+     * @param {object} params - The object with info provided to fest.
      * @return {MenuView} The current object instance.
      */
     render(params = {}) {

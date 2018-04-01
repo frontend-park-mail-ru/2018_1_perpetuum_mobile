@@ -1,10 +1,14 @@
+/**
+ *  @module components/popup
+ */
+
 import {Error} from "../Error/error.js";
 import {bus} from "../../Modules/bus.js";
 
-/** Popup class to show pop-up block
- *  @class Popup
- *  */
 
+/**
+ * Popup class to show pop-up block
+ */
 class Popup {
     /**
      * Create a pop-up
@@ -50,9 +54,9 @@ class Popup {
 
             this.formValid[i] = this.form.getElementsByClassName(value[1])[0];
 
-            this.formValid[i].addEventListener('keyup', () => {
+            this.formValid[i].addEventListener('keyup', (evt) => {
 
-                const isValid = value[4](this.formValid[i].value);
+                const isValid = value[4](evt);
 
                 this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
 

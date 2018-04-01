@@ -1,11 +1,15 @@
-/** Error class to show validation errors
- *  @class Error
- *  */
+/**
+ *  @module components/error
+ */
 
+
+/**
+ * Error class to show validation errors.
+ */
 class Error {
 
     /**
-     * show error method to show validation error description near inputs
+     * Show error method to show validation error description near inputs.
      * @param {Element} input - wrong input.
      * @param {string} errorMessage - error message to show.
      * @param {string} errLocation - css class to find where to show error.
@@ -24,7 +28,7 @@ class Error {
     }
 
     /**
-     * delete error method to delete validation error description near empty inputs
+     * Delete error method to delete validation error description near empty inputs.
      * @param {Element} input - empty input.
      * @param {string} errLocation - css class to find where to delete error.
      * @return {boolean} - To understand what this input value is wrong.
@@ -38,7 +42,7 @@ class Error {
     }
 
     /**
-     * hide error method to hide validation error description near correct inputs
+     * Hide error method to hide validation error description near correct inputs.
      * @param {Element} input - correct input.
      * @param {string} errLocation - css class to find where to hide error.
      * @return {boolean} - To understand what this input value is correct.
@@ -51,7 +55,7 @@ class Error {
     }
 
     /**
-     * Shows server response-related errors on form.
+     * Show server response-related errors on form.
      * @param {string} msg - Server response to show.
      */
     static serverError(msg) {
@@ -61,7 +65,7 @@ class Error {
     }
 
     /**
-     * Shows avatar validation error.
+     * Show avatar validation error.
      * @param {string} msg - error description to show.
      * @return {boolean} - To understand what this file is wrong.
      */

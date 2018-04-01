@@ -1,3 +1,8 @@
+/**
+ *  @module views/profileView
+ */
+
+
 import {ViewInterface} from '../ViewInterface.js';
 import {Popup} from "../../Components/Popup/popup.js";
 import {sharedData} from '../../Modules/sharedData.js';
@@ -6,12 +11,9 @@ import {Error} from '../../Components/Error/error.js';
 import {bus} from '../../Modules/bus.js';
 
 
-/** Profile view
- *  @class ProfileView
- *  */
 class ProfileView extends ViewInterface {
     /**
-     * create a ProfileView instance
+     * Create a ProfileView instance.
      */
     constructor() {
         super('jsMvc/Views/ProfileView/profileView.tmpl');
@@ -22,8 +24,8 @@ class ProfileView extends ViewInterface {
 
     /**
      * A method that specifies the place to render ProfileView
-     * @param params - place to render view
-     * @return {ProfileView} current class instance.
+     * @param params - The object with info provided to fest.
+     * @return {ProfileView} The current object instance.
      */
     render(params = {}) {
         params.sharedData = sharedData.data;
@@ -33,7 +35,7 @@ class ProfileView extends ViewInterface {
     }
 
     /**
-     * Add handlers
+     * Add handlers.
      */
     init() {
         const forms = ['js-profile-login-change-button', 'js-profile-email-change-button', 'js-profile-password-change-button'];
@@ -59,7 +61,7 @@ class ProfileView extends ViewInterface {
     }
 
     /**
-     * addPopup - callback to render a popup
+     * Callback to render a popup
      * @param params - parameters with form and inputs that need to be rendered in popup
      */
     addPopup(params) {
@@ -70,7 +72,7 @@ class ProfileView extends ViewInterface {
     }
 
     /**
-     * isAllowed - is there a current user in the data
+     * Is the view is allowed to render.
      * @return {boolean}
      */
     isAllowed() {
@@ -78,7 +80,7 @@ class ProfileView extends ViewInterface {
     }
 
     /**
-     * initParams to initialize parameters to popup
+     * Initialize parameters to popup.
      */
     initParams() {
         this.changeLoginParams = {
@@ -98,20 +100,20 @@ class ProfileView extends ViewInterface {
         this.changePasswordParams = {
             title: 'Change password',
             fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-oldPassword'],
-            ['New password', 'js-profile-new-password-input', 'password', 'newPassword', () => {return 'NADYA SDELAY MENYA';}, 'js-error-newPassword'],
-            ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', () => {return 'NADYA SDELAY MENYA';}, 'js-error-confirmNewPassword']],
+            ['New password', 'js-profile-new-password-input', 'password', 'newPassword', Validation.validatePassword, 'js-error-newPassword'],
+            ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', Validation.validatePasswordRepeat.bind(null, 'js-profile-new-password-input'), 'js-error-confirmNewPassword']],
             buttonValue: 'Change password'
         };
     }
 
     /**
-     * validateAvatar to validate size or type uploaded avatar
-     * @param evt - event
-     * @return {boolean} - validity status
+     * Validate avatar to validate size and type of it.
+     * @param evt - Event on form where the image in. The image must be in [0] form index.
+     * @return {boolean} - Validity status.
      */
     static validateAvatar(evt) {
         const avatar = evt.target.files[0];
-        const isValid = Validation.validateImage(avatar);
+        const isValid = Validation.isValidImage(avatar);
         if(isValid !== true) {
             document.getElementsByClassName('js-profile-settings-file-name')[0].innerHTML = avatar.name;
         }

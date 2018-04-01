@@ -1,4 +1,5 @@
 'use strict';
+/** @module modules/basic */
 
 /**
  * @function reduceWithValues
