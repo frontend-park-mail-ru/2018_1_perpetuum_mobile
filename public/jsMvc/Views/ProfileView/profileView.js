@@ -19,7 +19,6 @@ class ProfileView extends ViewInterface {
         super('jsMvc/Views/ProfileView/profileView.tmpl');
         this._popup = new Popup();
         bus.on('changeImage-err', Error.showAvatarError.bind(this));
-        this.initParams();
     }
 
     /**
@@ -30,6 +29,7 @@ class ProfileView extends ViewInterface {
     render(params = {}) {
         params.sharedData = sharedData.data;
         super.render(params);
+        this.initParams();
         this.init();
         return this;
     }
@@ -67,7 +67,7 @@ class ProfileView extends ViewInterface {
     addPopup(params) {
         const popupEl = this.el.getElementsByClassName('js-wrapper-block')[0];
         this._popup.renderTo(popupEl);
-        this._popup.onSubmitForm = this.onChangeLogin;
+        this._popup.onSubmitForm = params.changeForm;
         this._popup.render(params);
     }
 
@@ -87,14 +87,16 @@ class ProfileView extends ViewInterface {
             title: 'Change login',
             fields: [['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
                 ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-password']],
-            buttonValue: 'Change login'
+            buttonValue: 'Change login',
+            changeForm: this.onChangeLogin
         };
 
         this.changeEmailParams = {
             title: 'Change Email',
             fields: [['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
                 ['Confirm password', 'js-profile-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-password']],
-            buttonValue: 'Change email'
+            buttonValue: 'Change email',
+            changeForm: this.onChangeEmail
         };
 
         this.changePasswordParams = {
@@ -102,7 +104,8 @@ class ProfileView extends ViewInterface {
             fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-oldPassword'],
             ['New password', 'js-profile-new-password-input', 'password', 'newPassword', Validation.validatePassword, 'js-error-newPassword'],
             ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', Validation.validatePasswordRepeat.bind(null, 'js-profile-new-password-input'), 'js-error-confirmNewPassword']],
-            buttonValue: 'Change password'
+            buttonValue: 'Change password',
+            changeForm: this.onChangePassword
         };
     }
 
