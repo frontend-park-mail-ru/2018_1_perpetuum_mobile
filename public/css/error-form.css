@@ -1,18 +1,10 @@
 .error-form {
     width: 20vh;
     margin: 1vh auto;
-    color: #e11525;
+    color: var(--wrorngInputColor);
     opacity: 0.8;
     font-size: 2vh;
 }
-
-/*.error-form_input {*/
-    /*color: #e11525;*/
-    /*margin-top: 2vh;*/
-    /*font-size: 2vh;*/
-    /*margin-bottom: 1vh;*/
-    /*opacity: 0.8;*/
-/*}*/
 
 .error-form__block {
     display: inline-block;
@@ -28,7 +20,7 @@
     display: inline-block;
     margin: 1vh auto auto 2vh;
     font-size: 2vh;
-    color: #500800;
+    color: #390500;
 }
 
 .error-form__message:before {
@@ -46,5 +38,5 @@
     display: none;
     font-size: 3vh;
     margin-top: 2vh;
-    color: #c30f00;
+    color: var(--wrorngInputColor);
 }

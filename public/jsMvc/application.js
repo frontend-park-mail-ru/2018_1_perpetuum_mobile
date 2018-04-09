@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
     router.add('/login', userController.loginView, 'login');
     router.add('/profile', userController.profileView, 'profile');
     router.add('/register', userController.registerView, 'register');
+   // router.add('/game', userController.gameView, 'game');
     router.add('/', userController.menuView, 'menu');
 
     /**
