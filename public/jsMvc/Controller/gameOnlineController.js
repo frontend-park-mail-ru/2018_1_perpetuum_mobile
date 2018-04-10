@@ -64,4 +64,4 @@ endGame() {
 }
 
 */
-import {bus} from '../Modules/bus';
+import {bus} from '../Modules/bus.js';

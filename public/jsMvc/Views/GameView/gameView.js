@@ -1,58 +1,12 @@
 import {ViewInterface} from '../ViewInterface.js';
-import {Cell} from "../../Components/Cell/cell.js";
+import {Cell} from '../../Components/Cell/cell.js';
 
 class GameView extends ViewInterface {
     constructor() {
         super('jsMvc/Views/GameView/gameView.tmpl');
     }
     render(params = {}) {
-        /*params =   {
-            countX: 5,
-            countY: 5,
-            cells: [{
-                    x: 0,
-                    y: 0,
-                    fixed: false,
-                    colour: "#691f23"
-                },
-                {
-                    x: 0,
-                    y: 2,
-                    fixed: true,
-                    colour: "#875a03"
-                },
-                {
-                    x: 0,
-                    y: 1,
-                    fixed: true,
-                    colour: "#993d0c"
-                },
-                {
-                    x: 1,
-                    y: 0,
-                    fixed: true,
-                    colour: "#245b99"
-                },
-                {
-                    x: 4,
-                    y: 4,
-                    fixed: true,
-                    colour: "#245b99"
-                },
-                {
-                    x: 4,
-                    y: 3,
-                    fixed: true,
-                    colour: "#245b99"
-                },
-                {
-                    x: 2,
-                    y: 2,
-                    fixed: true,
-                    colour: "#245b99"
-                }
-               ]
-        };*/
+
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.openLevel();
             return this;
@@ -71,41 +25,47 @@ class GameView extends ViewInterface {
         return this;
     }
 
-    drawField() {
-        const sizeCellX = this.element.offsetWidth / this.params.countX - 10 * this.params.countX;
-        const sizeCellY = this.element.offsetHeight / this.params.countY - 10 * this.params.countY;
-
-        const sizeCell = (sizeCellX > sizeCellY) ? sizeCellY:sizeCellX;
-
-        this.params.cells.forEach((v, i) => {
-            const cell = document.createElement('div');
-            cell.style.width = sizeCell + 'px';
-            cell.style.height = sizeCell + 'px';
-            cell.style.top = v.y * sizeCell + 10 * v.y + this.element.offsetTop  + 'px';
-            cell.style.left = v.x * sizeCell + 10 * v.x + this.element.offsetLeft + 'px';
-            !(v.fixed) ? cell.classList.add('game-blendocu__cell', 'js-cell') : cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
-            if (!v.fixed) {
-                cell.style.background = v.colour;
-            }
-            this.element.appendChild(cell);
-        });
-
-        const free =this.params.cells.filter(v => {
-            return v.fixed;
-        });
+    drawFree(freeX, freeY, sizeCell) {
+        const free = this.params.cells.filter(v => v.fixed);
 
         free.forEach((v, i) => {
             const colourFree = document.createElement('div');
+            const x = freeX + 10 * i + sizeCell * i;
+            const y = freeY;
             colourFree.classList.add('js-fixed', 'game-blendocu__cell');
-            colourFree.style.width = sizeCell + 'px';
-            colourFree.style.height = sizeCell + 'px';
+            Cell.setProperty(colourFree, sizeCell, x, y);
+            colourFree.colour = v.colour;
+
             colourFree.style.background = v.colour;
-            colourFree.wrongX = 600 + 10 * i + sizeCell * i + 'px';
-            colourFree.wrongY = 500 + 'px';
-            colourFree.style.left = colourFree.wrongX;
-            colourFree.style.top = colourFree.wrongY;
+
             this.element.appendChild(colourFree);
         });
+    }
+
+    drawFixed(fixedX, fixedY, sizeCell) {
+        this.params.cells.forEach(v => {
+            const cell = document.createElement('div');
+            const y = v.y * sizeCell + 10 * v.y + this.element.offsetTop + fixedY;
+            const x = v.x * sizeCell + 10 * v.x + this.element.offsetLeft + fixedX;
+            Cell.setProperty(cell, sizeCell, x, y);
+            !(v.fixed) ? cell.classList.add('game-blendocu__cell') : cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
+            if (!v.fixed) {
+                cell.style.background = v.colour;
+            } else {
+                cell.x = v.x;
+                cell.y = v.y;
+            }
+
+            this.element.appendChild(cell);
+        });
+    }
+
+
+    drawField() {
+        const sizeCell = Cell.findSizeCell(this.element, this.params.countX, this.params.countY);
+
+        this.drawFixed(200, 0, sizeCell);
+        this.drawFree(600, 500, sizeCell);
     }
 
     init() {
@@ -128,6 +88,8 @@ class GameView extends ViewInterface {
                 if (cell.canDrag) {
                     cell.currentY = getComputedStyle(lol).top;
                     cell.currentX = getComputedStyle(lol).left;
+                    cell.x = lol.x;
+                    cell.y = lol.y;
                 }
             };
 
@@ -140,14 +102,13 @@ class GameView extends ViewInterface {
                 } else {
                     cell.style.left = cell.currentX;
                     cell.style.top  = cell.currentY;
+                    this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
                 }
             };
 
             cell.ondragstart = () => false;
         };
-
     }
-
 }
 
 export {GameView};
