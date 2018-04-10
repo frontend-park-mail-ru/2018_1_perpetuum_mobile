@@ -10,7 +10,7 @@ import {ProfileView} from '../Views/ProfileView/profileView.js';
 import {LoginView} from '../Views/LoginView/LoginView.js';
 import {RegisterView} from '../Views/RegisterView/registerView.js';
 import {MenuView} from '../Views/MenuView/menuView.js';
-//import {GameView} from '../Views/GameView/gameView.js';
+import {AboutView} from '../Views/AboutView/aboutView.js';
 
 import {UserModel} from '../Models/userModel.js';
 
@@ -35,7 +35,7 @@ class UserController {
         this.registerView = new RegisterView();
         this.profileView = new ProfileView();
         this.menuView = new MenuView();
-        // this.gameView = new GameView();
+        this.aboutView = new AboutView();
 
         this.userModel = new UserModel();
 

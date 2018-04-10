@@ -1,0 +1,33 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="wrapper-block">
+        <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <div class="wrapper-block__main">
+            <section class="wrapper-block__main js-wrapper-login">
+                <div class="wrapper-block__section-header">Our team</div>
+
+                <div class="about-team">
+                    <ul class="about-team__ul">
+                        <li class="about-team__li">
+                            <div class="about-team__member">Poponkin Dmitry</div>
+                            <div class="about-team__info">fullstack - frontend developer, bla bla bla bla bla bla</div>
+                        </li>
+                        <li class="about-team__li">
+                            <div class="about-team__member">Vasilieva Nadia</div>
+                            <div class="about-team__info">fullstack - frontend developer, designer, bla bla bla vla vla vla</div>
+                        </li>
+                        <li class="about-team__li">
+                            <div class="about-team__member">Garifullin Timur</div>
+                            <div class="about-team__info">fullstack - backend developer, bla bla bla, tester bla bla</div>
+                        </li>
+                        <li class="about-team__li">
+                            <div class="about-team__member">Migranov Rustam</div>
+                            <div class="about-team__info">fullstack - backend developer, bla bla bla playboy filantrop</div>
+                        </li>
+                    </ul>
+                </div>
+
+            </section>
+        </div>
+        <button class="wrapper-block__change-color"/>
+    </div>
+</fest:template>

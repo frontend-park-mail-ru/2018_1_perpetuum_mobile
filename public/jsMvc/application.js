@@ -7,6 +7,7 @@ import {Router} from './Modules/router.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 import {LevelView} from './Views/LevelView/levelView.js';
+import {GameView} from "./Views/GameView/gameView.js";
 
 
 /**
@@ -22,12 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
     /**
      * Connect all paths to its views and aliases.
      */
+    router.add('/gameView', new GameView(), 'gameView');
     router.add('/level', new LevelView(), 'level');
     router.add('/scoreboard', scoreboardController.scoreboardView, 'scoreboard');
     router.add('/login', userController.loginView, 'login');
     router.add('/profile', userController.profileView, 'profile');
     router.add('/register', userController.registerView, 'register');
-   // router.add('/game', userController.gameView, 'game');
+    router.add('/about', userController.aboutView, 'about');
     router.add('/', userController.menuView, 'menu');
 
     /**

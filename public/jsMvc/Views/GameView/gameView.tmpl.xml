@@ -1,7 +1,12 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
+    <div class="wrapper-block">
+    <a class="wrapper-block__logo" href="/"> Blendocu </a>
 
-    <div class="game-blendocu js-game">
+        <div class="wrapper-block__game-blendocu">
+            <div class="game-blendocu  js-game">
 
+            </div>
+        </div>
     </div>
 
 </fest:template>

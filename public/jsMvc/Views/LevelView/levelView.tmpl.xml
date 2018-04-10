@@ -5,70 +5,33 @@
             <section class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Select level</div>
                 <div class="level">
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
+                    <div class="levels">
+                        <div class="level__item">
+                            <div class="rating">
+                                <span class="rating__one-star-good">☆</span>
+                                <span class="rating__one-star-good">☆</span>
+                                <span class="rating__one-star">☆</span>
+                            </div>
+                            <div class="level__image"/>
                         </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
+                        <div class="level__item">
+                            <div class="rating">
+                                <span class="rating__one-star-good">☆</span>
+                                <span class="rating__one-star">☆</span>
+                                <span class="rating__one-star">☆</span>
+                            </div>
+                            <div class="level__image"/>
                         </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
+                        <div class="level__item">
+                            <div class="rating">
+                                <span class="rating__one-star">☆</span>
+                                <span class="rating__one-star">☆</span>
+                                <span class="rating__one-star">☆</span>
+                            </div>
+                            <div class="level__image"/>
                         </div>
-                        <div class="level__image"/>
                     </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                        </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                        </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                        </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                        </div>
-                        <div class="level__image"/>
-                    </div>
-                    <div class="level__item">
-                        <div class="star-rating">
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                            <div class="star-rating__one-star"/>
-                        </div>
-                        <div class="level__image"/>
-                    </div>
+
 
                     <div class="scoreboard-paginator">
                         <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value='<'/>
@@ -78,7 +41,7 @@
                 </div>
             </section>
         </div>
-        <button class="wrapper-block__change-color"></button>
+        <button class="wrapper-block__change-color"/>
         <footer class="wrapper-block__profile">
             <div class="js-profile profile-footer">
                 <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>

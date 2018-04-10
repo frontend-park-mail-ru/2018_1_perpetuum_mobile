@@ -43,6 +43,7 @@
 }
 
 .profile-footer__link {
+    cursor: pointer;
     border: transparent 3px solid;
     transition: all 0.3s linear;
     color: var(--secondColor);

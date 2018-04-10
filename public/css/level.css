@@ -1,4 +1,4 @@
-.level {
+.levels {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -20,6 +20,40 @@
     font-size: 8vh;
     width: 75%;
     height: 65%;
-    background: var(--baseColor);
+    background: #1c1c1c;
     border-radius: 5px;
 }
+
+.level {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.rating {
+    margin-top: 5%;
+    font-size: 4vh;
+}
+.rating__one-star{
+    display: inline-block;
+}
+/*.rating__one-star:hover:before,*/
+/*.rating__one-star:hover ~ span:before {*/
+    /*content: "\2605";*/
+    /*color: yellow;*/
+    /*position: absolute;*/
+/*}*/
+
+.rating__one-star-good {
+    content: "\2605";
+    color: var(--baseColor);
+}
+
+.rating__one-star-good:before {
+    content: "\2605";
+    color: var(--baseColor);
+    position: absolute;
+}
+
+
+

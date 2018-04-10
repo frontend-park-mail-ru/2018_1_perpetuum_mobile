@@ -12,6 +12,7 @@
                             <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
                         </label>
                     </fest:for>
+
                     <input class="button_big button js-login-button" type="submit" value="Login"/>
                     <div class="error-form__server-error"/>
                 </form>
