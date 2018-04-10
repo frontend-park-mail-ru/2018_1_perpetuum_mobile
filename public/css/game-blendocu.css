@@ -12,9 +12,6 @@
 
 .game-blendocu__empty-cell {
     border-radius: 10px;
-    margin: 0.5vh 0.5vh 0.5vh 0.5vh;
-    width: 12vh;
-    height: 12vh;
     opacity: 0.8;
     border: #a8a8a8 1vh solid;
     box-sizing: border-box;
@@ -42,14 +39,4 @@
     100%{
         background-position: 0;
     }
-}
-
-.position1 {
-    left: 1000px;
-    top: 700px;
-}
-
-.position2 {
-    left: 400px;
-    top: 200px;
 }
