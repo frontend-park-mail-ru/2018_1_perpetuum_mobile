@@ -6,7 +6,7 @@ class GameView extends ViewInterface {
         super('jsMvc/Views/GameView/gameView.tmpl');
     }
     render(params = {}) {
-        params =   {
+        /*params =   {
             countX: 5,
             countY: 5,
             cells: [{
@@ -52,7 +52,17 @@ class GameView extends ViewInterface {
                     colour: "#245b99"
                 }
                ]
-        };
+        };*/
+        if (Object.keys(params).length === 0 && params.constructor === Object) {
+            this.openLevel();
+            return this;
+        }
+
+        if (!params['cells']) {
+            this.openLevel({mapNum: +params.urlParams[0]});
+            return this;
+        }
+
         super.render(params);
         this.init();
         this.params = params;
@@ -83,7 +93,6 @@ class GameView extends ViewInterface {
         const free =this.params.cells.filter(v => {
             return v.fixed;
         });
-        console.log(free);
 
         free.forEach((v, i) => {
             const colourFree = document.createElement('div');

@@ -4,10 +4,10 @@
  */
 
 import {Router} from './Modules/router.js';
+import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 import {LevelView} from './Views/LevelView/levelView.js';
-import {GameView} from "./Views/GameView/gameView.js";
 
 
 /**
@@ -19,11 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const userController = new UserController();
     const scoreboardController = new ScoreboardController();
+    const offlineGameController = new OfflineGameController();
 
     /**
      * Connect all paths to its views and aliases.
      */
-    router.add('/gameView', new GameView(), 'gameView');
+    router.add('/game', offlineGameController.gameViewOffline, 'game');
     router.add('/level', new LevelView(), 'level');
     router.add('/scoreboard', scoreboardController.scoreboardView, 'scoreboard');
     router.add('/login', userController.loginView, 'login');
