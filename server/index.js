@@ -5,6 +5,7 @@ const port = 3000;
 const path = require('path');
 const express = require('express');
 const body = require('body-parser');
+const fallback = require('express-history-api-fallback');
 const cookie = require('cookie-parser');
 const debug = require('debug');
 const logger = debug('mylogger');
@@ -14,8 +15,10 @@ const morgan = require('morgan');
 logger('Starting app');
 const app = express();
 
+const root = path.resolve(__dirname, '..', 'public');
+
 app.use(morgan('dev'));
-app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use(express.static(root));
 app.use(body.json());
 app.use(cookie());
 
@@ -118,6 +121,8 @@ app.get('/me', function (req, res) {
 
     res.json(users[email]['login']);
 });
+
+app.use(fallback('index.html', {root}));
 
 app.listen(process.env.PORT || port, function () {
     logger(`Server listening port ${process.env.PORT || port}`);

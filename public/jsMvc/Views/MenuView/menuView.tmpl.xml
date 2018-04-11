@@ -1,0 +1,23 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="wrapper-block">
+        <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <div class="wrapper-block__main">
+            <section class="wrapper-block__main js-wrapper-menu">
+                <ul class="menu-list-block">
+                    <li class="menu-list-block__item"><a class="menu-list-block__data" href="/level"> Start game </a> </li>
+                    <li class="menu-list-block__item"><a class="menu-list-block__data" href="/multiPlayer"> Multiplayer </a> </li>
+                    <li class="menu-list-block__item"><a class="menu-list-block__data" href="/scoreboard"> Scoreboard </a> </li>
+                    <li class="menu-list-block__item"><a class="menu-list-block__data" href="/about"> About </a> </li>
+                </ul>
+            </section>
+        </div>
+        <button class="wrapper-block__change-color"/>
+        <footer class="wrapper-block__profile">
+            <div class="js-profile profile-footer">
+                <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
+                <fest:get name="footer">params.sharedData.currentUser</fest:get>
+            </div>
+        </footer>
+
+    </div>
+</fest:template>

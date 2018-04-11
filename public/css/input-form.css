@@ -1,20 +1,24 @@
 .input-form {
     width: 52vh;
     height: 6vh;
+    border: 3px solid #393939;
     background-color: var(--inputColor);
-    border: var(--firstGradientColor) 2px solid;
-    border-radius: 3px;
-    transition: all 0.3s linear;
-    margin-bottom: 1vh;
+    transition: all 0.6s linear;
+    margin-bottom: 0.5vh;
+    font-size: 2.5vh;
+    text-align: center;
+    overflow: initial;
 }
 
 .input-form_wrong {
-    box-shadow: 0 0 20px #ff4845;
-    height: 5vh;
-    margin-bottom: 1vh;
+    box-shadow: 0 0 15px #ff4845;
 }
 
 .input-form_right {
-    box-shadow: 0 0 20px #6a9c2a;
-    margin-bottom: 1vh;
+    box-shadow: 0 0 15px #6a9c2a;
+}
+
+.input-form:-webkit-autofill {
+    background-color: var(--inputColor) !important;
+    transition: background-color 5000s ease-in-out 0s;
 }

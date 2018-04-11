@@ -3,12 +3,13 @@
     src: local(Orbitron), url(../fonts/Orbitron-Regular.ttf);
 }
 
+@font-face {
+    font-family: Orbitron-bold;
+    src: local(Orbitron), url(../fonts/Orbitron-Medium.ttf);
+}
+
 .wrapper-block {
-    cursor: pointer;
     font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(-45deg, var(--firstGradientColor) -20%, var(--secondGradientColor) 50%, black 150%);
-    color: var(--secondColor);
-    transition: all 0.3s linear;
     overflow: hidden;
     display: grid;
     height: 100vh;
@@ -18,21 +19,24 @@
 }
 
 .wrapper-block__main {
+    width: 50vw;
     grid-row: 2/6;
     grid-column: 2/3;
     font-size: 8vh;
 }
 
 .wrapper-block__logo {
+    font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 2/3;
-    font-size: 19vh;
+    font-size: 17vh;
     text-align: center;
     transition: all 0.3s linear;
     max-height: 10vw;
     overflow: hidden;
     color: var(--logoColor);
     text-decoration: none;
+    margin-top: 3vh;
 }
 
 .wrapper-block__logo:hover {
@@ -44,6 +48,7 @@
     text-align: center;
     margin-bottom: 3vh;
     margin-top: 2vh;
+    color: #FFFFFF;
 }
 
 .wrapper-block__change-color {
@@ -52,8 +57,8 @@
     grid-column: 1;
     grid-row: 6;
     margin: 0 0 0 5vh;
-    border: transparent;
-    background: transparent url("../paint.png") no-repeat;
+    border: none;
+    background: transparent url("../images/paint.png") no-repeat;
     background-size: 7vh 7vh;
 }
 

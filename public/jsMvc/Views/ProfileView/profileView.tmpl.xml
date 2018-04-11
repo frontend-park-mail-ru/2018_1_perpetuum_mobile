@@ -1,0 +1,52 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="wrapper-block">
+    <a class="wrapper-block__logo" href="/"> Blendocu </a>
+    <div class="wrapper-block__main js-wrapper-block">
+            <div class="wrapper-block__section-header">Profile</div>
+
+            <div class="profile-settings">
+
+                <form class="profile-settings__avatar-form js-changeImageForm">
+                    <div class="avatar-and-change-button">
+                        <img src="{params.sharedData.currentUser.image}" class="avatar-and-change-button__avatar"/>
+
+                        <div class="file-upload-button">
+                            <button class="file-upload-button__trigger" type="button">Select img</button>
+                            <input class="js-upload-image file-upload-button__input" type="file" name="file"/>
+                        </div>
+                    </div>
+
+                    <div class="profile-settings__file-name js-profile-settings-file-name"/>
+
+                    <div class="error-form js-error-form-image"/>
+                </form>
+
+                <div class="profile-settings__info">
+                    <div class="profile-row">
+                        <div class="profile-row__predict-label"> Login: </div>
+                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.login</fest:value> </div>
+                        <button type="button" class="profile-row__edit-icon js-profile-login-change-button"/>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-row__predict-label"> Email: </div>
+                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.email</fest:value> </div>
+                        <button type="button" class="profile-row__edit-icon js-profile-email-change-button"/>
+                    </div>
+                    <div class="profile-row">
+                        <div class="profile-row__predict-label"> Password: </div>
+                        <div class="profile-row__center-label"> ********* </div>
+                        <button class="profile-row__edit-icon js-profile-password-change-button"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="wrapper-block__change-color"/>
+        <footer class="wrapper-block__profile">
+            <div class="js-profile profile-footer">
+                <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
+                <fest:get name="footer">params.sharedData.currentUser</fest:get>
+            </div>
+        </footer>
+
+    </div>
+</fest:template>

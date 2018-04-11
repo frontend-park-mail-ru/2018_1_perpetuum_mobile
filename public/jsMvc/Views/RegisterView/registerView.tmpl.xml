@@ -1,0 +1,31 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="wrapper-block">
+        <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <div class="wrapper-block__main">
+            <section class="wrapper-block__main js-wrapper-registration">
+                <div class="wrapper-block__section-header">Register</div>
+
+                <form class="login-register-form-block {params.form}">
+                    <fest:for iterate="params.fields" index="i" value="v">
+                        <div class="description-text"><fest:value>v[0]</fest:value></div>
+                        <label>
+                            <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
+                        </label>
+                    </fest:for>
+                    <input class="button_big button js-login-button" type="submit" value="Register"/>
+                    <div class="error-form__server-error"/>
+                </form>
+
+                <div class="register-login-change">
+                    <div class="description-text">  Have an account? </div>
+                    <a class="register-login-change__button" href="/login">Login</a>
+                </div>
+            </section>
+        </div>
+        <button class="wrapper-block__change-color"/>
+        <footer class="wrapper-block__profile">
+            <div class="js-profile profile-footer"/>
+        </footer>
+
+    </div>
+</fest:template>

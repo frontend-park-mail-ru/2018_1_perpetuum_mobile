@@ -1,0 +1,41 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="wrapper-block">
+        <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <div class="wrapper-block__main">
+            <section class="js-wrapper-scoreboard wrapper-block__main">
+                <div class="wrapper-block__section-header">Scoreboard</div>
+                <div class="js-scoreboard-table">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th class="table__th">#</th>
+                                <th class="table__th">Name</th>
+                                <th class="table__th">Score</th>
+                            </tr>
+                            <fest:for iterate="params.filling" index="i" value="v">
+                                <tr>
+                                    <td><fest:value>(params.paginator.pageNum - 1) * 10 + i + 1</fest:value></td>
+                                    <td><fest:value>v.login</fest:value></td>
+                                    <td><fest:value>v.score</fest:value></td>
+                                </tr>
+                            </fest:for>
+                        </tbody>
+                    </table>
+                </div>
+
+                <fest:include src="./../../Components/Paginator/paginator.tmpl.xml"/>
+                <fest:get name="paginator-buttons">params.paginator</fest:get>
+
+            </section>
+        </div>
+        <button class="wrapper-block__change-color"></button>
+        <footer class="wrapper-block__profile">
+            <div class="js-profile profile-footer">
+                <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
+                <fest:get name="footer">params.sharedData.currentUser</fest:get>
+            </div>
+        </footer>
+
+    </div>
+
+</fest:template>
