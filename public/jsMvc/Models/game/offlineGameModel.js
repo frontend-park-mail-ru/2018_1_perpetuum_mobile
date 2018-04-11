@@ -94,7 +94,7 @@ class OfflineGameModel extends GameModel{
         }
         );
 
-        /*return HttpModule.doPostFetch({url: `${baseUrl}/level`, data: mapNum}).then((data) => {
+        /*return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.mapNum}).then((data) => {
             this.map = data;
             this.countVacantCubs();
             return data;
@@ -117,16 +117,12 @@ class OfflineGameModel extends GameModel{
             if (this.setRight[cubic.colour]) {
                 this.setRight[cubic.colour] = false;
                 --this.currentProgress;
-                console.log(this.setRight[cubic.colour]);
-
             }
             return false;
         }
         if (!this.setRight[cubic.colour]) {
             ++this.currentProgress;
             this.setRight[cubic.colour] = true;
-            console.log(this.setRight[cubic.colour]);
-
         }
         return true;
     }
