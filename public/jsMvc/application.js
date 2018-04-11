@@ -9,11 +9,14 @@ import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 import {LevelView} from './Views/LevelView/levelView.js';
 
+import {enableSW} from './Modules/serviceWorker.js';
+
 
 /**
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', function () {
+    enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 
