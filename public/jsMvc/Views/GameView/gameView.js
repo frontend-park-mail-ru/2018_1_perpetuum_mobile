@@ -1,9 +1,11 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
+import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 
 class GameView extends ViewInterface {
     constructor() {
         super('jsMvc/Views/GameView/gameView.tmpl');
+        this._popup = new GamePopup();
     }
     render(params = {}) {
 
@@ -20,55 +22,39 @@ class GameView extends ViewInterface {
         super.render(params);
         this.init();
         this.params = params;
-        this.element = this.el.getElementsByClassName('js-game')[0];
+        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
+        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         this.drawField();
         return this;
     }
 
-    drawFree(freeX, freeY, sizeCell) {
+    drawFree(sizeCell) {
         const free = this.params.cells.filter(v => v.fixed);
-
         free.forEach((v, i) => {
             const colourFree = document.createElement('div');
-            const x = freeX + 10 * i + sizeCell * i;
-            const y = freeY;
-            colourFree.classList.add('js-fixed', 'game-blendocu__cell');
-            Cell.setProperty(colourFree, sizeCell, x, y);
-            colourFree.colour = v.colour;
-
-            colourFree.style.background = v.colour;
-
-            this.element.appendChild(colourFree);
+            Cell.setPropertyFree(colourFree, this.elementFixed, v.colour, sizeCell, i, free.length);
+            this.elementFixed.appendChild(colourFree);
         });
     }
 
-    drawFixed(fixedX, fixedY, sizeCell) {
+    drawUnfixed(sizeCell) {
         this.params.cells.forEach(v => {
             const cell = document.createElement('div');
-            const y = v.y * sizeCell + 10 * v.y + this.element.offsetTop + fixedY;
-            const x = v.x * sizeCell + 10 * v.x + this.element.offsetLeft + fixedX;
-            Cell.setProperty(cell, sizeCell, x, y);
-            !(v.fixed) ? cell.classList.add('game-blendocu__cell') : cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
-            if (!v.fixed) {
-                cell.style.background = v.colour;
-            } else {
-                cell.x = v.x;
-                cell.y = v.y;
-            }
-
-            this.element.appendChild(cell);
+            Cell.setPropertyFixed(cell, this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
+            this.elementUnfixed.appendChild(cell);
         });
     }
 
 
     drawField() {
-        const sizeCell = Cell.findSizeCell(this.element, this.params.countX, this.params.countY);
-
-        this.drawFixed(200, 0, sizeCell);
-        this.drawFree(600, 500, sizeCell);
+        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed);
+        this.drawUnfixed(sizeCell);
+        this.drawFree(sizeCell);
     }
 
     init() {
+        this.startTimeSec = new Date().getTime();
+        this.animation = window.requestAnimationFrame(this.timer.bind(this));
         document.onmousedown = evt => {
             const cell = evt.target;
             if (cell.className.indexOf('js-fixed') === -1) return;
@@ -76,15 +62,14 @@ class GameView extends ViewInterface {
             const shiftX = evt.pageX - cell.getBoundingClientRect().left + pageXOffset;
             const shiftY = evt.pageY - cell.getBoundingClientRect().top + pageYOffset;
 
-            this.element.appendChild(cell);
+            this.elementUnfixed.appendChild(cell);
 
             document.onmousemove = evt => {
                 cell.hidden = true;
                 const lol = document.elementFromPoint(evt.pageX, evt.pageY);
                 (lol.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
                 cell.hidden = false;
-                cell.style.left = `${evt.pageX - shiftX}px`;
-                cell.style.top = `${evt.pageY - shiftY}px`;
+                Cell.putOnPosition(cell, `${evt.pageX - shiftX}px`, `${evt.pageY - shiftY}px`);
                 if (cell.canDrag) {
                     cell.currentY = getComputedStyle(lol).top;
                     cell.currentX = getComputedStyle(lol).left;
@@ -97,17 +82,33 @@ class GameView extends ViewInterface {
                 document.onmousemove = null;
                 cell.onmouseup = null;
                 if (!cell.canDrag) {
-                    cell.style.top = cell.wrongY;
-                    cell.style.left = cell.wrongX;
+                    Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
                 } else {
-                    cell.style.left = cell.currentX;
-                    cell.style.top  = cell.currentY;
+                    Cell.putOnPosition(cell, cell.currentX, cell.currentY);
                     this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
                 }
             };
 
             cell.ondragstart = () => false;
         };
+    }
+
+    addPopupWin() {
+        const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
+        this._popup.renderTo(popupEl);
+        this._popup.render({numStars: 2});
+        window.cancelAnimationFrame(this.animation);
+    }
+
+    timer() {
+        const time = this.el.getElementsByClassName('js-timer')[0];
+        this.timeNowSec = new Date().getTime() - this.startTimeSec;
+        time.innerHTML = `${~~(this.timeNowSec/1000)}`;
+        window.requestAnimationFrame(this.timer.bind(this));
+    }
+
+    gameOnWin(quantityOfStar) {
+        this.addPopupWin(quantityOfStar);
     }
 }
 

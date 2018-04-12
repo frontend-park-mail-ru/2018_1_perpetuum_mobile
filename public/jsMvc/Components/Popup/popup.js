@@ -2,8 +2,8 @@
  *  @module components/popup
  */
 
-import {Error} from "../Error/error.js";
-import {bus} from "../../Modules/bus.js";
+import {Error} from '../Error/error.js';
+import {bus} from '../../Modules/bus.js';
 
 
 /**

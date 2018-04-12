@@ -11,81 +11,87 @@ class OfflineGameModel extends GameModel{
     getMap(mapNum) {
         // TEST WITHOUT SERVER
         return Promise.resolve(
+            {
+                countX: 3,
+                countY: 3,
+                    cells: [{
+                        x: 2,
+                        y: 2,
+                        fixed: false,
+                        colour: "#256b73"
+                    },
+                    {
+                        x: 2,
+                        y: 0,
+                        fixed: false,
+                        colour: "#78f0c3"
+                    },
+                    {
+                        x: 0,
+                        y: 2,
+                        fixed: false,
+                        colour: "#4c394d"
+                    },
+                    {
+                        x: 2,
+                        y: 1,
+                        fixed: true,
+                        colour: "#4faa99"
+                    },
+                    {
+                        x: 0,
+                        y: 0,
+                        fixed: true,
+                        colour: "#a15088"
+                    },
+                    {
+                        x: 1,
+                        y: 0,
+                        fixed: true,
+                        colour: "#9ba5a6"
+                    },
+                    {
+                        x: 1,
+                        y: 2,
+                        fixed: true,
+                        colour: "#425262"
+                    },
+                    {
+                        x: 0,
+                        y: 1,
+                        fixed: true,
+                        colour: "#75476c"
+                    }
+                ]
+            }
             // {
-            //     countX: 5,
-            //     countY: 5,
+            //     countX: 3,
+            //     countY: 2,
             //     cells: [{
             //         x: 0,
             //         y: 0,
-            //         fixed: false,
+            //         fixed: true,
             //         colour: "#691f23"
             //     },
-            //         {
-            //             x: 0,
-            //             y: 2,
-            //             fixed: true,
-            //             colour: "#875a03"
-            //         },
-            //         {
-            //             x: 0,
-            //             y: 1,
-            //             fixed: true,
-            //             colour: "#993d0c"
-            //         },
-            //         {
-            //             x: 1,
-            //             y: 0,
-            //             fixed: true,
-            //             colour: "#245b99"
-            //         },
-            //         {
-            //             x: 4,
-            //             y: 4,
-            //             fixed: true,
-            //             colour: "#245b99"
-            //         },
-            //         {
-            //             x: 4,
-            //             y: 3,
-            //             fixed: true,
-            //             colour: "#245b99"
-            //         },
-            //         {
-            //             x: 2,
-            //             y: 2,
-            //             fixed: true,
-            //             colour: "#245b99"
-            //         }
-            //     ]
-            // }
-            {
-                countX: 2,
-                countY: 3,
-                cells: [{
-                    x: 0,
-                    y: 0,
-                    fixed: true,
-                    colour: "#691f23"
-                },
-                {
-                    x: 0,
-                    y: 2,
-                    fixed: true,
-                    colour: "#875a03"
-                },
-                {
-                    x: 0,
-                    y: 1,
-                    fixed: false,
-                    colour: "#993d0c"
-                },
-                {
-                    x: 1,
-                    y: 0,
-                    fixed: false,
-                    colour: "#992837"
-                }]
-            }
+            //     {
+            //         x: 2,
+            //         y: 0,
+            //         fixed: true,
+            //         colour: "#875a03"
+            //     },
+            //     {
+            //         x: 1,
+            //         y: 0,
+            //         fixed: true,
+            //         colour: "#993d0c"
+            //     },
+            //     {
+            //         x: 2,
+            //         y: 1,
+            //         fixed: false,
+            //         colour: "#992837"
+            //     }]
+            //}
         ).then(data => {
             this.map = data;
             this.countVacantCubs();
@@ -110,13 +116,13 @@ class OfflineGameModel extends GameModel{
         const cubicInMap = this.map.cells.filter((obj) => {
             return (obj.colour === cubic.colour && obj.x === cubic.x && obj.y === cubic.y);
         });
-        console.log(cubicInMap);
 
         if (cubicInMap.length === 0) {
 
             if (this.setRight[cubic.colour]) {
                 this.setRight[cubic.colour] = false;
                 --this.currentProgress;
+
             }
             return false;
         }

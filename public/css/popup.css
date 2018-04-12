@@ -57,3 +57,28 @@
 .popup__close:hover {
     color: #FFFFFF;
 }
+
+.popup__game-popup {
+    left: 25vw;
+    z-index: 1000000;
+    height: 70%;
+}
+
+.popup__win {
+    font-size: 10vh;
+}
+
+.popup__back {
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s linear;
+    font-size: 3vh;
+    border-bottom: transparent 3px solid;
+}
+
+.popup__back:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}

@@ -8,7 +8,7 @@ class Router {
 
     /**
      * Create a router.
-     * @param root - The root element of all Views. This place all views will be append to.
+     * @param root - The root elementUnfixed of all Views. This place all views will be append to.
      */
     constructor(root) {
         this.pages = {};

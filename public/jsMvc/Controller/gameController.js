@@ -21,7 +21,7 @@ class OfflineGameController {
     }
 
     endGame() {
-        bus.emit('menu');
+        this.gameViewOffline.addPopupWin();
         return this;
     }
 

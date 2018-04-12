@@ -15,7 +15,7 @@ import {enableSW} from './Modules/serviceWorker.js';
 /**
  * When all DOM is loaded starts app.
  */
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);

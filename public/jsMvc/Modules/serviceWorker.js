@@ -10,4 +10,4 @@ function enableSW() {
     }
 }
 
-export {enableSW}
+export {enableSW};

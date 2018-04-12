@@ -16,6 +16,7 @@
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 19vh 0.5fr 1fr 1fr 1fr 10vh;
     text-align: center;
+    margin: auto;
 }
 
 .wrapper-block__main {
