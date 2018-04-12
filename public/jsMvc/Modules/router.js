@@ -78,16 +78,16 @@ class Router {
     /** Initial function.
      * Setups all event listeners, invokes {@link open} with current url. */
     start() {
-        window.addEventListener('popstate', function () {
+        window.addEventListener('popstate', () => {
             this.open(window.location.pathname);
-        }.bind(this));
+        });
 
-        this.root.addEventListener('click', function (evt) {
+        this.root.addEventListener('click', evt => {
             if (evt.target.tagName.toLowerCase() === 'a') {
                 evt.preventDefault();
                 this.open(evt.target.pathname);
             }
-        }.bind(this));
+        });
 
         this.open(window.location.pathname);
     }

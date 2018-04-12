@@ -54,6 +54,7 @@ class LevelView extends ViewInterface {
         const rightPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonRight')[0];
         rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
     }
+
 }
 
 export {LevelView};

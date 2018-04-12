@@ -82,3 +82,13 @@
 .popup__back:hover {
     border-bottom: var(--baseColor) 3px solid;
 }
+
+.popup__buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup__time {
+    margin-top: 5%;
+    font-size: 3vh;
+}

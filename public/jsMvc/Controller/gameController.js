@@ -31,7 +31,7 @@ class OfflineGameController {
     }
 
     endGame() {
-        this.gameViewOffline.addPopupWin();
+        this.gameViewOffline.gameOnWin();
         return this;
     }
 

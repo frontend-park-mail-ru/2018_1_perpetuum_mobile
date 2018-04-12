@@ -19,21 +19,13 @@ class GamePopup {
         for (let i = params.numStars; i < 3; i++) {
             this.params.stars[i] = 'rating__one-star';
         }
-
         this.el.innerHTML = this.fest(this.params);
         this.init();
         return this;
     }
 
     init() {
-        const closeButton = this.el.getElementsByClassName('js-button-close')[0];
-        closeButton.addEventListener('click', this.deletePopup.bind(this));
         this.form = this.el.getElementsByClassName('js-popup-form')[0];
-    }
-
-    deletePopup() {
-        this.el.innerHTML = '';
-        return this;
     }
 }
 

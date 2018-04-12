@@ -13,6 +13,7 @@
     background: #1c1c1c;
     border-radius: 5px;
     flex-direction: column;
+    pointer-events: none;
 }
 
 .level__image {
@@ -22,6 +23,7 @@
     height: 65%;
     background: #1c1c1c;
     border-radius: 5px;
+    pointer-events: none;
 }
 
 .level {
@@ -30,8 +32,16 @@
 }
 
 
+.level__href {
+    text-decoration: none;
+    pointer-events: all;
+}
+
 .rating {
-    margin-top: 5%;
+    color: var(--baseColor);
+    position: relative;
+    top: 5px;
+    //margin-top: 10%;
     font-size: 4vh;
 }
 .rating__one-star{

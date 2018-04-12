@@ -7,16 +7,18 @@
                 <div class="level">
                     <div class="levels">
                         <fest:for iterate="params.maps" index="i" value="map">
-                            <a href="/game/{map.number}">
+
                                 <div class="level__item">
+                                    <a class="level__href" href="/game/{map.number}">
                                     <div class="rating">
                                         <span class="rating__one-star-good">☆</span>
                                         <span class="rating__one-star-good">☆</span>
                                         <span class="rating__one-star">☆</span>
                                     </div>
                                     <div class="level__image"/>
+                                    </a>
                                 </div>
-                            </a>
+
                         </fest:for>
                     </div>
                     <fest:include src="./../../Components/Paginator/paginator.tmpl.xml"/>

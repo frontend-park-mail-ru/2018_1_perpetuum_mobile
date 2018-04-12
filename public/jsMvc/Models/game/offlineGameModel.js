@@ -5,7 +5,7 @@ class OfflineGameModel extends GameModel{
 
     constructor() {
         super();
-        this.setRight = Object();
+        this.setRight = [];
     }
 
     getMap(mapNum) {

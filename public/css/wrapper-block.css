@@ -8,6 +8,11 @@
     src: local(Orbitron), url(../fonts/Orbitron-Medium.ttf);
 }
 
+@font-face{
+    font-family: u2000;
+    src: local(u2000), url(../fonts/u2000.ttf);
+}
+
 .wrapper-block {
     font-family: 'Orbitron', sans-serif;
     overflow: hidden;

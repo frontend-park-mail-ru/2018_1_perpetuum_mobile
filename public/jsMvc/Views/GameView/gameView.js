@@ -54,7 +54,7 @@ class GameView extends ViewInterface {
 
     init() {
         this.startTimeSec = new Date().getTime();
-        this.animation = window.requestAnimationFrame(this.timer.bind(this));
+        window.requestAnimationFrame(this.timer.bind(this));
         document.onmousedown = evt => {
             const cell = evt.target;
             if (cell.className.indexOf('js-fixed') === -1) return;
@@ -88,7 +88,6 @@ class GameView extends ViewInterface {
                     this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
                 }
             };
-
             cell.ondragstart = () => false;
         };
     }
@@ -96,19 +95,27 @@ class GameView extends ViewInterface {
     addPopupWin() {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         this._popup.renderTo(popupEl);
-        this._popup.render({numStars: 2});
-        window.cancelAnimationFrame(this.animation);
+        this._popup.render({numStars: 2, time: ` ${~~(this.timeNowSec/1000)} `});
     }
 
     timer() {
         const time = this.el.getElementsByClassName('js-timer')[0];
-        this.timeNowSec = new Date().getTime() - this.startTimeSec;
-        time.innerHTML = `${~~(this.timeNowSec/1000)}`;
-        window.requestAnimationFrame(this.timer.bind(this));
+
+        if (!!time) {
+            this.timeNowSec = new Date().getTime() - this.startTimeSec;
+            time.innerHTML = `${~~(this.timeNowSec/1000)}`;
+            this.animation = window.requestAnimationFrame(this.timer.bind(this));
+        }
     }
 
     gameOnWin(quantityOfStar) {
+        window.cancelAnimationFrame(this.animation);
         this.addPopupWin(quantityOfStar);
+    }
+
+    destroy() {
+        this.el.innerHTML = '';
+        return this;
     }
 }
 
