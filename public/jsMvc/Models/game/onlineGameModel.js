@@ -1,20 +1,25 @@
+/*
+
 import {ws} from '../../Modules/ws.js';
-import {GameModel} from './gameModel.js';
 import {HttpModule, baseUrl} from '../../Modules/HttpModule.js';
 
-class OnlineGameModel extends GameModel{
+class OnlineGameModel{
 
     constructor() {
-        super();
+        this.map = null;
+        this.currentProgress = 0;
+        this.vacantCubes = 0;
     }
 
     getMap(mapNum) {
         return HttpModule.doPostFetch({url: `${baseUrl}/multiplayer`, data: mapNum}).then((data) => {
             this.map = data;
-            this.countVacantCubs();
+            this.countVacantCubes();
             return data;
         });
     }
+
+
 
     setCubic(cubic) {
         const cubicInMap = Object.keys(this.map).map((key) => { return this.map[key];}).filter((obj) => {
@@ -34,3 +39,4 @@ class OnlineGameModel extends GameModel{
 }
 
 export {OnlineGameModel};
+*/

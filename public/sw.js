@@ -1,6 +1,13 @@
-// наименование для нашего хранилища кэша
+/**
+ * The cache storage name.
+ * @type {string}
+ */
 const CACHE_NAME = 'blendocuSw-v1';
-// ссылки на кэшируемые файлы
+
+/**
+ * The links to the files to cache.
+ * @type {string[]}
+ */
 const cacheUrls = [
     '/',
 
@@ -36,7 +43,6 @@ const cacheUrls = [
     '/jsMvc/Modules/sharedData.js',
     '/jsMvc/Modules/HttpModule.js',
     '/jsMvc/Models/userModel.js',
-    '/jsMvc/Models/game/gameModel.js',
     '/jsMvc/Models/game/offlineGameModel.js',
     //'/jsMvc/Models/game/onlineGameModel.js',
     '/jsMvc/Modules/paginator.js',
@@ -46,7 +52,6 @@ const cacheUrls = [
     '/jsMvc/Components/Popup/popup.js',
     'jsMvc/Components/GamePopup/gamePopup.tmpl.js',
     '/jsMvc/Components/GamePopup/gamePopup.js',
-    //
     '/jsMvc/Views/ViewInterface.js',
     '/jsMvc/Components/Error/error.js',
     '/jsMvc/Modules/bus.js',
@@ -55,7 +60,6 @@ const cacheUrls = [
     '/images/paint.png',
     '/fonts/Orbitron-Medium.ttf',
     '/fonts/Orbitron-Regular.ttf',
-    //
     '/jsMvc/Views/LoginView/loginView.tmpl.js',
     '/jsMvc/Views/LoginView/LoginView.js',
     '/jsMvc/Views/ProfileView/profileView.tmpl.js',
@@ -80,6 +84,10 @@ const cacheUrls = [
     '/jsMvc/application.js'
 ];
 
+/**
+ * Regular expressions for caching additional responses.
+ * @type {RegExp[]}
+ */
 const cacheRegexps = [
     /^.+\.css$/i,
     /^.+\.ttf$/i,
@@ -87,19 +95,23 @@ const cacheRegexps = [
     /^level\/.+$/i
 ];
 
+/**
+ * Whether the response should be cached in addition to already cached.
+ * @param {object} request - The request on which the response will be received.
+ * @return {boolean} - To cache or not to cache.
+ */
 function shouldICache(request) {
     return cacheRegexps.some(regExp => request.url.search(regExp));
 }
 
 self.addEventListener('install', (event) => {
-	// задержим обработку события
-	// если произойдёт ошибка, serviceWorker не установится
+    /**
+     * Wait until all files will be downloaded.
+     * In case of error service worker will not be installed.
+     */
 	event.waitUntil(
-		// находим в глобальном хранилище Cache-объект с нашим именем
-		// если такого не существует, то он будет создан
 		caches.open(CACHE_NAME)
 			.then((cache) => {
-				// загружаем в наш cache необходимые файлы
 				return cache.addAll(cacheUrls);
 			})
 			.catch((err) => {
@@ -112,22 +124,24 @@ self.addEventListener('fetch', (event) => {
 
 	/** cache first */
 	event.respondWith(
-		// ищем запрашиваемый ресурс в хранилище кэша
+        /**
+         * Search for the resource in cache storage.
+         */
 		caches
 			.match(event.request)
 			.then((cachedResponse) => {
-				// выдаём кэш, если он есть
 				if (cachedResponse) {
 					return cachedResponse;
 				}
-                return fetch(event.request).then(response => {
-                    if (shouldICache(event.request) && response.ok) {
-                        caches.open(CACHE_NAME).then(cache => {
-                            cache.put(event.request, response.clone());
-                        });
-                    }
-                    return response;
-                });
+                return fetch(event.request)
+                    .then(response => {
+                        if (shouldICache(event.request) && response.clone().ok) {
+                            caches.open(CACHE_NAME).then(cache => {
+                                cache.put(event.request, response.clone());
+                            });
+                        }
+                        return response;
+                    });
             })
             .catch((err) => {
                 console.log('smth went wrong with caches.match: ', err);

@@ -1,3 +1,7 @@
+/**
+ * @module controller/gameOnlineController
+ */
+
 /*
 import {GameView} from '../Views/GameView/gameView.js';
 
@@ -53,7 +57,7 @@ export {OnlineGameController};
 
 setCubic(cubic) {
     const canISet = this.gameModel.setCubic(cubic);
-    if (canISet && this.gameModel.currentProgress >= this.gameModel.vacantCubs) {
+    if (canISet && this.gameModel.currentProgress >= this.gameModel.vacantCubes) {
         this.endGame();
     }
     return canISet;
@@ -63,5 +67,5 @@ endGame() {
     bus.emit('menu');
 }
 
-*/
-import {bus} from '../Modules/bus.js';
+
+import {bus} from '../Modules/bus.js';*/

@@ -55,6 +55,10 @@ class ScoreboardView extends ViewInterface {
         const rightPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonRight')[0];
         rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
     }
+
+    isAllowed() {
+        return navigator.onLine;
+    }
 }
 
 export {ScoreboardView};
