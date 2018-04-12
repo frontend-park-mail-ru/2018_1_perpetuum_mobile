@@ -25,6 +25,14 @@ class LevelView extends ViewInterface {
      * @return {LevelView} The current object instance.
      */
     render(params = {}) {
+        if (Object.keys(params).length === 0 && params.constructor === Object) {
+            this.getLevels();
+            return this;
+        }
+        if (!params['paginator']) {
+            this.getLevels({page: +params.urlParams[0]});
+            return this;
+        }
         params.sharedData = sharedData.data;
         super.render(params);
         this.init();
@@ -40,6 +48,11 @@ class LevelView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
 
+        const leftPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonLeft')[0];
+        leftPaginatorButton.addEventListener('click', this.onPaginatorLeft);
+
+        const rightPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonRight')[0];
+        rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
     }
 }
 

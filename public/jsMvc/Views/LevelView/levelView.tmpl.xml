@@ -1,42 +1,26 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
-    <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main">
             <section class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Select level</div>
                 <div class="level">
                     <div class="levels">
-                        <div class="level__item">
-                            <div class="rating">
-                                <span class="rating__one-star-good">☆</span>
-                                <span class="rating__one-star-good">☆</span>
-                                <span class="rating__one-star">☆</span>
-                            </div>
-                            <div class="level__image"/>
-                        </div>
-                        <div class="level__item">
-                            <div class="rating">
-                                <span class="rating__one-star-good">☆</span>
-                                <span class="rating__one-star">☆</span>
-                                <span class="rating__one-star">☆</span>
-                            </div>
-                            <div class="level__image"/>
-                        </div>
-                        <div class="level__item">
-                            <div class="rating">
-                                <span class="rating__one-star">☆</span>
-                                <span class="rating__one-star">☆</span>
-                                <span class="rating__one-star">☆</span>
-                            </div>
-                            <div class="level__image"/>
-                        </div>
+                        <fest:for iterate="params.maps" index="i" value="map">
+                            <a href="/game/{map.number}">
+                                <div class="level__item">
+                                    <div class="rating">
+                                        <span class="rating__one-star-good">☆</span>
+                                        <span class="rating__one-star-good">☆</span>
+                                        <span class="rating__one-star">☆</span>
+                                    </div>
+                                    <div class="level__image"/>
+                                </div>
+                            </a>
+                        </fest:for>
                     </div>
-
-
-                    <div class="scoreboard-paginator">
-                        <input class="js-scoreboardPaginatorButtonLeft scoreboard-paginator__button" type="submit" value='<'/>
-                        <input class="js-scoreboardPaginatorButtonRight scoreboard-paginator__button" type="submit" value='>'/>
-                    </div>
+                    <fest:include src="./../../Components/Paginator/paginator.tmpl.xml"/>
+                    <fest:get name="paginator-buttons">params.paginator</fest:get>
 
                 </div>
             </section>

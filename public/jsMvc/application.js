@@ -7,7 +7,6 @@ import {Router} from './Modules/router.js';
 import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
-import {LevelView} from './Views/LevelView/levelView.js';
 
 import {enableSW} from './Modules/serviceWorker.js';
 
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Connect all paths to its views and aliases.
      */
     router.add('/game', offlineGameController.gameViewOffline, 'game');
-    router.add('/level', new LevelView(), 'level');
+    router.add('/level', offlineGameController.levelView, 'level');
     router.add('/scoreboard', scoreboardController.scoreboardView, 'scoreboard');
     router.add('/login', userController.loginView, 'login');
     router.add('/profile', userController.profileView, 'profile');

@@ -100,7 +100,7 @@ class OfflineGameModel extends GameModel{
         }
         );
 
-        /*return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.mapNum}).then((data) => {
+        /*return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then((data) => {
             this.map = data;
             this.countVacantCubs();
             return data;

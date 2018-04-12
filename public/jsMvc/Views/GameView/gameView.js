@@ -15,7 +15,7 @@ class GameView extends ViewInterface {
         }
 
         if (!params['cells']) {
-            this.openLevel({mapNum: +params.urlParams[0]});
+            this.openLevel({page: +params.urlParams[0]});
             return this;
         }
 

@@ -66,7 +66,6 @@ class ScoreboardController {
     openPage(page = { page : 1 }){
         this.scoreboardModel.loadAllUsers(page).then(
             (data) => {
-                console.log(page);
                 this.paginator.maxPageNum = data['maxPageNum'];
                 this.paginator.pageNum = page.page;
                 data['paginator'] = this.paginator;

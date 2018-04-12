@@ -27,7 +27,7 @@ const cacheUrls = [
     '/css/about.css',
     '/css/background.css',
 
-    '/sw.js',
+    //'/sw.js',
     '/jsMvc/Modules/serviceWorker.js',
     '/jsMvc/Modules/basic.js',
     '/jsMvc/Modules/validation.js',
@@ -44,6 +44,8 @@ const cacheUrls = [
     '/jsMvc/Views/MenuView/menuView.js',
     '/jsMvc/Components/Popup/popup.tmpl.js',
     '/jsMvc/Components/Popup/popup.js',
+    'jsMvc/Components/GamePopup/gamePopup.tmpl.js',
+    '/jsMvc/Components/GamePopup/gamePopup.js',
     //
     '/jsMvc/Views/ViewInterface.js',
     '/jsMvc/Components/Error/error.js',
@@ -81,41 +83,43 @@ const cacheUrls = [
 const cacheRegexps = [
     /^.+\.css$/i,
     /^.+\.ttf$/i,
-    /^.+\.png$/i
+    /^.+\.png$/i,
+    /^level\/.+$/i
 ];
 
 function shouldICache(request) {
     return cacheRegexps.some(regExp => request.url.search(regExp));
 }
 
-this.addEventListener('install', (event) => {
-    // задержим обработку события
-    // если произойдёт ошибка, serviceWorker не установится
-    event.waitUntil(
-        // находим в глобальном хранилище Cache-объект с нашим именем
-        // если такого не существует, то он будет создан
-        caches.open(CACHE_NAME)
-            .then((cache) => {
-                // загружаем в наш cache необходимые файлы
-                return cache.addAll(cacheUrls);
-            })
-            .catch((err) => {
-                console.error('smth went wrong with caches.open: ', err);
-            })
-    );
+self.addEventListener('install', (event) => {
+	// задержим обработку события
+	// если произойдёт ошибка, serviceWorker не установится
+	event.waitUntil(
+		// находим в глобальном хранилище Cache-объект с нашим именем
+		// если такого не существует, то он будет создан
+		caches.open(CACHE_NAME)
+			.then((cache) => {
+				// загружаем в наш cache необходимые файлы
+				return cache.addAll(cacheUrls);
+			})
+			.catch((err) => {
+				console.error('smth went wrong with caches.open: ', err);
+			})
+	);
 });
 
-this.addEventListener('fetch', (event) => {
-    /** cache first */
-    event.respondWith(
-        // ищем запрашиваемый ресурс в хранилище кэша
-        caches
-            .match(event.request)
-            .then((cachedResponse) => {
-                // выдаём кэш, если он есть
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
+self.addEventListener('fetch', (event) => {
+
+	/** cache first */
+	event.respondWith(
+		// ищем запрашиваемый ресурс в хранилище кэша
+		caches
+			.match(event.request)
+			.then((cachedResponse) => {
+				// выдаём кэш, если он есть
+				if (cachedResponse) {
+					return cachedResponse;
+				}
                 return fetch(event.request).then(response => {
                     if (shouldICache(event.request) && response.ok) {
                         caches.open(CACHE_NAME).then(cache => {
