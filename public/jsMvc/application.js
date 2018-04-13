@@ -15,7 +15,7 @@ if (
     && window.location.protocol !== 'https:'
 ) {
     window.location.assign(window.location.href.replace('http://', 'https://'));
-    return;
+    //return;
 }
 
 
