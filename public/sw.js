@@ -50,6 +50,8 @@ const cacheUrls = [
     '/jsMvc/Views/MenuView/menuView.js',
     '/jsMvc/Components/Popup/popup.tmpl.js',
     '/jsMvc/Components/Popup/popup.js',
+    '/jsMvc/Components/Colour/colour.tmpl.js',
+    '/jsMvc/Components/Colour/colour.js',
     'jsMvc/Components/GamePopup/gamePopup.tmpl.js',
     '/jsMvc/Components/GamePopup/gamePopup.js',
     '/jsMvc/Views/ViewInterface.js',
