@@ -3,10 +3,10 @@
  */
 
 import {ViewInterface} from '../ViewInterface.js';
-import {Validation} from "../../Modules/validation.js";
-import {Error} from "../../Components/Error/error.js";
+import {Validation} from '../../Modules/validation.js';
+import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
-import {bus} from "../../Modules/bus.js";
+import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
 
 
@@ -56,7 +56,7 @@ class RegisterView extends ViewInterface {
 
                 this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
 
-                if(this.formValid[i].value.length === 0) {
+                if (!this.formValid[i].value.length) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
             });
