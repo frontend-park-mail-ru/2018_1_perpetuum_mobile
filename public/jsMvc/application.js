@@ -8,7 +8,7 @@ import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 
-import {enableSW} from './Modules/serviceWorker.js';
+// import {enableSW} from './Modules/serviceWorker.js';
 
 if (
     window.location.hostname === 'blendocu.herokuapp.com'
@@ -24,7 +24,7 @@ if (
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    enableSW();
+    // enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 
