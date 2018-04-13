@@ -9,19 +9,19 @@
                     <ul class="about-team__ul">
                         <li class="about-team__li">
                             <div class="about-team__member">Poponkin Dmitry</div>
-                            <div class="about-team__info">fullstack - frontend developer, bla bla bla bla bla bla</div>
+                            <div class="about-team__info">fullstack developer</div>
                         </li>
                         <li class="about-team__li">
                             <div class="about-team__member">Vasilieva Nadia</div>
-                            <div class="about-team__info">fullstack - frontend developer, designer, bla bla bla vla vla vla</div>
+                            <div class="about-team__info">fullstack developer</div>
                         </li>
                         <li class="about-team__li">
                             <div class="about-team__member">Garifullin Timur</div>
-                            <div class="about-team__info">fullstack - backend developer, bla bla bla, tester bla bla</div>
+                            <div class="about-team__info">fullstack developer</div>
                         </li>
                         <li class="about-team__li">
                             <div class="about-team__member">Migranov Rustam</div>
-                            <div class="about-team__info">fullstack - backend developer, bla bla bla playboy filantrop</div>
+                            <div class="about-team__info">fullstack developer</div>
                         </li>
                     </ul>
                 </div>

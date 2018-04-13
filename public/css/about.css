@@ -1,16 +1,22 @@
 .about-team {
     margin-top: 4vh;
+    height: 80vh;
 }
 
 .about-team__ul {
     list-style: none;
+    width: 100%;
+    padding: 0;
 }
 
 .about-team__li {
     border-bottom: var(--baseColor) 1px solid;
+    height: 10vh;
     margin-top: 2vh;
+    width: 100%;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .about-team__member {
@@ -21,8 +27,8 @@
 
 .about-team__info {
     line-height: 3vh;
-    justify-content: left;
     font-size: 2.5vh;
-    text-align: center;
-    margin: auto auto auto 10%;
+    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
 }

@@ -60,7 +60,7 @@ class ScoreboardView extends ViewInterface {
     }
 
     isAllowed() {
-        return !navigator.onLine;
+        return navigator.onLine;
     }
 }
 
