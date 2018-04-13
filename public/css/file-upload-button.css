@@ -1,0 +1,34 @@
+.file-upload-button__input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    font-size: 100px;
+}
+
+.file-upload-button {
+    height: 5vh;
+    opacity: 0;
+    font-size: 2vh;
+    transition: all 0.3s linear;
+    z-index: 5;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+}
+
+.file-upload-button:hover {
+    opacity: 0.8;
+}
+
+.file-upload-button__trigger {
+    background-color: var(--greyColor);
+    width: 20vh;
+    border: transparent;
+    height: 5vh;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: #FFFFFF;
+}

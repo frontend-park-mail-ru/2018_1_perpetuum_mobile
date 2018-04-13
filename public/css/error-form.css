@@ -1,0 +1,42 @@
+.error-form {
+    width: 20vh;
+    margin: 1vh auto;
+    color: var(--wrorngInputColor);
+    opacity: 0.8;
+    font-size: 2vh;
+}
+
+.error-form__block {
+    display: inline-block;
+    position: fixed;
+}
+
+.error-form__message {
+    z-index: 77;
+    max-width: 15vh;
+    background: rgba(133, 133, 133, 0.6);
+    padding: 1vh;
+    position: fixed;
+    display: inline-block;
+    margin: 1vh auto auto 2vh;
+    font-size: 2vh;
+    color: #390500;
+}
+
+.error-form__message:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 1vh solid transparent;
+    border-bottom: 1vh solid transparent;
+    border-right: 1vh solid rgba(133, 133, 133, 0.6);
+    position: absolute;
+    left: -1vh;
+}
+
+.error-form__server-error {
+    display: none;
+    font-size: 3vh;
+    margin-top: 2vh;
+    color: var(--wrorngInputColor);
+}

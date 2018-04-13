@@ -1,0 +1,5 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="none">
+    <fest:set name="colour">
+        <button class="wrapper-block__change-color"/>
+    </fest:set>
+</fest:template>

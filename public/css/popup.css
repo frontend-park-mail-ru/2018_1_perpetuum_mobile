@@ -1,0 +1,94 @@
+.popup {
+    line-height: initial;
+    font-size: initial !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50vw;
+    z-index: 10;
+    border-radius: 10px;
+    background: #1c1c1c;
+    top: 20vh;
+    position: fixed;
+    box-shadow: 0 0 5px 1px rgba(98, 98, 98, 0.4);
+    animation: forward 0.3s 1;
+}
+
+@keyframes forward {
+    0% {
+        transform: scale(0.01, 0.01);
+        opacity: 0.7;
+    }
+    40% {
+        transform: scale(1.1, 0.01);
+        opacity: 0.8;
+    }
+    80% {
+        transform: scale(1.1, 1.1);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1, 1);
+        opacity: 1;
+    }
+}
+
+.popup__title {
+    font-size: 5vh;
+    color: #ffffff;
+    top: 2vh;
+    margin: 1vh auto 4vh auto;
+}
+
+.popup__close {
+    cursor: pointer;
+    position: absolute;
+    color: #b6b6b6;
+    top: 0;
+    right: 0;
+    font-size: 4vh;
+    width: 5vh;
+    height: 5vh;
+    background: transparent;
+    border: none;
+    transition: all 0.3s linear;
+}
+
+.popup__close:hover {
+    color: #FFFFFF;
+}
+
+.popup__game-popup {
+    left: 25vw;
+    z-index: 1000000;
+    height: 70%;
+}
+
+.popup__win {
+    font-size: 10vh;
+}
+
+.popup__back {
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s linear;
+    font-size: 3vh;
+    border-bottom: transparent 3px solid;
+}
+
+.popup__back:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+
+.popup__buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.popup__time {
+    margin-top: 5%;
+    font-size: 3vh;
+}

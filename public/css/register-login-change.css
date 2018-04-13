@@ -1,0 +1,22 @@
+.register-login-change {
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-login-change__button {
+    background: var(--greyColor);
+    color: var(--secondColor);
+    font-size: 3vh;
+    border: var(--greyColor) 3px solid;
+    transition: all 0.3s linear;
+    border-radius: 2px;
+    padding: 0 8vh 0 8vh;
+    text-decoration: none;
+}
+
+.register-login-change__button:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+

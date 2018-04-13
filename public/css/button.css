@@ -1,0 +1,39 @@
+.button {
+    background: var(--greyColor);
+    color: var(--secondColor);
+    font-size: 3vh;
+    border: var(--greyColor) 3px solid;
+    transition: border-bottom-color 0.3s linear;
+    border-radius: 2px;
+    margin: 3vh 2vh 2vh 2vh;
+    align-self: center;
+    box-shadow: 6px 6px 6px #040404;
+}
+
+.button_big {
+    width: 53vh;
+    height: 6vh;
+}
+
+.button_little {
+    width: 18vh;
+    height: 4vh;
+}
+
+.button__user-footer {
+    font-size: 3vh;
+    transition: all 0.3s linear;
+    margin: auto 0 auto auto;
+    color: var(--logoColor);
+    text-decoration: none;
+    border: transparent 3px solid;
+}
+
+
+.button_big:hover, .button_little:hover, .button__user-footer:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+
+.button:active {
+    box-shadow: none;
+}

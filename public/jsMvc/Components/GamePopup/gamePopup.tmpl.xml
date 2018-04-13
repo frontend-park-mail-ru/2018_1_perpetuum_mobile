@@ -1,0 +1,17 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="popup popup__game-popup">
+        <div class="popup__title">Congratulations</div>
+        <div class="popup__win">YOU WIN</div>
+        <div class="rating popup__win">
+            <fest:for iterate="params.stars" value="v" index="i">
+                <span class="{v}">☆</span>
+            </fest:for>
+            <div class="popup__time"> ⧖ <fest:value>params.time</fest:value> sec </div>
+        </div>
+
+        <div class="popup__buttons">
+            <a class="popup__back" href="/level"> Back to levels</a>
+            <a class="popup__back" href="/level"> Next level</a>
+        </div>
+    </div>
+</fest:template>

@@ -1,0 +1,11 @@
+.colors {
+    --secondColor: #FFFFFF;
+    --greyColor: #393939;
+    --secondGradientColor: #0e0e0e;
+    --firstGradientColor: #401354;
+    --logoColor: #b82fe8;
+    --baseColor: #9b29c5;
+    --inputColor: #b1b1b1;
+    --wrorngInputColor: #dd4000;
+    --rightInputColor: #9cdd34;
+}

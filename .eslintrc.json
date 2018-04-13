@@ -30,7 +30,14 @@
             "off"
         ],
         "no-useless-escape": [
-            "warn"
+            "off"
+        ],
+        "keyword-spacing": [
+            "error"
+        ],
+        "space-before-blocks": 
+        [
+            "error"
         ]
     }
 }
