@@ -60,6 +60,7 @@ class OfflineGameController {
     endGame() {
         this.gameViewOffline.gameOnWin();
         this.gameModel.currentProgress = 0;
+        this.gameModel.currentProgress = 0;
         this.gameModel.addGameProgress( {time : this.gameViewOffline.timeNowSec} );
         this.sendGameProgress();
         return this;

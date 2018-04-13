@@ -3,10 +3,10 @@
  */
 
 import {ViewInterface} from '../ViewInterface.js';
-import {Validation} from "../../Modules/validation.js";
-import {Error} from "../../Components/Error/error.js";
+import {Validation} from '../../Modules/validation.js';
+import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
-import {bus} from "../../Modules/bus.js";
+import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
 
 /**

@@ -1,15 +1,34 @@
-class GamePopup {
+/**
+ *  @module components/GamePopup
+ */
 
+/**
+ * Popup class to show pop-up block in case of win
+ */
+class GamePopup {
+    /**
+     * Create a pop-up
+     */
     constructor() {
         this.el = document.createElement('div');
         this.fest = window.fest['jsMvc/Components/GamePopup/gamePopup.tmpl'];
     }
 
+    /**
+     * A method that specifies the place to render pop-up
+     * @param root - place to render pop-up
+     * @return {Popup} current class instance.
+     */
     renderTo(root) {
         root.appendChild(this.el);
         return this;
     }
 
+    /**
+     * Render pop-up
+     * @param {object} params - description of the fields needed by the fest.
+     * @return {Popup} current class instance.
+     */
     render(params) {
         this.params = params;
         this.params.stars = [];
@@ -24,6 +43,9 @@ class GamePopup {
         return this;
     }
 
+    /**
+     * Add handlers
+     */
     init() {
         this.form = this.el.getElementsByClassName('js-popup-form')[0];
     }

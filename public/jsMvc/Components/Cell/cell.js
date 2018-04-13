@@ -1,4 +1,19 @@
+/**
+ * @module components/Cell
+ */
+
+/**
+ * Class for implements methods for cell in game scene
+ */
+
 class Cell {
+    /**
+     * Set css properties to current cell
+     * @param element - the current cell to assign css properties
+     * @param size - the current cell size
+     * @param X - x position on field
+     * @param Y - y position on field
+     */
     static setProperty(element, size,  X, Y) {
         element.style.width  = `${size}px`;
         element.style.height = `${size}px`;
@@ -8,6 +23,15 @@ class Cell {
         element.style.left = element.wrongX
     }
 
+    /**
+     * set property and position to free cell
+     * @param cell {Object} - the current cell to assign css properties
+     * @param parentElement {Object} - field in which the cell is located
+     * @param colour {String} - background colour
+     * @param sizeCell {Number} - cell size
+     * @param i {Number} - cell position relative to others
+     * @param len {Number} - number of cells in a row
+     */
     static setPropertyFree(cell, parentElement, colour, sizeCell, i, len) {
         const OFFSET_FROM_ELEMENT = 10;
 
@@ -21,6 +45,15 @@ class Cell {
         Cell.setProperty(cell, sizeCell, x, y);
     }
 
+    /**
+     * set property and position to others cell
+     * @param cell {Object} - the current cell to assign css properties
+     * @param parentElement {Object} - field in which the cell is located
+     * @param v {Object} - object with relative cell position
+     * @param sizeCell {Number} - cell size
+     * @param sizeX {Number} - number of cells in a row
+     * @param sizeY {Number} - number of cells in a column
+     */
     static setPropertyFixed(cell, parentElement, v, sizeCell, sizeX, sizeY) {
         const OFFSET_FROM_ELEMENT = 10;
 
@@ -43,6 +76,14 @@ class Cell {
         }
     }
 
+    /**
+     * cell can be placed in two div, and this method find minimum size to cell so the cells are displayed depending on the screen size
+     * @param parentElement {Object} - field in which the cell can located
+     * @param X {Number} - number of cells in a row
+     * @param Y {Number} - number of cells in a column
+     * @param anotherParent {Object} - field in which the cell can located
+     * @returns {number} - minimum cell size depending on the screen size
+     */
     static findSizeCell(parentElement, X, Y, anotherParent) {
         const OFFSET_FROM_ELEMENT = 10;
         const sizeCellX = parentElement.offsetWidth / X - OFFSET_FROM_ELEMENT * X;
@@ -56,12 +97,16 @@ class Cell {
         return (temp > temp1) ? temp1 : temp;
     }
 
+    /**
+     * put cell on position on field
+     * @param cell {Object} - the current cell to assign css properties
+     * @param x - x position on field
+     * @param y - y position on field
+     */
     static putOnPosition(cell, x, y) {
         cell.style.top = y;
         cell.style.left = x;
     }
-
-
 }
 
 export {Cell};

@@ -1,15 +1,33 @@
+/**
+ * @module views/gameView
+ */
+
+
 import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 
+/**
+ * Game view
+ * @extends ViewInterface
+ */
 class GameView extends ViewInterface {
+    /**
+     * Create a GameView instance.
+     */
     constructor() {
         super('jsMvc/Views/GameView/gameView.tmpl');
         this._popup = new GamePopup();
     }
+
+    /**
+     * Render the view.
+     * @param {object} params - The object with info provided to fest.
+     * @return {GameView} The current object instance.
+     */
     render(params = {}) {
 
-        if (Object.keys(params).length === 0 && params.constructor === Object) {
+        if (!Object.keys(params).length && params.constructor === Object) {
             this.openLevel();
             return this;
         }
@@ -22,12 +40,14 @@ class GameView extends ViewInterface {
         super.render(params);
         this.init();
         this.params = params;
-        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
-        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         this.drawField();
         return this;
     }
 
+    /**
+     * Render free blocks on field
+     * @param {Number} sizeCell - size of one block
+     */
     drawFree(sizeCell) {
         const free = this.params.cells.filter(v => v.fixed);
         free.forEach((v, i) => {
@@ -37,6 +57,10 @@ class GameView extends ViewInterface {
         });
     }
 
+    /**
+     * Render field with empty and fill blocks
+     * @param {Number} sizeCell - size of one block
+     */
     drawUnfixed(sizeCell) {
         this.params.cells.forEach(v => {
             const cell = document.createElement('div');
@@ -45,13 +69,21 @@ class GameView extends ViewInterface {
         });
     }
 
-
+    /**
+     * Render all game scene
+     */
     drawField() {
+        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
+        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed);
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
 
+    /**
+     * Add handlers for drag and drop
+     * add animation of timer
+     */
     init() {
         this.startTimeSec = new Date().getTime();
         window.requestAnimationFrame(this.timer.bind(this));
@@ -92,12 +124,19 @@ class GameView extends ViewInterface {
         };
     }
 
+    /**
+     * add popup with time in case of win
+     */
     addPopupWin() {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         this._popup.renderTo(popupEl);
         this._popup.render({numStars: 2, time: ` ${~~(this.timeNowSec/1000)} `});
     }
 
+    /**
+     * callback for requesAnimationFrame
+     * rerender timer on game scene
+     */
     timer() {
         const time = this.el.getElementsByClassName('js-timer')[0];
 
@@ -108,11 +147,19 @@ class GameView extends ViewInterface {
         }
     }
 
+    /**
+     * callback for model in case of win
+     * @param quantityOfStar - number of stars in dependency of time
+     */
     gameOnWin(quantityOfStar) {
         window.cancelAnimationFrame(this.animation);
         this.addPopupWin(quantityOfStar);
     }
 
+    /**
+     *
+     * @returns {GameView} - The current object instance.
+     */
     destroy() {
         this.el.innerHTML = '';
         return this;

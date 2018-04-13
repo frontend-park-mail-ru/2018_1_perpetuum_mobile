@@ -150,8 +150,7 @@ class OfflineGameModel{
             return (obj.colour === cubic.colour && obj.x === cubic.x && obj.y === cubic.y);
         });
 
-        if (cubicInMap.length === 0) {
-
+        if (!cubicInMap.length) {
             if (this.setRight[cubic.colour]) {
                 this.setRight[cubic.colour] = false;
                 --this.currentProgress;
@@ -192,8 +191,8 @@ class OfflineGameModel{
      * @return {boolean} Indicator whether all the data have been sent to server.
      */
     sendGameProgress() {
-        if (this.gameProgress.length === 0) {
-            console.warn("No user progress to send");
+        if (!this.gameProgress.length) {
+            console.warn('No user progress to send');
             return true;
         }
         if (navigator.onLine && sharedData.data['currentUser']) {
