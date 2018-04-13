@@ -32,88 +32,118 @@ class OfflineGameModel{
      */
     getMap(mapNum) {
         // TEST WITHOUT SERVER
-        return Promise.resolve(
-            {
-                countX: 3,
-                countY: 3,
+        let testMap = null;
+        switch (mapNum.page) {
+            case 1:
+                testMap = {
+                    countX: 3,
+                    countY: 3,
                     cells: [{
                         x: 2,
                         y: 2,
                         fixed: false,
-                        colour: "#256b73"
+                        colour: '#256b73'
                     },
                     {
                         x: 2,
                         y: 0,
                         fixed: false,
-                        colour: "#78f0c3"
+                        colour: '#78f0c3'
                     },
                     {
                         x: 0,
                         y: 2,
                         fixed: false,
-                        colour: "#4c394d"
+                        colour: '#4c394d'
                     },
                     {
                         x: 2,
                         y: 1,
                         fixed: true,
-                        colour: "#4faa99"
+                        colour: '#4faa99'
                     },
                     {
                         x: 0,
                         y: 0,
                         fixed: true,
-                        colour: "#a15088"
+                        colour: '#a15088'
                     },
                     {
                         x: 1,
                         y: 0,
                         fixed: true,
-                        colour: "#9ba5a6"
+                        colour: '#9ba5a6'
                     },
                     {
                         x: 1,
                         y: 2,
                         fixed: true,
-                        colour: "#425262"
+                        colour: '#425262'
                     },
                     {
                         x: 0,
                         y: 1,
                         fixed: true,
-                        colour: "#75476c"
-                    }
-                ]
-            }
-            // {
-            //     countX: 3,
-            //     countY: 2,
-            //     cells: [{
-            //         x: 0,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#691f23"
-            //     },
-            //     {
-            //         x: 2,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#875a03"
-            //     },
-            //     {
-            //         x: 1,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#993d0c"
-            //     },
-            //     {
-            //         x: 2,
-            //         y: 1,
-            //         fixed: false,
-            //         colour: "#992837"
-            //     }]
-            //}
+                        colour: '#75476c'
+                    }]
+                };
+                break;
+            default:
+                testMap = {
+                    countX: 4,
+                    countY: 5,
+                    cells: [{
+                        x: 0,
+                        y: 0,
+                        fixed: false,
+                        colour: '#414141'
+                    },
+                    {
+                        x: 1,
+                        y: 0,
+                        fixed: true,
+                        colour: '#6C554F'
+                    },
+                    {
+                        x: 2,
+                        y: 0,
+                        fixed: true,
+                        colour: '#AE6560'
+                    },
+                    {
+                        x: 3,
+                        y: 0,
+                        fixed: true,
+                        colour: '#FF827D'
+                    },
+                    {
+                        x: 2,
+                        y: 1,
+                        fixed: true,
+                        colour: '#B1755F'
+                    },
+                    {
+                        x: 2,
+                        y: 2,
+                        fixed: true,
+                        colour: '#BD8159'
+                    },
+                    {
+                        x: 2,
+                        y: 3,
+                        fixed: true,
+                        colour: '#C48A4B'
+                    },
+                    {
+                        x: 2,
+                        y: 4,
+                        fixed: false,
+                        colour: '#C69A43'
+                    }]
+                };
+        }
+        return Promise.resolve(
+            testMap
         ).then(data => {
             this.map = data;
             this.mapNum = mapNum.page;

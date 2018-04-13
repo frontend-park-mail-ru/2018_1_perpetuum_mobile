@@ -33,7 +33,7 @@ class Cell {
      * @param len {Number} - number of cells in a row
      */
     static setPropertyFree(cell, parentElement, colour, sizeCell, i, len) {
-        const OFFSET_FROM_ELEMENT = 10;
+        const OFFSET_FROM_ELEMENT = 8;
 
         const offsetToCenterX = (parentElement.offsetWidth - len * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
         const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
@@ -55,7 +55,7 @@ class Cell {
      * @param sizeY {Number} - number of cells in a column
      */
     static setPropertyFixed(cell, parentElement, v, sizeCell, sizeX, sizeY) {
-        const OFFSET_FROM_ELEMENT = 10;
+        const OFFSET_FROM_ELEMENT = 8;
 
         const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
         const offsetToCenterY = (parentElement.offsetHeight - sizeY * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
@@ -85,11 +85,11 @@ class Cell {
      * @returns {number} - minimum cell size depending on the screen size
      */
     static findSizeCell(parentElement, X, Y, anotherParent) {
-        const OFFSET_FROM_ELEMENT = 10;
-        const sizeCellX = parentElement.offsetWidth / X - OFFSET_FROM_ELEMENT * X;
-        const sizeCellY = parentElement.offsetHeight / Y - OFFSET_FROM_ELEMENT * Y;
-        const sizeCellX1 = anotherParent.offsetWidth - OFFSET_FROM_ELEMENT;
-        const sizeCellY1 = anotherParent.offsetHeight - OFFSET_FROM_ELEMENT;
+        const OFFSET_FROM_ELEMENT = 8;
+        const sizeCellX = parentElement.offsetWidth / X - OFFSET_FROM_ELEMENT * 2;
+        const sizeCellY = parentElement.offsetHeight / Y - OFFSET_FROM_ELEMENT * 2;
+        const sizeCellX1 = anotherParent.offsetWidth;
+        const sizeCellY1 = anotherParent.offsetHeight;
 
         const temp = (sizeCellX > sizeCellY) ? sizeCellY : sizeCellX;
         const temp1 = (sizeCellX1 > sizeCellY1) ? sizeCellY1 : sizeCellX1;
