@@ -1,4 +1,4 @@
-/** @module modules/paginatorModule */
+/** @module modules/sharedData */
 
 /**
  * Class implements a storage for data need to be shared

@@ -9,6 +9,7 @@ import {LevelView} from '../Views/LevelView/levelView.js';
 import {OfflineGameModel} from '../Models/game/offlineGameModel.js';
 import {bus} from '../Modules/bus.js';
 import {PaginatorModule} from '../Modules/paginator.js';
+import {sharedData} from '../Modules/sharedData.js';
 
 /**
  * The class which connects functionality of game Model and View via proxy-functions.
@@ -33,6 +34,8 @@ class OfflineGameController {
         this.levelView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.initLevelsPaginator();
+
+        bus.on("authorized", this.sendGameProgress.bind(this));
     }
 
     /**
@@ -57,7 +60,18 @@ class OfflineGameController {
     endGame() {
         this.gameViewOffline.gameOnWin();
         this.gameModel.currentProgress = 0;
+        this.gameModel.addGameProgress( {time : this.gameViewOffline.timeNowSec} );
+        this.sendGameProgress();
         return this;
+    }
+
+    /**
+     * Send game progress to server.
+     */
+    sendGameProgress() {
+        if (navigator.onLine && sharedData.data['currentUser'] && this.gameModel.gameProgress.length !== 0) {
+            this.gameModel.sendGameProgress();
+        }
     }
 
     /**
@@ -74,7 +88,7 @@ class OfflineGameController {
 
     /**
      * Initialize pagination over levels.
-     * TODO EXCLUDE HARDCODED levelsCount - GET IT FROM SERVER
+     * TODO EXCLUDE HARDCODED levelsCount - GET IT FROM SERVER, NOW IT IS SO ONLY FOR DEMONSTRATION
      */
     initLevelsPaginator() {
         this.paginator.levelsCount = 10;

@@ -21,6 +21,7 @@ class OfflineGameModel{
         this.vacantCubes = 0;
         this.setRight = [];
         this.gameProgress = [];
+        this.mapNum = null; // current map number
     }
 
     /**
@@ -115,15 +116,17 @@ class OfflineGameModel{
             //}
         ).then(data => {
             this.map = data;
+            this.mapNum = mapNum.page;
             this.countVacantCubes();
             data.cells.map(el => el.colour).forEach(el => this.setRight[el] = false);
             return data;
         }
         );
-
         /*return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then((data) => {
             this.map = data;
+            this.mapNum = mapNum.page;
             this.countVacantCubes();
+            data.cells.map(el => el.colour).forEach(el => this.setRight[el] = false);
             return data;
         });*/
     }
@@ -166,10 +169,10 @@ class OfflineGameModel{
     /**
      * Save game progress locally.
      * Save the best user result.
-     * UNUSED
      * @param progress - The new user good result.
      */
     addGameProgress(progress) {
+        progress.levelNum = this.mapNum;
         let replaced = this.gameProgress.some((saved, i) => {
             if (progress.levelNum === saved.levelNum) {
                 if (progress.time < saved.time) {
@@ -186,8 +189,7 @@ class OfflineGameModel{
 
     /**
      * Send user progress to server.
-     * UNUSED
-     * @return {boolean} All the data have been sent to server.
+     * @return {boolean} Indicator whether all the data have been sent to server.
      */
     sendGameProgress() {
         if (this.gameProgress.length === 0) {

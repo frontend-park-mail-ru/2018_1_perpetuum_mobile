@@ -43,6 +43,7 @@
     top: 5px;
     //margin-top: 10%;
     font-size: 4vh;
+    pointer-events: none;
 }
 .rating__one-star{
     display: inline-block;

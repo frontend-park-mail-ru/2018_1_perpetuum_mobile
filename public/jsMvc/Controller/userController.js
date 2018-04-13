@@ -82,7 +82,7 @@ class UserController {
     /**
      * Change user login.
      * Extract the new login and old password from html form and
-     * send it through user Model {@link } to server.
+     * send it through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     changeLogin(evt) {
@@ -111,7 +111,7 @@ class UserController {
     /**
      * Change user password.
      * Extract the new password and old password from html form and
-     * send it through user Model {@link } to server.
+     * send it through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     changePassword(evt) {
@@ -140,7 +140,7 @@ class UserController {
     /**
      * Change user email.
      * Extract the new email and old password from html form and
-     * send it through user Model {@link } to server.
+     * send it through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     changeEmail(evt) {
@@ -169,7 +169,7 @@ class UserController {
     /**
      * Authorize user.
      * Extract the email and password from html form and
-     * send it through user Model {@link } to server.
+     * send it through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     login(evt) {
@@ -197,7 +197,7 @@ class UserController {
     /**
      * Register new user.
      * Extract the email, login and password from html form and
-     * send it through user Model {@link } to server.
+     * send it through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     register(evt) {
@@ -214,6 +214,7 @@ class UserController {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');
+                    bus.emit('authorized');
                 });
             }
         ).catch(
@@ -225,7 +226,7 @@ class UserController {
 
     /**
      * Logout user.
-     * Send logout signal through user Model {@link } to server.
+     * Send logout signal through user Model {@link module:models/userModel} to server.
      * @param {Event} evt - The form event signalized form is filled and valid.
      */
     logout(evt) {
@@ -236,6 +237,7 @@ class UserController {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');
+                    bus.emit('authorized');
                 });
             }
         ).catch(
@@ -247,7 +249,7 @@ class UserController {
 
     /**
      * Load user.
-     * Load user info and save it to shared data. {@see module:modules/sharedData}
+     * Load user info and save it to shared data. {@link module:modules/sharedData}
      * @return {Promise<object>}
      */
     loadMe() {
