@@ -4,6 +4,7 @@
 
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
+import {Colour} from '../../Components/Colour/colour.js';
 
 
 /**
@@ -39,7 +40,7 @@ class MenuView extends ViewInterface {
             const toLogoutForm = this.el.getElementsByClassName('js-logout-form')[0];
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
-
+        this.colour = new Colour('colors');
     }
 
 }

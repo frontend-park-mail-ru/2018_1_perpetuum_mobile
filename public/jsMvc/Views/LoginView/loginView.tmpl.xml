@@ -23,6 +23,7 @@
                 </div>
             </section>
         </div>
-        <button class="wrapper-block__change-color"/>
+        <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
+        <fest:get name="colour">params</fest:get>
     </div>
 </fest:template>

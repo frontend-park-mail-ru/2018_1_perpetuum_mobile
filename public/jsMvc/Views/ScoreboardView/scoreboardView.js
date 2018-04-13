@@ -4,6 +4,7 @@
 
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
+import {Colour} from '../../Components/Colour/colour.js';
 
 
 /**
@@ -54,10 +55,12 @@ class ScoreboardView extends ViewInterface {
 
         const rightPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonRight')[0];
         rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
+
+        this.colour = new Colour('colors');
     }
 
     isAllowed() {
-        return navigator.onLine;
+        return !navigator.onLine;
     }
 }
 

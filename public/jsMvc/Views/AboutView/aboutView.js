@@ -1,4 +1,5 @@
 import {ViewInterface} from '../ViewInterface.js';
+import {Colour} from '../../Components/Colour/colour.js';
 
 class AboutView extends ViewInterface {
 
@@ -8,7 +9,12 @@ class AboutView extends ViewInterface {
 
     render(params = {}) {
         super.render(params);
+        this.init();
         return this;
+    }
+
+    init() {
+        this.colour = new Colour('colors');
     }
 }
 

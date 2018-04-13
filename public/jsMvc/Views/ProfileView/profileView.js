@@ -9,6 +9,7 @@ import {sharedData} from '../../Modules/sharedData.js';
 import {Validation} from "../../Modules/validation.js";
 import {Error} from '../../Components/Error/error.js';
 import {bus} from '../../Modules/bus.js';
+import {Colour} from '../../Components/Colour/colour.js';
 
 
 class ProfileView extends ViewInterface {
@@ -58,6 +59,8 @@ class ProfileView extends ViewInterface {
             const toLogoutForm = this.el.getElementsByClassName('js-logout-form')[0];
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
+
+        this.colour = new Colour('colors');
     }
 
     /**

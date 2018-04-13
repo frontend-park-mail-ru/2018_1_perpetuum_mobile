@@ -40,7 +40,8 @@
                 </div>
             </div>
         </div>
-        <button class="wrapper-block__change-color"/>
+        <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
+        <fest:get name="colour">params</fest:get>
         <footer class="wrapper-block__profile">
             <div class="js-profile profile-footer">
                 <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
