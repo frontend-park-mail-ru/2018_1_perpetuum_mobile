@@ -70,7 +70,7 @@ class RegisterView extends ViewInterface {
                 return !!current.valid && res;
             }, true);
 
-            if(allValid === true) {
+            if (allValid === true) {
                 this.onRegister(evt);
             }
         });

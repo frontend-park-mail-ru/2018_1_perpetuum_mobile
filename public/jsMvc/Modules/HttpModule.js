@@ -52,7 +52,7 @@ function checkAllRight(response) {
 /** @func throwErr - The function throws error with the message.
  * @param {object} err - The Object contains message in it.
  * @return {Error} - Throws error with body as err.message. */
-function throwErr(err){
+function throwErr(err) {
     throw new Error(err.message);
 }
 

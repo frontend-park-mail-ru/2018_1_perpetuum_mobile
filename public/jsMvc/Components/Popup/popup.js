@@ -74,7 +74,7 @@ class Popup {
                 return !!current.valid && res;
             }, true);
 
-            if(allValid === true) {
+            if (allValid === true) {
                 this.onSubmitForm(evt);
             }
         });

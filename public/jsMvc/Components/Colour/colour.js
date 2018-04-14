@@ -62,4 +62,4 @@ class Colour {
     }
 }
 
-export {Colour}
+export {Colour};

@@ -20,7 +20,7 @@ class Cell {
         element.wrongX = `${X}px`;
         element.wrongY = `${Y}px`;
         element.style.top  = element.wrongY;
-        element.style.left = element.wrongX
+        element.style.left = element.wrongX;
     }
 
     /**

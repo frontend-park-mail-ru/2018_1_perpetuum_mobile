@@ -63,7 +63,7 @@ class ScoreboardController {
      * Open the page by number.
      * @param {object<page number>} page - The object contains the page number.
      */
-    openPage(page = { page : 1 }){
+    openPage(page = { page : 1 }) {
         this.scoreboardModel.loadAllUsers(page).then(
             (data) => {
                 this.paginator.maxPageNum = data['maxPageNum'];

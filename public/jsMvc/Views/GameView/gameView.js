@@ -140,7 +140,7 @@ class GameView extends ViewInterface {
     timer() {
         const time = this.el.getElementsByClassName('js-timer')[0];
 
-        if (!!time) {
+        if (time) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
             time.innerHTML = `${~~(this.timeNowSec/1000)}`;
             this.animation = window.requestAnimationFrame(this.timer.bind(this));

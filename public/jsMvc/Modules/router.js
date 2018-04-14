@@ -109,7 +109,7 @@ class Router {
         while (urlArr.length > 0) {
             urlParams = urlArr.splice(urlArr.length - 1, 1).concat(urlParams);
             urlString = '/' + urlArr.join('/');
-            if (urlString in this.pages){
+            if (urlString in this.pages) {
                 params.urlParams = urlParams;
                 return {url: urlString, params: params};
             }
