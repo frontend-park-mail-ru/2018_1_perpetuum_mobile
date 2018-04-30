@@ -8,7 +8,16 @@ import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 
-import {enableSW} from './Modules/serviceWorker.js';
+// import {enableSW} from './Modules/serviceWorker.js';
+
+if (
+    window.location.hostname === 'blendocu.herokuapp.com'
+    && window.location.protocol !== 'https:'
+) {
+    window.location.assign(window.location.href.replace('http://', 'https://'));
+    //return;
+}
+
 
 /**
  * disable right mouse button

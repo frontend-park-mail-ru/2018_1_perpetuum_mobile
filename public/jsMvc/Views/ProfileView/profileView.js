@@ -4,9 +4,9 @@
 
 
 import {ViewInterface} from '../ViewInterface.js';
-import {Popup} from "../../Components/Popup/popup.js";
+import {Popup} from '../../Components/Popup/popup.js';
 import {sharedData} from '../../Modules/sharedData.js';
-import {Validation} from "../../Modules/validation.js";
+import {Validation} from '../../Modules/validation.js';
 import {Error} from '../../Components/Error/error.js';
 import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
@@ -105,8 +105,8 @@ class ProfileView extends ViewInterface {
         this.changePasswordParams = {
             title: 'Change password',
             fields: [['Old password', 'js-profile-old-password-input', 'password', 'oldPassword', Validation.validatePassword, 'js-error-oldPassword'],
-            ['New password', 'js-profile-new-password-input', 'password', 'newPassword', Validation.validatePassword, 'js-error-newPassword'],
-            ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', Validation.validatePasswordRepeat.bind(null, 'js-profile-new-password-input'), 'js-error-confirmNewPassword']],
+                ['New password', 'js-profile-new-password-input', 'password', 'newPassword', Validation.validatePassword, 'js-error-newPassword'],
+                ['Confirm new password', 'js-profile-confirm-new-password-input', 'password', 'confirmNewPassword', Validation.validatePasswordRepeat.bind(null, 'js-profile-new-password-input'), 'js-error-confirmNewPassword']],
             buttonValue: 'Change password',
             changeForm: this.onChangePassword
         };
@@ -120,7 +120,7 @@ class ProfileView extends ViewInterface {
     static validateAvatar(evt) {
         const avatar = evt.target.files[0];
         const isValid = Validation.isValidImage(avatar);
-        if(isValid !== true) {
+        if (isValid !== true) {
             document.getElementsByClassName('js-profile-settings-file-name')[0].innerHTML = avatar.name;
         }
         return (isValid !== true) ? Error.showAvatarError(isValid) : Error.hideAvatarError();

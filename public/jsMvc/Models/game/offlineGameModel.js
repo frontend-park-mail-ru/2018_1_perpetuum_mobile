@@ -10,7 +10,7 @@ import {sharedData} from '../../Modules/sharedData.js';
 /**
  * Class implements offline game strategy model.
  */
-class OfflineGameModel{
+class OfflineGameModel {
 
     /**
      * Creates offline model instance.
@@ -251,7 +251,7 @@ class OfflineGameModel{
         }
         if (navigator.onLine && sharedData.data['currentUser']) {
             this.gameProgress.forEach(elem => {
-                HttpModule.doPostFetch({url: `${baseUrl}/save`, data: elem})
+                HttpModule.doPostFetch({url: `${baseUrl}/save`, data: elem});
             });
             this.gameProgress = [];
             return true;

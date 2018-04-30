@@ -69,7 +69,7 @@ class UserController {
             (response) => {
                 console.log(response);
                 this.loadMe().then(() => {
-                    bus.emit('reload')
+                    bus.emit('reload');
                 });
             }
         ).catch(
@@ -98,7 +98,7 @@ class UserController {
             (response) => {
                 console.log(response);
                 this.loadMe().then(() => {
-                    bus.emit('reload')
+                    bus.emit('reload');
                 });
             }
         ).catch(
@@ -127,7 +127,7 @@ class UserController {
             (response) => {
                 console.log(response);
                 this.loadMe().then(() => {
-                    bus.emit('reload')
+                    bus.emit('reload');
                 });
             }
         ).catch(
@@ -156,7 +156,7 @@ class UserController {
             (response) => {
                 console.log(response);
                 this.loadMe().then(() => {
-                    bus.emit('reload')
+                    bus.emit('reload');
                 });
             }
         ).catch(

@@ -84,7 +84,7 @@ class OfflineGameController {
             (data) => {
                 bus.emit('game', [data, `/${mapNum.page}`]);
             }
-        )
+        );
     }
 
     /**
@@ -121,8 +121,8 @@ class OfflineGameController {
                 maps: maps,
                 paginator: this.paginator
             };
-            bus.emit('level', [data, `/${levelPage.page}`])
-        })
+            bus.emit('level', [data, `/${levelPage.page}`]);
+        });
     }
 
     /**

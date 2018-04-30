@@ -111,30 +111,30 @@ self.addEventListener('install', (event) => {
      * Wait until all files will be downloaded.
      * In case of error service worker will not be installed.
      */
-	event.waitUntil(
-		caches.open(CACHE_NAME)
-			.then((cache) => {
-				return cache.addAll(cacheUrls);
-			})
-			.catch((err) => {
-				console.error('smth went wrong with caches.open: ', err);
-			})
-	);
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then((cache) => {
+                return cache.addAll(cacheUrls);
+            })
+            .catch((err) => {
+                console.error('smth went wrong with caches.open: ', err);
+            })
+    );
 });
 
 self.addEventListener('fetch', (event) => {
 
-	/** cache first */
-	event.respondWith(
+    /** cache first */
+    event.respondWith(
         /**
          * Search for the resource in cache storage.
          */
-		caches
-			.match(event.request)
-			.then((cachedResponse) => {
-				if (cachedResponse) {
-					return cachedResponse;
-				}
+        caches
+            .match(event.request)
+            .then((cachedResponse) => {
+                if (cachedResponse) {
+                    return cachedResponse;
+                }
                 return fetch(event.request)
                     .then(response => {
                         if (shouldICache(event.request) && response.clone().ok) {
