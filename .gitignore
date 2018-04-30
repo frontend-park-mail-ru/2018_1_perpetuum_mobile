@@ -57,10 +57,14 @@ typings/
 # dotenv environment variables file
 .env
 
-#some examples
+# some examples
 ./static/
 
-#fest
+# fest
 *.tmpl.js
 
+# idea files
 .idea
+
+# webpack
+dist/

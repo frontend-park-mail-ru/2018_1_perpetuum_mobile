@@ -27,6 +27,8 @@ window.addEventListener('contextmenu', evt => {
     evt.stopPropagation();
     return false;
 });
+
+
 /**
  * When all DOM is loaded starts app.
  */
