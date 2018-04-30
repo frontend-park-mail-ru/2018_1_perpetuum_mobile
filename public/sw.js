@@ -33,8 +33,9 @@ const cacheUrls = [
     '/css/game-blendocu.css',
     '/css/about.css',
     '/css/background.css',
+    '/css/fonts.css',
 
-    //'/sw.js',
+    '/sw.js',
     '/jsMvc/Modules/serviceWorker.js',
     '/jsMvc/Modules/basic.js',
     '/jsMvc/Modules/validation.js',
@@ -60,7 +61,14 @@ const cacheUrls = [
     '/jsMvc/Components/Cell/cell.js',
     '/jsMvc/Models/scoreboardModel.js',
     '/images/paint.png',
-    '/fonts/Orbitron-Medium.ttf',
+    // UNUSED = '//'
+    //'/fonts/Orbitron-Medium.ttf',
+    '/fonts/u1f000.woff',
+    '/fonts/u1f400.woff',
+    '/fonts/u1f800.woff',
+    '/fonts/u2000.woff',
+    '/fonts/Orbitron-Black.ttf',
+    '/fonts/Orbitron-Bold.ttf',
     '/fonts/Orbitron-Regular.ttf',
     '/jsMvc/Views/LoginView/loginView.tmpl.js',
     '/jsMvc/Views/LoginView/LoginView.js',
@@ -93,6 +101,7 @@ const cacheUrls = [
 const cacheRegexps = [
     /^.+\.css$/i,
     /^.+\.ttf$/i,
+    /^.+\.woff$/i,
     /^.+\.png$/i,
     /^level\/.+$/i
 ];
