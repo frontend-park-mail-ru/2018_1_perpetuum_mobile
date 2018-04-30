@@ -1,11 +1,13 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const cssExtractTextPlugin = new ExtractTextPlugin("[name].css");
-const htmlExtractTextPlugin = new ExtractTextPlugin("[name].html");
+//const cssExtractTextPlugin = new ExtractTextPlugin('[name].css');
+//const htmlExtractTextPlugin = new ExtractTextPlugin('[name].html');
 
 
 module.exports = {
-    entry: './public/jsMvc/application.js',
+    entry: {
+        application: './public/jsMvc/application.js'
+    },
 
     output: {
         filename: 'application.js',
@@ -39,22 +41,26 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: cssExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader"})
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
             },
             {
                 test: /\.scss$/,
-                loader: cssExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader!sass-loader"})
+                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!sass-loader'})
             },
 
             {
                 test: /\.html$/,
-                loader: htmlExtractTextPlugin.extract({fallback: "html-loader", use: "html-loader"})
+                loader: ExtractTextPlugin.extract({fallback: 'html-loader', use: 'html-loader'})
             },
+            {
+                test: /\.(png|woff(2)?|eot|ttf|svg)([a-z0-9=.]+)?$/,
+                loader: 'file-loader'
+            }
         ],
 
     },
 
     plugins: [
-        cssExtractTextPlugin, htmlExtractTextPlugin
+        new ExtractTextPlugin('style.css')
     ],
 };

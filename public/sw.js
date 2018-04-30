@@ -11,7 +11,7 @@ const CACHE_NAME = 'blendocuSw-v1';
 const cacheUrls = [
     '/',
 
-    '/css/paginator-block.css',
+    /*'/css/paginator-block.css',
     '/css/register-login-change.css',
     '/css/menu-list-block.css',
     '/css/wrapper-block.css',
@@ -33,7 +33,8 @@ const cacheUrls = [
     '/css/game-blendocu.css',
     '/css/about.css',
     '/css/background.css',
-    '/css/fonts.css',
+    '/css/fonts.css',*/
+    '/dist/out/style.css',
 
     '/dist/out/application.js'
     /*'/sw.js',
