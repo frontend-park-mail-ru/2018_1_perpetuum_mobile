@@ -21,6 +21,12 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.xml$/,
+                use: {
+                    loader: 'fest-webpack-loader'
+                }
+            },
+            {
                 test: /\.js$/,
                 use: {
                     loader: 'babel-loader',

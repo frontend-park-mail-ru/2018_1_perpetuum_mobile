@@ -8,6 +8,7 @@ import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './registerView.tmpl.xml';
 
 
 
@@ -16,7 +17,7 @@ class RegisterView extends ViewInterface {
      * Create a RegisterView instance.
      */
     constructor() {
-        super('jsMvc/Views/RegisterView/registerView.tmpl');
+        super(template);
         bus.on('register-err', Error.serverError.bind(this));
     }
 

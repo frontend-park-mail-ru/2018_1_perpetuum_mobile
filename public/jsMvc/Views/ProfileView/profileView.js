@@ -10,6 +10,7 @@ import {Validation} from '../../Modules/validation.js';
 import {Error} from '../../Components/Error/error.js';
 import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './profileView.tmpl.xml';
 
 
 class ProfileView extends ViewInterface {
@@ -17,7 +18,7 @@ class ProfileView extends ViewInterface {
      * Create a ProfileView instance.
      */
     constructor() {
-        super('jsMvc/Views/ProfileView/profileView.tmpl');
+        super(template);
         this._popup = new Popup();
         bus.on('changeImage-err', Error.showAvatarError.bind(this));
     }

@@ -4,6 +4,7 @@
 
 import {Error} from '../Error/error.js';
 import {bus} from '../../Modules/bus.js';
+import template from './popup.tmpl.xml';
 
 
 /**
@@ -15,7 +16,7 @@ class Popup {
      */
     constructor() {
         this.el = document.createElement('div');
-        this.fest = window.fest['jsMvc/Components/Popup/popup.tmpl'];
+        this.fest = template;
         bus.on('changeProfileForm-err', Error.serverError.bind(this));
     }
 

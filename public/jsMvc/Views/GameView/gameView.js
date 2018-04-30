@@ -6,6 +6,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
+import template from './gameView.tmpl.xml';
 
 /**
  * Game view
@@ -16,7 +17,7 @@ class GameView extends ViewInterface {
      * Create a GameView instance.
      */
     constructor() {
-        super('jsMvc/Views/GameView/gameView.tmpl');
+        super(template);
         this._popup = new GamePopup();
     }
 

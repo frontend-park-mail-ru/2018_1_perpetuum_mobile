@@ -2,6 +2,7 @@
  *  @module components/GamePopup
  */
 
+import template from './gamePopup.tmpl.xml';
 /**
  * Popup class to show pop-up block in case of win
  */
@@ -11,7 +12,7 @@ class GamePopup {
      */
     constructor() {
         this.el = document.createElement('div');
-        this.fest = window.fest['jsMvc/Components/GamePopup/gamePopup.tmpl'];
+        this.fest = template;
     }
 
     /**

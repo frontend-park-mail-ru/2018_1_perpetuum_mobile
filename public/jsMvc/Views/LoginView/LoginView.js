@@ -8,6 +8,7 @@ import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './loginView.tmpl.xml';
 
 /**
  * Login view
@@ -18,7 +19,7 @@ class LoginView extends ViewInterface {
      * Create a LoginView instance.
      */
     constructor() {
-        super('jsMvc/Views/LoginView/loginView.tmpl');
+        super(template);
         bus.on('login-err', Error.serverError.bind(this));
     }
 

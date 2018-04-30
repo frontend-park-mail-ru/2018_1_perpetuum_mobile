@@ -5,6 +5,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './menuView.tmpl.xml';
 
 
 /**
@@ -17,7 +18,7 @@ class MenuView extends ViewInterface {
      * Create a menu view instance.
      */
     constructor() {
-        super('jsMvc/Views/MenuView/menuView.tmpl');
+        super(template);
     }
 
     /**
