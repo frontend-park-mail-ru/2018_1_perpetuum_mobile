@@ -35,7 +35,8 @@ const cacheUrls = [
     '/css/background.css',
     '/css/fonts.css',
 
-    '/sw.js',
+    '/dist/out/application.js'
+    /*'/sw.js',
     '/jsMvc/Modules/serviceWorker.js',
     '/jsMvc/Modules/basic.js',
     '/jsMvc/Modules/validation.js',
@@ -91,7 +92,7 @@ const cacheUrls = [
     '/jsMvc/Controller/gameController.js',
     '/jsMvc/Controller/gameOnlineController.js',
     '/jsMvc/Modules/router.js',
-    '/jsMvc/application.js'
+    '/jsMvc/application.js'*/
 ];
 
 /**
