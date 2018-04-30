@@ -5,15 +5,47 @@
 .menu-list-block__item {
     list-style-type: none;
     text-align: center;
-    line-height: 13vh;
+    line-height: 13vmin;
 }
 
 .menu-list-block__data {
     text-decoration: none;
     color: var(--secondColor);
     transition: all 0.3s linear;
+    //background: var(--darkGreyColor);
+    padding: 1vmin 1vmin 0 1vmin;
 }
 
 .menu-list-block__data:hover {
     border-bottom: var(--baseColor) 3px solid;
+}
+/*.menu-list__question {*/
+    /*color: var(--secondColor);*/
+    /*text-decoration: none;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*right: 0;*/
+    /*margin: 6vmin 4vmin 0 0;*/
+    /*font-size: 8vmin;*/
+    /*opacity: 0.6;*/
+    /*transition: all linear 0.3s;*/
+/*}*/
+
+/*.menu-list__question:active,*/
+/*.menu-list__question:hover {*/
+    /*color: white;*/
+    /*opacity: 1;*/
+/*}*/
+
+@media screen and (max-width: 980px) {
+    .menu-list-block__item {
+        line-height: 15vmin;
+    }
+
+    @media screen and (orientation: portrait) {
+        .menu-list-block__item {
+            line-height: 17vmin;
+        }
+    }
+
 }

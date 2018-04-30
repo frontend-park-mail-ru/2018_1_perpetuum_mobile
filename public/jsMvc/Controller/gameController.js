@@ -35,7 +35,7 @@ class OfflineGameController {
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.initLevelsPaginator();
 
-        bus.on("authorized", this.sendGameProgress.bind(this));
+        bus.on('authorized', this.sendGameProgress.bind(this));
     }
 
     /**

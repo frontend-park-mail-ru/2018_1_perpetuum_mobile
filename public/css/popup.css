@@ -4,14 +4,16 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 50vw;
+    width: 50vmax;
     z-index: 10;
     border-radius: 10px;
     background: #1c1c1c;
-    top: 20vh;
+    top: 20vmin;
     position: fixed;
     box-shadow: 0 0 5px 1px rgba(98, 98, 98, 0.4);
     animation: forward 0.3s 1;
+    margin: auto;
+    left: 25%;
 }
 
 @keyframes forward {
@@ -59,9 +61,10 @@
 }
 
 .popup__game-popup {
+    top: 10vh;
     left: 25vw;
     z-index: 1000000;
-    height: 70%;
+    height: 80%;
 }
 
 .popup__win {
@@ -89,6 +92,29 @@
 }
 
 .popup__time {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     margin-top: 5%;
     font-size: 3vh;
+}
+
+
+@media screen and (max-width: 980px) {
+    .popup {
+        top: 23%;
+        left: 20vmax;
+        width: 60%;
+        height: 60%;
+    }
+
+    @media screen and (orientation: portrait) {
+        .popup {
+            height: 60%;
+            top: 20%;
+            left: 5%;
+            width: 90%;
+        }
+    }
+
 }

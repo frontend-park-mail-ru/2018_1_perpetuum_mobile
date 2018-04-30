@@ -1,32 +1,34 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
+        <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main">
-            <section class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Our team</div>
 
-                <div class="about-team">
-                    <ul class="about-team__ul">
-                        <li class="about-team__li">
-                            <div class="about-team__member">Poponkin Dmitry</div>
-                            <div class="about-team__info">fullstack developer</div>
-                        </li>
-                        <li class="about-team__li">
-                            <div class="about-team__member">Vasilieva Nadia</div>
-                            <div class="about-team__info">fullstack developer</div>
-                        </li>
-                        <li class="about-team__li">
-                            <div class="about-team__member">Garifullin Timur</div>
-                            <div class="about-team__info">fullstack developer</div>
-                        </li>
-                        <li class="about-team__li">
-                            <div class="about-team__member">Migranov Rustam</div>
-                            <div class="about-team__info">fullstack developer</div>
-                        </li>
-                    </ul>
-                </div>
-
-            </section>
+                <table class="table about-team">
+                    <tbody>
+                        <tr class="table__tr">
+                            <td class="about-team__member">Poponkin Dmitry</td>
+                            <td class="about-team__info">fullstack developer</td>
+                        </tr>
+                        <tr class="table__tr">
+                            <td class="about-team__member">Vasilieva Nadia</td>
+                            <td class="about-team__info">fullstack developer</td>
+                        </tr>
+                        <tr class="table__tr">
+                            <td class="about-team__member">Garifullin Timur</td>
+                            <td class="about-team__info">fullstack developer</td>
+                        </tr>
+                        <tr class="table__tr">
+                            <td class="about-team__member">Migranov Rustam</td>
+                            <td class="about-team__info">fullstack developer</td>
+                        </tr>
+                        <tr class="table__tr">
+                            <td class="about-team__member">Tsvetkov Alexandr</td>
+                            <td class="about-team__info">best mentor</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
         <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
         <fest:get name="colour">params</fest:get>

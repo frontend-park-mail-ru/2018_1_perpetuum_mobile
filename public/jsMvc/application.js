@@ -10,12 +10,19 @@ import {ScoreboardController} from './Controller/scoreboardController.js';
 
 import {enableSW} from './Modules/serviceWorker.js';
 
-
+/**
+ * disable right mouse button
+ */
+window.addEventListener('contextmenu', evt => {
+    evt.preventDefault();
+    evt.stopPropagation();
+    return false;
+});
 /**
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    enableSW();
+    // enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 

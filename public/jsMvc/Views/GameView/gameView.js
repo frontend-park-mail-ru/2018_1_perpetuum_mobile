@@ -75,7 +75,8 @@ class GameView extends ViewInterface {
     drawField() {
         this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed);
+        const count = this.params.cells.filter(v => v.fixed).length;
+        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
@@ -85,12 +86,23 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+        this.rating = this.el.getElementsByClassName('js-rating')[0];
+        this.star = [];
+        for (let i = 0; i < 3; i++) {
+            this.star[i] = document.createElement('span');
+            this.star[i].classList.add('rating__one-star', 'rating__one-star-good');
+            this.star[i].innerHTML = '☆';
+            this.rating.appendChild(this.star[i]);
+        }
+
         this.startTimeSec = new Date().getTime();
         window.requestAnimationFrame(this.timer.bind(this));
         document.onmousedown = evt => {
+            const allocated = document.getElementsByClassName('game-blendocu__empty-cell');
             const cell = evt.target;
             if (cell.className.indexOf('js-fixed') === -1) return;
 
+            [...allocated].forEach(v => v.style.opacity = '0.8');
             const shiftX = evt.pageX - cell.getBoundingClientRect().left + pageXOffset;
             const shiftY = evt.pageY - cell.getBoundingClientRect().top + pageYOffset;
 
@@ -111,6 +123,7 @@ class GameView extends ViewInterface {
             };
 
             cell.onmouseup = () => {
+                [...allocated].forEach(v => v.style.opacity = '0.4');
                 document.onmousemove = null;
                 cell.onmouseup = null;
                 if (!cell.canDrag) {
@@ -140,8 +153,15 @@ class GameView extends ViewInterface {
     timer() {
         const time = this.el.getElementsByClassName('js-timer')[0];
 
-        if (!!time) {
+        if (!!time && !!this.rating) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
+            if (~~(this.timeNowSec/1000) > 20) {
+                this.star[1].classList.remove('rating__one-star-good');
+            }
+            if (~~(this.timeNowSec/1000) > 10) {
+                this.star[2].classList.remove('rating__one-star-good');
+            }
+
             time.innerHTML = `${~~(this.timeNowSec/1000)}`;
             this.animation = window.requestAnimationFrame(this.timer.bind(this));
         }
@@ -152,8 +172,12 @@ class GameView extends ViewInterface {
      * @param quantityOfStar - number of stars in dependency of time
      */
     gameOnWin(quantityOfStar) {
+        const score = document.getElementsByClassName('js-score')[0];
+        const cells = document.getElementsByClassName('game-blendocu__cell');
+        [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
-        this.addPopupWin(quantityOfStar);
+        setTimeout(this.addPopupWin.bind(this), 2000, quantityOfStar);
+        setTimeout(() => score.innerHTML = '', 2000);
     }
 
     /**

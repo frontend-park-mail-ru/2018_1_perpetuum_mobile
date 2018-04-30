@@ -5,7 +5,7 @@
 }
 
 .scoreboard-paginator__button {
-    color: var(--secondColor);
+    color: var(--inputColor);
     background: none;
     border: 0;
     font-size: 5vh;
@@ -13,4 +13,8 @@
 
 .scoreboard-paginator__button:disabled {
     color: var(--firstGradientColor);
+}
+
+.scoreboard-paginator__button:active {
+    color: white;
 }

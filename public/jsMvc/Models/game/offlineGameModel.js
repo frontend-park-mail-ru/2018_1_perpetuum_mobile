@@ -37,6 +37,30 @@ class OfflineGameModel{
             case 1:
                 testMap = {
                     countX: 3,
+                    countY: 1,
+                    cells: [{
+                        x: 0,
+                        y: 0,
+                        fixed: false,
+                        colour: '#730d13'
+                    },
+                    {
+                        x: 1,
+                        y: 0,
+                        fixed: true,
+                        colour: '#f05a69'
+                    },
+                    {
+                        x: 2,
+                        y: 0,
+                        fixed: false,
+                        colour: '#dcd3e0'
+                    }]
+                };
+                break;
+            case 2:
+                testMap = {
+                    countX: 3,
                     countY: 3,
                     cells: [{
                         x: 2,

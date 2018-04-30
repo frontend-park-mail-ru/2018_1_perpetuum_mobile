@@ -1,6 +1,7 @@
 .profile-settings {
     display: grid;
-    grid-template-columns: 30% 70%;
+    width: auto;
+    grid-template-columns: 40% 60%;
     grid-template-rows: 35vh 35vh;
 }
 
@@ -25,4 +26,29 @@
 
 .profile-settings__labelProfile {
     border-bottom: var(--logoColor) 1px solid;
+}
+
+
+@media screen and (max-width: 980px) {
+    .profile-settings {
+        width: 60%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 40% 60%;
+        grid-template-rows: 35vh 35vh;
+    }
+    @media screen and (orientation: portrait) {
+        .profile-settings {
+            width: 90vmin;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-settings__info {
+            font-size: initial !important;
+            width: 80%;
+            margin: auto;
+        }
+    }
 }

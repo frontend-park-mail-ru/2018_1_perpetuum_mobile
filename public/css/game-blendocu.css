@@ -1,17 +1,18 @@
 .game-blendocu {
-    margin: 1vh auto;
+    margin: 1vmin auto;
     width: 100%;
     height: 95%;
 }
 
 .game-blendocu__unfixed {
     width: 100%;
-    height: 70%;
+    height: 55%;
 }
 
 .game-blendocu__fixed {
+    margin-top: 5%;
     width: 100%;
-    height: 25%;
+    height: 20%;
 }
 
 .game-blendocu__cell {
@@ -24,26 +25,72 @@
 .game-blendocu__cell-fixed {
     position: absolute;
     color: #242222;
-    font-size: 3vh;
-    bottom: 1px;
-    right: 3px;
+    font-size: 3vmin;
+    bottom: 3px;
+    right: 5px;
     opacity: 0.6;
+}
+.game-blendocu__cell-fixed:after {
+    content: "🔒";
 }
 
 .game-blendocu__empty-cell {
     border-radius: 10px;
     opacity: 0.4;
-    border: #888484 1vh solid;
+    border: var(--inputColor) 1vmin solid;
     box-sizing: border-box;
     position: absolute;
 }
 
-.game-blendocu__timer {
-    height: 5%;
-    font-size: 250%;
-    opacity: 0.8;
+.game-blendocu__cell--win {
+   opacity: 1;
 }
 
+.game-blendocu__cell--win:before {
+    margin-left: -3vmin;
+    position: absolute;
+    content: " ";
+    display: inline-block;
+    background-color: var(--baseColor);
+    animation: win 3s;
+    opacity: 0.1;
+    width: 16vmin;
+}
+.game-blendocu__cell--win:after {
+    position: absolute;
+    content: " ";
+    display: inline-block;
+    background-color: var(--baseColor);
+    opacity: 0.1;
+    animation: win 2s;
+    width: 10vmin;
+}
+
+@keyframes win {
+    0% {
+        margin-top: -100vmin;
+        height: 0;
+    }
+
+    50% {
+        margin-top: -100vmin;
+        height: 200vh;
+    }
+
+    100% {
+        margin-top: 100vmin;
+        height: 200vmin;
+    }
+}
+
+
+.game-blendocu__timer {
+    left: 55%;
+    position: absolute;
+    opacity: 0.8;
+    font-size: 8vmin;
+    top: 2%;
+}
 
 .game-blendocu__cell:hover {
     background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 60%);
@@ -65,5 +112,30 @@
 
     100%{
         background-position: 0;
+    }
+}
+
+.game-blendocu__star {
+    left: 38%;
+    position: absolute;
+    font-size: 8vmin;
+    top: 1%;
+}
+
+
+.game-blendocu__score {
+    margin-bottom: 20vmin;
+    transition: all 0.3s linear;
+}
+
+
+@media screen and (orientation: portrait) {
+    .game-blendocu__star {
+        left: 30%;
+        top: 1.5%;
+    }
+    .game-blendocu__timer {
+        left: 60%;
+
     }
 }

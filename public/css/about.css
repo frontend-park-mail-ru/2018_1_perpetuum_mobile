@@ -1,34 +1,13 @@
 .about-team {
-    margin-top: 4vh;
-    height: 80vh;
+    height: 55vmin;
+    width: 90vmin;
+    border-top: var(--baseColor) 1px solid;
 }
-
-.about-team__ul {
-    list-style: none;
-    width: 100%;
-    padding: 0;
-}
-
-.about-team__li {
-    border-bottom: var(--baseColor) 1px solid;
-    height: 10vh;
-    margin-top: 2vh;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
 .about-team__member {
-    line-height: 6vh;
-    text-align: left;
-    font-size: 4vh;
+    font-size: 4vmin;
+    margin-top: 2vmin;
 }
 
 .about-team__info {
-    line-height: 3vh;
-    font-size: 2.5vh;
-    text-align: right;
-    margin-top: auto;
-    margin-bottom: auto;
+    font-size: 3vmin;
 }

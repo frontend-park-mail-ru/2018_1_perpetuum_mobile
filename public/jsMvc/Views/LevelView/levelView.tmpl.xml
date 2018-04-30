@@ -1,8 +1,8 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
+        <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
-        <div class="wrapper-block__main">
-            <section class="wrapper-block__main js-wrapper-login">
+        <div class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Select level</div>
                 <div class="level">
                     <div class="levels">
@@ -24,7 +24,6 @@
                     <fest:get name="paginator-buttons">params.paginator</fest:get>
 
                 </div>
-            </section>
         </div>
         <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
         <fest:get name="colour">params</fest:get>

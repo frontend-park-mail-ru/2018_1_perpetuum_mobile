@@ -1,29 +1,29 @@
 .button {
     background: var(--greyColor);
     color: var(--secondColor);
-    font-size: 3vh;
+    font-size: 3vmin;
     border: var(--greyColor) 3px solid;
     transition: border-bottom-color 0.3s linear;
     border-radius: 2px;
-    margin: 3vh 2vh 2vh 2vh;
+    margin: 3vmin 0 2vmin 0;
     align-self: center;
-    box-shadow: 6px 6px 6px #040404;
+    box-shadow: 6px 6px 6px #141414;
 }
 
 .button_big {
-    width: 53vh;
-    height: 6vh;
+    width: 46vmin;
+    height: 6vmin;
 }
 
 .button_little {
-    width: 18vh;
-    height: 4vh;
+    width: 18vmin;
+    height: 4vmin;
 }
 
 .button__user-footer {
-    font-size: 3vh;
+    font-size: 3vmin;
     transition: all 0.3s linear;
-    margin: auto 0 auto auto;
+    margin: 0 0 0 auto;
     color: var(--logoColor);
     text-decoration: none;
     border: transparent 3px solid;
@@ -36,4 +36,27 @@
 
 .button:active {
     box-shadow: none;
+}
+
+
+@media screen and (max-width: 980px) {
+    .button__user-footer {
+        font-size: 5vmin;
+        margin: 0 0 0 auto;
+    }
+    .button {
+        font-size: 4vmin;
+        margin: 3vmin 0 2vmin 0;
+    }
+
+    .button_big {
+        width: 64vmin;
+        height: 7vmin;
+    }
+
+    .button_little {
+        width: 18vmin;
+        height: 4vmin;
+    }
+
 }

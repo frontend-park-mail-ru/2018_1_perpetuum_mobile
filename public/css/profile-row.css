@@ -8,20 +8,41 @@
 }
 
 .profile-row__predict-label {
-    text-align: right;
-    width: 30%;
+    margin: auto 2vmin auto 2vmin;
 }
 
 .profile-row__center-label {
     text-align: left;
-    margin-left: 3%;
+    margin-left: 5%;
 }
 
 .profile-row__edit-icon {
-    background: url("../images/pen.png") no-repeat;
-    background-size: auto 70%;
-    margin-left: 5%;
+    color: var(--inputColor);
+    margin-top: -15px;
+    background: transparent;
+    margin-left: 5px;
     text-align: right;
     width: 5%;
     border: none;
+}
+
+.profile-row__edit-icon:active {
+    color: white;
+}
+
+@media screen and (max-width: 980px) {
+    .profile-row {
+        font-size: 6vh;
+    }
+    .profile-row__edit-icon {
+        margin-top: -7px;
+    }
+    @media screen and (orientation: portrait) {
+        .profile-row {
+            font-size: 3vh;
+        }
+        .profile-row__predict-label {
+            margin: 0;
+        }
+    }
 }
