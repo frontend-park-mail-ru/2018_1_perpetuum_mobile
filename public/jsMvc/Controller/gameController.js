@@ -110,7 +110,7 @@ class OfflineGameController {
         };
         const promises = [];
         for (let i = levels.from; i <= levels.to; i++) {
-            promises.push(this.gameModel.getMap({ mapNum : i }).then(map => {
+            promises.push(this.gameModel.getMap({ page : i }).then(map => {
                 map['number'] = i;
                 return map;
             }));
