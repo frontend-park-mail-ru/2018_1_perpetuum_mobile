@@ -27,6 +27,8 @@ class OfflineGameController {
 
         this.paginator = new PaginatorModule();
 
+        this.gameModel.currentProgress = 0;
+
         this.gameViewOffline.setCubic = this.setCubic.bind(this);
         this.gameViewOffline.openLevel = this.openLevel.bind(this);
 
@@ -38,6 +40,7 @@ class OfflineGameController {
         window.addEventListener('offline', this.initLevelsPaginator.bind(this)); // when offline only downloaded levels are available
 
         bus.on('authorized', this.sendGameProgress.bind(this));
+        window.addEventListener('online', this.sendGameProgress.bind(this));
     }
 
     /**
@@ -61,7 +64,6 @@ class OfflineGameController {
      */
     endGame() {
         this.gameViewOffline.gameOnWin();
-        this.gameModel.currentProgress = 0;
         this.gameModel.currentProgress = 0;
         this.gameModel.addGameProgress( {time : this.gameViewOffline.timeNowSec} );
         this.sendGameProgress();
