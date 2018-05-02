@@ -12,8 +12,7 @@ const SERVER_EVENTS = {
     CUBIC_TAKEN: 'CUBIC_TAKEN',
     CUBIC_SET: 'CUBIC_SET',
     UPDATE_SCORE: 'UPDATE_SCORE',
-    WIN: 'WIN',
-    LOSE: 'LOSE'
+    END_GAME: 'END_GAME'
 };
 
 

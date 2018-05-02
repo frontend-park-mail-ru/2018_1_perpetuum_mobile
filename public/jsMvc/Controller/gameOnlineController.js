@@ -1,71 +1,66 @@
 /**
  * @module controller/gameOnlineController
  */
-
-/*
-import {GameView} from '../Views/GameView/gameView.js';
+import {ws} from '../Modules/ws.js';
+import {CLIENT_EVENTS} from '../Modules/game/serverEvents.js';
+import {SERVER_EVENTS} from '../Modules/game/serverEvents.js';
 import {bus} from '../Modules/bus.js';
+import {OnlineGameModel} from '../Models/game/onlineGameModel.js';
+import {OnlineGameView} from '../Views/OnlineGameView/onlineGameView.js';
+import template from './../Views/OnlineGameView/onlineGameView.tmpl.xml';
 
 
 class OnlineGameController {
     constructor() {
-        this.gameViewOnline  = new GameView();
+        this.gameView = new OnlineGameView(template);
+        this.gameModel = new OnlineGameModel();
+        this.ws = ws;
 
-        this.gameViewOnline.gameEvent = this.gameEvent.bind(this);
+        this.onGameStarted = this.onGameStarted.bind(this);
+        this.onCubicTaken = this.onCubicTaken.bind(this);
+        this.onCubicSet = this.onCubicSet.bind(this);
+        this.onUpdateScore = this.onUpdateScore.bind(this);
+        this.onEndGame = this.onEndGame.bind(this);
     }
 
-    init(mode) {
-        let GameConstructor = null;
+    startGame() {
+        bus.on(SERVER_EVENTS.START_GAME, this.onGameStarted);
+        bus.on(SERVER_EVENTS.CUBIC_TAKEN, this.onCubicTaken);
+        bus.on(SERVER_EVENTS.CUBIC_SET, this.onCubicSet);
+        bus.on(SERVER_EVENTS.UPDATE_SCORE, this.onUpdateScore);
+        bus.on(SERVER_EVENTS.END_GAME, this.onEndGame);
 
-        switch (mode) {
-            case GAME_MODES.ONLINE: {
-                GameConstructor = OnlineGame;
-                break;
-            }
-            case GAME_MODES.OFFLINE: {
-                GameConstructor = OfflineGame;
-                break;
-            }
-            default:
-                throw new Error('Invalid game mode ' + mode);
-        }
-        this.gameCore = new GameConstructor();
-        this.start();
+
+        ws.send(CLIENT_EVENTS.READY, null);
     }
 
-    start() {
-        this.gameCore.start();
+    endGame() {
+        bus.off(SERVER_EVENTS.START_GAME, this.onGameStarted);
+        bus.off(SERVER_EVENTS.CUBIC_TAKEN, this.onCubicTaken);
+        bus.off(SERVER_EVENTS.CUBIC_SET, this.onCubicSet);
+        bus.off(SERVER_EVENTS.UPDATE_SCORE, this.onUpdateScore);
+        bus.off(SERVER_EVENTS.END_GAME, this.onEndGame);
     }
 
-    destroy() {
-        this.gameCore.destroy();
+    onGameStarted() {
+
     }
 
-    gameEvent(evt, params) {
-        switch (evt) {
-            case GAME_EVENTS.SET_CUBIC: {
-                this.gameCore.setCubic(params);
-                break;
-            }
-            default:
-                throw new Error('Invalid event type ' + evt);
-        }
+    onCubicTaken() {
+
+    }
+
+    onCubicSet() {
+
+    }
+
+    onUpdateScore() {
+
+    }
+
+    onEndGame() {
+
     }
 }
 
-export {OnlineGameController};
-
-
-setCubic(cubic) {
-    const canISet = this.gameModel.setCubic(cubic);
-    if (canISet && this.gameModel.currentProgress >= this.gameModel.vacantCubes) {
-        this.endGame();
-    }
-    return canISet;
-}
-
-endGame() {
-    bus.emit('menu');
-}
-
-*/
+export {OnlineGameController}
