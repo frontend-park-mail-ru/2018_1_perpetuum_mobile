@@ -45,7 +45,7 @@ window.addEventListener('contextmenu', evt => {
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    enableSW();
+    //enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 

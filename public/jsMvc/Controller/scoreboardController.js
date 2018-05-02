@@ -71,7 +71,9 @@ class ScoreboardController {
                 data['paginator'] = this.paginator;
                 bus.emit('scoreboard', [data, `/${page.page}`]);
             }
-        );
+        ).catch(() => {
+            //TODO: add 500 on service unavailable in HTML
+        });
     }
 }
 

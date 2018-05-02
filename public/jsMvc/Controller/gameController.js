@@ -87,10 +87,11 @@ class OfflineGameController {
         this.gameModel.getMap(mapNum).then(
             (data) => {
                 if (mapNum.page < this.levelOverviewPaginator.levelsCount) {
-                    data['toNextLevel'] = function(evt) {
+                    data['toNextLevel'] = evt => {
                         evt.preventDefault();
-                        this.openLevel( { page : mapNum.page + 1 } )
-                    }.bind(this)
+                        evt.stopPropagation();
+                        this.openLevel( { page : mapNum.page + 1 } );
+                    };
                 }
                 bus.emit('game', [data, `/${mapNum.page}`]);
             }
@@ -102,7 +103,7 @@ class OfflineGameController {
      */
     initLevelsPaginator() {
         this.gameModel.levelCount.then(count => {
-            this.levelOverviewPaginator.levelsCount = count
+            this.levelOverviewPaginator.levelsCount = count;
         });
         this.levelOverviewPaginator.levelsOnPage = 6;
         this.levelOverviewPaginator.maxPageNum = Math.ceil(this.levelOverviewPaginator.levelsCount / this.levelOverviewPaginator.levelsOnPage);

@@ -136,6 +136,8 @@
     }
     .game-blendocu__timer {
         left: 60%;
-
+    }
+    .game-blendocu__cell-fixed {
+        font-size: 6vmin;
     }
 }
