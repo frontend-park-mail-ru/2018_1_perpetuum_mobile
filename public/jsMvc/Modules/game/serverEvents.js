@@ -8,9 +8,20 @@
  * @type {{SET_MAP: string, FIX_CUBIC: string, END_GAME: string}}
  */
 const SERVER_EVENTS = {
-    SET_MAP: 'SET_MAP',
-    FIX_CUBIC: 'FIX_CUBIC',
-    END_GAME: 'END_GAME'
+    START_GAME: 'START_GAME',
+    CUBIC_TAKEN: 'CUBIC_TAKEN',
+    CUBIC_SET: 'CUBIC_SET',
+    UPDATE_SCORE: 'UPDATE_SCORE',
+    WIN: 'WIN',
+    LOSE: 'LOSE'
 };
 
-export {SERVER_EVENTS};
+
+const CLIENT_EVENTS = {
+    READY: 'READY',
+    TAKE_CUBIC: 'TAKE_CUBIC',
+    SET_CUBIC: 'SET_CUBIC',
+    CLOSE: 'CLOSE'
+};
+
+export {SERVER_EVENTS, CLIENT_EVENTS};
