@@ -64,14 +64,12 @@ class ScoreboardController {
      * @param {object<page number>} page - The object contains the page number.
      */
     openPage(page = { page : 1 }) {
-        this.scoreboardModel.loadAllUsers(page).then(
-            (data) => {
-                this.paginator.maxPageNum = data['maxPageNum'];
-                this.paginator.pageNum = page.page;
-                data['paginator'] = this.paginator;
-                bus.emit('scoreboard', [data, `/${page.page}`]);
-            }
-        ).catch(() => {
+        this.scoreboardModel.loadAllUsers(page).then( data => {
+            this.paginator.maxPageNum = data['maxPageNum'];
+            this.paginator.pageNum = page.page;
+            data['paginator'] = this.paginator;
+            bus.emit('scoreboard', [data, `/${page.page}`]);
+        }).catch(() => {
             //TODO: add 500 on service unavailable in HTML
         });
     }
