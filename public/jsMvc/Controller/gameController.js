@@ -87,10 +87,10 @@ class OfflineGameController {
         this.gameModel.getMap(mapNum).then(
             (data) => {
                 if (mapNum.page < this.levelOverviewPaginator.levelsCount) {
-                    data['toNextLevel'] = evt => {
+                    data['toNextLevel'] = function(evt) {
                         evt.preventDefault();
                         this.openLevel( { page : mapNum.page + 1 } )
-                    }
+                    }.bind(this)
                 }
                 bus.emit('game', [data, `/${mapNum.page}`]);
             }
