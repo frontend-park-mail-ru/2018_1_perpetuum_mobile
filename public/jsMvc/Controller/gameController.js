@@ -107,6 +107,7 @@ class OfflineGameController {
      * @param {object<page number>} levelPage The page number to open in levels overview.
      */
     getLevels(levelPage = { page : 1 }) {
+        this.initLevelsPaginator();
         const levels = {
             from : (levelPage.page - 1) * this.paginator.levelsOnPage + 1,
             to : Math.min(levelPage.page * this.paginator.levelsOnPage, this.paginator.levelsCount)

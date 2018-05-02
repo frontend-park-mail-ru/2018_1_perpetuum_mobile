@@ -1,5 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const cssExtractTextPlugin = new ExtractTextPlugin('style.css');
+const htmlExtractTextPlugin = new ExtractTextPlugin('index.html');
 
 module.exports = {
     entry: {
@@ -38,11 +40,11 @@ module.exports = {
 
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
+                loader: cssExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader'})
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!sass-loader'})
+                loader: cssExtractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader!sass-loader'})
             },
 
             {
@@ -51,13 +53,13 @@ module.exports = {
             },
             {
                 test: /\.(png|woff(2)?|eot|ttf|svg)([a-z0-9=.]+)?$/,
-                loader: 'file-loader'
+                loader: 'file-loader?name=fonts/[name].[ext]'
             }
         ],
 
     },
 
     plugins: [
-        new ExtractTextPlugin('style.css')
+        cssExtractTextPlugin, htmlExtractTextPlugin
     ],
 };

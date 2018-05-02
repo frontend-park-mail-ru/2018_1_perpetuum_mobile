@@ -36,7 +36,7 @@ const cacheUrls = [
     '/css/fonts.css',*/
     '/dist/out/style.css',
 
-    '/dist/out/application.js'
+    '/dist/out/application.js',
     /*'/sw.js',
     '/jsMvc/Modules/serviceWorker.js',
     '/jsMvc/Modules/basic.js',
@@ -94,6 +94,14 @@ const cacheUrls = [
     '/jsMvc/Controller/gameOnlineController.js',
     '/jsMvc/Modules/router.js',
     '/jsMvc/application.js'*/
+
+    '/dist/out/fonts/u1f000.woff',
+    '/dist/out/fonts/u1f400.woff',
+    '/dist/out/fonts/u1f800.woff',
+    '/dist/out/fonts/u2000.woff',
+    '/dist/out/fonts/Orbitron-Bold.ttf',
+    '/dist/out/fonts/Orbitron-Medium.ttf',
+    '/dist/out/fonts/Orbitron-Regular.ttf'
 ];
 
 /**
