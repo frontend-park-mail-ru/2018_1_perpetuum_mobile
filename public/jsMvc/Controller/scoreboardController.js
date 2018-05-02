@@ -15,7 +15,6 @@ import {bus} from '../Modules/bus.js';
  * The class which connects functionality of scoreboard Model and View via proxy-functions.
  */
 class ScoreboardController {
-
     /**
      * Create and link scoreboard Views with proxy-functions.
      */
