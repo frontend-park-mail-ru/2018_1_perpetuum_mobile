@@ -34,6 +34,8 @@ class OfflineGameController {
         this.levelView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.initLevelsPaginator();
+        window.addEventListener('online', this.initLevelsPaginator.bind(this)); // when online all levels are available
+        window.addEventListener('offline', this.initLevelsPaginator.bind(this)); // when offline only downloaded levels are available
 
         bus.on('authorized', this.sendGameProgress.bind(this));
     }
@@ -89,10 +91,11 @@ class OfflineGameController {
 
     /**
      * Initialize pagination over levels.
-     * TODO EXCLUDE HARDCODED levelsCount - GET IT FROM SERVER, NOW IT IS SO ONLY FOR DEMONSTRATION
      */
     initLevelsPaginator() {
-        this.paginator.levelsCount = 10;
+        this.gameModel.levelCount.then(count => {
+            this.paginator.levelsCount = count
+        });
         this.paginator.levelsOnPage = 6;
         this.paginator.maxPageNum = Math.ceil(this.paginator.levelsCount / this.paginator.levelsOnPage);
     }

@@ -5,6 +5,7 @@
 
 import {HttpModule, baseUrl} from '../../Modules/HttpModule.js';
 import {sharedData} from '../../Modules/sharedData.js';
+import {mapStorage} from './offlineModels/mapStorage.js';
 
 
 /**
@@ -22,16 +23,37 @@ class OfflineGameModel {
         this.setRight = [];
         this.gameProgress = [];
         this.mapNum = null; // current map number
+        this.mapStorage = mapStorage;
+    }
+
+    get levelCount() {
+        if (navigator.onLine) {
+            return HttpModule.doGetFetch({url: `${baseUrl}/levelCount`}).then(data => {
+                return data.count;
+            });
+        } else {
+            return Promise.resolve(this.mapStorage.mapCount());
+        }
     }
 
     /**
      * Get the map from server.
-     * It will be cached by service worker.
+     * It will be cached by local storage.
      * @param {object<page number>} mapNum - The level number to download.
      * @return {Promise<{countX: number, countY: number, cells: *[]}>} The map.
      */
     getMap(mapNum) {
-        return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then((data) => {
+        const data = this.mapStorage.getMap(mapNum.page);
+        let promiseMap = null;
+        if (data !== undefined) {
+            promiseMap = Promise.resolve(data)
+        } else {
+            promiseMap = HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then(data => {
+                this.mapStorage.addMap(mapNum.page, data);
+                return data;
+            })
+        }
+        return promiseMap.then(data => {
             this.map = data;
             this.mapNum = mapNum.page;
             this.countVacantCubes();

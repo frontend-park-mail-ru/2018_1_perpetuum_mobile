@@ -100,22 +100,22 @@ const cacheUrls = [
  * Regular expressions for caching additional responses.
  * @type {RegExp[]}
  */
-const cacheRegexps = [
+/*const cacheRegexps = [
     /^.+\.css$/i,
     /^.+\.ttf$/i,
     /^.+\.woff$/i,
     /^.+\.png$/i,
     /^level\/.+$/i
-];
+];*/
 
 /**
  * Whether the response should be cached in addition to already cached.
  * @param {object} request - The request on which the response will be received.
  * @return {boolean} - To cache or not to cache.
  */
-function shouldICache(request) {
+/*function shouldICache(request) {
     return cacheRegexps.some(regExp => request.url.search(regExp));
-}
+}*/
 
 self.addEventListener('install', (event) => {
     /**
@@ -147,14 +147,14 @@ self.addEventListener('fetch', (event) => {
                     return cachedResponse;
                 }
                 return fetch(event.request)
-                    .then(response => {
+                    /*.then(response => {
                         if (shouldICache(event.request) && response.clone().ok) {
                             caches.open(CACHE_NAME).then(cache => {
                                 cache.put(event.request, response.clone());
                             });
                         }
                         return response;
-                    });
+                    })*/;
             })
             .catch((err) => {
                 console.log('smth went wrong with caches.match: ', err);
