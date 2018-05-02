@@ -52,10 +52,10 @@ class ScoreboardView extends ViewInterface {
         }
 
         const leftPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonLeft')[0];
-        leftPaginatorButton.addEventListener('click', this.onPaginatorLeft);
+        leftPaginatorButton.addEventListener('click', this.onLevelOverviewPaginatorLeft);
 
         const rightPaginatorButton = this.el.getElementsByClassName('js-scoreboardPaginatorButtonRight')[0];
-        rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
+        rightPaginatorButton.addEventListener('click', this.onLevelOverviewPaginatorRight);
 
         this.colour = new Colour('colors');
     }

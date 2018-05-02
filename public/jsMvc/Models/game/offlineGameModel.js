@@ -26,6 +26,11 @@ class OfflineGameModel {
         this.mapStorage = mapStorage;
     }
 
+    /**
+     * Getter for level count that is available now.
+     * Online - all levels on server, offline - cached levels.
+     * @return {Promise<number>} Level count.
+     */
     get levelCount() {
         if (navigator.onLine) {
             return HttpModule.doGetFetch({url: `${baseUrl}/levelCount`}).then(data => {
@@ -77,7 +82,7 @@ class OfflineGameModel {
      */
     setCubic(cubic) {
 
-        const cubicInMap = this.map.cells.filter((obj) => {
+        const cubicInMap = this.map.cells.filter(obj => {
             return (obj.colour === cubic.colour && obj.x === cubic.x && obj.y === cubic.y);
         });
 

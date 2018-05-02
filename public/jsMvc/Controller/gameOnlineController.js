@@ -4,6 +4,7 @@
 
 /*
 import {GameView} from '../Views/GameView/gameView.js';
+import {bus} from '../Modules/bus.js';
 
 
 class OnlineGameController {
@@ -67,5 +68,4 @@ endGame() {
     bus.emit('menu');
 }
 
-
-import {bus} from '../Modules/bus.js';*/
+*/
