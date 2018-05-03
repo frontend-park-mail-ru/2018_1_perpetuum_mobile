@@ -41,30 +41,11 @@
     pointer-events: all;
 }
 
-.rating {
-    color: var(--baseColor);
-    position: relative;
-    top: 5px;
+
+.level__rating {
     font-size: 4vmin;
-    pointer-events: none;
 }
 
-.rating__one-star{
-    display: inline-block;
-    transition: all 0.5s linear;
-}
-
-.rating__one-star-good {
-    content: "\2605";
-    color: var(--baseColor);
-    transition: all 0.5s linear;
-}
-
-.rating__one-star-good:before {
-    content: "\2605";
-    color: var(--baseColor);
-    position: absolute;
-}
 
 @media screen and (max-width: 980px) {
     .levels {
@@ -73,9 +54,6 @@
     .level__item {
         width: 25vmin;
         height: 25vmin;
-    }
-    .rating {
-        font-size: 5vmin;
     }
 
     @media screen and (orientation: portrait) {

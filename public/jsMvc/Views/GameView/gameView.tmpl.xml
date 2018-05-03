@@ -4,7 +4,7 @@
         <div class="wrapper-block__game-blendocu">
             <div class="game-blendocu">
                 <div class="game-blendocu__score js-score" >
-                    <div class="rating js-rating game-blendocu__star"/>
+                    <div class="js-rating game-blendocu__star rating "/>
                     <div class="game-blendocu__timer js-timer"/>
                 </div>
 

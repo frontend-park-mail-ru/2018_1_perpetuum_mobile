@@ -10,7 +10,7 @@
 
                         <a class="level__href" href="/game/{map.number}">
                                 <div class="level__item">
-                                    <div class="rating">
+                                    <div class="rating level__rating">
                                         <span class="rating__one-star-good">☆</span>
                                         <span class="rating__one-star-good">☆</span>
                                         <span class="rating__one-star">☆</span>
