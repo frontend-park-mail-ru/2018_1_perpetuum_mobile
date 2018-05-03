@@ -18,7 +18,7 @@ class Ws {
      * Create the class instance, connect to the server.
      */
     constructor() {
-        const address = `${window.location.protocol.replace('https', 'http').replace('http', 'ws')}//${baseUrl}/ws`;
+        const address = `${baseUrl.replace('http', 'ws')}/ws`;
         this.ws = new WebSocket(address);
         this.ws.onopen = (event) => {
             console.log(`WebSocket on address ${address} opened`);

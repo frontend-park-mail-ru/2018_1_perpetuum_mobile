@@ -20,7 +20,8 @@
     "build": "fest-build --dir=public",
     "start": "npm run build && DEBUG=mylogger node server",
     "start:raw": "node server",
-    "build-and-beautify": "webpack --mode production"
+    "beauty": "webpack --mode production",
+    "beauty-server": "npm run beauty && DEBUG=mylogger node server"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
