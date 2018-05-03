@@ -15,4 +15,10 @@
 
 Blendocu - это головоломка, в которой надо расположить кубики в правильной цветовой последовательности
 
-## API
+## HEROCU
+
+https://blendocu.herokuapp.com/
+
+## BACKEND 
+
+https://github.com/Thewhiterabbit123/PerpetuumMobile-02-2018
