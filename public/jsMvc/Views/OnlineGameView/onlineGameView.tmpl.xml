@@ -2,7 +2,9 @@
     <div class="wrapper-block  js-wrapper-block">
         <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
         <div class="wrapper-block__game-blendocu">
+            <div class="online-game">
 
+            </div>
         </div>
     </div>
 
