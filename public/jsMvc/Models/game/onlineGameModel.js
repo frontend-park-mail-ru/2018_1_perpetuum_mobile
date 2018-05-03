@@ -1,3 +1,12 @@
+
+
+
+class OnlineGameModel {
+
+}
+
+export {OnlineGameModel}
+
 /*
 
 import {ws} from '../../Modules/ws.js';

@@ -3,6 +3,8 @@
  * SPA of colours.
  */
 
+import {OnlineGameController} from './Controller/gameOnlineController';
+
 /**
  * for webpack. require all css file in directory
  * @param r - callback
@@ -52,10 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const userController = new UserController();
     const scoreboardController = new ScoreboardController();
     const offlineGameController = new OfflineGameController();
+    const onlineGameController = new OnlineGameController();
 
     /**
      * Connect all paths to its views and aliases.
      */
+    router.add('/multiPlayer', onlineGameController.gameView, 'onlineGame');
     router.add('/game', offlineGameController.gameViewOffline, 'game');
     router.add('/level', offlineGameController.levelView, 'level');
     router.add('/scoreboard', scoreboardController.scoreboardView, 'scoreboard');
