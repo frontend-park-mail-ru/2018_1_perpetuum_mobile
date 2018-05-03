@@ -11,7 +11,7 @@ function requireAll(r) {
     r.keys().forEach(r);
 }
 requireAll(require.context('./../css/', true, /\.(css)$/));
-
+requireAll(require.context('./../css/', true, /\.(scss)$/));
 
 import {Router} from './Modules/router.js';
 import {OfflineGameController} from './Controller/gameController.js';

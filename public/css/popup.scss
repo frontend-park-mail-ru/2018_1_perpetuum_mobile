@@ -61,8 +61,8 @@
 }
 
 .popup__game-popup {
-    top: 10vh;
-    left: 25vw;
+    top: 10vmin;
+    left: 25vmax;
     z-index: 1000000;
     height: 80%;
 }
@@ -78,7 +78,7 @@
     color: white;
     text-decoration: none;
     transition: all 0.3s linear;
-    font-size: 3vh;
+    font-size: 3vmin;
     border-bottom: transparent 3px solid;
 }
 
@@ -96,7 +96,7 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 5%;
-    font-size: 3vh;
+    font-size: 4vmin;
 }
 
 
@@ -105,7 +105,14 @@
         top: 23%;
         left: 20vmax;
         width: 60%;
-        height: 60%;
+        height: 70%;
+    }
+    .popup__win {
+        font-size: 13vmin;
+    }
+    .popup__back {
+        margin-top: 7%;
+        font-size: 4vmin;
     }
 
     @media screen and (orientation: portrait) {
@@ -114,6 +121,10 @@
             top: 20%;
             left: 5%;
             width: 90%;
+        }
+        .popup__back {
+            margin-top: 15%;
+            font-size: 4vmin;
         }
     }
 

@@ -14,7 +14,7 @@
                         </label>
                     </fest:for>
 
-                    <input class="button_big button js-login-button" type="submit" value="Login"/>
+                    <input class="button_big js-login-button" type="submit" value="Login"/>
                     <div class="error-form__server-error"/>
                 </form>
 

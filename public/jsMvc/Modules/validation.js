@@ -30,8 +30,8 @@ function isAllowed(value) {
  * @return {boolean} - Check status.
  * */
 function validateLength(value) {
-    const ALLOW_INPUT_LENGTH = 4;
-    return ((ALLOW_INPUT_LENGTH > value.length) && (value.length > 0));
+    const MIN_LENGTH = 4;
+    return ((MIN_LENGTH > value.length) && (value.length > 0));
 }
 
 /**

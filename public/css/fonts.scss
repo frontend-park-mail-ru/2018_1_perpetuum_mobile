@@ -1,0 +1,42 @@
+@mixin fontFaceWoff($family,$src) {
+    @font-face {
+        font-family: $family;
+        src: url('#{$src}.woff') format('woff');
+    }
+}
+
+@mixin fontFaceTtf($family,$src) {
+    @font-face {
+        font-family: $family;
+        src: url('#{$src}.ttf') format('truetype');
+    }
+}
+
+@include fontFaceTtf('Orbitron', '../fonts/Orbitron-Regular')
+@include fontFaceTtf('Orbitron-bold', '../fonts/Orbitron-Medium')
+@include fontFaceTtf('Orbitron-black', '../fonts/Orbitron-Bold')
+
+@include fontFaceWoff('u2000', '../fonts/u2000')
+@include fontFaceWoff('u1f400', '../fonts/u1f400')
+@include fontFaceWoff('u1f000', '../fonts/u1f000')
+@include fontFaceWoff('u1f800', '../fonts/u1f800')
+
+
+.u2000 {
+    margin-right: 10px;
+    margin-top: -2px;
+    font-size: 4vmin;
+    font-family: 'u2000', sans-serif;
+}
+
+.u1f400 {
+    font-family: 'u1f400', sans-serif;
+}
+
+.u1f000 {
+    font-family: 'u1f000', sans-serif;
+}
+
+.u1f800 {
+    font-family: 'u1f800', sans-serif;
+}

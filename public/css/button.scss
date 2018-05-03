@@ -1,23 +1,32 @@
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+%button {
+  background: var(--greyColor);
+  color: var(--secondColor);
+  font-size: 3vmin;
+  border: var(--greyColor) 3px solid;
+  transition: border-bottom-color 0.3s linear;
+  border-radius: 2px;
+  margin: 3vmin 0 2vmin 0;
+  align-self: center;
+  box-shadow: 6px 6px 6px #141414;
+}
+
 .button {
-    background: var(--greyColor);
-    color: var(--secondColor);
-    font-size: 3vmin;
-    border: var(--greyColor) 3px solid;
-    transition: border-bottom-color 0.3s linear;
-    border-radius: 2px;
-    margin: 3vmin 0 2vmin 0;
-    align-self: center;
-    box-shadow: 6px 6px 6px #141414;
+    @extend %button;
 }
 
 .button_big {
-    width: 46vmin;
-    height: 6vmin;
+    @include size(46vmin, 6vmin);
+    @extend %button;
 }
 
 .button_little {
-    width: 18vmin;
-    height: 4vmin;
+    @include size(18vmin, 4vmin);
+    @extend %button;
 }
 
 .button__user-footer {
@@ -50,13 +59,12 @@
     }
 
     .button_big {
-        width: 64vmin;
-        height: 7vmin;
+        @include size(64vmin, 7vmin);
     }
 
     .button_little {
-        width: 18vmin;
-        height: 4vmin;
+        @include size(18vmin, 4vmin);
+
     }
 
 }
