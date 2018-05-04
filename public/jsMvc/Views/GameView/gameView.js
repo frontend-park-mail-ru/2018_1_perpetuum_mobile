@@ -50,11 +50,12 @@ class GameView extends ViewInterface {
      * @param {Number} sizeCell - size of one block
      */
     drawFree(sizeCell) {
+        this.colourFree = [];
         const free = this.params.cells.filter(v => v.fixed);
         free.forEach((v, i) => {
-            const colourFree = document.createElement('div');
-            Cell.setPropertyFree(colourFree, this.elementFixed, v.colour, sizeCell, i, free.length);
-            this.elementFixed.appendChild(colourFree);
+            this.colourFree[i] = document.createElement('div');
+            Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length);
+            this.elementFixed.appendChild(this.colourFree[i]);
         });
     }
 
@@ -63,10 +64,11 @@ class GameView extends ViewInterface {
      * @param {Number} sizeCell - size of one block
      */
     drawUnfixed(sizeCell) {
-        this.params.cells.forEach(v => {
-            const cell = document.createElement('div');
-            Cell.setPropertyFixed(cell, this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
-            this.elementUnfixed.appendChild(cell);
+        this.cell = [];
+        this.params.cells.forEach((v, i) => {
+            this.cell[i] = document.createElement('div');
+            Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
+            this.elementUnfixed.appendChild(this.cell[i]);
         });
     }
 
@@ -87,6 +89,7 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
         this.star = [];
@@ -109,6 +112,13 @@ class GameView extends ViewInterface {
         document.onmousedown = evt => {
             this.onStartEvent(evt);
         };
+
+        window.addEventListener('resize', () => {
+            const free = this.params.cells.filter(v => v.fixed);
+            const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
+            this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
+            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
+        });
     }
 
     /**
@@ -184,19 +194,10 @@ class GameView extends ViewInterface {
 
         this.elementUnfixed.appendChild(cell);
 
-        document.onmousemove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-        document.ontouchmove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-
-        cell.onmouseup = () => {
-            this.onUpEvent(cell, allocated);
-        };
-        cell.ontouchend = () => {
-            this.onUpEvent(cell, allocated);
-        };
+        document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
+        document.ontouchmove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
+        cell.onmouseup = () => this.onUpEvent(cell, allocated);
+        cell.ontouchend = () => this.onUpEvent(cell, allocated);
         cell.ondragstart = () => false;
     }
 
@@ -237,6 +238,9 @@ class GameView extends ViewInterface {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
         } else {
             Cell.putOnPosition(cell, cell.currentX, cell.currentY);
+            cell.isBottom = false;
+            cell.bottomX = cell.x;
+            cell.bottomY = cell.y;
             this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }

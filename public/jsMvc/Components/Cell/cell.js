@@ -15,10 +15,10 @@ class Cell {
      * @param Y - y position on field
      */
     static setProperty(element, size,  X, Y) {
-        element.style.width  = `${Cell.findVmin(size)}vmin`;
-        element.style.height = `${Cell.findVmin(size)}vmin`;
-        element.wrongX = `${Cell.findWidth(X)}vw`;
-        element.wrongY = `${Cell.findHeight(Y)}vh`;
+        element.style.width  = `${size}px`;
+        element.style.height = `${size}px`;
+        element.wrongX = `${X}px`;
+        element.wrongY = `${Y}px`;
         element.style.top  = element.wrongY;
         element.style.left = element.wrongX;
     }
@@ -42,6 +42,7 @@ class Cell {
         cell.style.backgroundColor = colour;
         cell.classList.add('js-fixed', 'game-blendocu__cell');
         Cell.setProperty(cell, sizeCell, x, y);
+        cell.isBottom = true;
     }
 
     /**
@@ -96,36 +97,6 @@ class Cell {
     }
 
     /**
-     * find vmin of cell
-     * @param size{number} - size of cell in pixels
-     * @returns {number} - cell's size in vmin
-     */
-    static findVmin(size) {
-        const screen = document.getElementsByClassName('js-wrapper-block')[0];
-        const vminDevice = (screen.offsetWidth > screen.offsetHeight) ? screen.offsetHeight : screen.offsetWidth;
-        return 100 * size / vminDevice;
-    }
-
-    /**
-     * find vw of pixels
-     * @param X{number} - current height in pixels
-     * @returns {number} - width in vw
-     */
-    static findWidth(X) {
-        const screen = document.getElementsByClassName('js-wrapper-block')[0];
-        return 100 * X / screen.offsetWidth;
-    }
-    /**
-     * find vh of pixels
-     * @param Y{number} - current width in pixels
-     * @returns {number} - width in vh
-     */
-    static findHeight(Y) {
-        const screen = document.getElementsByClassName('js-wrapper-block')[0];
-        return 100 * Y / screen.offsetHeight;
-    }
-
-    /**
      * put cell on position on field
      * @param cell {Object} - the current cell to assign css properties
      * @param x - x position on field
@@ -134,6 +105,25 @@ class Cell {
     static putOnPosition(cell, x, y) {
         cell.style.top = y;
         cell.style.left = x;
+    }
+
+    /**
+     * set property and position to cell in case of resize window
+     * @param cell {Object} - the current cell to assign css properties
+     * @param parentElement {Object} - field in which the cell is located
+     * @param v {Object} - object with relative cell position
+     * @param sizeCell {Number} - cell size
+     * @param sizeX {Number} - number of cells in a row
+     * @param sizeY {Number} - number of cells in a column
+     */
+    static resizeCell(cell, parentElement, v, sizeCell, sizeX, sizeY) {
+        const OFFSET_FROM_ELEMENT = 8;
+
+        const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
+        const offsetToCenterY = (parentElement.offsetHeight - sizeY * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
+        const y = cell.bottomY * sizeCell + OFFSET_FROM_ELEMENT * cell.bottomY + parentElement.offsetTop + offsetToCenterY;
+        const x = cell.bottomX * sizeCell + OFFSET_FROM_ELEMENT * cell.bottomX + parentElement.offsetLeft + offsetToCenterX + OFFSET_FROM_ELEMENT/2;
+        Cell.setProperty(cell, sizeCell, x, y);
     }
 }
 

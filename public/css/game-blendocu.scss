@@ -40,6 +40,7 @@
     border: var(--inputColor) 1vmin solid;
     box-sizing: border-box;
     position: absolute;
+    transition: all 0.3s linear;
 }
 
 .game-blendocu__cell--win {
@@ -129,13 +130,13 @@
         font-size: 6vmin;
     }
     .game-blendocu__star {
-        font-size: 9vmin;
+        font-size: 7vmin;
     }
     .game-blendocu__timer {
-        font-size: 9vmin;
+        font-size: 7vmin;
     }
     .game-blendocu__score {
-        margin-bottom: 8vmin;
+        margin-bottom: 6vmin;
     }
     @media screen and (orientation: portrait) {
         .game-blendocu__score {

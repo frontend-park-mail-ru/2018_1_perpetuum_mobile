@@ -15,6 +15,7 @@ function requireAll(r) {
 requireAll(require.context('./../css/', true, /\.(css)$/));
 requireAll(require.context('./../css/', true, /\.(scss)$/));
 
+
 import {Router} from './Modules/router.js';
 import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
@@ -47,7 +48,7 @@ window.addEventListener('contextmenu', evt => {
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    enableSW();
+    //enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 
