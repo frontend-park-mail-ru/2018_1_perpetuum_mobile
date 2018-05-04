@@ -4,7 +4,6 @@
  */
 
 
-import {bus} from './bus.js';
 import {SERVER_EVENTS} from './game/serverEvents.js';
 import {baseUrl} from './HttpModule.js';
 
@@ -18,6 +17,7 @@ class Ws {
      * Create the class instance, connect to the server.
      */
     constructor() {
+        this.listeners = {};
         const address = `${baseUrl.replace('http', 'ws')}/ws`;
         this.ws = new WebSocket(address);
         this.ws.onopen = (event) => {
@@ -43,7 +43,7 @@ class Ws {
         try {
             const message = JSON.parse(messageText);
             if (message.type in SERVER_EVENTS) {
-                bus.emit(message.type, message.payload);
+                this.emit(message.type, message.payload);
             }
         } catch (err) {
             console.error('smth went wront in handleMessage: ', err);
@@ -58,6 +58,38 @@ class Ws {
     send(type, payload) {
         this.ws.send(JSON.stringify({type, payload}));
     }
+
+    /** Subscribe on the event
+     * @param {string} event - The event subscribe to.
+     * @param {function} listener - The function will be invoked when event completed.
+     * @return {Ws} The same Ws instance (itself). */
+    on(event, listener) {
+        (this.listeners[event] || (this.listeners[event] = [])).push(listener);
+        return this;
+    }
+
+    /** Unsubscribe from the event.
+     * @param {string} event - The event unsubscribe from.
+     * @param {function} listener - The function to unsubscribe from event.
+     * @return {Ws} The same Ws instance (itself). */
+    off(event, listener) {
+        if (listener) {
+            this.listeners[event] = (this.listeners[event] || []).filter(l => l !== listener);
+        } else {
+            this.listeners[event] = [];
+        }
+        return this;
+    }
+
+    /** Complete the event.
+     * @param {string} event - The completed event.
+     * @param {Array.<>} data  - The array of params.
+     * @return {Ws} The same Ws instance (itself). */
+    emit(event, ...data) {
+        (this.listeners[event] || (this.listeners[event] = [])).forEach(l => l(...data));
+        return this;
+    }
+
 }
 
 const ws_singleton = new Ws();
