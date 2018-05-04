@@ -115,8 +115,8 @@
 
 .game-blendocu__score {
     display: flex;
-    margin-left: 37%;
-    margin-right: 37%;
+    margin-left: 35%;
+    margin-right: 35%;
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 12vmin;
@@ -139,8 +139,8 @@
     }
     @media screen and (orientation: portrait) {
         .game-blendocu__score {
-            margin-left: 20%;
-            margin-right: 20%;
+            margin-left: 15%;
+            margin-right: 15%;
         }
         .game-blendocu__star {
             font-size: 12vmin;

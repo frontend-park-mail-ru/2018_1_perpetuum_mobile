@@ -4,8 +4,16 @@
         <div class="wrapper-block__game-blendocu">
             <div class="online-game">
                 <div class="online-game__score js-score" >
-                    <div class="js-rating online-game__star rating"/>
-                    <div class="online-game__timer js-timer"/>
+                    <div class="online-game__player js-oponent">
+                        <img class="online-game__image" src="uPVkbgWoJ0o.jpg"/>
+                        <div class="online-game__player-name js-name">lol</div>
+                        <div class="js-rating online-game__star">12</div>
+                    </div>
+                    <div class="online-game__player js-me">
+                        <div class="js-rating online-game__star">15</div>
+                        <div class="online-game__player-name js-name">lol</div>
+                        <img class="online-game__image" src="uPVkbgWoJ0o.jpg"/>
+                    </div>
                 </div>
 
             </div>

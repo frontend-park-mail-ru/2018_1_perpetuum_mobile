@@ -34,7 +34,6 @@ class Cell {
      */
     static setPropertyFree(cell, parentElement, colour, sizeCell, i, len) {
         const OFFSET_FROM_ELEMENT = 8;
-
         const offsetToCenterX = (parentElement.offsetWidth - len * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
         const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
         const x = parentElement.offsetLeft + (OFFSET_FROM_ELEMENT + sizeCell) * i + offsetToCenterX + OFFSET_FROM_ELEMENT/2;

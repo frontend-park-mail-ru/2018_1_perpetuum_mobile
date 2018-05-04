@@ -6,7 +6,6 @@
 import {SERVER_EVENTS} from '../Modules/game/serverEvents.js';
 import {OnlineGameModel} from '../Models/game/onlineGameModel.js';
 import {OnlineGameView} from '../Views/OnlineGameView/onlineGameView.js';
-import template from './../Views/OnlineGameView/onlineGameView.tmpl.xml';
 
 /**
  * Class implements online game strategy (multiPlayer) controller.
@@ -17,7 +16,7 @@ class OnlineGameController {
      * Initialize online game controller.
      */
     constructor() {
-        this.gameView = new OnlineGameView(template);
+        this.gameView = new OnlineGameView();
         this.gameModel = new OnlineGameModel();
 
         this.gameView.onReady = this.onReady.bind(this);

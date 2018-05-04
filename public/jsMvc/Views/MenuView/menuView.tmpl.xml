@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
-    <div class="wrapper-block">
+    <div class="wrapper-block js-wrapper-block">
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <!--<a class="menu-list__question" href="/about">?</a>-->
         <div class="wrapper-block__main js-wrapper-menu">

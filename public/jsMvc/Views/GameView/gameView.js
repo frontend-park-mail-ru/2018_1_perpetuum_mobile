@@ -78,7 +78,6 @@ class GameView extends ViewInterface {
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         const count = this.params.cells.filter(v => v.fixed).length;
         const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
-        console.log(Cell.findVmin(sizeCell));
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
@@ -172,7 +171,7 @@ class GameView extends ViewInterface {
      * @param evt - event (touchstart || mousedown)
      */
     onStartEvent(evt) {
-        const allocated = document.getElementsByClassName('game-blendocu__empty-cell');
+        const allocated = document.getElementsByClassName('js-empty-cell');
         const cell = evt.target;
         if (cell.className.indexOf('js-fixed') === -1) return;
 
