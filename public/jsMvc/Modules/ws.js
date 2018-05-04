@@ -18,7 +18,7 @@ class Ws {
      */
     constructor() {
         this.listeners = {};
-        const address = `${baseUrl.replace('http', 'ws')}/ws`;
+        const address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
         this.ws = new WebSocket(address);
         this.ws.onopen = (event) => {
             console.log(`WebSocket on address ${address} opened`);
