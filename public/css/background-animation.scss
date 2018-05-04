@@ -1,11 +1,10 @@
 .background-animation {
-  opacity: 0.1;
-  margin-left: -3vmin;
+  opacity: 0.2;
   position: absolute;
-  background-color: var(--baseColor);
   width: 15vmin;
   animation: line 3s;
   top: 0;
+  pointer-events: none;
 }
 
 @keyframes line {
