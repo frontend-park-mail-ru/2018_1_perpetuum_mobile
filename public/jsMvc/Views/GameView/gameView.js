@@ -78,6 +78,7 @@ class GameView extends ViewInterface {
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         const count = this.params.cells.filter(v => v.fixed).length;
         const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
+        console.log(Cell.findVmin(sizeCell));
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }

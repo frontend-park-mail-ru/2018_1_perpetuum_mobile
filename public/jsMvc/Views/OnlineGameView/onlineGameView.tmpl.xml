@@ -3,6 +3,10 @@
         <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
         <div class="wrapper-block__game-blendocu">
             <div class="online-game">
+                <div class="online-game__score js-score" >
+                    <div class="js-rating online-game__star rating"/>
+                    <div class="online-game__timer js-timer"/>
+                </div>
 
             </div>
         </div>

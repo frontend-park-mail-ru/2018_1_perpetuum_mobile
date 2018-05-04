@@ -15,10 +15,10 @@ class Cell {
      * @param Y - y position on field
      */
     static setProperty(element, size,  X, Y) {
-        element.style.width  = `${size}px`;
-        element.style.height = `${size}px`;
-        element.wrongX = `${X}px`;
-        element.wrongY = `${Y}px`;
+        element.style.width  = `${Cell.findVmin(size)}vmin`;
+        element.style.height = `${Cell.findVmin(size)}vmin`;
+        element.wrongX = `${Cell.findWidth(X)}vw`;
+        element.wrongY = `${Cell.findHeight(Y)}vh`;
         element.style.top  = element.wrongY;
         element.style.left = element.wrongX;
     }
@@ -81,6 +81,7 @@ class Cell {
      * @param X {Number} - number of cells in a row
      * @param Y {Number} - number of cells in a column
      * @param anotherParent {Object} - field in which the cell can located
+     * @param count
      * @returns {number} - minimum cell size depending on the screen size
      */
     static findSizeCell(parentElement, X, Y, anotherParent, count) {
@@ -93,6 +94,36 @@ class Cell {
         const temp = (sizeCellX > sizeCellY) ? sizeCellY : sizeCellX;
         const temp1 = (sizeCellX1 > sizeCellY1) ? sizeCellY1 : sizeCellX1;
         return (temp > temp1) ? temp1 : temp;
+    }
+
+    /**
+     * find vmin of cell
+     * @param size{number} - size of cell in pixels
+     * @returns {number} - cell's size in vmin
+     */
+    static findVmin(size) {
+        const screen = document.getElementsByClassName('js-wrapper-block')[0];
+        const vminDevice = (screen.offsetWidth > screen.offsetHeight) ? screen.offsetHeight : screen.offsetWidth;
+        return 100 * size / vminDevice;
+    }
+
+    /**
+     * find vw of pixels
+     * @param X{number} - current height in pixels
+     * @returns {number} - width in vw
+     */
+    static findWidth(X) {
+        const screen = document.getElementsByClassName('js-wrapper-block')[0];
+        return 100 * X / screen.offsetWidth;
+    }
+    /**
+     * find vh of pixels
+     * @param Y{number} - current width in pixels
+     * @returns {number} - width in vh
+     */
+    static findHeight(Y) {
+        const screen = document.getElementsByClassName('js-wrapper-block')[0];
+        return 100 * Y / screen.offsetHeight;
     }
 
     /**
