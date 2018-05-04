@@ -6,16 +6,23 @@ class BackgroundAnimation {
         // const positionX = Math.floor(Math.random() * parentEl.offsetX);
         // line.left = `${positionX}px`;
         document.addEventListener('click', (evt) => {
-            this.line = document.createElement('div');
-            this.line.classList.add('background-animation');
+            const line = document.createElement('div');
+            const lineBack = document.createElement('div');
+            lineBack.classList.add('background-animation');
+            line.classList.add('background-animation');
             const parentEl = document.getElementsByClassName('js-wrapper-block')[0];
             const positionX = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-            this.line.style.left = `${positionX}px`;
-            parentEl.appendChild(this.line);
-            this.line.addEventListener('animationend', () => {
-                this.line.remove();
+            line.style.left = `${positionX}px`;
+            line.style.left = `${positionX + Math.floor(Math.random() * 10)}px`;
+            parentEl.appendChild(line);
+            parentEl.appendChild()
+            line.addEventListener('animationend', () => {
+                line.remove();
             });
         });
+    }
+
+    createElementOnTimer() {
 
     }
 }

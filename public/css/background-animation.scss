@@ -1,31 +1,9 @@
-.background-animation:after {
-  position: absolute;
-  content: " ";
-  display: inline-block;
-  background-color: var(--baseColor);
-  opacity: 0.1;
-  animation: line 3s;
-  width: 10vmin;
-  top: 0;
-}
-
-.background-animation:before {
-  margin-left: -3vmin;
-  position: absolute;
-  content: " ";
-  display: inline-block;
-  background-color: var(--baseColor);
-  animation: line 3s;
-  opacity: 0.1;
-  width: 16vmin;
-  top: 0;
-}
 .background-animation {
   opacity: 0.1;
   margin-left: -3vmin;
   position: absolute;
   background-color: var(--baseColor);
-  width: 20vmin;
+  width: 15vmin;
   animation: line 3s;
   top: 0;
 }
