@@ -25,7 +25,9 @@ class OfflineGameController {
         this.gameViewOffline  = new GameView();
         this.gameModel = new OfflineGameModel();
 
-        this.paginator = new PaginatorModule();
+        this.levelOverviewPaginator = new PaginatorModule();
+
+        this.gameModel.currentProgress = 0;
 
         this.gameViewOffline.setCubic = this.setCubic.bind(this);
         this.gameViewOffline.openLevel = this.openLevel.bind(this);
@@ -34,8 +36,11 @@ class OfflineGameController {
         this.levelView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.initLevelsPaginator();
+        window.addEventListener('online', this.initLevelsPaginator.bind(this)); // when online all levels are available
+        window.addEventListener('offline', this.initLevelsPaginator.bind(this)); // when offline only downloaded levels are available
 
-        bus.on("authorized", this.sendGameProgress.bind(this));
+        bus.on('authorized', this.sendGameProgress.bind(this));
+        window.addEventListener('online', this.sendGameProgress.bind(this));
     }
 
     /**
@@ -60,7 +65,6 @@ class OfflineGameController {
     endGame() {
         this.gameViewOffline.gameOnWin();
         this.gameModel.currentProgress = 0;
-        this.gameModel.currentProgress = 0;
         this.gameModel.addGameProgress( {time : this.gameViewOffline.timeNowSec} );
         this.sendGameProgress();
         return this;
@@ -82,19 +86,27 @@ class OfflineGameController {
     openLevel(mapNum = { page : 1 }) {
         this.gameModel.getMap(mapNum).then(
             (data) => {
+                if (mapNum.page < this.levelOverviewPaginator.levelsCount) {
+                    data['toNextLevel'] = evt => {
+                        evt.preventDefault();
+                        evt.stopPropagation();
+                        this.openLevel( { page : mapNum.page + 1 } );
+                    };
+                }
                 bus.emit('game', [data, `/${mapNum.page}`]);
             }
-        )
+        );
     }
 
     /**
      * Initialize pagination over levels.
-     * TODO EXCLUDE HARDCODED levelsCount - GET IT FROM SERVER, NOW IT IS SO ONLY FOR DEMONSTRATION
      */
     initLevelsPaginator() {
-        this.paginator.levelsCount = 10;
-        this.paginator.levelsOnPage = 6;
-        this.paginator.maxPageNum = Math.ceil(this.paginator.levelsCount / this.paginator.levelsOnPage);
+        this.gameModel.levelCount.then(count => {
+            this.levelOverviewPaginator.levelsCount = count;
+        });
+        this.levelOverviewPaginator.levelsOnPage = 6;
+        this.levelOverviewPaginator.maxPageNum = Math.ceil(this.levelOverviewPaginator.levelsCount / this.levelOverviewPaginator.levelsOnPage);
     }
 
     /**
@@ -104,25 +116,26 @@ class OfflineGameController {
      * @param {object<page number>} levelPage The page number to open in levels overview.
      */
     getLevels(levelPage = { page : 1 }) {
+        this.initLevelsPaginator();
         const levels = {
-            from : (levelPage.page - 1) * this.paginator.levelsOnPage + 1,
-            to : Math.min(levelPage.page * this.paginator.levelsOnPage, this.paginator.levelsCount)
+            from : (levelPage.page - 1) * this.levelOverviewPaginator.levelsOnPage + 1,
+            to : Math.min(levelPage.page * this.levelOverviewPaginator.levelsOnPage, this.levelOverviewPaginator.levelsCount)
         };
         const promises = [];
         for (let i = levels.from; i <= levels.to; i++) {
-            promises.push(this.gameModel.getMap({ mapNum : i }).then(map => {
+            promises.push(this.gameModel.getMap({ page : i }).then(map => {
                 map['number'] = i;
                 return map;
             }));
         }
         Promise.all(promises).then(maps => {
-            this.paginator.pageNum = levelPage.page;
+            this.levelOverviewPaginator.pageNum = levelPage.page;
             const data = {
                 maps: maps,
-                paginator: this.paginator
+                paginator: this.levelOverviewPaginator
             };
-            bus.emit('level', [data, `/${levelPage.page}`])
-        })
+            bus.emit('level', [data, `/${levelPage.page}`]);
+        });
     }
 
     /**
@@ -133,7 +146,7 @@ class OfflineGameController {
         evt.preventDefault();
 
         const mapNum = {
-            page: this.paginator.decrement()
+            page: this.levelOverviewPaginator.decrement()
         };
 
         this.getLevels(mapNum);
@@ -147,7 +160,7 @@ class OfflineGameController {
         evt.preventDefault();
 
         const mapNum = {
-            page: this.paginator.increment()
+            page: this.levelOverviewPaginator.increment()
         };
 
         this.getLevels(mapNum);

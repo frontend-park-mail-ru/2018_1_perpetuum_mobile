@@ -1,0 +1,21 @@
+.description-text {
+    font-size: 2.5vmin;
+    margin-top: 2vmin;
+    padding-bottom: 0.5vmin;
+    color: #a8a8a8;
+}
+
+@media screen and (max-width: 980px) {
+    .description-text {
+        font-size: 3vmin;
+        margin-top: 1.5vmin;
+    }
+
+    @media screen and (orientation: portrait) {
+        .description-text {
+            font-size: 4vmin;
+            margin-top: 2vmin;
+        }
+    }
+
+}

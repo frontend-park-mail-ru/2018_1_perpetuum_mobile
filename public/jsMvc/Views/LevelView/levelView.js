@@ -5,6 +5,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './levelView.tmpl.xml';
 
 
 /**
@@ -17,7 +18,7 @@ class LevelView extends ViewInterface {
      * Create level selection class instance.
      */
     constructor() {
-        super('jsMvc/Views/LevelView/levelView.tmpl');
+        super(template);
     }
 
     /**

@@ -5,10 +5,11 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
-    "css-purge": "^3.0.4",
+    "css-purge": "^3.0.8",
+    "cssnano": "^3.10.0",
     "debug": "^3.1.0",
-    "eslint": "^4.18.2",
-    "express": "^4.16.2",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
     "express-history-api-fallback": "^2.2.1",
     "fest": "^0.12.1",
     "jsdoc": "^3.5.5",
@@ -18,14 +19,29 @@
   "scripts": {
     "build": "fest-build --dir=public",
     "start": "npm run build && DEBUG=mylogger node server",
-    "start:raw": "node server"
+    "start:raw": "node server",
+    "beauty": "webpack --mode production",
+    "beauty-server": "npm run beauty && DEBUG=mylogger node server"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
     "css-lint": "^1.0.1",
+    "css-loader": "^0.28.11",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
-    "eslint-plugin-standard": "^3.0.1"
+    "eslint-plugin-standard": "^3.1.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fest-webpack-loader": "^1.1.1",
+    "file-loader": "^1.1.11",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2",
+    "webpack-dev-server": "^3.1.3"
   }
 }

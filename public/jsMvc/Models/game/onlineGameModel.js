@@ -1,42 +1,55 @@
-/*
+/**
+ * @module models/game/onlineGameModel
+ */
 
 import {ws} from '../../Modules/ws.js';
-import {HttpModule, baseUrl} from '../../Modules/HttpModule.js';
+import {CLIENT_EVENTS} from '../../Modules/game/serverEvents.js';
 
-class OnlineGameModel{
+/**
+ * Class implements online game strategy (multiPlayer) model
+ */
+class OnlineGameModel {
 
-    constructor() {
-        this.map = null;
-        this.currentProgress = 0;
-        this.vacantCubes = 0;
+    /**
+     * Subscribe on server events.
+     * @param {string} eventName - The name of the event subscribe to.
+     * @param {function(payload object)} func - The callback function.
+     */
+    subscribe(eventName, func) {
+        ws.on(eventName, func);
     }
 
-    getMap(mapNum) {
-        return HttpModule.doPostFetch({url: `${baseUrl}/multiplayer`, data: mapNum}).then((data) => {
-            this.map = data;
-            this.countVacantCubes();
-            return data;
-        });
+    /**
+     * Unsubscribe on server events.
+     * @param {string} eventName - The name of the event unsubscribe to.
+     * @param {function(payload object)} func - The callback function.
+     */
+    unsubscribe(eventName, func) {
+        ws.off(eventName, func)
     }
 
-
-
-    setCubic(cubic) {
-        const cubicInMap = Object.keys(this.map).map((key) => { return this.map[key];}).filter((obj) => {
-            return (obj.colour === cubic.colour && obj.x === cubic.x && obj.y === cubic.y);
-        });
-        if (cubicInMap === []) {
-            return false;
-        }
-        this.fixCubic(cubic);
-        return true;
+    /**
+     * Send to the server info about placing the cube.
+     * Cube is not fixed yet. It waits for response.
+     * @param {{color: string, x: number, y: number}} payload - Info about where and which cube was set.
+     */
+    setCubic(payload) {
+        ws.send(CLIENT_EVENTS.SET_CUBIC, payload);
     }
 
-    fixCubic(cubic) {
-        ++this.currentProgress;
-        ws.send("fixCubic", cubic);
+    /**
+     * Send to the server info that the player is ready to play.
+     */
+    ready() {
+        ws.send(CLIENT_EVENTS.READY);
+    }
+
+    /**
+     * Send to the server info that the player closed the game screen.
+     */
+    close() {
+        ws.send(CLIENT_EVENTS.CLOSE);
     }
 }
 
-export {OnlineGameModel};
-*/
+export {OnlineGameModel}

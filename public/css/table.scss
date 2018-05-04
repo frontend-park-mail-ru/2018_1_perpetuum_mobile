@@ -1,0 +1,31 @@
+.table {
+    margin: 4vmin auto;
+    text-align: center;
+    border-bottom: var(--baseColor) 1px solid;
+    width: 70vmin;
+    font-size: 4vmin;
+}
+
+.table__th {
+    border-bottom: var(--baseColor) 1px solid;
+}
+
+.table__tr {
+    height: 6vmin;
+}
+.table__tr:nth-child(2n) {
+    background: var(--darkGreyColor);
+}
+
+@media screen and (max-width: 980px) {
+    .table {
+        width: 80%;
+        font-size: 5vmin;
+    }
+    @media screen and (orientation: portrait) {
+        .table {
+            width: 80vmin;
+            font-size: 6vmin;
+        }
+    }
+}

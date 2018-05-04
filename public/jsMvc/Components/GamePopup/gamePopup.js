@@ -2,6 +2,7 @@
  *  @module components/GamePopup
  */
 
+import template from './gamePopup.tmpl.xml';
 /**
  * Popup class to show pop-up block in case of win
  */
@@ -11,13 +12,13 @@ class GamePopup {
      */
     constructor() {
         this.el = document.createElement('div');
-        this.fest = window.fest['jsMvc/Components/GamePopup/gamePopup.tmpl'];
+        this.fest = template;
     }
 
     /**
      * A method that specifies the place to render pop-up
      * @param root - place to render pop-up
-     * @return {Popup} current class instance.
+     * @return {GamePopup} current class instance.
      */
     renderTo(root) {
         root.appendChild(this.el);
@@ -27,7 +28,7 @@ class GamePopup {
     /**
      * Render pop-up
      * @param {object} params - description of the fields needed by the fest.
-     * @return {Popup} current class instance.
+     * @return {GamePopup} current class instance.
      */
     render(params) {
         this.params = params;
@@ -40,6 +41,12 @@ class GamePopup {
         }
         this.el.innerHTML = this.fest(this.params);
         this.init();
+
+        if (params.toNextLevel !== undefined) {
+            const back = this.el.getElementsByClassName('js-next-level')[0];
+            back.addEventListener('click', this.params.toNextLevel);
+        }
+
         return this;
     }
 

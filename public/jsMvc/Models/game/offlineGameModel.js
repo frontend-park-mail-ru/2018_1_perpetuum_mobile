@@ -5,12 +5,13 @@
 
 import {HttpModule, baseUrl} from '../../Modules/HttpModule.js';
 import {sharedData} from '../../Modules/sharedData.js';
+import {mapStorage} from './offlineModels/mapStorage.js';
 
 
 /**
  * Class implements offline game strategy model.
  */
-class OfflineGameModel{
+class OfflineGameModel {
 
     /**
      * Creates offline model instance.
@@ -22,113 +23,48 @@ class OfflineGameModel{
         this.setRight = [];
         this.gameProgress = [];
         this.mapNum = null; // current map number
+        this.mapStorage = mapStorage;
+    }
+
+    /**
+     * Getter for level count that is available now.
+     * Online - all levels on server, offline - cached levels.
+     * @return {Promise<number>} Level count.
+     */
+    get levelCount() {
+        if (navigator.onLine) {
+            return HttpModule.doGetFetch({url: `${baseUrl}/levelCount`}).then(data => {
+                return data.count;
+            });
+        } else {
+            return Promise.resolve(this.mapStorage.mapCount());
+        }
     }
 
     /**
      * Get the map from server.
-     * It will be cached by service worker.
+     * It will be cached by local storage.
      * @param {object<page number>} mapNum - The level number to download.
      * @return {Promise<{countX: number, countY: number, cells: *[]}>} The map.
      */
     getMap(mapNum) {
-        // TEST WITHOUT SERVER
-        return Promise.resolve(
-            {
-                countX: 3,
-                countY: 3,
-                    cells: [{
-                        x: 2,
-                        y: 2,
-                        fixed: false,
-                        colour: "#256b73"
-                    },
-                    {
-                        x: 2,
-                        y: 0,
-                        fixed: false,
-                        colour: "#78f0c3"
-                    },
-                    {
-                        x: 0,
-                        y: 2,
-                        fixed: false,
-                        colour: "#4c394d"
-                    },
-                    {
-                        x: 2,
-                        y: 1,
-                        fixed: true,
-                        colour: "#4faa99"
-                    },
-                    {
-                        x: 0,
-                        y: 0,
-                        fixed: true,
-                        colour: "#a15088"
-                    },
-                    {
-                        x: 1,
-                        y: 0,
-                        fixed: true,
-                        colour: "#9ba5a6"
-                    },
-                    {
-                        x: 1,
-                        y: 2,
-                        fixed: true,
-                        colour: "#425262"
-                    },
-                    {
-                        x: 0,
-                        y: 1,
-                        fixed: true,
-                        colour: "#75476c"
-                    }
-                ]
-            }
-            // {
-            //     countX: 3,
-            //     countY: 2,
-            //     cells: [{
-            //         x: 0,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#691f23"
-            //     },
-            //     {
-            //         x: 2,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#875a03"
-            //     },
-            //     {
-            //         x: 1,
-            //         y: 0,
-            //         fixed: true,
-            //         colour: "#993d0c"
-            //     },
-            //     {
-            //         x: 2,
-            //         y: 1,
-            //         fixed: false,
-            //         colour: "#992837"
-            //     }]
-            //}
-        ).then(data => {
-            this.map = data;
-            this.mapNum = mapNum.page;
-            this.countVacantCubes();
-            data.cells.map(el => el.colour).forEach(el => this.setRight[el] = false);
-            return data;
+        const data = this.mapStorage.getMap(mapNum.page);
+        let promiseMap = null;
+        if (data !== undefined) {
+            promiseMap = Promise.resolve(data)
+        } else {
+            promiseMap = HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then(data => {
+                this.mapStorage.addMap(mapNum.page, data);
+                return data;
+            })
         }
-        );
-        /*return HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then((data) => {
+        return promiseMap.then(data => {
             this.map = data;
             this.mapNum = mapNum.page;
             this.countVacantCubes();
             data.cells.map(el => el.colour).forEach(el => this.setRight[el] = false);
             return data;
-        });*/
+        });
     }
 
     /**
@@ -146,7 +82,7 @@ class OfflineGameModel{
      */
     setCubic(cubic) {
 
-        const cubicInMap = this.map.cells.filter((obj) => {
+        const cubicInMap = this.map.cells.filter(obj => {
             return (obj.colour === cubic.colour && obj.x === cubic.x && obj.y === cubic.y);
         });
 
@@ -197,7 +133,7 @@ class OfflineGameModel{
         }
         if (navigator.onLine && sharedData.data['currentUser']) {
             this.gameProgress.forEach(elem => {
-                HttpModule.doPostFetch({url: `${baseUrl}/save`, data: elem})
+                HttpModule.doPostFetch({url: `${baseUrl}/save`, data: elem});
             });
             this.gameProgress = [];
             return true;

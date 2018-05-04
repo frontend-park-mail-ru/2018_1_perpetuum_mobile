@@ -6,12 +6,14 @@
             <fest:for iterate="params.stars" value="v" index="i">
                 <span class="{v}">☆</span>
             </fest:for>
-            <div class="popup__time"> ⧖ <fest:value>params.time</fest:value> sec </div>
+            <div class="popup__time"> <div class="u2000">⏳</div>  <div class="popup_time-value"><fest:value>params.time</fest:value> sec </div></div>
         </div>
 
         <div class="popup__buttons">
-            <a class="popup__back" href="/level"> Back to levels</a>
-            <a class="popup__back" href="/level"> Next level</a>
+            <a class="popup__back" href="/level"> ↑ Back to levels</a>
+            <fest:if test="params['toNextLevel'] !== undefined">
+                <a class="popup__back js-next-level"> Next level →</a>
+            </fest:if>
         </div>
     </div>
 </fest:template>

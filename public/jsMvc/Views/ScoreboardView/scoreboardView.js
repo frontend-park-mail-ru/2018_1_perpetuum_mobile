@@ -5,6 +5,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './scoreboardView.tmpl.xml';
 
 
 /**
@@ -18,7 +19,7 @@ class ScoreboardView extends ViewInterface {
      * Associate with fest template.
      */
     constructor() {
-        super('jsMvc/Views/ScoreboardView/scoreboardView.tmpl');
+        super(template);
     }
 
     /**
@@ -60,7 +61,7 @@ class ScoreboardView extends ViewInterface {
     }
 
     isAllowed() {
-        return !navigator.onLine;
+        return navigator.onLine;
     }
 }
 

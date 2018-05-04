@@ -9,12 +9,12 @@ class ViewInterface {
 
     /**
      * Create view.
-     * @param {string} name - The name of fest template (the same as path to it).
+     * @param tmpl - The fest template (the same as path to it).
      */
-    constructor(name) {
+    constructor(tmpl) {
         this.el = document.createElement('div');
         this.params = {};
-        this.fest = window.fest[name];
+        this.fest = tmpl;
     }
 
     /**

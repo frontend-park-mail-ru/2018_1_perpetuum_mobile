@@ -8,6 +8,7 @@ import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './loginView.tmpl.xml';
 
 /**
  * Login view
@@ -18,7 +19,7 @@ class LoginView extends ViewInterface {
      * Create a LoginView instance.
      */
     constructor() {
-        super('jsMvc/Views/LoginView/loginView.tmpl');
+        super(template);
         bus.on('login-err', Error.serverError.bind(this));
     }
 
@@ -31,7 +32,7 @@ class LoginView extends ViewInterface {
         this.params = {
             form: 'js-login-form',
             fields: [['Username or email address', 'js-profile-login-input', 'text', 'email', Validation.validateLoginOrEmail, 'js-error-login'],
-                     ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
+                ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
         };
         Object.assign(params, this.params);
         super.render(params);
@@ -56,7 +57,7 @@ class LoginView extends ViewInterface {
 
                 this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
 
-                if(this.formValid[i].value.length === 0) {
+                if (this.formValid[i].value.length === 0) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
             });
@@ -69,7 +70,7 @@ class LoginView extends ViewInterface {
                 return !!current.valid && res;
             }, true);
 
-            if(allValid === true) {
+            if (allValid === true) {
                 this.onLogin(evt);
             }
         });

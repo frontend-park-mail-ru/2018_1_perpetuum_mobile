@@ -1,9 +1,13 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper-block  js-wrapper-block">
-    <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <a class="wrapper-block__row-back u1f800" href="/level/1"> 🠨 </a>
         <div class="wrapper-block__game-blendocu">
             <div class="game-blendocu">
-                <div class="game-blendocu__timer js-timer"/>
+                <div class="game-blendocu__score js-score" >
+                    <div class="js-rating game-blendocu__star rating "/>
+                    <div class="game-blendocu__timer js-timer"/>
+                </div>
+
                 <div class="game-blendocu__unfixed js-game-unfixed"/>
                 <div class="game-blendocu__fixed js-game-fixed"/>
             </div>

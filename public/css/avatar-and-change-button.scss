@@ -1,14 +1,14 @@
 .avatar-and-change-button {
-    width: 20vh;
-    height: 20vh;
+    width: 20vmin;
+    height: 20vmin;
     position: relative;
     margin: auto;
 }
 
 .avatar-and-change-button__avatar {
     box-sizing: border-box;
-    width: 20vh;
-    height: 20vh;
+    width: 20vmin;
+    height: 20vmin;
     border: 0.5vh solid var(--secondColor);
     border-radius: 5px;
     z-index: -1;

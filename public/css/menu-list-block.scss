@@ -5,15 +5,29 @@
 .menu-list-block__item {
     list-style-type: none;
     text-align: center;
-    line-height: 13vh;
+    line-height: 13vmin;
 }
 
 .menu-list-block__data {
     text-decoration: none;
     color: var(--secondColor);
     transition: all 0.3s linear;
+    padding: 1vmin 1vmin 0 1vmin;
 }
 
 .menu-list-block__data:hover {
     border-bottom: var(--baseColor) 3px solid;
+}
+
+@media screen and (max-width: 980px) {
+    .menu-list-block__item {
+        line-height: 15vmin;
+    }
+
+    @media screen and (orientation: portrait) {
+        .menu-list-block__item {
+            line-height: 17vmin;
+        }
+    }
+
 }

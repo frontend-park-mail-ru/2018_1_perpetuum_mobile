@@ -1,0 +1,48 @@
+.profile-row {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 3vh;
+    font-size: 3vh;
+    height: 6%;
+}
+
+.profile-row__predict-label {
+    margin: auto 2vmin auto 2vmin;
+}
+
+.profile-row__center-label {
+    text-align: left;
+    margin-left: 5%;
+}
+
+.profile-row__edit-icon {
+    color: var(--inputColor);
+    margin-top: -15px;
+    background: transparent;
+    margin-left: 5px;
+    text-align: right;
+    width: 5%;
+    border: none;
+}
+
+.profile-row__edit-icon:active {
+    color: white;
+}
+
+@media screen and (max-width: 980px) {
+    .profile-row {
+        font-size: 6vh;
+    }
+    .profile-row__edit-icon {
+        margin-top: -7px;
+    }
+    @media screen and (orientation: portrait) {
+        .profile-row {
+            font-size: 3vh;
+        }
+        .profile-row__predict-label {
+            margin: 0;
+        }
+    }
+}

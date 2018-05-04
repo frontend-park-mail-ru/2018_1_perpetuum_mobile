@@ -15,7 +15,6 @@ import {bus} from '../Modules/bus.js';
  * The class which connects functionality of scoreboard Model and View via proxy-functions.
  */
 class ScoreboardController {
-
     /**
      * Create and link scoreboard Views with proxy-functions.
      */
@@ -63,15 +62,15 @@ class ScoreboardController {
      * Open the page by number.
      * @param {object<page number>} page - The object contains the page number.
      */
-    openPage(page = { page : 1 }){
-        this.scoreboardModel.loadAllUsers(page).then(
-            (data) => {
-                this.paginator.maxPageNum = data['maxPageNum'];
-                this.paginator.pageNum = page.page;
-                data['paginator'] = this.paginator;
-                bus.emit('scoreboard', [data, `/${page.page}`]);
-            }
-        );
+    openPage(page = { page : 1 }) {
+        this.scoreboardModel.loadAllUsers(page).then( data => {
+            this.paginator.maxPageNum = data['maxPageNum'];
+            this.paginator.pageNum = page.page;
+            data['paginator'] = this.paginator;
+            bus.emit('scoreboard', [data, `/${page.page}`]);
+        }).catch(() => {
+            //TODO: add 500 on service unavailable in HTML
+        });
     }
 }
 

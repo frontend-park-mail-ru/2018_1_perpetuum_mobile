@@ -59,7 +59,7 @@ class Error {
      * @param {string} msg - Server response to show.
      */
     static serverError(msg) {
-        const serverErr = this.toLoginForm.getElementsByClassName('error-form__server-error')[0];
+        const serverErr = document.getElementsByClassName('error-form__server-error')[0];
         serverErr.style = 'display: block';
         serverErr.innerHTML = msg;
     }

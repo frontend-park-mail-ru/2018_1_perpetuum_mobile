@@ -1,5 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
+        <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main">
             <section class="wrapper-block__main js-wrapper-registration">
@@ -12,7 +13,7 @@
                             <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
                         </label>
                     </fest:for>
-                    <input class="button_big button js-login-button" type="submit" value="Register"/>
+                    <input class="button_big js-login-button" type="submit" value="Register"/>
                     <div class="error-form__server-error"/>
                 </form>
 

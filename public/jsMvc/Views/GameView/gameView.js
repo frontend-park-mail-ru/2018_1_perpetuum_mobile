@@ -6,6 +6,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
+import template from './gameView.tmpl.xml';
 
 /**
  * Game view
@@ -16,7 +17,7 @@ class GameView extends ViewInterface {
      * Create a GameView instance.
      */
     constructor() {
-        super('jsMvc/Views/GameView/gameView.tmpl');
+        super(template);
         this._popup = new GamePopup();
     }
 
@@ -75,7 +76,8 @@ class GameView extends ViewInterface {
     drawField() {
         this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed);
+        const count = this.params.cells.filter(v => v.fixed).length;
+        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
@@ -85,42 +87,27 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+        this.finalStars = 3;
+        this.rating = this.el.getElementsByClassName('js-rating')[0];
+        this.star = [];
+        for (let i = 0; i < 3; i++) {
+            this.star[i] = document.createElement('span');
+            this.star[i].classList.add('rating__one-star', 'rating__one-star-good');
+            this.star[i].innerHTML = '☆';
+            this.rating.appendChild(this.star[i]);
+        }
+
         this.startTimeSec = new Date().getTime();
         window.requestAnimationFrame(this.timer.bind(this));
+
+
+        document.ontouchstart = evt => {
+            this.onStartEvent(evt);
+        };
+
+
         document.onmousedown = evt => {
-            const cell = evt.target;
-            if (cell.className.indexOf('js-fixed') === -1) return;
-
-            const shiftX = evt.pageX - cell.getBoundingClientRect().left + pageXOffset;
-            const shiftY = evt.pageY - cell.getBoundingClientRect().top + pageYOffset;
-
-            this.elementUnfixed.appendChild(cell);
-
-            document.onmousemove = evt => {
-                cell.hidden = true;
-                const lol = document.elementFromPoint(evt.pageX, evt.pageY);
-                (lol.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
-                cell.hidden = false;
-                Cell.putOnPosition(cell, `${evt.pageX - shiftX}px`, `${evt.pageY - shiftY}px`);
-                if (cell.canDrag) {
-                    cell.currentY = getComputedStyle(lol).top;
-                    cell.currentX = getComputedStyle(lol).left;
-                    cell.x = lol.x;
-                    cell.y = lol.y;
-                }
-            };
-
-            cell.onmouseup = () => {
-                document.onmousemove = null;
-                cell.onmouseup = null;
-                if (!cell.canDrag) {
-                    Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
-                } else {
-                    Cell.putOnPosition(cell, cell.currentX, cell.currentY);
-                    this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
-                }
-            };
-            cell.ondragstart = () => false;
+            this.onStartEvent(evt);
         };
     }
 
@@ -129,8 +116,10 @@ class GameView extends ViewInterface {
      */
     addPopupWin() {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
-        this._popup.renderTo(popupEl);
-        this._popup.render({numStars: 2, time: ` ${~~(this.timeNowSec/1000)} `});
+        if (popupEl) {
+            this._popup.renderTo(popupEl);
+            this._popup.render({numStars: this.finalStars, time: ` ${~~(this.timeNowSec/1000)}`, toNextLevel: this.params.toNextLevel});
+        }
     }
 
     /**
@@ -140,8 +129,17 @@ class GameView extends ViewInterface {
     timer() {
         const time = this.el.getElementsByClassName('js-timer')[0];
 
-        if (!!time) {
+        if (!!time && !!this.rating) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
+
+            if (~~(this.timeNowSec/1000) > this.params.stars3) {
+                this.star[2].classList.remove('rating__one-star-good');
+                this.finalStars = 2;
+            }
+            if (~~(this.timeNowSec/1000) > this.params.stars2) {
+                this.star[1].classList.remove('rating__one-star-good');
+                this.finalStars = 1;
+            }
             time.innerHTML = `${~~(this.timeNowSec/1000)}`;
             this.animation = window.requestAnimationFrame(this.timer.bind(this));
         }
@@ -149,11 +147,14 @@ class GameView extends ViewInterface {
 
     /**
      * callback for model in case of win
-     * @param quantityOfStar - number of stars in dependency of time
      */
-    gameOnWin(quantityOfStar) {
+    gameOnWin() {
+        const score = document.getElementsByClassName('js-score')[0];
+        const cells = document.getElementsByClassName('game-blendocu__cell');
+        [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
-        this.addPopupWin(quantityOfStar);
+        setTimeout(this.addPopupWin.bind(this), 2000, this.finalStars);
+        setTimeout(() => score.innerHTML = '', 2000);
     }
 
     /**
@@ -164,6 +165,82 @@ class GameView extends ViewInterface {
         this.el.innerHTML = '';
         return this;
     }
+
+    /**
+     * this method do some magic with current cell in touchstart or mousedown event
+     * @param evt - event (touchstart || mousedown)
+     */
+    onStartEvent(evt) {
+        const allocated = document.getElementsByClassName('js-empty-cell');
+        const cell = evt.target;
+        if (cell.className.indexOf('js-fixed') === -1) return;
+
+        [...allocated].forEach(v => v.style.opacity = '0.8');
+        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
+        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
+
+        const shiftX = X - cell.getBoundingClientRect().left + pageXOffset;
+        const shiftY = Y - cell.getBoundingClientRect().top + pageYOffset;
+
+        this.elementUnfixed.appendChild(cell);
+
+        document.onmousemove = evt => {
+            this.onMoveEvent(evt, cell, shiftX, shiftY);
+        };
+        document.ontouchmove = evt => {
+            this.onMoveEvent(evt, cell, shiftX, shiftY);
+        };
+
+        cell.onmouseup = () => {
+            this.onUpEvent(cell, allocated);
+        };
+        cell.ontouchend = () => {
+            this.onUpEvent(cell, allocated);
+        };
+        cell.ondragstart = () => false;
+    }
+
+    /**
+     * this method do some magic with current cell in touchmove or mousemove event
+     * @param evt(Event) - event (touchmove || mousemove)
+     * @param cell - current cell
+     * @param shiftX(number) - shift on X relatively to center of cell
+     * @param shiftY(number) - shift on Y relatively to center of cell
+     */
+    onMoveEvent(evt, cell, shiftX, shiftY) {
+        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
+        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
+        cell.hidden = true;
+        const bottomElement = document.elementFromPoint(X, Y);
+        if (bottomElement) {
+            (bottomElement.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
+            cell.hidden = false;
+            Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
+            if (cell.canDrag) {
+                cell.currentY = getComputedStyle(bottomElement).top;
+                cell.currentX = getComputedStyle(bottomElement).left;
+                cell.x = bottomElement.x;
+                cell.y = bottomElement.y;
+            }
+        }
+    }
+
+    /**
+     * this method do some magic with current cell in touchend or mouseup event
+     * @param cell - current cell
+     * @param allocated(HTMLCollection) - array of empty cell to change opacity
+     */
+    onUpEvent(cell, allocated) {
+        [...allocated].forEach(v => v.style.opacity = '0.4');
+        document.onmousemove = null;
+        if (!cell.canDrag) {
+            Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
+        } else {
+            Cell.putOnPosition(cell, cell.currentX, cell.currentY);
+            this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
+        }
+    }
+
 }
 
 export {GameView};

@@ -3,11 +3,12 @@
  */
 
 import {ViewInterface} from '../ViewInterface.js';
-import {Validation} from "../../Modules/validation.js";
-import {Error} from "../../Components/Error/error.js";
+import {Validation} from '../../Modules/validation.js';
+import {Error} from '../../Components/Error/error.js';
 import {sharedData} from '../../Modules/sharedData.js';
-import {bus} from "../../Modules/bus.js";
+import {bus} from '../../Modules/bus.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './registerView.tmpl.xml';
 
 
 
@@ -16,7 +17,7 @@ class RegisterView extends ViewInterface {
      * Create a RegisterView instance.
      */
     constructor() {
-        super('jsMvc/Views/RegisterView/registerView.tmpl');
+        super(template);
         bus.on('register-err', Error.serverError.bind(this));
     }
 
@@ -56,7 +57,7 @@ class RegisterView extends ViewInterface {
 
                 this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
 
-                if(this.formValid[i].value.length === 0) {
+                if (!this.formValid[i].value.length) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
             });
@@ -70,7 +71,7 @@ class RegisterView extends ViewInterface {
                 return !!current.valid && res;
             }, true);
 
-            if(allValid === true) {
+            if (allValid === true) {
                 this.onRegister(evt);
             }
         });

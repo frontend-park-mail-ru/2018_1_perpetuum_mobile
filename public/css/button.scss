@@ -1,0 +1,70 @@
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+%button {
+  background: var(--greyColor);
+  color: var(--secondColor);
+  font-size: 3vmin;
+  border: var(--greyColor) 3px solid;
+  transition: border-bottom-color 0.3s linear;
+  border-radius: 2px;
+  margin: 3vmin 0 2vmin 0;
+  align-self: center;
+  box-shadow: 6px 6px 6px #141414;
+}
+
+.button {
+    @extend %button;
+}
+
+.button_big {
+    @include size(46vmin, 6vmin);
+    @extend %button;
+}
+
+.button_little {
+    @include size(18vmin, 4vmin);
+    @extend %button;
+}
+
+.button__user-footer {
+    font-size: 3vmin;
+    transition: all 0.3s linear;
+    margin: 0 0 0 auto;
+    color: var(--logoColor);
+    text-decoration: none;
+    border: transparent 3px solid;
+}
+
+
+.button_big:hover, .button_little:hover, .button__user-footer:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+
+.button:active {
+    box-shadow: none;
+}
+
+
+@media screen and (max-width: 980px) {
+    .button__user-footer {
+        font-size: 5vmin;
+        margin: 0 0 0 auto;
+    }
+    .button {
+        font-size: 4vmin;
+        margin: 3vmin 0 2vmin 0;
+    }
+
+    .button_big {
+        @include size(64vmin, 7vmin);
+    }
+
+    .button_little {
+        @include size(18vmin, 4vmin);
+
+    }
+
+}

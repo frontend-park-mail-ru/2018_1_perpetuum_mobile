@@ -1,0 +1,152 @@
+.game-blendocu {
+    margin: 1vmin auto;
+    width: 100%;
+    height: 95%;
+}
+
+.game-blendocu__unfixed {
+    width: 100%;
+    height: 55%;
+}
+
+.game-blendocu__fixed {
+    margin-top: 5%;
+    width: 100%;
+    height: 20%;
+}
+
+.game-blendocu__cell {
+    border-radius: 10px;
+    position: absolute;
+    z-index: 999;
+    transition: all 0.3s linear;
+}
+
+.game-blendocu__cell-fixed {
+    position: absolute;
+    color: #242222;
+    font-size: 3vmin;
+    bottom: 3px;
+    right: 5px;
+    opacity: 0.6;
+}
+.game-blendocu__cell-fixed:after {
+    content: "🔒";
+}
+
+.game-blendocu__empty-cell {
+    border-radius: 10px;
+    opacity: 0.4;
+    border: var(--inputColor) 1vmin solid;
+    box-sizing: border-box;
+    position: absolute;
+}
+
+.game-blendocu__cell--win {
+   opacity: 1;
+}
+
+.game-blendocu__cell--win:before {
+    margin-left: -3vmin;
+    position: absolute;
+    content: " ";
+    display: inline-block;
+    background-color: var(--baseColor);
+    animation: win 3s;
+    opacity: 0.1;
+    width: 16vmin;
+}
+.game-blendocu__cell--win:after {
+    position: absolute;
+    content: " ";
+    display: inline-block;
+    background-color: var(--baseColor);
+    opacity: 0.1;
+    animation: win 2s;
+    width: 10vmin;
+}
+
+@keyframes win {
+    0% {
+        margin-top: -100vmin;
+        height: 0;
+    }
+
+    50% {
+        margin-top: -100vmin;
+        height: 200vh;
+    }
+
+    100% {
+        margin-top: 100vmin;
+        height: 200vmin;
+    }
+}
+
+.game-blendocu__cell:hover {
+    background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 60%);
+    animation: choosen 10s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    background-size: 600% 600%;
+    z-index: 1000;
+}
+
+@keyframes choosen {
+    0% {
+        background-position: 100%;
+    }
+
+    10%{
+        background-position: 0;
+    }
+
+    100%{
+        background-position: 0;
+    }
+}
+.game-blendocu__star {
+    font-size: 6vmin;
+}
+
+.game-blendocu__timer {
+    font-size: 7vmin;
+}
+
+.game-blendocu__score {
+    display: flex;
+    margin-left: 35%;
+    margin-right: 35%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 12vmin;
+    transition: all 0.3s linear;
+    font-size: 10vmin;
+}
+
+@media screen and (max-width: 980px) {
+    .game-blendocu__cell-fixed {
+        font-size: 6vmin;
+    }
+    .game-blendocu__star {
+        font-size: 9vmin;
+    }
+    .game-blendocu__timer {
+        font-size: 9vmin;
+    }
+    .game-blendocu__score {
+        margin-bottom: 8vmin;
+    }
+    @media screen and (orientation: portrait) {
+        .game-blendocu__score {
+            margin-left: 15%;
+            margin-right: 15%;
+        }
+        .game-blendocu__star {
+            font-size: 12vmin;
+        }
+        .game-blendocu__timer {
+            font-size: 12vmin;
+        }
+    }
+}

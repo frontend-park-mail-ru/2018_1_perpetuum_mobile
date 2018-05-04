@@ -5,6 +5,7 @@
 
 import {ViewInterface} from '../ViewInterface.js';
 import {Colour} from '../../Components/Colour/colour.js';
+import template from './aboutView.tmpl.xml';
 
 /**
  * About view
@@ -15,7 +16,7 @@ class AboutView extends ViewInterface {
      * Create a AboutView instance.
      */
     constructor() {
-        super('jsMvc/Views/AboutView/aboutView.tmpl');
+        super(template);
     }
 
     /**
