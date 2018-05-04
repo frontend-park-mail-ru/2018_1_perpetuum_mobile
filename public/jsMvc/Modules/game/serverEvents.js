@@ -5,7 +5,7 @@
 
 /**
  * Server event types
- * @type {{SET_MAP: string, FIX_CUBIC: string, END_GAME: string}}
+ * @type {{START_GAME: string, CUBIC_SET: string, CUBIC_DROP: string, END_GAME: string}}
  */
 const SERVER_EVENTS = {
     START_GAME: 'START_GAME',
@@ -14,7 +14,10 @@ const SERVER_EVENTS = {
     END_GAME: 'END_GAME'
 };
 
-
+/**
+ * Client event types
+ * @type {{READY: string, SET_CUBIC: string, CLOSE: string}}
+ */
 const CLIENT_EVENTS = {
     READY: 'READY',
     SET_CUBIC: 'SET_CUBIC',
