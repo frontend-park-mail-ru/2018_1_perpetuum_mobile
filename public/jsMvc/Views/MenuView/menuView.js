@@ -6,7 +6,7 @@ import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './menuView.tmpl.xml';
-import {BackgroundAnimation} from "../../Components/BackgroundAnimation/backgroundAnimation";
+import {BackgroundAnimation} from '../../Components/BackgroundAnimation/backgroundAnimation.js';
 
 
 /**
@@ -20,6 +20,7 @@ class MenuView extends ViewInterface {
      */
     constructor() {
         super(template);
+        new BackgroundAnimation();
     }
 
     /**
@@ -43,7 +44,6 @@ class MenuView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
         this.colour = new Colour('colors');
-        new BackgroundAnimation();
     }
 
 }

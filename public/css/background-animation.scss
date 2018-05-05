@@ -1,8 +1,6 @@
 .background-animation {
   opacity: 0.15;
   position: absolute;
-  width: 15vmin;
-  animation: line 3s;
   top: 0;
   pointer-events: none;
 }
@@ -10,12 +8,12 @@
 @keyframes line {
   0% {
     height: 0;
-    top: 0%;
+    top: 0;
   }
 
   50% {
     height: 200vh;
-    top: 0%;
+    top: 0;
   }
 
   100% {

@@ -7,8 +7,8 @@ class BackgroundAnimation {
      * @param max {number} - random limit
      * @returns {number} - random number
      */
-    random(max) {
-        return Math.floor(Math.random() * max);
+    random(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
     }
 
     /**
@@ -20,7 +20,9 @@ class BackgroundAnimation {
         line.classList.add('background-animation');
         const parentEl = document.getElementsByClassName('js-application')[0];
         line.style.left = `${position}px`;
-        line.style.backgroundColor = this.colors[this.random(this.colors.length)];
+        line.style.width = `${this.random(5, 15)}vmin`;
+        line.style.animation = `line ${this.random(2, 6)}s`;
+        line.style.backgroundColor = this.colors[this.random(0, this.colors.length)];
         parentEl.insertAdjacentElement('afterbegin', line);
         line.addEventListener('animationend', () => {
             line.remove();
@@ -31,12 +33,12 @@ class BackgroundAnimation {
      * constructor. Create current class instance
      */
     constructor() {
-        this.colors = ['#5FC737', '#5fc737', '#2e1e2e', '#51FF2F', '#2eff97', '#2e2e02', '#689f38', '#8bc34a', '#1e2e22', '#59e6de', '#6cff3f', '#391409', '#929f61', '#3f51b5', '#10142b'];
+        this.colors = ['HotPink', 'LimeGreen', 'Orange', 'Green', 'Magenta', 'Turquoise', 'White', 'DarkBlue', 'Seashell', 'DimGray', 'Yellow', 'Lime', 'Coral', 'Chocolate', 'RosyBrown'];
 
-        document.addEventListener('click', evt => {
+        document.onclick = evt => {
             const position = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
             this.createELement(position);
-        });
+        };
 
         window.requestAnimationFrame(this.createElementOnTimer.bind(this));
     }
@@ -47,9 +49,10 @@ class BackgroundAnimation {
     createElementOnTimer() {
         setTimeout(() => {
             const parentEl = document.getElementsByClassName('js-application')[0];
-            this.createELement(this.random(parentEl.offsetWidth));
+            const position = this.random(0, parentEl.offsetWidth);
+            this.createELement(position);
             window.requestAnimationFrame(this.createElementOnTimer.bind(this));
-        }, this.random(5000));
+        }, this.random(0, 5000));
     }
 }
 export {BackgroundAnimation};

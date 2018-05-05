@@ -9,18 +9,15 @@
 class Cell {
     /**
      * Set css properties to current cell
-     * @param element - the current cell to assign css properties
+     * @param cell - the current cell to assign css properties
      * @param size - the current cell size
      * @param X - x position on field
      * @param Y - y position on field
      */
-    static setProperty(element, size,  X, Y) {
-        element.style.width  = `${size}px`;
-        element.style.height = `${size}px`;
-        element.wrongX = `${X}px`;
-        element.wrongY = `${Y}px`;
-        element.style.top  = element.wrongY;
-        element.style.left = element.wrongX;
+    static setProperty(cell, size,  X, Y) {
+        [cell.style.width, cell.style.height]  = [`${size}px`, `${size}px`];
+        [cell.wrongX, cell.wrongY] = [`${X}px`, `${Y}px`];
+        [cell.style.left, cell.style.top] = [`${X}px`, `${Y}px`];
     }
 
     /**
@@ -33,16 +30,16 @@ class Cell {
      * @param len {Number} - number of cells in a row
      */
     static setPropertyFree(cell, parentElement, colour, sizeCell, i, len) {
-        const OFFSET_FROM_ELEMENT = 8;
-        const offsetToCenterX = (parentElement.offsetWidth - len * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const x = parentElement.offsetLeft + (OFFSET_FROM_ELEMENT + sizeCell) * i + offsetToCenterX + OFFSET_FROM_ELEMENT/2;
+        const OFFSET = 8;
+        const offsetToCenterX = (parentElement.offsetWidth  - (sizeCell + OFFSET) * len) / 2;
+        const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET)) / 2;
+        const x = (OFFSET + sizeCell) * i + offsetToCenterX + OFFSET/2;
         const y = parentElement.offsetTop + offsetToCenterY;
         cell.colour = colour;
         cell.style.backgroundColor = colour;
+        cell.isBottom = true;
         cell.classList.add('js-fixed', 'game-blendocu__cell');
         Cell.setProperty(cell, sizeCell, x, y);
-        cell.isBottom = true;
     }
 
     /**
@@ -55,12 +52,12 @@ class Cell {
      * @param sizeY {Number} - number of cells in a column
      */
     static setPropertyFixed(cell, parentElement, v, sizeCell, sizeX, sizeY) {
-        const OFFSET_FROM_ELEMENT = 8;
+        const OFFSET = 8;
 
-        const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const offsetToCenterY = (parentElement.offsetHeight - sizeY * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const y = v.y * sizeCell + OFFSET_FROM_ELEMENT * v.y + parentElement.offsetTop + offsetToCenterY;
-        const x = v.x * sizeCell + OFFSET_FROM_ELEMENT * v.x + parentElement.offsetLeft + offsetToCenterX + OFFSET_FROM_ELEMENT/2;
+        const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET)) / 2;
+        const offsetToCenterY = (parentElement.offsetHeight - sizeY * (sizeCell + OFFSET)) / 2;
+        const y = v.y * sizeCell + OFFSET * v.y + offsetToCenterY  + parentElement.offsetTop;
+        const x = v.x * sizeCell + OFFSET * v.x + offsetToCenterX;
         Cell.setProperty(cell, sizeCell, x, y);
         if (!v.fixed) {
             cell.classList.add('game-blendocu__cell');
@@ -77,23 +74,21 @@ class Cell {
 
     /**
      * cell can be placed in two div, and this method find minimum size to cell so the cells are displayed depending on the screen size
-     * @param parentElement {Object} - field in which the cell can located
+     * @param firstDiv {Object} - field in which the cell can located
      * @param X {Number} - number of cells in a row
      * @param Y {Number} - number of cells in a column
-     * @param anotherParent {Object} - field in which the cell can located
+     * @param secondDiv {Object} - field in which the cell can located
      * @param count
      * @returns {number} - minimum cell size depending on the screen size
      */
-    static findSizeCell(parentElement, X, Y, anotherParent, count) {
-        const OFFSET_FROM_ELEMENT = 8;
-        const sizeCellX = parentElement.offsetWidth / X - OFFSET_FROM_ELEMENT ;
-        const sizeCellY = parentElement.offsetHeight / Y - OFFSET_FROM_ELEMENT ;
-        const sizeCellX1 = anotherParent.offsetWidth / count - OFFSET_FROM_ELEMENT;
-        const sizeCellY1 = anotherParent.offsetHeight;
+    static findSizeCell(firstDiv, X, Y, secondDiv, count) {
+        const OFFSET = 8;
+        const sizeCellX = firstDiv.offsetWidth / X - OFFSET;
+        const sizeCellY = firstDiv.offsetHeight / Y - OFFSET;
+        const sizeCellX1 = secondDiv.offsetWidth / count - OFFSET;
+        const sizeCellY1 = secondDiv.offsetHeight;
 
-        const temp = (sizeCellX > sizeCellY) ? sizeCellY : sizeCellX;
-        const temp1 = (sizeCellX1 > sizeCellY1) ? sizeCellY1 : sizeCellX1;
-        return (temp > temp1) ? temp1 : temp;
+        return Math.min(sizeCellX, sizeCellY, sizeCellX1, sizeCellY1);
     }
 
     /**
@@ -103,26 +98,55 @@ class Cell {
      * @param y - y position on field
      */
     static putOnPosition(cell, x, y) {
-        cell.style.top = y;
-        cell.style.left = x;
+        [cell.style.left, cell.style.top] = [x, y];
     }
 
     /**
      * set property and position to cell in case of resize window
      * @param cell {Object} - the current cell to assign css properties
-     * @param parentElement {Object} - field in which the cell is located
+     * @param firstDiv {Object} - field in which the cell is located
      * @param v {Object} - object with relative cell position
      * @param sizeCell {Number} - cell size
      * @param sizeX {Number} - number of cells in a row
      * @param sizeY {Number} - number of cells in a column
+     * @param i {Number} - position i on bottom field
+     * @param len {Number} - quantity of cells on bottom field
+     * @param secondDiv - div of free element
      */
-    static resizeCell(cell, parentElement, v, sizeCell, sizeX, sizeY) {
-        const OFFSET_FROM_ELEMENT = 8;
+    static resizeCell(cell, firstDiv, v, sizeCell, sizeX, sizeY, i, len, secondDiv) {
+        const OFFSET = 8;
 
-        const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const offsetToCenterY = (parentElement.offsetHeight - sizeY * (sizeCell + OFFSET_FROM_ELEMENT)) / 2;
-        const y = cell.bottomY * sizeCell + OFFSET_FROM_ELEMENT * cell.bottomY + parentElement.offsetTop + offsetToCenterY;
-        const x = cell.bottomX * sizeCell + OFFSET_FROM_ELEMENT * cell.bottomX + parentElement.offsetLeft + offsetToCenterX + OFFSET_FROM_ELEMENT/2;
+        const offsetToCenterX = (firstDiv.offsetWidth  - sizeX * (sizeCell + OFFSET)) / 2;
+        const offsetToCenterY = (firstDiv.offsetHeight - sizeY * (sizeCell + OFFSET)) / 2;
+        const y = cell.bottomY * sizeCell + OFFSET * cell.bottomY + offsetToCenterY + firstDiv.offsetTop;
+        const x = cell.bottomX * sizeCell + OFFSET * cell.bottomX + offsetToCenterX;
+
+        [cell.style.width, cell.style.height]  = [`${sizeCell}px`, `${sizeCell}px`];
+        [cell.style.left, cell.style.top] = [`${x}px`, `${y}px`];
+
+        Cell.setProperty(cell, sizeCell, x, y);
+
+        const xWrong = (OFFSET + sizeCell) * i + (secondDiv.offsetWidth  - (sizeCell + OFFSET) * len) / 2 + OFFSET/2;
+        const yWrong = secondDiv.offsetTop + (secondDiv.offsetHeight - (sizeCell + OFFSET)) / 2;
+
+        [cell.wrongX, cell.wrongY] = [`${xWrong}px`, `${yWrong}px`];
+    }
+
+
+    /**
+     * set property and position to free cell
+     * @param cell {Object} - the current cell to assign css properties
+     * @param parentElement {Object} - field in which the cell is located
+     * @param colour {String} - background colour
+     * @param sizeCell {Number} - cell size
+     * @param i {Number} - cell position relative to others
+     * @param len {Number} - number of cells in a row
+     */
+    static resizeFree(cell, parentElement, colour, sizeCell, i, len) {
+        const OFFSET = 8;
+        const x = (OFFSET + sizeCell) * i + (parentElement.offsetWidth  - (sizeCell + OFFSET) * len) / 2 + OFFSET/2;
+        const y = parentElement.offsetTop + (parentElement.offsetHeight - (sizeCell + OFFSET)) / 2;
+
         Cell.setProperty(cell, sizeCell, x, y);
     }
 }

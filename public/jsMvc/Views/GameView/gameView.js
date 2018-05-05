@@ -117,7 +117,7 @@ class GameView extends ViewInterface {
             const free = this.params.cells.filter(v => v.fixed);
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
             this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
-            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
+            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY, i, free.length, this.elementFixed));
         });
     }
 
@@ -181,17 +181,18 @@ class GameView extends ViewInterface {
      * @param evt - event (touchstart || mousedown)
      */
     onStartEvent(evt) {
-        const allocated = document.getElementsByClassName('js-empty-cell');
         const cell = evt.target;
+
         if (cell.className.indexOf('js-fixed') === -1) return;
 
+        const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
+
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
         const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
 
-        const shiftX = X - cell.getBoundingClientRect().left + pageXOffset;
-        const shiftY = Y - cell.getBoundingClientRect().top + pageYOffset;
-
+        const shiftX = X - cell.getBoundingClientRect().left;
+        const shiftY = Y - cell.getBoundingClientRect().top;
         this.elementUnfixed.appendChild(cell);
 
         document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
@@ -214,7 +215,7 @@ class GameView extends ViewInterface {
         cell.hidden = true;
         const bottomElement = document.elementFromPoint(X, Y);
         if (bottomElement) {
-            (bottomElement.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
+            cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
             Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
             if (cell.canDrag) {
@@ -234,8 +235,10 @@ class GameView extends ViewInterface {
     onUpEvent(cell, allocated) {
         [...allocated].forEach(v => v.style.opacity = '0.4');
         document.onmousemove = null;
+        cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
+            cell.isBottom = true;
         } else {
             Cell.putOnPosition(cell, cell.currentX, cell.currentY);
             cell.isBottom = false;
