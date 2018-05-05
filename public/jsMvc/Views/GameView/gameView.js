@@ -89,7 +89,6 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
-
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
         this.star = [];
@@ -101,17 +100,11 @@ class GameView extends ViewInterface {
         }
 
         this.startTimeSec = new Date().getTime();
-        window.requestAnimationFrame(this.timer.bind(this));
 
+        window.requestAnimationFrame(() => this.timer());
 
-        document.ontouchstart = evt => {
-            this.onStartEvent(evt);
-        };
-
-
-        document.onmousedown = evt => {
-            this.onStartEvent(evt);
-        };
+        document.ontouchstart = evt => this.onStartEvent(evt);
+        document.onmousedown = evt => this.onStartEvent(evt);
 
         window.addEventListener('resize', () => {
             const free = this.params.cells.filter(v => v.fixed);
@@ -151,7 +144,7 @@ class GameView extends ViewInterface {
                 this.finalStars = 1;
             }
             time.innerHTML = `${~~(this.timeNowSec/1000)}`;
-            this.animation = window.requestAnimationFrame(this.timer.bind(this));
+            this.animation = window.requestAnimationFrame(() => this.timer());
         }
     }
 
@@ -163,7 +156,7 @@ class GameView extends ViewInterface {
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
-        setTimeout(this.addPopupWin.bind(this), 2000, this.finalStars);
+        setTimeout(() => this.addPopupWin(this.finalStars), 2000);
         setTimeout(() => score.innerHTML = '', 2000);
     }
 
@@ -247,7 +240,6 @@ class GameView extends ViewInterface {
             this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }
-
 }
 
 export {GameView};

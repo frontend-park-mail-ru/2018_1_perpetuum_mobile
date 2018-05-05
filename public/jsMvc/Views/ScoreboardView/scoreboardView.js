@@ -6,6 +6,7 @@ import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './scoreboardView.tmpl.xml';
+import {CubicPreloader} from '../../Components/Preloader/cubicPreloader.js';
 
 
 /**
@@ -28,6 +29,9 @@ class ScoreboardView extends ViewInterface {
      * @return {ScoreboardView} The current object instance.
      */
     render(params = {}) {
+        super.render(params);
+        const preloader = new CubicPreloader();
+
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.onOpenPage();
             return this;
@@ -36,8 +40,8 @@ class ScoreboardView extends ViewInterface {
             this.onOpenPage({page: +params.urlParams[0]});
             return this;
         }
+        preloader.removePreloader();
         params.sharedData = sharedData.data;
-        super.render(params);
         this.init();
         return this;
     }
