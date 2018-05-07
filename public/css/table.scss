@@ -2,8 +2,9 @@
     margin: 4vmin auto;
     text-align: center;
     border-bottom: var(--baseColor) 1px solid;
-    width: 70vmin;
-    font-size: 4vmin;
+    width: 80vmin;
+    font-size: 40%;
+    height: 80%;
 }
 
 .table__th {
@@ -11,7 +12,7 @@
 }
 
 .table__tr {
-    height: 6vmin;
+    height: 10%;
 }
 .table__tr:nth-child(2n) {
     background: var(--darkGreyColor);

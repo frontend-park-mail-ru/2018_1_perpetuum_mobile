@@ -31,7 +31,20 @@
 
 .online-game__image {
     font-size: initial !important;
-    width: 5vmin;
-    height: 5vmin;
+    width: 7vmin;
+    height: 7vmin;
     margin: 1vmin;
+    border: 1px solid var(--inputColor);
+    border-radius: 5px;
+}
+
+.online-game__unfixed {
+    width: 100%;
+    height: 55%;
+}
+
+.online-game__fixed {
+    margin-top: 5%;
+    width: 100%;
+    height: 20%;
 }

@@ -20,7 +20,6 @@ class MenuView extends ViewInterface {
      */
     constructor() {
         super(template);
-        bus.emit('createLines');
     }
 
     /**
@@ -29,6 +28,7 @@ class MenuView extends ViewInterface {
      * @return {MenuView} The current object instance.
      */
     render(params = {}) {
+        bus.emit('createLines');
         params.sharedData = sharedData.data;
         super.render(params);
         this.init();
@@ -44,7 +44,17 @@ class MenuView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
         this.colour = new Colour('colors');
-        //bus.emit('removeLines');
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html from view elementUnfixed.
+     * @return {MenuView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 
 }

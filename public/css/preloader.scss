@@ -10,6 +10,8 @@
 }
 
 %preloader__item {
+    margin: 3px;
+    border-radius: 5px;
     width: 100px;
     height: 100px;
     position: absolute;
@@ -17,7 +19,6 @@
 
 .preloader__item-1 {
     @extend %preloader__item;
-    border-radius: 5px;
     background-color: #fa7f96;
     top: 0;
     left: 0;
@@ -27,7 +28,6 @@
 
 .preloader__item-2 {
     @extend %preloader__item;
-    border-radius: 5px;
     background-color: #9c6ee5;
     top: 0;
     right: 0;
@@ -36,7 +36,6 @@
 
 .preloader__item-3 {
     @extend %preloader__item;
-    border-radius: 5px;
     background-color: #4ca6f7;
     bottom: 0;
     right: 0;
@@ -46,7 +45,6 @@
 
 .preloader__item-4 {
     @extend %preloader__item;
-    border-radius: 5px;
     background-color: #fada6b;
     bottom: 0;
     left: 0;

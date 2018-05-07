@@ -29,6 +29,7 @@ class LoginView extends ViewInterface {
      * @return {LoginView} The current object instance.
      */
     render(params = {}) {
+        bus.emit('createLines');
         this.params = {
             form: 'js-login-form',
             fields: [['Username or email address', 'js-profile-login-input', 'text', 'email', Validation.validateLoginOrEmail, 'js-error-login'],
@@ -84,6 +85,17 @@ class LoginView extends ViewInterface {
      */
     isAllowed() {
         return !sharedData.data['currentUser'];
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html from view elementUnfixed.
+     * @return {LoginView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 
 }

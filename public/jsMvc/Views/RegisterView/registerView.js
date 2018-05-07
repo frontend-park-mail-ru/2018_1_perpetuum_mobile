@@ -36,6 +36,7 @@ class RegisterView extends ViewInterface {
         Object.assign(params, this.params);
         super.render(params);
         this.init();
+        bus.emit('createLines');
         return this;
     }
 
@@ -86,6 +87,17 @@ class RegisterView extends ViewInterface {
      */
     isAllowed() {
         return !sharedData.data['currentUser'];
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html from view elementUnfixed.
+     * @return {RegisterView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 }
 

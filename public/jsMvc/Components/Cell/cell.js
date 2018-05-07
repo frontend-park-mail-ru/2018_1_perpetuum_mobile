@@ -67,8 +67,7 @@ class Cell {
             cell.style.background = v.colour;
         } else {
             cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
-            cell.x = v.x;
-            cell.y = v.y;
+            [cell.x, cell.y] = [v.x, v.y];
         }
     }
 
@@ -149,6 +148,7 @@ class Cell {
 
         Cell.setProperty(cell, sizeCell, x, y);
     }
+
 }
 
 export {Cell};

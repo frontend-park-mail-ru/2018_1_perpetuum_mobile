@@ -6,7 +6,7 @@ class CubicPreloader {
      * constructor. Create current class instance
      */
     constructor() {
-        const parent = document.getElementsByClassName('wrapper-block')[0];
+        const parent = document.getElementsByClassName('js-wrapper-block')[0];
         this.preloader = document.createElement('div');
         this.preloader.classList.add('preloader');
         for (let i = 0; i < 4; i++) {
