@@ -29,7 +29,7 @@ class ScoreboardView extends ViewInterface {
      * @return {ScoreboardView} The current object instance.
      */
     render(params = {}) {
-        super.render(params);
+        super.render(Object.assign({}, params, {sharedData: sharedData.data}));
         const preloader = new CubicPreloader();
 
         if (Object.keys(params).length === 0 && params.constructor === Object) {
@@ -41,7 +41,6 @@ class ScoreboardView extends ViewInterface {
             return this;
         }
         preloader.removePreloader();
-        params.sharedData = sharedData.data;
         this.init();
         return this;
     }
