@@ -14,22 +14,6 @@ class BackgroundAnimation {
     }
 
     /**
-     * to bus emit createLines
-     */
-    addLines() {
-        document.addEventListener('click', this.create);
-        window.requestAnimationFrame(() => this.createElementOnTimer());
-    }
-
-    /**
-     * to bus emit removeLines
-     */
-    removeLines() {
-        document.removeEventListener('click', this.create);
-        console.log(window.cancelAnimationFrame(this.animation));
-    }
-
-    /**
      * create line animation random color
      * @param position - position to create line
      */
@@ -59,13 +43,32 @@ class BackgroundAnimation {
      * callback for request animation frame. To create line after random time
      */
     createElementOnTimer() {
-        setTimeout(() => {
+        this.time = setTimeout(() => {
             const parentEl = document.getElementsByClassName('js-application')[0];
             const position = this.random(0, parentEl.offsetWidth);
             this.createELement(position);
             this.animation = window.requestAnimationFrame(() => this.createElementOnTimer());
         }, this.random(0, 5000));
     }
+
+
+    /**
+     * to bus emit createLines
+     */
+    addLines() {
+        document.addEventListener('click', this.create);
+        this.animation = window.requestAnimationFrame(() => this.createElementOnTimer());
+    }
+
+    /**
+     * to bus emit removeLines
+     */
+    removeLines() {
+        document.removeEventListener('click', this.create);
+        clearTimeout(this.time);
+        window.cancelAnimationFrame(this.animation);
+    }
+
 }
 
 const backgroundAnimationSingleton = new BackgroundAnimation();

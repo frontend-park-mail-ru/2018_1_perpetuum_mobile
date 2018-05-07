@@ -2,6 +2,8 @@ import {ViewInterface} from '../ViewInterface.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
+import {sharedData} from '../../Modules/sharedData.js';
+import {bus} from '../../Modules/bus.js';
 
 class OnlineGameView extends ViewInterface {
     constructor() {
@@ -9,96 +11,98 @@ class OnlineGameView extends ViewInterface {
         this.popup = new GamePopup();
     }
 
-    /**
-     * Render free blocks on field
-     * @param {Number} sizeCell - size of one block
-     */
+
+    startGame(params) {
+        this.params = params;
+        this.setOppenent(this.params.opponent);
+        this.drawField();
+        window.addEventListener('resize', () => {
+            const free = this.params.map.pool;
+            const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, free.length);
+            this.params.map.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY));
+            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementFixed));
+        });
+
+        document.ontouchstart = evt => this.onStartEvent(evt);
+        document.onmousedown = evt => this.onStartEvent(evt);
+    }
+
+    render(params = {}) {
+        bus.emit('removeLines');
+        super.render(params);
+        return this;
+    }
+
     drawFree(sizeCell) {
-        const free = this.params.cells.filter(v => v.fixed);
-        free.forEach((v, i) => {
-            const colourFree = document.createElement('div');
-            Cell.setPropertyFree(colourFree, this.elementFixed, v.colour, sizeCell, i, free.length);
-            this.elementFixed.appendChild(colourFree);
+        this.colourFree = [];
+        this.params.map.pool.forEach((v, i, all) => {
+            this.colourFree[i] = document.createElement('div');
+            Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, all.length);
+            this.elementFixed.appendChild(this.colourFree[i]);
         });
     }
 
-    /**
-     * Render field with empty and fill blocks
-     * @param {Number} sizeCell - size of one block
-     */
     drawUnfixed(sizeCell) {
-        this.params.cells.forEach(v => {
-            const cell = document.createElement('div');
-            Cell.setPropertyFixed(cell, this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
-            this.elementUnfixed.appendChild(cell);
+        this.cell = [];
+        this.params.map.cells.forEach((v, i) => {
+            this.cell[i] = document.createElement('div');
+            v.fixed = !(v.colour);
+            Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY);
+            this.elementUnfixed.appendChild(this.cell[i]);
         });
     }
 
-    /**
-     * Render all game scene
-     */
     drawField() {
         this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const count = this.params.cells.filter(v => v.fixed).length;
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
+        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, this.params.map.pool.length);
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
 
-    startGame() {
-        console.log('start Game');
-        document.ontouchstart = evt => {
-            this.onStartEvent(evt);
-        };
 
 
-        document.onmousedown = evt => {
-            this.onStartEvent(evt);
-        };
-    }
+    setOppenent(params) {
+        const me = document.getElementsByClassName('js-me')[0];
+        const opponent  = document.getElementsByClassName('js-opponent')[0];
 
+        const myName = me.getElementsByClassName('js-name')[0];
+        const myImage = me.getElementsByClassName('js-image')[0];
+        this.myScore = me.getElementsByClassName('js-rating')[0];
 
-    /**
-     *
-     * @returns {GameView} - The current object instance.
-     */
-    destroy() {
-        this.el.innerHTML = '';
+        myName.innerHTML = sharedData.data.currentUser.login;
+        myImage.src = sharedData.data.currentUser.image;
+        this.myScore.innerHTML = '0';
+
+        const opponentName = opponent.getElementsByClassName('js-name')[0];
+        const opponentImage = opponent.getElementsByClassName('js-image')[0];
+        this.opponentScore = opponent.getElementsByClassName('js-rating')[0];
+
+        opponentName.innerHTML = params.nickname;
+        opponentImage.src = params.image;
+        this.opponentScore.innerHTML = '0';
         return this;
     }
 
-    /**
-     * this method do some magic with current cell in touchstart or mousedown event
-     * @param evt - event (touchstart || mousedown)
-     */
     onStartEvent(evt) {
-        const allocated = document.getElementsByClassName('js-empty-cell');
         const cell = evt.target;
+
         if (cell.className.indexOf('js-fixed') === -1) return;
 
+        const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
+
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
         const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
 
-        const shiftX = X - cell.getBoundingClientRect().left + pageXOffset;
-        const shiftY = Y - cell.getBoundingClientRect().top + pageYOffset;
-
+        const shiftX = X - cell.getBoundingClientRect().left;
+        const shiftY = Y - cell.getBoundingClientRect().top;
         this.elementUnfixed.appendChild(cell);
 
-        document.onmousemove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-        document.ontouchmove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-
-        cell.onmouseup = () => {
-            this.onUpEvent(cell, allocated);
-        };
-        cell.ontouchend = () => {
-            this.onUpEvent(cell, allocated);
-        };
+        document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
+        document.ontouchmove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
+        cell.onmouseup = () => this.onUpEvent(cell, allocated);
+        cell.ontouchend = () => this.onUpEvent(cell, allocated);
         cell.ondragstart = () => false;
     }
 
@@ -115,14 +119,12 @@ class OnlineGameView extends ViewInterface {
         cell.hidden = true;
         const bottomElement = document.elementFromPoint(X, Y);
         if (bottomElement) {
-            (bottomElement.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
+            cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
             Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
             if (cell.canDrag) {
-                cell.currentY = getComputedStyle(bottomElement).top;
-                cell.currentX = getComputedStyle(bottomElement).left;
-                cell.x = bottomElement.x;
-                cell.y = bottomElement.y;
+                [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
+                [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
             }
         }
     }
@@ -135,13 +137,18 @@ class OnlineGameView extends ViewInterface {
     onUpEvent(cell, allocated) {
         [...allocated].forEach(v => v.style.opacity = '0.4');
         document.onmousemove = null;
+        cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
+            cell.isBottom = true;
         } else {
             Cell.putOnPosition(cell, cell.currentX, cell.currentY);
-            this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
+            cell.isBottom = false;
+            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
+            this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }
+
 
 }
 

@@ -6,6 +6,8 @@ import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './levelView.tmpl.xml';
+import {bus} from '../../Modules/bus.js';
+
 
 
 /**
@@ -27,6 +29,7 @@ class LevelView extends ViewInterface {
      * @return {LevelView} The current object instance.
      */
     render(params = {}) {
+        bus.emit('createLines');
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.getLevels();
             return this;
@@ -57,6 +60,12 @@ class LevelView extends ViewInterface {
         rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
 
         this.colour = new Colour('colors');
+    }
+
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 
 }

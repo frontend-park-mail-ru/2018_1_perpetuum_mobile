@@ -209,10 +209,8 @@ class GameView extends ViewInterface {
             cell.hidden = false;
             Cell.putOnPosition(cell, `${keyEvt.X - shiftX}px`, `${keyEvt.Y - shiftY}px`);
             if (cell.canDrag) {
-                cell.currentY = getComputedStyle(bottomElement).top;
-                cell.currentX = getComputedStyle(bottomElement).left;
-                cell.x = bottomElement.x;
-                cell.y = bottomElement.y;
+                [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
+                [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
             }
         }
     }
@@ -233,8 +231,7 @@ class GameView extends ViewInterface {
         } else {
             Cell.putOnPosition(cell, cell.currentX, cell.currentY);
             cell.isBottom = false;
-            cell.bottomX = cell.x;
-            cell.bottomY = cell.y;
+            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
             this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }

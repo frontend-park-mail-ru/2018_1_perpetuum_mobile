@@ -36,7 +36,7 @@ class OfflineGameController {
         this.levelView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.initLevelsPaginator();
-        window.addEventListener('online', this.initLevelsPaginator.bind(this)); // when online all levels are available
+        window.addEventListener('online',  this.initLevelsPaginator.bind(this)); // when online all levels are available
         window.addEventListener('offline', this.initLevelsPaginator.bind(this)); // when offline only downloaded levels are available
 
         bus.on('authorized', this.sendGameProgress.bind(this));

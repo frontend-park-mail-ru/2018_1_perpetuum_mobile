@@ -25,7 +25,7 @@ class OnlineGameModel {
      * @param {function(payload object)} func - The callback function.
      */
     unsubscribe(eventName, func) {
-        ws.off(eventName, func)
+        ws.off(eventName, func);
     }
 
     /**

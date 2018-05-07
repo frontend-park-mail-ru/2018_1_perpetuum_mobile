@@ -6,6 +6,7 @@
 import {ViewInterface} from '../ViewInterface.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './aboutView.tmpl.xml';
+import {bus} from '../../Modules/bus.js';
 
 /**
  * About view
@@ -26,6 +27,7 @@ class AboutView extends ViewInterface {
      */
     render(params = {}) {
         super.render(params);
+        bus.emit('createLines');
         this.init();
         return this;
     }
@@ -35,6 +37,17 @@ class AboutView extends ViewInterface {
      */
     init() {
         this.colour = new Colour('colors');
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html from view elementUnfixed.
+     * @return {AboutView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 }
 
