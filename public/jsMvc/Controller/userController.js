@@ -20,6 +20,7 @@ import {bus} from '../Modules/bus.js';
 import {baseUrl} from '../Modules/HttpModule.js';
 
 import {sharedData} from '../Modules/sharedData.js';
+import {API} from './API/api.js';
 
 
 /**
@@ -50,6 +51,8 @@ class UserController {
         this.profileView.onLogout = this.logout.bind(this);
 
         this.menuView.onLogout = this.logout.bind(this);
+
+        this.createApi();
     }
 
     /**
@@ -185,6 +188,7 @@ class UserController {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');
+                    bus.emit('authorized');
                 });
             }
         ).catch(
@@ -237,7 +241,6 @@ class UserController {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');
-                    bus.emit('authorized');
                 });
             }
         ).catch(
@@ -269,6 +272,13 @@ class UserController {
                 sharedData.del('currentUser');
             }
         );
+    }
+
+    /**
+     * Create user api for all other controllers to use.
+     */
+    createApi() {
+        bus.on(API.LOGOUT, this.logout.bind(this));
     }
 }
 
