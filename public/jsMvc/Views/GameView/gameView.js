@@ -7,6 +7,7 @@ import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
+import {keyHandler} from '../../Modules/game/keyHandler.js';
 
 /**
  * Game view
@@ -19,6 +20,7 @@ class GameView extends ViewInterface {
     constructor() {
         super(template);
         this._popup = new GamePopup();
+        this.keyHandler = keyHandler;
     }
 
     /**
@@ -89,6 +91,7 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+        this.keyHandler.start();
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
         this.star = [];
@@ -103,8 +106,7 @@ class GameView extends ViewInterface {
 
         window.requestAnimationFrame(() => this.timer());
 
-        document.ontouchstart = evt => this.onStartEvent(evt);
-        document.onmousedown = evt => this.onStartEvent(evt);
+        this.keyHandler.addKeyListener('startDrag', this.onStartEvent.bind(this));
 
         window.addEventListener('resize', () => {
             const free = this.params.cells.filter(v => v.fixed);
@@ -126,7 +128,7 @@ class GameView extends ViewInterface {
     }
 
     /**
-     * callback for requesAnimationFrame
+     * callback for requestAnimationFrame
      * rerender timer on game scene
      */
     timer() {
@@ -149,7 +151,7 @@ class GameView extends ViewInterface {
     }
 
     /**
-     * callback for model in case of win
+     * Callback for model in case of win.
      */
     gameOnWin() {
         const score = document.getElementsByClassName('js-score')[0];
@@ -165,52 +167,47 @@ class GameView extends ViewInterface {
      * @returns {GameView} - The current object instance.
      */
     destroy() {
-        this.el.innerHTML = '';
+        this.keyHandler.end();
+        super.destroy();
         return this;
     }
 
     /**
-     * this method do some magic with current cell in touchstart or mousedown event
-     * @param evt - event (touchstart || mousedown)
+     * The method do some magic with current cell in 'startDrag' keyHandler event.
+     * @param {Object} keyEvt - The event emitted by keyHandler.
      */
-    onStartEvent(evt) {
-        const cell = evt.target;
+    onStartEvent(keyEvt) {
+        const cell = keyEvt.evt.target;
 
         if (cell.className.indexOf('js-fixed') === -1) return;
 
         const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
 
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
-
-        const shiftX = X - cell.getBoundingClientRect().left;
-        const shiftY = Y - cell.getBoundingClientRect().top;
+        const shiftX = keyEvt.X - cell.getBoundingClientRect().left;
+        const shiftY = keyEvt.Y - cell.getBoundingClientRect().top;
         this.elementUnfixed.appendChild(cell);
 
-        document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
-        document.ontouchmove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
-        cell.onmouseup = () => this.onUpEvent(cell, allocated);
-        cell.ontouchend = () => this.onUpEvent(cell, allocated);
+        const onMoveFunc = this.onMoveEvent.bind(this, cell, shiftX, shiftY);
+        this.keyHandler.addKeyListener('drag', onMoveFunc);
+        this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
     }
 
     /**
-     * this method do some magic with current cell in touchmove or mousemove event
-     * @param evt(Event) - event (touchmove || mousemove)
-     * @param cell - current cell
-     * @param shiftX(number) - shift on X relatively to center of cell
-     * @param shiftY(number) - shift on Y relatively to center of cell
+     * The method do some magic with current cell in 'drag' kayHandler event
+     * @param {Object} cell - current cell
+     * @param {number} shiftX - shift on X relatively to center of cell
+     * @param {number} shiftY - shift on Y relatively to center of cell
+     * @param {Object} keyEvt - The event emitted by keyHandler.
      */
-    onMoveEvent(evt, cell, shiftX, shiftY) {
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
+    onMoveEvent(cell, shiftX, shiftY, keyEvt) {
         cell.hidden = true;
-        const bottomElement = document.elementFromPoint(X, Y);
+        const bottomElement = document.elementFromPoint(keyEvt.X, keyEvt.Y);
         if (bottomElement) {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
-            Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
+            Cell.putOnPosition(cell, `${keyEvt.X - shiftX}px`, `${keyEvt.Y - shiftY}px`);
             if (cell.canDrag) {
                 cell.currentY = getComputedStyle(bottomElement).top;
                 cell.currentX = getComputedStyle(bottomElement).left;
@@ -221,13 +218,14 @@ class GameView extends ViewInterface {
     }
 
     /**
-     * this method do some magic with current cell in touchend or mouseup event
-     * @param cell - current cell
-     * @param allocated(HTMLCollection) - array of empty cell to change opacity
+     * The method do some magic with current cell in 'endDrag' keyHandler event.
+     * @param cell - The current cell.
+     * @param {HTMLCollection} allocated - The array of empty cell to change opacity.
+     * @param moveFunc - The function for moving the cubic.
      */
-    onUpEvent(cell, allocated) {
+    onUpEvent(cell, allocated, moveFunc) {
         [...allocated].forEach(v => v.style.opacity = '0.4');
-        document.onmousemove = null;
+        this.keyHandler.removeKeyListener('drag', moveFunc);
         cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
