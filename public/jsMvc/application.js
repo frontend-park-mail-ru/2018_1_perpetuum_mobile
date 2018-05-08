@@ -50,7 +50,7 @@ window.addEventListener('contextmenu', evt => {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const bA = backgroundAnimation;
-    enableSW();
+    //enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 

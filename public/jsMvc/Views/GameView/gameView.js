@@ -7,6 +7,7 @@ import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
+import debounce from '../../Modules/debounce.js';
 
 /**
  * Game view
@@ -106,12 +107,13 @@ class GameView extends ViewInterface {
         document.ontouchstart = evt => this.onStartEvent(evt);
         document.onmousedown = evt => this.onStartEvent(evt);
 
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', debounce(() => {
+            console.log('wkekk');
             const free = this.params.cells.filter(v => v.fixed);
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
             this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
             free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY, i, free.length, this.elementFixed));
-        });
+        }, 200));
     }
 
     /**

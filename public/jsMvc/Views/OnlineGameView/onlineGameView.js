@@ -4,6 +4,7 @@ import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
+import debounce from '../../Modules/debounce.js';
 
 class OnlineGameView extends ViewInterface {
     constructor() {
@@ -16,12 +17,12 @@ class OnlineGameView extends ViewInterface {
         this.params = params;
         this.setOppenent(this.params.opponent);
         this.drawField();
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', debounce(() => {
             const free = this.params.map.pool;
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, free.length);
             this.params.map.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY));
             free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementFixed));
-        });
+        }, 200));
 
         document.ontouchstart = evt => this.onStartEvent(evt);
         document.onmousedown = evt => this.onStartEvent(evt);
@@ -30,6 +31,37 @@ class OnlineGameView extends ViewInterface {
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
+        this.startGame({
+            map: {
+                countX: 3,
+                countY: 1,
+                cells: [
+                    {
+                        x: 0,
+                        y: 0,
+                        colour: '#730d13'
+                    },
+                    {
+                        x: 1,
+                        y: 0
+                    },
+                    {
+                        x: 2,
+                        y: 0,
+                        colour: '#dcd3e0'
+                    }
+                ],
+                pool: [
+                    {
+                        colour: '#f05a69'
+                    }
+                ]
+            },
+            opponent: {
+                nickname: 'Warprobot228',
+                image: 'no_avatar.png'
+            }
+        });
         return this;
     }
 
