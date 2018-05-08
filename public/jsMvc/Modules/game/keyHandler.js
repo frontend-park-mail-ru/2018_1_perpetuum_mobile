@@ -13,7 +13,7 @@ function getXYTouch(evt) {
         evt,
         X: evt.targetTouches[0].pageX,
         Y: evt.targetTouches[0].pageY
-    }
+    };
 }
 
 /**
@@ -26,7 +26,7 @@ function getXYMouse(evt) {
         evt,
         X: evt.pageX,
         Y: evt.pageY
-    }
+    };
 }
 
 /**
@@ -96,11 +96,7 @@ class KeyHandler {
      * @param {function} listener - The function to unsubscribe from event.
      * @return {KeyHandler} The same Bus instance (itself). */
     removeKeyListener(event, listener) {
-        if (listener) {
-            this.listeners[event] = (this.listeners[event] || []).filter(l => l !== listener);
-        } else {
-            this.listeners[event] = [];
-        }
+        this.listeners[event] = (listener) ? (this.listeners[event] || []).filter(l => l !== listener) : [];
         return this;
     }
 
@@ -134,8 +130,7 @@ class KeyHandler {
      */
     end() {
         Object.keys(this.handlers).forEach(eventName => {
-            this.handlers[eventName].forEach((emitter) =>
-            document.removeEventListener(eventName, emitter));
+            this.handlers[eventName].forEach((emitter) => document.removeEventListener(eventName, emitter));
         });
         this.handlers = {};
         this.listeners = {};

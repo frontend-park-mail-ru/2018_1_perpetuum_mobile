@@ -107,10 +107,9 @@ class GameView extends ViewInterface {
 
         window.requestAnimationFrame(() => this.timer());
 
-        this.keyHandler.addKeyListener('startDrag', this.onStartEvent.bind(this));
+        this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
 
         window.addEventListener('resize', debounce(() => {
-            console.log('wkekk');
             const free = this.params.cells.filter(v => v.fixed);
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
             this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
