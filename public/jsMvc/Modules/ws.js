@@ -18,10 +18,13 @@ class Ws {
      */
     constructor() {
         this.listeners = {};
-        const address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
-        this.ws = new WebSocket(address);
+        this.address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
+    }
+
+    connect() {
+        this.ws = new WebSocket(this.address);
         this.ws.onopen = (event) => {
-            console.log(`WebSocket on address ${address} opened`);
+            console.log(`WebSocket on address ${this.address} opened`);
             console.dir(this.ws);
 
             this.ws.onmessage = this.handleMessage.bind(this);
@@ -30,6 +33,13 @@ class Ws {
                 console.log('WebSocket closed');
             };
         };
+        return this;
+    }
+
+    disconnect() {
+        this.ws.close();
+        this.ws = null;
+        return this;
     }
 
     /**

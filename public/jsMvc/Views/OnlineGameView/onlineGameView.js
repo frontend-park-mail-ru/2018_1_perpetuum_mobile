@@ -4,6 +4,7 @@ import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
+import {ws} from '../../Modules/ws.js';
 import debounce from '../../Modules/debounce.js';
 
 class OnlineGameView extends ViewInterface {
@@ -12,6 +13,17 @@ class OnlineGameView extends ViewInterface {
         this.popup = new GamePopup();
     }
 
+    create(attrs) {
+        ws.connect();
+        super.create(attrs);
+        return this;
+    }
+
+    destroy() {
+        ws.disconnect();
+        super.destroy();
+        return this;
+    }
 
     startGame(params) {
         this.params = params;
