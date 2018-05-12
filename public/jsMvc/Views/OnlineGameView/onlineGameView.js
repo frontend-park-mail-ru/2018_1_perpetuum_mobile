@@ -4,25 +4,12 @@ import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
-import {ws} from '../../Modules/ws.js';
 import debounce from '../../Modules/debounce.js';
 
 class OnlineGameView extends ViewInterface {
     constructor() {
         super(template);
         this.popup = new GamePopup();
-    }
-
-    create(attrs) {
-        ws.connect();
-        super.create(attrs);
-        return this;
-    }
-
-    destroy() {
-        ws.disconnect();
-        super.destroy();
-        return this;
     }
 
     startGame(params) {
@@ -43,7 +30,7 @@ class OnlineGameView extends ViewInterface {
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
-        this.startGame({
+        /*this.startGame({
             map: {
                 countX: 3,
                 countY: 1,
@@ -73,7 +60,14 @@ class OnlineGameView extends ViewInterface {
                 nickname: 'Warprobot228',
                 image: 'no_avatar.png'
             }
-        });
+        });*/
+        this.onReady();
+        return this;
+    }
+
+    destroy() {
+        super.destroy();
+        this.onClose();
         return this;
     }
 
@@ -192,7 +186,6 @@ class OnlineGameView extends ViewInterface {
             this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }
-
 
 }
 

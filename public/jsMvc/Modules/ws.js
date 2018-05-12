@@ -51,6 +51,7 @@ class Ws {
         const messageText = event.data;
 
         try {
+            console.log(messageText);
             const message = JSON.parse(messageText);
             if (message.type in SERVER_EVENTS) {
                 this.emit(message.type, message.payload);
