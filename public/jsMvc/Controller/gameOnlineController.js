@@ -6,7 +6,6 @@
 import {SERVER_EVENTS} from '../Modules/game/serverEvents.js';
 import {OnlineGameModel} from '../Models/game/onlineGameModel.js';
 import {OnlineGameView} from '../Views/OnlineGameView/onlineGameView.js';
-import {ws} from '../Modules/ws.js';
 
 /**
  * Class implements online game strategy (multiPlayer) controller.
@@ -99,6 +98,14 @@ class OnlineGameController {
      */
     onSetCubic(payload) {
         this.gameModel.setCubic(payload);
+
+        // const lol = {
+        //     colour: '#f05a69',
+        //     your: 13,
+        //     opponent: 14
+        // };
+        // setTimeout(() => this.onCubicSet(lol), 500);
+        // setTimeout(() => this.onCubicDrop(lol), 2000);
     }
 
     /**
