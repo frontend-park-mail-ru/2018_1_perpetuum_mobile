@@ -21,7 +21,7 @@ class Ws {
         this.address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
     }
 
-    connect() {
+    connect(onOpenFunc) {
         this.ws = new WebSocket(this.address);
         this.ws.onopen = (event) => {
             console.log(`WebSocket on address ${this.address} opened`);
@@ -32,6 +32,7 @@ class Ws {
             this.ws.onclose = () => {
                 console.log('WebSocket closed');
             };
+            onOpenFunc();
         };
         return this;
     }

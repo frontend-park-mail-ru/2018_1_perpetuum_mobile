@@ -88,7 +88,6 @@ class OnlineGameController {
      * Wire the signals from server and send to the server info that the player is searching for an opponent.
      */
     onReady() {
-        ws.connect();
         this.initGame();
         this.gameModel.ready();
     }
@@ -106,7 +105,6 @@ class OnlineGameController {
      * Send to the server info that the game was closed and destruct the wires connects server events with handlers.
      */
     onClose() {
-        ws.disconnect();
         this.gameModel.close();
         this.closeGame();
     }

@@ -41,7 +41,7 @@ class OnlineGameModel {
      * Send to the server info that the player is ready to play.
      */
     ready() {
-        ws.send(CLIENT_EVENTS.READY);
+        ws.connect(() => ws.send(CLIENT_EVENTS.READY));
     }
 
     /**
@@ -49,6 +49,7 @@ class OnlineGameModel {
      */
     close() {
         ws.send(CLIENT_EVENTS.CLOSE);
+        ws.disconnect();
     }
 }
 
