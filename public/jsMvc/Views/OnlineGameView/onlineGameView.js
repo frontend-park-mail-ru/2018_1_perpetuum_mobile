@@ -12,7 +12,6 @@ class OnlineGameView extends ViewInterface {
         this.popup = new GamePopup();
     }
 
-
     startGame(params) {
         this.params = params;
         this.setOppenent(this.params.opponent);
@@ -31,7 +30,7 @@ class OnlineGameView extends ViewInterface {
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
-        this.startGame({
+        /*this.startGame({
             map: {
                 countX: 3,
                 countY: 1,
@@ -61,7 +60,14 @@ class OnlineGameView extends ViewInterface {
                 nickname: 'Warprobot228',
                 image: 'no_avatar.png'
             }
-        });
+        });*/
+        this.onReady();
+        return this;
+    }
+
+    destroy() {
+        super.destroy();
+        this.onClose();
         return this;
     }
 

@@ -6,6 +6,7 @@
 import {SERVER_EVENTS} from '../Modules/game/serverEvents.js';
 import {OnlineGameModel} from '../Models/game/onlineGameModel.js';
 import {OnlineGameView} from '../Views/OnlineGameView/onlineGameView.js';
+import {ws} from '../Modules/ws.js';
 
 /**
  * Class implements online game strategy (multiPlayer) controller.

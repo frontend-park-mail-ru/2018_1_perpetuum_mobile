@@ -14,14 +14,22 @@ import {baseUrl} from './HttpModule.js';
 class Ws {
 
     /**
-     * Create the class instance, connect to the server.
+     * Create the class instance.
      */
     constructor() {
         this.listeners = {};
-        const address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
-        this.ws = new WebSocket(address);
+        this.address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
+    }
+
+    /**
+     * Open ws connection to server.
+     * @param {function} onOpenFunc - The callback for onOpen event.
+     * @return {Ws} The same class instance.
+     */
+    connect(onOpenFunc) {
+        this.ws = new WebSocket(this.address);
         this.ws.onopen = (event) => {
-            console.log(`WebSocket on address ${address} opened`);
+            console.log(`WebSocket on address ${this.address} opened`);
             console.dir(this.ws);
 
             this.ws.onmessage = this.handleMessage.bind(this);
@@ -29,7 +37,19 @@ class Ws {
             this.ws.onclose = () => {
                 console.log('WebSocket closed');
             };
+            onOpenFunc();
         };
+        return this;
+    }
+
+    /**
+     * Close ws connection to server.
+     * @return {Ws} The same class instance.
+     */
+    disconnect() {
+        this.ws.close();
+        this.ws = null;
+        return this;
     }
 
     /**
@@ -41,6 +61,7 @@ class Ws {
         const messageText = event.data;
 
         try {
+            console.log(messageText);
             const message = JSON.parse(messageText);
             if (message.type in SERVER_EVENTS) {
                 this.emit(message.type, message.payload);
