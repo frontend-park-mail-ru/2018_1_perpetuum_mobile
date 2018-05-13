@@ -14,13 +14,18 @@ import {baseUrl} from './HttpModule.js';
 class Ws {
 
     /**
-     * Create the class instance, connect to the server.
+     * Create the class instance.
      */
     constructor() {
         this.listeners = {};
         this.address = `${window.location.protocol.replace('http', 'ws')}${baseUrl}/ws`;
     }
 
+    /**
+     * Open ws connection to server.
+     * @param {function} onOpenFunc - The callback for onOpen event.
+     * @return {Ws} The same class instance.
+     */
     connect(onOpenFunc) {
         this.ws = new WebSocket(this.address);
         this.ws.onopen = (event) => {
@@ -37,6 +42,10 @@ class Ws {
         return this;
     }
 
+    /**
+     * Close ws connection to server.
+     * @return {Ws} The same class instance.
+     */
     disconnect() {
         this.ws.close();
         this.ws = null;
