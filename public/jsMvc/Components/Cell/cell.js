@@ -18,6 +18,7 @@ class Cell {
         [cell.style.width, cell.style.height]  = [`${size}px`, `${size}px`];
         [cell.wrongX, cell.wrongY] = [`${X}px`, `${Y}px`];
         [cell.style.left, cell.style.top] = [`${X}px`, `${Y}px`];
+        cell.fixedCubic = false;
     }
 
     /**

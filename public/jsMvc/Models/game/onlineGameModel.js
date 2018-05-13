@@ -52,4 +52,4 @@ class OnlineGameModel {
     }
 }
 
-export {OnlineGameModel}
+export {OnlineGameModel};

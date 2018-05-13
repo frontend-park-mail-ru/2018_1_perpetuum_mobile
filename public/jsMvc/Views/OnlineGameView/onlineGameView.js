@@ -92,8 +92,6 @@ class OnlineGameView extends ViewInterface {
         this.drawFree(sizeCell);
     }
 
-
-
     setOppenent(params) {
         const me = document.getElementsByClassName('js-me')[0];
         const opponent  = document.getElementsByClassName('js-opponent')[0];
@@ -119,7 +117,7 @@ class OnlineGameView extends ViewInterface {
     onStartEvent(evt) {
         const cell = evt.target;
 
-        if (cell.className.indexOf('js-fixed') === -1) return;
+        if ((cell.className.indexOf('js-fixed') === -1) || cell.fixedCubic) return;
 
         const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
@@ -157,6 +155,8 @@ class OnlineGameView extends ViewInterface {
             if (cell.canDrag) {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
+                bottomElement.classList.add('game-blendocu__empty-cell-hover');
+                bottomElement.addEventListener('transitionend', () => bottomElement.classList.remove('game-blendocu__empty-cell-hover'), false);
             }
         }
     }
@@ -174,14 +174,40 @@ class OnlineGameView extends ViewInterface {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
         } else {
-            Cell.putOnPosition(cell, cell.currentX, cell.currentY);
-            cell.isBottom = false;
-            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
             this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
+            this.lastSettetCubic = cell;
         }
     }
 
+    cubicSet(payload) {
+        this.myScore.innerHTML = `${payload.your}`;
+        this.opponentScore.innerHTML = `${payload.opponent}`;
+
+        const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
+        if (cell.length !== 0) {
+            Cell.putOnPosition(cell, cell.currentX, cell.currentY);
+            [cell.isBottom, cell.fixedCubic] = [false, true];
+            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
+        } else {
+            Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
+            this.lastSettetCubic.isBottom = true;
+        }
+    }
+
+    cubicDrop(payload) {
+        this.myScore.innerHTML = `${payload.your}`;
+        this.opponentScore.innerHTML = `${payload.opponent}`;
+
+        const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
+        if (cell.length !== 0) {
+            Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
+            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
+        } //else {
+        //     Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
+        //     this.lastSettetCubic.isBottom = true;
+        // }
+    }
 
 }
 
-export {OnlineGameView}
+export {OnlineGameView};

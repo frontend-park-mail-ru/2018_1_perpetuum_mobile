@@ -83,6 +83,7 @@ class GameView extends ViewInterface {
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
         const count = this.params.cells.filter(v => v.fixed).length;
         const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
+        this.timeEl = this.el.getElementsByClassName('js-timer')[0];
         this.drawUnfixed(sizeCell);
         this.drawFree(sizeCell);
     }
@@ -133,9 +134,7 @@ class GameView extends ViewInterface {
      * rerender timer on game scene
      */
     timer() {
-        const time = this.el.getElementsByClassName('js-timer')[0];
-
-        if (!!time && !!this.rating) {
+        if (!!this.timeEl && !!this.rating) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
 
             if (~~(this.timeNowSec/1000) > this.params.stars3) {
@@ -146,7 +145,7 @@ class GameView extends ViewInterface {
                 this.star[1].classList.remove('rating__one-star-good');
                 this.finalStars = 1;
             }
-            time.innerHTML = `${~~(this.timeNowSec/1000)}`;
+            this.timeEl.innerHTML = `${~~(this.timeNowSec/1000)}`;
             this.animation = window.requestAnimationFrame(() => this.timer());
         }
     }
@@ -212,6 +211,8 @@ class GameView extends ViewInterface {
             if (cell.canDrag) {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
+                bottomElement.classList.add('game-blendocu__empty-cell-hover');
+                bottomElement.addEventListener('transitionend', () => bottomElement.classList.remove('game-blendocu__empty-cell-hover'), false);
             }
         }
     }

@@ -60,7 +60,7 @@ class OnlineGameController {
 
     /**
      * Fix the cubic in place the player set it. Also renew the scores.
-     * @param {{color: string, your: number, opponent: number}} payload The info about cubic to be set, new players scores.
+     * @param {{colour: string, your: number, opponent: number}} payload The info about cubic to be set, new players scores.
      */
     onCubicSet(payload) {
         this.gameView.cubicSet(payload);
@@ -68,7 +68,7 @@ class OnlineGameController {
 
     /**
      * Drop the cubic from the place the player set it to the pool.
-     * @param {{color: string}} payload The info about cubic to be dropped to the pool.
+     * @param {{colour: string}} payload The info about cubic to be dropped to the pool.
      */
     onCubicDrop(payload) {
         this.gameView.cubicDrop(payload);
