@@ -114,7 +114,7 @@ class OnlineGameView extends ViewInterface {
         const opponentImage = opponent.getElementsByClassName('js-image')[0];
         this.opponentScore = opponent.getElementsByClassName('js-rating')[0];
 
-        opponentName.innerHTML = params.nickname;
+        opponentName.innerHTML = params.login;
         opponentImage.src = params.image;
         this.opponentScore.innerHTML = '0';
         return this;

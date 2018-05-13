@@ -64,7 +64,7 @@ class Ws {
             console.log(messageText);
             const message = JSON.parse(messageText);
             if (message.type in SERVER_EVENTS) {
-                this.emit(message.type, message.payload);
+                this.emit(message.type, message);
             }
         } catch (err) {
             console.error('smth went wront in handleMessage: ', err);
