@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
-    <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
+        <a class="wrapper-block__row-back" href="/"> &lt; </a>
     <a class="wrapper-block__logo" href="/"> Blendocu </a>
     <div class="wrapper-block__main js-wrapper-block">
             <div class="wrapper-block__section-header">Profile</div>

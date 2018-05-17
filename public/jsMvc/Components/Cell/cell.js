@@ -66,6 +66,7 @@ class Cell {
             tick.classList.add('game-blendocu__cell-fixed', 'u1f400');
             cell.appendChild(tick);
             cell.style.background = v.colour;
+            [cell.x, cell.y] = [v.x, v.y];
         } else {
             cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
             [cell.x, cell.y] = [v.x, v.y];

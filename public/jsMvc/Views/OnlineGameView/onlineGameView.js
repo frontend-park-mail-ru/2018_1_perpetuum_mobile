@@ -1,19 +1,23 @@
 import {ViewInterface} from '../ViewInterface.js';
-import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
+import {OnlineGamePopup} from '../../Components/OnlineGamePopup/OnlineGamePopup.js';
 import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
 import debounce from '../../Modules/debounce.js';
+import {baseUrl} from '../../Modules/HttpModule.js';
 
 class OnlineGameView extends ViewInterface {
     constructor() {
         super(template);
-        this.popup = new GamePopup();
+        this.popup = new OnlineGamePopup();
     }
 
     startGame(params) {
+        this.popup.remove();
         this.params = params;
+        const score = document.getElementsByClassName('online-game__score')[0];
+        score.style.display = 'flex';
         this.setOppenent(this.params.opponent);
         this.drawField();
         window.addEventListener('resize', debounce(() => {
@@ -30,42 +34,17 @@ class OnlineGameView extends ViewInterface {
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
-        /*this.startGame({
-            map: {
-                countX: 3,
-                countY: 1,
-                cells: [
-                    {
-                        x: 0,
-                        y: 0,
-                        colour: '#730d13'
-                    },
-                    {
-                        x: 1,
-                        y: 0
-                    },
-                    {
-                        x: 2,
-                        y: 0,
-                        colour: '#dcd3e0'
-                    }
-                ],
-                pool: [
-                    {
-                        colour: '#f05a69'
-                    }
-                ]
-            },
-            opponent: {
-                nickname: 'Warprobot228',
-                image: 'no_avatar.png'
-            }
-        });*/
         this.onReady();
+        const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
+        if (popupEl) {
+            this.popup.renderTo(popupEl);
+            this.popup.render({login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
+        }
         return this;
     }
 
     destroy() {
+        this.keyHandler.end();
         super.destroy();
         this.onClose();
         return this;
@@ -115,7 +94,7 @@ class OnlineGameView extends ViewInterface {
         this.opponentScore = opponent.getElementsByClassName('js-rating')[0];
 
         opponentName.innerHTML = params.login;
-        opponentImage.src = params.image;
+        opponentImage.src = `${baseUrl}/files/${params.image}`;
         this.opponentScore.innerHTML = '0';
         return this;
     }
@@ -162,7 +141,11 @@ class OnlineGameView extends ViewInterface {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
                 bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', () => bottomElement.classList.remove('game-blendocu__empty-cell-hover'), false);
+                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove = bottomElement, 10), false);
+            } else {
+                if (this.canRemove) {
+                    this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+                }
             }
         }
     }
@@ -179,10 +162,11 @@ class OnlineGameView extends ViewInterface {
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
-        } else {
-            this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
-            this.lastSettetCubic = cell;
+            return;
         }
+        this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
+        this.lastSettedCubic = cell;
+
     }
 
     cubicSet(payload) {
@@ -190,14 +174,17 @@ class OnlineGameView extends ViewInterface {
         this.opponentScore.innerHTML = `${payload.opponent}`;
 
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
-        if (cell.length !== 0) {
-            Cell.putOnPosition(cell, cell.currentX, cell.currentY);
-            [cell.isBottom, cell.fixedCubic] = [false, true];
-            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
-        } else {
-            Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
-            this.lastSettetCubic.isBottom = true;
+        const position = this.cell.filter(v => v.x === payload.x && v.y === payload.y)[0];
+
+        if (!cell) {
+            Cell.putOnPosition(this.lastSettedCubic, this.lastSettedCubic.wrongX, this.lastSettedCubic.wrongY);
+            this.lastSettedCubic.isBottom = true;
+            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+            return;
         }
+        Cell.putOnPosition(cell, position.style.left, position.style.top);
+        [cell.isBottom, cell.fixedCubic] = [false, true];
+        [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
     }
 
     cubicDrop(payload) {
@@ -205,13 +192,17 @@ class OnlineGameView extends ViewInterface {
         this.opponentScore.innerHTML = `${payload.opponent}`;
 
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
-        if (cell.length !== 0) {
+        if (cell) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         } //else {
         //     Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
-        //     this.lastSettetCubic.isBottom = true;
+        //     this.lastSettedCubic.isBottom = true;
         // }
+    }
+
+    isAllowed() {
+        return !!sharedData.data.currentUser;
     }
 
 }

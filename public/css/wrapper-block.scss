@@ -103,7 +103,7 @@ body {
     opacity: 0.6;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 450px) {
     .wrapper-block {
         grid-template-columns: 0 100% 0;
         grid-template-rows: 20% 65% 15%;
@@ -116,7 +116,7 @@ body {
     .wrapper-block__logo {
         font-family: 'Orbitron-black', sans-serif;
         font-size: 19vmin;
-        margin-top: 5vh;
+        margin-top: 3vh;
     }
     .wrapper-block__change-color {
         width: 13vmin;

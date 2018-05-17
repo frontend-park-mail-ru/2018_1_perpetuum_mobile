@@ -1,0 +1,22 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="popup__substrate">
+        <div class="popup popup__online-game-popup">
+            <div class="popup__title">Waiting for opponent</div>
+
+            <div class="popup__inner-online">
+                <div class="popup__online-member">
+                    <img class="popup__online-image" src="{params.image}"/>
+                    <div class="popup__online-login"><fest:value>params.login</fest:value></div>
+                </div>
+                <div class="popup__online-VS">VS</div>
+                <div class="popup__online-member popup__online-image-opponent ">
+                    <div class="popup__online-image js-opponent-image"/>
+                    <div class="popup__online-login js-opponent-login">...</div>
+                </div>
+            </div>
+            <div class="popup__online-rules">
+                <div class="popup__online-rules-animated  js-rules">Walk the dog, wife and child</div>
+            </div>
+        </div>
+    </div>
+</fest:template>

@@ -16,6 +16,15 @@
     left: 25%;
 }
 
+.popup__substrate {
+    background-color: rgba(1,1,1,0.8);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 @keyframes forward {
     0% {
         transform: scale(0.01, 0.01);
@@ -36,7 +45,7 @@
 }
 
 .popup__title {
-    font-size: 5vh;
+    font-size: 6vh;
     color: #ffffff;
     top: 2vh;
     margin: 1vh auto 4vh auto;
@@ -65,6 +74,14 @@
     left: 25vmax;
     z-index: 1000000;
     height: 80%;
+}
+
+.popup__online-game-popup {
+    top: 10vmin;
+    left: 15vmax;
+    z-index: 1000000;
+    height: 80%;
+    width: 70vw;
 }
 
 .popup__win {
@@ -99,8 +116,108 @@
     font-size: 4vmin;
 }
 
+.popup__inner-online {
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
-@media screen and (max-width: 980px) {
+.popup__online-VS {
+    font-size: 15vmin;
+    align-self: center;
+    color: var(--baseColor);
+}
+
+.popup__online-image {
+    width: 15vmin;
+    height: 15vmin;
+    margin: 0 5vmin 2vmin 5vmin;
+    border-radius: 5px;
+    border: var(--greyColor) 0.5vmin solid;
+    background: rgb(132, 66, 91);
+}
+
+.popup__online-image-opponent {
+    animation: opponent 2s infinite;
+}
+
+@keyframes opponent {
+    0% {
+        margin-top: 15vmin;
+        opacity: 0;
+    }
+    40% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    90% {
+        margin-top: -15vmin;
+        opacity: 0;
+    }
+    100% {
+        margin-top: -15vmin;
+        opacity: 0;
+    }
+}
+
+.popup__online-rules{
+    font-size: 3vmin;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.popup__online-rules-animated {
+    text-align: center;
+    animation: tips 6s infinite;
+}
+
+@keyframes tips {
+    0% {
+        margin-top: 3vmin;
+        opacity: 0;
+    }
+    10% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    90% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    100% {
+        margin-top: -3vmin;
+        opacity: 0;
+    }
+}
+
+
+.popup__online-member {
+    align-self: center;
+}
+
+.popup__online-login {
+    font-size: 3vmin;
+}
+
+.popup__online-stop-searching {
+    font-size: 4vmin;
+    margin-top: 13%;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--inputColor);
+    text-decoration: none;
+    transition: all 0.3s linear;
+    border-bottom: transparent 3px solid;
+}
+
+.popup__online-stop-searching:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+
+@media screen and (max-width: 650px) {
     .popup {
         left: 20vmax;
         width: 60%;

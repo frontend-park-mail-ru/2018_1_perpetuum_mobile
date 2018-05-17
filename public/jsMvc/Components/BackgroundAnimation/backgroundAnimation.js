@@ -24,7 +24,10 @@ class BackgroundAnimation {
         line.style.left = `${position}px`;
         line.style.width = `${this.random(5, 15)}vmin`;
         line.style.animation = `line ${this.random(2, 6)}s`;
-        line.style.backgroundColor = this.colors[this.random(0, this.colors.length)];
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        line.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
         parentEl.insertAdjacentElement('afterbegin', line);
         line.addEventListener('animationend', () => line.remove());
     }
@@ -33,7 +36,6 @@ class BackgroundAnimation {
      * constructor. Create current class instance
      */
     constructor() {
-        this.colors = ['HotPink', 'LimeGreen', 'Orange', 'Green', 'Magenta', 'Turquoise', 'White', 'DarkBlue', 'Seashell', 'DimGray', 'Yellow', 'Lime', 'Coral', 'Chocolate', 'RosyBrown'];
         bus.on('createLines', () => this.addLines());
         bus.on('removeLines', () => this.removeLines());
         this.create = evt => this.createELement((evt.pageX)? evt.pageX : evt.targetTouches[0].pageX);

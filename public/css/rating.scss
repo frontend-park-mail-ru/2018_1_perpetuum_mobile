@@ -5,10 +5,10 @@
   pointer-events: none;
 }
 
-
 .rating__one-star{
   display: inline-block;
   transition: all 0.5s linear;
+  padding-left: 0.5vmin;
 }
 
 .rating__one-star-good {
@@ -21,4 +21,10 @@
   content: "\2605";
   color: var(--baseColor);
   position: absolute;
+}
+
+.rating__one-star-falls {
+  position: absolute;
+  margin-top: 5vmin;
+  opacity: 0;
 }

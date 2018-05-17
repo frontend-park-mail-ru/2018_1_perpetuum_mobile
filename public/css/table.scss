@@ -1,5 +1,5 @@
 .table {
-    margin: 4vmin auto;
+    margin: 3.5vmin auto;
     text-align: center;
     border-bottom: var(--baseColor) 1px solid;
     width: 80vmin;
@@ -9,23 +9,36 @@
 
 .table__th {
     border-bottom: var(--baseColor) 1px solid;
+    font-size: 4.5vmin;
 }
 
 .table__tr {
-    height: 10%;
+    line-height: 4.5vmin;
 }
 .table__tr:nth-child(2n) {
     background: var(--darkGreyColor);
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 650px) {
     .table {
-        width: 80%;
-        font-size: 5vmin;
+        width: 80vmin;
+        font-size: 2.5vmin;
+    }
+    .table__tr {
+        line-height: 3.5vmin;
+    }
+    .table__th {
+        font-size: 3.5vmin;
     }
     @media screen and (orientation: portrait) {
         .table {
             width: 80vmin;
+            font-size: 5vmin;
+        }
+        .table__tr {
+            line-height: 6vmin;
+        }
+        .table__th {
             font-size: 6vmin;
         }
     }

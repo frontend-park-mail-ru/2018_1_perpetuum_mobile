@@ -125,7 +125,7 @@ class GameView extends ViewInterface {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         if (popupEl) {
             this._popup.renderTo(popupEl);
-            this._popup.render({numStars: this.finalStars, time: ` ${~~(this.timeNowSec/1000)}`, toNextLevel: this.params.toNextLevel});
+            this._popup.render({numStars: this.finalStars, time: ` ${~~(this.timeNowSec/1000)} `, toNextLevel: this.params.toNextLevel});
         }
     }
 
@@ -138,11 +138,11 @@ class GameView extends ViewInterface {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
 
             if (~~(this.timeNowSec/1000) > this.params.stars3) {
-                this.star[2].classList.remove('rating__one-star-good');
+                this.star[2].classList.add('rating__one-star-falls');
                 this.finalStars = 2;
             }
             if (~~(this.timeNowSec/1000) > this.params.stars2) {
-                this.star[1].classList.remove('rating__one-star-good');
+                this.star[1].classList.add('rating__one-star-falls');
                 this.finalStars = 1;
             }
             this.timeEl.innerHTML = `${~~(this.timeNowSec/1000)}`;
@@ -212,7 +212,11 @@ class GameView extends ViewInterface {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
                 bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', () => bottomElement.classList.remove('game-blendocu__empty-cell-hover'), false);
+                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove = bottomElement, 10), false);
+            } else {
+                if (this.canRemove) {
+                    this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+                }
             }
         }
     }
