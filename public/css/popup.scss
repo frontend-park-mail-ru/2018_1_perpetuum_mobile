@@ -81,7 +81,7 @@
     left: 15vmax;
     z-index: 1000000;
     height: 80%;
-    width: 70vw;
+    width: 75vw;
 }
 
 .popup__win {
@@ -124,7 +124,7 @@
 }
 
 .popup__online-VS {
-    font-size: 15vmin;
+    font-size: 13vmin;
     align-self: center;
     color: var(--baseColor);
 }
@@ -132,7 +132,7 @@
 .popup__online-image {
     width: 15vmin;
     height: 15vmin;
-    margin: 0 5vmin 2vmin 5vmin;
+    margin: 0 10vmin 2vmin 10vmin;
     border-radius: 5px;
     border: var(--greyColor) 0.5vmin solid;
     background: rgb(132, 66, 91);

@@ -3,6 +3,8 @@
  */
 
 
+import {fill} from '../../Modules/filling.js';
+
 /**
  * Class for changing the color scheme.
  */
@@ -24,21 +26,9 @@ class Colour {
         this.colorSetKeys = ['--baseColor', '--logoColor', '--firstGradientColor'];
 
         this.paintForm = document.getElementsByClassName('wrapper-block__change-color')[0];
-        //document.addEventListener('DOMContentLoaded', this.setRandomScheme.bind(this));
         this.paintForm.addEventListener('mousedown', this.setRandomScheme.bind(this));
 
         this.elemDom = document.getElementsByClassName(rootClassName)[0];
-    }
-
-    /**
-     * Get random number from min to max.
-     * Used for selecting the colour scheme randomly.
-     * @param {number} min - The minimal number to choose.
-     * @param {number} max - The maximal number to choose.
-     * @return {number} The random number in interval from min to max.
-     */
-    static getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
     }
 
     /**
@@ -46,7 +36,7 @@ class Colour {
      * Uses {@link setScheme}
      */
     setRandomScheme() {
-        let rand = Colour.getRandomInt(0, Object.keys(this.colorSet).length);
+        let rand = fill.random(0, Object.keys(this.colorSet).length);
         let keyRand = Object.keys(this.colorSet)[rand];
         this.setScheme(this.colorSet[keyRand]);
     }

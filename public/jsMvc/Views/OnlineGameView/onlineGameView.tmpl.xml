@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper-block  js-wrapper-block">
-        <a class="wrapper-block__row-back" href="/"> &lt; </a>
+        <a class="wrapper-block__row-back online-game__row" href="/"> × </a>
         <div class="wrapper-block__game-blendocu">
             <div class="online-game">
                 <div class="online-game__score js-score" >

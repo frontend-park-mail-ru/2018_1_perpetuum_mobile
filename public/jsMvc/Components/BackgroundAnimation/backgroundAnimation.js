@@ -2,17 +2,10 @@
  *  @module components/BackgroundAnimation
  */
 import {bus} from '../../Modules/bus.js';
+import {fill} from '../../Modules/filling.js';
+import {keyHandler} from '../../Modules/game/keyHandler.js';
 
 class BackgroundAnimation {
-    /**
-     * return random number
-     * @param max {number} - random limit
-     * @returns {number} - random number
-     */
-    random(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-
     /**
      * create line animation random color
      * @param position - position to create line
@@ -22,12 +15,9 @@ class BackgroundAnimation {
         line.classList.add('background-animation');
         const parentEl = document.getElementsByClassName('js-application')[0];
         line.style.left = `${position}px`;
-        line.style.width = `${this.random(5, 15)}vmin`;
-        line.style.animation = `line ${this.random(2, 6)}s`;
-        const r = Math.floor(Math.random() * 255);
-        const g = Math.floor(Math.random() * 255);
-        const b = Math.floor(Math.random() * 255);
-        line.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        line.style.width = `${fill.random(5, 15)}vmin`;
+        line.style.animation = `line ${fill.random(2, 6)}s`;
+        line.style.backgroundColor = fill.getRandomColor();
         parentEl.insertAdjacentElement('afterbegin', line);
         line.addEventListener('animationend', () => line.remove());
     }
@@ -36,39 +26,31 @@ class BackgroundAnimation {
      * constructor. Create current class instance
      */
     constructor() {
+        this.keyHandler = keyHandler;
+        this.keyHandler.start();
         bus.on('createLines', () => this.addLines());
         bus.on('removeLines', () => this.removeLines());
-        this.create = evt => this.createELement((evt.pageX)? evt.pageX : evt.targetTouches[0].pageX);
+        this.create = evt => this.createELement(evt.X);
     }
-
-    /**
-     * callback for request animation frame. To create line after random time
-     */
-    createElementOnTimer() {
-        this.time = setTimeout(() => {
-            const parentEl = document.getElementsByClassName('js-application')[0];
-            const position = this.random(0, parentEl.offsetWidth);
-            this.createELement(position);
-            this.animation = window.requestAnimationFrame(() => this.createElementOnTimer());
-        }, this.random(0, 5000));
-    }
-
 
     /**
      * to bus emit createLines
      */
     addLines() {
-        document.addEventListener('click', this.create);
-        this.animation = window.requestAnimationFrame(() => this.createElementOnTimer());
+        this.keyHandler.addKeyListener('startDrag', this.create);
+        this.time = setInterval(() => {
+            const parentEl = document.getElementsByClassName('js-application')[0];
+            const position = fill.random(0, parentEl.offsetWidth);
+            this.createELement(position);
+        }, fill.random(0, 5000));
     }
 
     /**
      * to bus emit removeLines
      */
     removeLines() {
-        document.removeEventListener('click', this.create);
-        clearTimeout(this.time);
-        window.cancelAnimationFrame(this.animation);
+        this.keyHandler.end();
+        clearInterval(this.time);
     }
 
 }

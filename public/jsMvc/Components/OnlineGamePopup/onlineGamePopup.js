@@ -3,6 +3,7 @@
  */
 
 import template from './OnlineGamePopup.tmpl.xml';
+import {fill} from '../../Modules/filling.js';
 /**
  * Popup class to show pop-up block in case of win
  */
@@ -15,14 +16,6 @@ class OnlineGamePopup {
         this.fest = template;
     }
 
-    /**
-     * return random number
-     * @param max {number} - random limit
-     * @returns {number} - random number
-     */
-    random(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
     /**
      * A method that specifies the place to render pop-up
      * @param root - place to render pop-up
@@ -44,19 +37,13 @@ class OnlineGamePopup {
         this.init();
         const image = this.el.getElementsByClassName('js-opponent-image')[0];
         const login = this.el.getElementsByClassName('js-opponent-login')[0];
-        const name = ['Bird', 'Book', 'Cell', 'Cat'];
-        const adjectively = ['Magic', 'Beauty', '', 'Best'];
-        const tips = ['Put all the cubes in the gradient', 'Study, eat, JS', 'Learn JS', 'Walk the dog, wife and child'];
         this.timerId = setInterval(() => {
-            const r = this.random(0,255);
-            const g = this.random(0,255);
-            const b = this.random(0,255);
-            image.style.background = `rgb(${r}, ${g}, ${b})`;
-            login.innerHTML = `${adjectively[this.random(0,adjectively.length)]}${name[this.random(0,name.length)]}${this.random(1, 99)}`;
+            image.style.background = fill.getRandomColor();
+            login.innerHTML = fill.getRandomName();
         }, 2000);
         const tipsEl = this.el.getElementsByClassName('js-rules')[0];
         this.tipsTimer = setInterval(() => {
-            tipsEl.innerHTML = tips[this.random(0, tips.length)];
+            tipsEl.innerHTML = fill.getRandomTips();
         }, 6000);
         return this;
     }
@@ -70,6 +57,7 @@ class OnlineGamePopup {
 
     remove() {
         clearInterval(this.timerId);
+        clearInterval(this.tipsTimer);
         this.el.remove();
     }
 }

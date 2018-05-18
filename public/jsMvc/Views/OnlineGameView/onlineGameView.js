@@ -162,6 +162,7 @@ class OnlineGameView extends ViewInterface {
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
+            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
             return;
         }
         this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
