@@ -27,7 +27,6 @@ class BackgroundAnimation {
      */
     constructor() {
         this.keyHandler = keyHandler;
-        this.keyHandler.start();
         bus.on('createLines', () => this.addLines());
         bus.on('removeLines', () => this.removeLines());
         this.create = evt => this.createELement(evt.X);
@@ -37,6 +36,7 @@ class BackgroundAnimation {
      * to bus emit createLines
      */
     addLines() {
+        this.keyHandler.start();
         this.keyHandler.addKeyListener('startDrag', this.create);
         this.time = setInterval(() => {
             const parentEl = document.getElementsByClassName('js-application')[0];
