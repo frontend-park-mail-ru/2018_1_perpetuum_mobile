@@ -1,5 +1,5 @@
 import {ViewInterface} from '../ViewInterface.js';
-import {OnlineGamePopup} from '../../Components/OnlineGamePopup/OnlineGamePopup.js';
+import {OnlineGamePopup} from '../../Components/OnlineGamePopup/onlineGamePopup.js';
 import template from './onlineGameView.tmpl.xml';
 import {Cell} from '../../Components/Cell/cell.js';
 import {sharedData} from '../../Modules/sharedData.js';
@@ -18,7 +18,7 @@ class OnlineGameView extends ViewInterface {
         this.params = params;
         const score = document.getElementsByClassName('online-game__score')[0];
         score.style.display = 'flex';
-        this.setOppenent(this.params.opponent);
+        this.setOpponent(this.params.opponent);
         this.drawField();
         window.addEventListener('resize', debounce(() => {
             const free = this.params.map.pool;
@@ -77,7 +77,7 @@ class OnlineGameView extends ViewInterface {
         this.drawFree(sizeCell);
     }
 
-    setOppenent(params) {
+    setOpponent(params) {
         const me = document.getElementsByClassName('js-me')[0];
         const opponent  = document.getElementsByClassName('js-opponent')[0];
 

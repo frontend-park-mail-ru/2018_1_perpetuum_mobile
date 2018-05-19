@@ -76,8 +76,9 @@ class Ws {
      * @param {*} type - The type of the message to send.
      * @param {*} payload - The payload of the message to send.
      */
-    send(type, payload) {
-        this.ws.send(JSON.stringify({type, payload}));
+    send(type, payload = {}) {
+        payload.type = type;
+        this.ws.send(JSON.stringify(payload));
     }
 
     /** Subscribe on the event

@@ -2,7 +2,7 @@
  *  @module components/OnlineGamePopup
  */
 
-import template from './OnlineGamePopup.tmpl.xml';
+import template from './onlineGamePopup.tmpl.xml';
 import {fill} from '../../Modules/filling.js';
 /**
  * Popup class to show pop-up block in case of win
