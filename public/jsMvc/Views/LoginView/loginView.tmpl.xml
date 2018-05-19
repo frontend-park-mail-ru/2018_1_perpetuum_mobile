@@ -2,8 +2,7 @@
     <div class="wrapper-block">
         <a class="wrapper-block__row-back" href="/"> &lt; </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
-        <div class="wrapper-block__main">
-            <section class="wrapper-block__main js-wrapper-login">
+        <div class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Login</div>
                 <form class="login-register-form-block js-login-form">
 
@@ -22,7 +21,6 @@
                     <div class="description-text">  You are not registered? </div>
                     <a class="register-login-change__button" href="/register">Register</a>
                 </div>
-            </section>
         </div>
         <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
         <fest:get name="colour">params</fest:get>

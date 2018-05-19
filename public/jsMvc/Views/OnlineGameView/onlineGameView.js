@@ -14,6 +14,7 @@ class OnlineGameView extends ViewInterface {
     }
 
     startGame(params) {
+        this.canRemove = [];
         this.popup.remove();
         this.params = params;
         const score = document.getElementsByClassName('online-game__score')[0];
@@ -152,10 +153,11 @@ class OnlineGameView extends ViewInterface {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
                 bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove = bottomElement, 10), false);
+                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove.push(bottomElement), 10), false);
             } else {
-                if (this.canRemove) {
-                    this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+                if (this.canRemove.length) {
+                    this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                    this.canRemove.length = 0;
                 }
             }
         }
@@ -173,8 +175,9 @@ class OnlineGameView extends ViewInterface {
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
-            if (this.canRemove) {
-                this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+            if (this.canRemove.length) {
+                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                this.canRemove.length = 0;
             }
             return;
         }
@@ -203,7 +206,6 @@ class OnlineGameView extends ViewInterface {
         if (!cell) {
             Cell.putOnPosition(this.lastSettedCubic, this.lastSettedCubic.wrongX, this.lastSettedCubic.wrongY);
             this.lastSettedCubic.isBottom = true;
-            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
             return;
         }
         Cell.putOnPosition(cell, position.style.left, position.style.top);
@@ -216,12 +218,10 @@ class OnlineGameView extends ViewInterface {
         if (cell) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
-        } //else {
-        //     Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
-        //     this.lastSettedCubic.isBottom = true;
-        // }
-        if (this.canRemove) {
-            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+        }
+        if (this.canRemove.length) {
+            this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+            this.canRemove.length = 0;
         }
     }
 

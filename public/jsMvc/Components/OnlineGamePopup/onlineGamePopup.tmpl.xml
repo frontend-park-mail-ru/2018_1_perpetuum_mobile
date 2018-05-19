@@ -21,7 +21,7 @@
             </fest:if>
             <fest:if test="params.type === 'exit'">
                 <div class="popup__title">Are you sure?</div>
-                <div class="popup__online-rules">
+                <div class="popup__online-lose">
                     <div>You will lose your score</div>
                 </div>
                 <div class="popup__buttons">

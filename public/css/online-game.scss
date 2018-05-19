@@ -61,6 +61,7 @@
 
 .online-game__increment-score {
     font-size: 5vmin;
+    color: var(--baseColor);
     bottom: 13vmin;
     position: absolute;
     animation: increment 1s;

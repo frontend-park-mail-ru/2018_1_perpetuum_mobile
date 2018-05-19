@@ -19,3 +19,12 @@
 .scoreboard-paginator__button:active {
     color: white;
 }
+
+.scoreboard-paginator__button:hover {
+    color: white;
+}
+
+.scoreboard-paginator__button:disabled:hover {
+    color: var(--firstGradientColor);
+    font-size: 4vh;
+}

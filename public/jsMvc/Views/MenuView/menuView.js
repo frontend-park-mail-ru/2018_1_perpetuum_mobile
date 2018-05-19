@@ -39,6 +39,12 @@ class MenuView extends ViewInterface {
      * Initialize event handlers for the page: logout.
      */
     init() {
+        if (!sharedData.data['currentUser']) {
+            const multiplayerAllowed = this.el.getElementsByClassName('js-multiplayer')[0];
+            multiplayerAllowed.style.color = '#666666';
+            multiplayerAllowed.style.borderColor = 'transparent';
+            multiplayerAllowed.style.cursor = 'default';
+        }
         if (sharedData.data['currentUser']) {
             const toLogoutForm = this.el.getElementsByClassName('js-logout-form')[0];
             toLogoutForm.addEventListener('submit', this.onLogout);

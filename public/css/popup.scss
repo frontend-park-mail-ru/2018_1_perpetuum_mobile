@@ -3,27 +3,29 @@
     font-size: initial !important;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 50vmax;
     z-index: 1001;
     border-radius: 10px;
     background: #1c1c1c;
-    top: 20vmin;
+    top: 15vmin;
     position: fixed;
     box-shadow: 0 0 5px 1px rgba(98, 98, 98, 0.4);
     animation: forward 0.3s 1;
     margin: auto;
+    justify-content: space-between;
     left: 25%;
 }
 
 .popup__substrate {
-    background-color: rgba(1,1,1,0.8);
+    background-color: rgba(1,1,1,0.6);
     width: 100vw;
     height: 100vh;
     position: absolute;
     left: 0;
     top: 0;
+    backdrop-filter: blur(3px);
     z-index: 1000;
+    transition: 0.3s linear;
 }
 
 @keyframes forward {
@@ -47,9 +49,8 @@
 
 .popup__title {
     font-size: 6vh;
-    color: #ffffff;
-    top: 2vh;
-    margin: 1vh auto 4vh auto;
+    color: var(--baseColor);
+    margin: 6vh auto 6vh auto;
 }
 
 .popup__close {
@@ -105,10 +106,30 @@
     border-bottom: var(--baseColor) 3px solid;
 }
 
+.popup__offline-win {
+    color: white;
+}
+
 .popup__buttons {
     line-height: initial;
     display: flex;
     flex-direction: row;
+    margin-bottom: 6vmin;
+}
+
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6vmin;
+}
+
+.popup__online-lose {
+    font-size: 4vmin;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5vmin;
 }
 
 .popup__time {
@@ -129,7 +150,7 @@
 .popup__online-VS {
     font-size: 9vw;
     align-self: center;
-    color: var(--baseColor);
+    color: white;
 }
 
 .popup__online-image {
@@ -179,12 +200,13 @@
 }
 
 .popup__online-rules{
-    font-size: 3vmin;
+    font-size: 4vmin;
     height: 30%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     margin-top: 5vmin;
+    line-height: 5vmin;
 }
 
 .popup__online-rules-animated {
