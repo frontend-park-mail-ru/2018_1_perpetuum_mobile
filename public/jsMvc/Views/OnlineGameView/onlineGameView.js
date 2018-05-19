@@ -220,6 +220,9 @@ class OnlineGameView extends ViewInterface {
         //     Cell.putOnPosition(this.lastSettetCubic, this.lastSettetCubic.wrongX, this.lastSettetCubic.wrongY);
         //     this.lastSettedCubic.isBottom = true;
         // }
+        if (this.canRemove) {
+            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+        }
     }
 
     gameEnd(payload) {
