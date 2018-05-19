@@ -18,6 +18,12 @@ switch (window.location.hostname) {
     case 'blendocu.herokuapp.com':
         baseUrl = '//blendocu-back.herokuapp.com';
         break;
+    case 'blendocu.com':
+        baseUrl = '//back.blendocu.com:3050';
+        break;
+    case 'blendocu.me':
+        baseUrl = '//back.blendocu.me:3050';
+        break;
     default:
         baseUrl = '';
 }
