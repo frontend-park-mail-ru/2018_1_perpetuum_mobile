@@ -2,7 +2,7 @@
     <div class="popup__substrate">
         <div class="popup popup__game-popup">
             <div class="popup__title">Congratulations</div>
-            <div class="popup__win">YOU WIN</div>
+            <div class="popup__win popup__offline-win">YOU WIN</div>
             <div class="rating popup__win">
                 <fest:for iterate="params.stars" value="v" index="i">
                     <span class="{v}">☆</span>

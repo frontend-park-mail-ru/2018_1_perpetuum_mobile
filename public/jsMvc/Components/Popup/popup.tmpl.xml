@@ -4,7 +4,7 @@
             <div class="popup__title"><fest:value>params.title</fest:value></div>
             <button type="button" class="popup__close js-button-close">x</button>
 
-            <form class="js-popup-form">
+            <form class="js-popup-form popup__form">
                 <fest:for iterate="params.fields" index="i" value="v">
                     <div class="description-text"><fest:value>v[0]</fest:value></div>
                     <label>

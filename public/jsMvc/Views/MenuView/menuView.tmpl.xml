@@ -4,7 +4,7 @@
         <div class="wrapper-block__main js-wrapper-menu">
             <ul class="menu-list-block">
                 <li class="menu-list-block__item"><a class="menu-list-block__data" href="/level"> Start game </a> </li>
-                <li class="menu-list-block__item"><a class="menu-list-block__data" href="/multiPlayer"> Multiplayer </a> </li>
+                <li class="menu-list-block__item "><a class="menu-list-block__data js-multiplayer" href="/multiPlayer"> Multiplayer </a> </li>
                 <li class="menu-list-block__item"><a class="menu-list-block__data" href="/scoreboard"> Scoreboard </a> </li>
                 <li class="menu-list-block__item"><a class="menu-list-block__data" href="/about"> About </a> </li>
             </ul>

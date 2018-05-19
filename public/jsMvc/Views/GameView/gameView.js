@@ -93,6 +93,7 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+        this.canRemove = [];
         this.keyHandler.start();
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
@@ -154,12 +155,10 @@ class GameView extends ViewInterface {
      * Callback for model in case of win.
      */
     gameOnWin() {
-        const score = document.getElementsByClassName('js-score')[0];
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
         setTimeout(() => this.addPopupWin(this.finalStars), 2000);
-        setTimeout(() => score.innerHTML = '', 2000);
     }
 
     /**
@@ -212,10 +211,11 @@ class GameView extends ViewInterface {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
                 bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove = bottomElement, 10), false);
+                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove.push(bottomElement), 10), false);
             } else {
-                if (this.canRemove) {
-                    this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+                if (this.canRemove.length) {
+                    this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                    this.canRemove.length = 0;
                 }
             }
         }

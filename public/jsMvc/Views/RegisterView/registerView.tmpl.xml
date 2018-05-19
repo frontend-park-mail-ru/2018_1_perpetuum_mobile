@@ -4,7 +4,7 @@
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main js-wrapper-registration">
             <div class="wrapper-block__section-header">Register</div>
-            <form class="login-register-form-block {params.form}">
+            <form class="login-register-form-block {params.form} ">
                 <fest:for iterate="params.fields" index="i" value="v">
                     <div class="description-text"><fest:value>v[0]</fest:value></div>
                     <label>
