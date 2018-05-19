@@ -29,6 +29,18 @@ class OnlineGameView extends ViewInterface {
 
         document.ontouchstart = evt => this.onStartEvent(evt);
         document.onmousedown = evt => this.onStartEvent(evt);
+
+        const row = document.getElementsByClassName('js-row')[0];
+        row.addEventListener('click',evt => {
+            evt.preventDefault();
+            evt.stopPropagation();
+            const popupExit = new OnlineGamePopup();
+            const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
+            if (popupEl) {
+                popupExit.renderTo(popupEl);
+                popupExit.render({type: 'exit'});
+            }
+        });
     }
 
     render(params = {}) {
@@ -38,13 +50,12 @@ class OnlineGameView extends ViewInterface {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         if (popupEl) {
             this.popup.renderTo(popupEl);
-            this.popup.render({login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
+            this.popup.render({type: 'loader',login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
         }
         return this;
     }
 
     destroy() {
-        this.keyHandler.end();
         super.destroy();
         this.onClose();
         return this;
@@ -162,7 +173,9 @@ class OnlineGameView extends ViewInterface {
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
-            this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+            if (this.canRemove) {
+                this.canRemove.classList.remove('game-blendocu__empty-cell-hover');
+            }
             return;
         }
         this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
@@ -171,8 +184,18 @@ class OnlineGameView extends ViewInterface {
     }
 
     cubicSet(payload) {
-        this.myScore.innerHTML = `${payload.your}`;
-        this.opponentScore.innerHTML = `${payload.opponent}`;
+        const increment = document.createElement('div');
+        increment.classList.add('online-game__increment-score');
+        increment.innerHTML = '+1';
+        increment.style.left = (payload.youSet) ? `${this.myScore.offsetLeft}px` : `${this.opponentScore.offsetLeft}px`;
+        increment.addEventListener('animationend', increment.remove);
+        this.el.appendChild(increment);
+
+        setTimeout(() => {
+            this.myScore.innerHTML = `${payload.your}`;
+            this.opponentScore.innerHTML = `${payload.opponent}`;
+        }, 300);
+
 
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
         const position = this.cell.filter(v => v.x === payload.x && v.y === payload.y)[0];
@@ -189,9 +212,6 @@ class OnlineGameView extends ViewInterface {
     }
 
     cubicDrop(payload) {
-        this.myScore.innerHTML = `${payload.your}`;
-        this.opponentScore.innerHTML = `${payload.opponent}`;
-
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
         if (cell) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
@@ -201,6 +221,16 @@ class OnlineGameView extends ViewInterface {
         //     this.lastSettedCubic.isBottom = true;
         // }
     }
+
+    gameEnd(payload) {
+        const popupWin = new OnlineGamePopup();
+        const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
+        if (popupEl) {
+            popupWin.renderTo(popupEl);
+            popupWin.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
+        }
+    }
+
 
     isAllowed() {
         return !!sharedData.data.currentUser;

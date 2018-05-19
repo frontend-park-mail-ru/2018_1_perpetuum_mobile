@@ -24,7 +24,7 @@ body {
     font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 1/4;
-    font-size: 20vmin;
+    font-size: 15vw;
     text-align: center;
     transition: all 0.3s linear;
     overflow: hidden;
@@ -90,9 +90,9 @@ body {
     color: var(--inputColor);
     opacity: 0.2;
     margin-left: 4vmin;
-    margin-top: 5vmin;
+    margin-top: 7vmin;
     transition: opacity 0.3s linear;
-    z-index: 100;
+    z-index: 10000;
 }
 
 .wrapper-block__row-back:active {
@@ -103,7 +103,8 @@ body {
     opacity: 0.6;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
+
     .wrapper-block {
         grid-template-columns: 0 100% 0;
         grid-template-rows: 20% 65% 15%;
@@ -115,7 +116,7 @@ body {
 
     .wrapper-block__logo {
         font-family: 'Orbitron-black', sans-serif;
-        font-size: 19vmin;
+        font-size: 12vw;
         margin-top: 3vh;
     }
     .wrapper-block__change-color {
@@ -139,6 +140,9 @@ body {
     }
 
     @media screen and (orientation: portrait) {
+        .wrapper-block__logo {
+            font-size: 18vw;
+        }
         .wrapper-block {
             grid-template-columns: 0 100% 0;
             grid-template-rows: 15% 70% 15%;
@@ -152,6 +156,9 @@ body {
         }
         .wrapper-block__profile {
             width: 50%;
+        }
+        .online-game__row {
+            margin: 0;
         }
     }
 

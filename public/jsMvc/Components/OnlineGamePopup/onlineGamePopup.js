@@ -42,9 +42,21 @@ class OnlineGamePopup {
             login.innerHTML = fill.getRandomName();
         }, 2000);
         const tipsEl = this.el.getElementsByClassName('js-rules')[0];
-        this.tipsTimer = setInterval(() => {
-            tipsEl.innerHTML = fill.getRandomTips();
-        }, 6000);
+        this.tipsTimer = setInterval(() => tipsEl.innerHTML = fill.getRandomTips(), 6000);
+
+        this.close = document.getElementsByClassName('js-continue')[0];
+        if (this.close) {
+            clearInterval(this.timerId);
+            clearInterval(this.tipsTimer);
+            const row = document.getElementsByClassName('js-row')[0];
+            row.hidden = true;
+            this.close.addEventListener('click', evt => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                this.el.remove();
+                row.hidden = false;
+            });
+        }
         return this;
     }
 

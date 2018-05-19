@@ -15,7 +15,10 @@
     background: #1c1c1c;
     border-radius: 5px;
     flex-direction: column;
-    pointer-events: none;
+}
+
+.level__item:hover {
+  background: #313131;
 }
 
 .level__image {

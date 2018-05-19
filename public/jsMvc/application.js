@@ -22,7 +22,6 @@ import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 import {enableSW} from './Modules/serviceWorker.js';
 import {backgroundAnimation} from './Components/BackgroundAnimation/backgroundAnimation.js';
-import {fill} from './Modules/filling.js';
 
 
 
@@ -51,7 +50,6 @@ window.addEventListener('contextmenu', evt => {
  */
 document.addEventListener('DOMContentLoaded', () => {
     const bA = backgroundAnimation;
-    const fill = fill;
     //enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
@@ -80,4 +78,5 @@ document.addEventListener('DOMContentLoaded', () => {
     userController.loadMe().then(() => {
         router.start();
     });
+
 });

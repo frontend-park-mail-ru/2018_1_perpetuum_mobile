@@ -79,7 +79,7 @@ class OnlineGameController {
      * @param {{your: string, opponent: string, result: string}} payload The info about the scores and game winner.
      */
     onEndGame(payload) {
-        this.gameView.endGame(payload);
+        this.gameView.gameEnd(payload);
         this.closeGame();
     }
 
@@ -98,14 +98,6 @@ class OnlineGameController {
      */
     onSetCubic(payload) {
         this.gameModel.setCubic(payload);
-
-        // const lol = {
-        //     colour: '#f05a69',
-        //     your: 13,
-        //     opponent: 14
-        // };
-        // setTimeout(() => this.onCubicSet(lol), 500);
-        // setTimeout(() => this.onCubicDrop(lol), 2000);
     }
 
     /**
@@ -117,4 +109,4 @@ class OnlineGameController {
     }
 }
 
-export {OnlineGameController}
+export {OnlineGameController};

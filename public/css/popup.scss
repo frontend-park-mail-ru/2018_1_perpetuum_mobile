@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: center;
     width: 50vmax;
-    z-index: 10;
+    z-index: 1001;
     border-radius: 10px;
     background: #1c1c1c;
     top: 20vmin;
@@ -23,6 +23,7 @@
     position: absolute;
     left: 0;
     top: 0;
+    z-index: 1000;
 }
 
 @keyframes forward {
@@ -78,24 +79,25 @@
 
 .popup__online-game-popup {
     top: 10vmin;
-    left: 15vmax;
+    left: 12.5vw;
     z-index: 1000000;
     height: 80%;
     width: 75vw;
 }
 
 .popup__win {
+    color: var(--baseColor);
     font-size: 10vh;
 }
 
 .popup__back {
-    margin-top: 15%;
+    margin-top: 25%;
     margin-left: auto;
     margin-right: auto;
     color: white;
     text-decoration: none;
     transition: all 0.3s linear;
-    font-size: 3vmin;
+    font-size: 4vmin;
     border-bottom: transparent 3px solid;
 }
 
@@ -104,6 +106,7 @@
 }
 
 .popup__buttons {
+    line-height: initial;
     display: flex;
     flex-direction: row;
 }
@@ -124,7 +127,7 @@
 }
 
 .popup__online-VS {
-    font-size: 13vmin;
+    font-size: 9vw;
     align-self: center;
     color: var(--baseColor);
 }
@@ -132,7 +135,7 @@
 .popup__online-image {
     width: 15vmin;
     height: 15vmin;
-    margin: 0 10vmin 2vmin 10vmin;
+    margin: 0 5vw 2vmin 5vw;
     border-radius: 5px;
     border: var(--greyColor) 0.5vmin solid;
     background: rgb(132, 66, 91);
@@ -140,6 +143,20 @@
 
 .popup__online-image-opponent {
     animation: opponent 2s infinite;
+}
+
+
+.popup__online-game-result {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    line-height: 10vmin;
+}
+
+.popup__online-reason {
+    width: 70%;
+    margin: 4vmin auto 6vmin auto;
 }
 
 @keyframes opponent {
@@ -167,6 +184,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-top: 5vmin;
 }
 
 .popup__online-rules-animated {
@@ -199,22 +217,15 @@
 }
 
 .popup__online-login {
-    font-size: 3vmin;
-}
-
-.popup__online-stop-searching {
-    font-size: 4vmin;
-    margin-top: 13%;
-    margin-left: auto;
-    margin-right: auto;
-    color: var(--inputColor);
-    text-decoration: none;
-    transition: all 0.3s linear;
-    border-bottom: transparent 3px solid;
+    font-size: 1.5vw;
 }
 
 .popup__online-stop-searching:hover {
     border-bottom: var(--baseColor) 3px solid;
+}
+
+.popup__online-your-score {
+    color: var(--baseColor);
 }
 
 @media screen and (max-width: 650px) {

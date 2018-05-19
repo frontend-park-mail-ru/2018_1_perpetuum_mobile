@@ -4,6 +4,7 @@
 import {bus} from '../../Modules/bus.js';
 import {fill} from '../../Modules/filling.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
+import throttle from '../../Modules/throttle.js';
 
 class BackgroundAnimation {
     /**
@@ -29,7 +30,7 @@ class BackgroundAnimation {
         this.keyHandler = keyHandler;
         bus.on('createLines', () => this.addLines());
         bus.on('removeLines', () => this.removeLines());
-        this.create = evt => this.createELement(evt.X);
+        this.create = throttle(evt => this.createELement(evt.X), 100);
     }
 
     /**
@@ -42,7 +43,7 @@ class BackgroundAnimation {
             const parentEl = document.getElementsByClassName('js-application')[0];
             const position = fill.random(0, parentEl.offsetWidth);
             this.createELement(position);
-        }, fill.random(1000, 5000));
+        }, fill.random(2000, 5000));
     }
 
     /**
