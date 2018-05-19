@@ -49,6 +49,8 @@ class Colour {
         colorSet.forEach( (item, i) => {
             this.elemDom.style.setProperty(this.colorSetKeys[i], item);
         });
+        const meta = document.getElementById('colour');
+        meta.content = colorSet[0];
     }
 }
 

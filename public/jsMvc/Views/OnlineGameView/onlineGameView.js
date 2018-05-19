@@ -185,7 +185,7 @@ class OnlineGameView extends ViewInterface {
         }
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];
-        [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
+        [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
     }
 
     cubicDrop(payload) {

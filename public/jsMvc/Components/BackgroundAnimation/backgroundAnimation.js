@@ -42,7 +42,7 @@ class BackgroundAnimation {
             const parentEl = document.getElementsByClassName('js-application')[0];
             const position = fill.random(0, parentEl.offsetWidth);
             this.createELement(position);
-        }, fill.random(0, 5000));
+        }, fill.random(1000, 5000));
     }
 
     /**
