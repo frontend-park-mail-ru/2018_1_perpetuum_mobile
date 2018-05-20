@@ -6,11 +6,9 @@ let baseUrl = '';
 switch (window.location.hostname) {
     case 'localhost':
         baseUrl = '//localhost:3050';
-        // this.baseUrl = '//blendocu-back.herokuapp.com';
         break;
     case '127.0.0.1':
         baseUrl = '//127.0.0.1:3050';
-        // this.baseUrl = '//blendocu-back.herokuapp.com';
         break;
     case 'blend-front.herokuapp.com':
         baseUrl = '//blend-back.herokuapp.com';
@@ -19,10 +17,10 @@ switch (window.location.hostname) {
         baseUrl = '//blendocu-back.herokuapp.com';
         break;
     case 'blendocu.com':
-        baseUrl = '//back.blendocu.com:3050';
+        baseUrl = '//back.blendocu.com';
         break;
     case 'blendocu.me':
-        baseUrl = '//back.blendocu.me:3050';
+        baseUrl = '//back.blendocu.me';
         break;
     default:
         baseUrl = '';

@@ -162,7 +162,7 @@ class GameView extends ViewInterface {
     }
 
     /**
-     *
+     * Destructor.
      * @returns {GameView} - The current object instance.
      */
     destroy() {
