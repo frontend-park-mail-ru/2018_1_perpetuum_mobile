@@ -152,6 +152,13 @@ class OnlineGameView extends ViewInterface {
      * @param shiftY(number) - shift on Y relatively to center of cell
      */
     onMoveEvent(evt, cell, shiftX, shiftY) {
+        if (cell.fixedCubic === true) {
+            if (this.canRemove.length) {
+                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                this.canRemove.length = 0;
+            }
+            return;
+        }
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
         const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
         cell.hidden = true;
@@ -180,6 +187,13 @@ class OnlineGameView extends ViewInterface {
      * @param allocated(HTMLCollection) - array of empty cell to change opacity
      */
     onUpEvent(cell, allocated) {
+        if (cell.fixedCubic === true) {
+            if (this.canRemove.length) {
+                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                this.canRemove.length = 0;
+            }
+            return;
+        }
         [...allocated].forEach(v => v.style.opacity = '0.4');
         document.onmousemove = null;
         cell.onmouseup = null;
@@ -222,14 +236,19 @@ class OnlineGameView extends ViewInterface {
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
+
+        if (this.canRemove.length) {
+            this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+            this.canRemove.length = 0;
+        }
     }
 
     cubicDrop(payload) {
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
-        if (cell.fixedCubic === true) {
-            return;
-        }
         if (cell) {
+            if (cell.fixedCubic === true) {
+                return;
+            }
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         }
