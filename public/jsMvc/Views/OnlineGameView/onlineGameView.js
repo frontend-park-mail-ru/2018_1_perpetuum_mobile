@@ -236,6 +236,11 @@ class OnlineGameView extends ViewInterface {
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
+
+        if (this.canRemove.length) {
+            this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+            this.canRemove.length = 0;
+        }
     }
 
     cubicDrop(payload) {
