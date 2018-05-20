@@ -153,6 +153,10 @@ class OnlineGameView extends ViewInterface {
      */
     onMoveEvent(evt, cell, shiftX, shiftY) {
         if (cell.fixedCubic === true) {
+            if (this.canRemove.length) {
+                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                this.canRemove.length = 0;
+            }
             return;
         }
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
@@ -184,6 +188,10 @@ class OnlineGameView extends ViewInterface {
      */
     onUpEvent(cell, allocated) {
         if (cell.fixedCubic === true) {
+            if (this.canRemove.length) {
+                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
+                this.canRemove.length = 0;
+            }
             return;
         }
         [...allocated].forEach(v => v.style.opacity = '0.4');
