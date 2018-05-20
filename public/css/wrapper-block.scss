@@ -10,7 +10,8 @@
 }
 body {
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
+    position: relative;
 }
 .wrapper-block__main {
     grid-row: 2/3;
