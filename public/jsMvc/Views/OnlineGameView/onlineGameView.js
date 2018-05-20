@@ -152,6 +152,9 @@ class OnlineGameView extends ViewInterface {
      * @param shiftY(number) - shift on Y relatively to center of cell
      */
     onMoveEvent(evt, cell, shiftX, shiftY) {
+        if (cell.fixedCubic === true) {
+            return;
+        }
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
         const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
         cell.hidden = true;
@@ -180,6 +183,9 @@ class OnlineGameView extends ViewInterface {
      * @param allocated(HTMLCollection) - array of empty cell to change opacity
      */
     onUpEvent(cell, allocated) {
+        if (cell.fixedCubic === true) {
+            return;
+        }
         [...allocated].forEach(v => v.style.opacity = '0.4');
         document.onmousemove = null;
         cell.onmouseup = null;
@@ -226,10 +232,10 @@ class OnlineGameView extends ViewInterface {
 
     cubicDrop(payload) {
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
-        if (cell.fixedCubic === true) {
-            return;
-        }
         if (cell) {
+            if (cell.fixedCubic === true) {
+                return;
+            }
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         }
