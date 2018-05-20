@@ -51,7 +51,7 @@ class OnlineGameView extends ViewInterface {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         if (popupEl) {
             this.popup.renderTo(popupEl);
-            this.popup.render({type: 'loader',login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
+            this.popup.render({type: 'loader', login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
         }
         return this;
     }
@@ -62,6 +62,10 @@ class OnlineGameView extends ViewInterface {
         return this;
     }
 
+    /**
+     * Draw cubic pool.
+     * @param {number} sizeCell - The cubic length.
+     */
     drawFree(sizeCell) {
         this.colourFree = [];
         this.params.map.pool.forEach((v, i, all) => {
@@ -71,6 +75,10 @@ class OnlineGameView extends ViewInterface {
         });
     }
 
+    /**
+     * Draw cubic map.
+     * @param {number} sizeCell - The cubic length.
+     */
     drawUnfixed(sizeCell) {
         this.cell = [];
         this.params.map.cells.forEach((v, i) => {
@@ -81,6 +89,9 @@ class OnlineGameView extends ViewInterface {
         });
     }
 
+    /**
+     * Draw all (map + pool).
+     */
     drawField() {
         this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
         this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
@@ -215,6 +226,9 @@ class OnlineGameView extends ViewInterface {
 
     cubicDrop(payload) {
         const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
+        if (cell.fixedCubic === true) {
+            return;
+        }
         if (cell) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
