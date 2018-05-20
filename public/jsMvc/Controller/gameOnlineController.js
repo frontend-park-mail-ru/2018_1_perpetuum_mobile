@@ -79,8 +79,10 @@ class OnlineGameController {
      * @param {{your: string, opponent: string, result: string}} payload The info about the scores and game winner.
      */
     onEndGame(payload) {
-        this.gameView.gameEnd(payload);
-        this.closeGame();
+        setTimeout(() => {
+            this.gameView.gameEnd(payload);
+            this.closeGame();
+        }, 2000);
     }
 
     /**
