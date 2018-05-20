@@ -25,31 +25,27 @@
                     <div>You will lose your score</div>
                 </div>
                 <div class="popup__buttons">
-                    <a class="popup__back" href="/"> Exit anyway </a>
+                    <a class="popup__back  popup__back-unwant" href="/"> Exit anyway </a>
                     <a class="popup__back js-continue"> Continue the game </a>
                 </div>
             </fest:if>
 
             <fest:if test="params.type === 'win'">
-                <div class="popup__win"><fest:value>params.result</fest:value></div>
-                <div class="popup__online-rules">
-                    <div class="popup__online-reason"><fest:value>params.reason</fest:value></div>
+                <div class="popup__win win"><fest:value>params.result</fest:value></div>
+                <div class="popup__online-reason">
+                    <div class="popup__online--reason"><fest:value>params.reason</fest:value></div>
                     <div class="popup__online-game-result popup__online-your-score">
                         <div>Your score:</div>
-                        <div>
-                            <fest:value>params.your</fest:value>
-                        </div>
+                        <div><fest:value>params.your</fest:value></div>
                     </div>
 
                     <div class="popup__online-game-result">
                         <div> Opponent score: </div>
-                        <div>
-                            <fest:value>params.opponent</fest:value>
-                        </div>
+                        <div><fest:value>params.opponent</fest:value></div>
                     </div>
                 </div>
                 <div class="popup__buttons">
-                    <a class="popup__back" href="/"> Back </a>
+                    <a class="popup__back  popup__back-unwant" href="/"> Back </a>
                     <a class="popup__back js-continue"> Continue the game </a>
                 </div>
 

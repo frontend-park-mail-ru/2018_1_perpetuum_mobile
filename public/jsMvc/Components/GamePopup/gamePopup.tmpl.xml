@@ -11,7 +11,7 @@
             </div>
 
             <div class="popup__buttons">
-                <a class="popup__back" href="/level"> ↑ Back to levels</a>
+                <a class="popup__back popup__back-unwant" href="/level"> ↑ Back to levels</a>
                 <fest:if test="params['toNextLevel'] !== undefined">
                     <a class="popup__back js-next-level"> Next level →</a>
                 </fest:if>

@@ -24,13 +24,14 @@ body {
     font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 1/4;
-    font-size: 13vw;
+    font-size: 11vw;
     text-align: center;
     transition: all 0.3s linear;
     overflow: hidden;
     color: var(--logoColor);
     text-decoration: none;
     margin-top: 3vh;
+    height: 22vh;
 }
 
 .wrapper-block__logo:hover {
@@ -41,7 +42,7 @@ body {
     font-size: 5vmin;
     text-align: center;
     margin-bottom: 3vh;
-    margin-top: 2vh;
+    margin-top: 5vh;
     color: #FFFFFF;
 }
 

@@ -175,7 +175,7 @@
     line-height: 10vmin;
 }
 
-.popup__online-reason {
+.popup__online--reason {
     width: 70%;
     margin: 4vmin auto 6vmin auto;
 }
@@ -250,11 +250,32 @@
     color: var(--baseColor);
 }
 
-@media screen and (max-width: 650px) {
+.popup__online-reason {
+    font-size: 4vmin;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 5vmin;
+}
+
+.win {
+    margin-top: 5%;
+}
+
+.popup__back-unwant {
+    color: gray;
+    font-size: 3vmin;
+    line-height: 6vmin;
+}
+
+@media screen and (max-width: 650px), (max-height: 650px) {
+    .popup__title {
+        font-size: 5vh;
+    }
     .popup {
         left: 20vmax;
         width: 60%;
-        height: 70%;
+        height: 75%;
     }
     .popup__win {
         font-size: 13vmin;
