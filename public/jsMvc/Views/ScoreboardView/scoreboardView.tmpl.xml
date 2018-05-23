@@ -28,13 +28,13 @@
                 <fest:include src="./../../Components/Paginator/paginator.tmpl.xml"/>
                 <fest:get name="paginator-buttons">params.paginator</fest:get>
             </div>
-        <footer class="wrapper-block__profile">
-            <div class="js-profile profile-footer">
-                <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
-                <fest:get name="footer">params.sharedData.currentUser</fest:get>
-            </div>
-        </footer>
-    </fest:if>
+            <footer class="wrapper-block__profile">
+                <div class="js-profile profile-footer">
+                    <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
+                    <fest:get name="footer">params.sharedData.currentUser</fest:get>
+                </div>
+            </footer>
+        </fest:if>
     <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
     <fest:get name="colour">params</fest:get>
 

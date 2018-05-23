@@ -62,11 +62,6 @@ class LevelView extends ViewInterface {
         rightPaginatorButton.addEventListener('click', this.onPaginatorRight);
 
         this.colour = new Colour('colors');
-
-        if (sharedData.data['currentUser']) {
-            const toLogoutForm = this.el.getElementsByClassName('js-logout-form')[0];
-            toLogoutForm.addEventListener('submit', this.onLogout);
-        }
     }
 
     destroy() {
