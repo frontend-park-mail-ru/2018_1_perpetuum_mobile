@@ -67,8 +67,12 @@ body {
     content: "🖌";
 }
 
-.wrapper-block__change-color:active {
+.wrapper-block__change-color:hover {
     color: white;
+}
+
+.wrapper-block__change-color:active {
+    color: var(--baseColor);
 }
 
 .wrapper-block__profile {

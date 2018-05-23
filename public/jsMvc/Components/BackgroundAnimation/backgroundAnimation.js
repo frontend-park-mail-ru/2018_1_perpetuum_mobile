@@ -20,7 +20,7 @@ class BackgroundAnimation {
         line.style.animation = `line ${fill.random(2, 6)}s`;
         line.style.backgroundColor = fill.getRandomColor();
         parentEl.insertAdjacentElement('afterbegin', line);
-        line.addEventListener('animationend', () => line.remove());
+        line.addEventListener('animationend', () => line.remove(), {once: true});
     }
 
     /**

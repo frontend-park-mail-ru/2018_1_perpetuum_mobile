@@ -16,12 +16,12 @@
     font-size: 4vh;
 }
 
-.scoreboard-paginator__button:active {
+.scoreboard-paginator__button:hover {
     color: white;
 }
 
-.scoreboard-paginator__button:hover {
-    color: white;
+.scoreboard-paginator__button:active {
+    color: var(--baseColor);
 }
 
 .scoreboard-paginator__button:disabled:hover {

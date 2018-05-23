@@ -9,7 +9,29 @@
                     <fest:for iterate="params.fields" index="i" value="v">
                         <div class="description-text"><fest:value>v[0]</fest:value></div>
                         <label>
-                            <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
+                            <fest:element name="input">
+                                <fest:attributes>
+                                    <fest:attribute name="autofocus">
+                                    </fest:attribute>
+                                    <fest:attribute name="class">
+                                        input-form <fest:space/>
+                                        <fest:value>
+                                            v[1]
+                                        </fest:value>
+                                    </fest:attribute>
+                                    <fest:attribute name="type">
+                                        <fest:value>
+                                            v[2]
+                                        </fest:value>
+                                    </fest:attribute>
+                                    <fest:attribute name="name">
+                                        <fest:value>
+                                            v[3]
+                                        </fest:value>
+                                    </fest:attribute>
+                                </fest:attributes>
+                            </fest:element>
+                            <!--<input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"></input> --><div class="{v[5]} error-form__block"/>
                         </label>
                     </fest:for>
 

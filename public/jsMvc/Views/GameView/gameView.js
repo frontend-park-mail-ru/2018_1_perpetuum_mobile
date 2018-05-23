@@ -54,10 +54,14 @@ class GameView extends ViewInterface {
      */
     drawFree(sizeCell) {
         this.colourFree = [];
+        this.borderFree = [];
         const free = this.params.cells.filter(v => v.fixed);
         free.forEach((v, i) => {
             this.colourFree[i] = document.createElement('div');
             Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length);
+            this.borderFree[i] = document.createElement('div');
+            Cell.setBorderProperty(this.borderFree[i], this.colourFree[i]);
+            this.elementFixed.appendChild(this.borderFree[i]);
             this.elementFixed.appendChild(this.colourFree[i]);
         });
     }
@@ -93,7 +97,7 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
-        this.canRemove = [];
+        this.canRemove = new Set();
         this.keyHandler.start();
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
@@ -116,6 +120,7 @@ class GameView extends ViewInterface {
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
             this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
             free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY, i, free.length, this.elementFixed));
+            this.borderFree.forEach(v => Cell.resizeBorderProperty(v));
         }, 200));
     }
 
@@ -191,6 +196,7 @@ class GameView extends ViewInterface {
         this.keyHandler.addKeyListener('drag', onMoveFunc);
         this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
+        cell.borderElement.style.borderColor = 'var(--baseColor)';
     }
 
     /**
@@ -207,16 +213,18 @@ class GameView extends ViewInterface {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
             Cell.putOnPosition(cell, `${keyEvt.X - shiftX}px`, `${keyEvt.Y - shiftY}px`);
+            if (this.canRemove.size) {
+                this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
+                this.canRemove.clear();
+            }
             if (cell.canDrag) {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
-                bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove.push(bottomElement), 10), false);
+                bottomElement.style.borderColor = 'var(--baseColor)';
+                bottomElement.addEventListener('transitionend', () => this.canRemove.add(bottomElement), {once: true});
+                cell.borderElement.style.borderColor = 'transparent';
             } else {
-                if (this.canRemove.length) {
-                    this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-                    this.canRemove.length = 0;
-                }
+                cell.borderElement.style.borderColor = 'var(--baseColor)';
             }
         }
     }
@@ -228,7 +236,10 @@ class GameView extends ViewInterface {
      * @param moveFunc - The function for moving the cubic.
      */
     onUpEvent(cell, allocated, moveFunc) {
-        [...allocated].forEach(v => v.style.opacity = '0.4');
+        [...allocated].forEach(v => {
+            v.style.opacity = '0.4';
+            v.style.borderColor = 'var(--inputColor)';
+        });
         this.keyHandler.removeKeyListener('drag', moveFunc);
         cell.onmouseup = null;
         if (!cell.canDrag) {
