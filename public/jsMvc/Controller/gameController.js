@@ -10,6 +10,7 @@ import {OfflineGameModel} from '../Models/game/offlineGameModel.js';
 import {bus} from '../Modules/bus.js';
 import {PaginatorModule} from '../Modules/paginator.js';
 import {sharedData} from '../Modules/sharedData.js';
+import {API} from './API/api';
 
 /**
  * The class which connects functionality of game Model and View via proxy-functions.
@@ -32,6 +33,7 @@ class OfflineGameController {
         this.gameViewOffline.setCubic = this.setCubic.bind(this);
         this.gameViewOffline.openLevel = this.openLevel.bind(this);
 
+        this.levelView.onLogout = this.logout.bind(this);
         this.levelView.getLevels = this.getLevels.bind(this);
         this.levelView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.levelView.onPaginatorRight = this.onPaginatorRight.bind(this);
@@ -41,6 +43,25 @@ class OfflineGameController {
 
         bus.on('authorized', this.sendGameProgress.bind(this));
         window.addEventListener('online', this.sendGameProgress.bind(this));
+
+        bus.on('unauthorized', this.deleteProgress.bind(this));
+    }
+
+    /**
+     * Logout via userController.
+     * @param evt - The event from html element.
+     * @return {OfflineGameController} The current object instance.
+     */
+    logout(evt) {
+        bus.emit(API.LOGOUT, [evt]);
+        return this;
+    }
+
+    /**
+     * Delete game progress from operative memory.
+     */
+    deleteProgress() {
+        this.gameModel.deleteProgress();
     }
 
     /**
@@ -122,16 +143,39 @@ class OfflineGameController {
             to : Math.min(levelPage.page * this.levelOverviewPaginator.levelsOnPage, this.levelOverviewPaginator.levelsCount)
         };
         const promises = [];
+        promises.push(this.gameModel.getProgress());
         for (let i = levels.from; i <= levels.to; i++) {
             promises.push(this.gameModel.getMap({ page : i }).then(map => {
                 map['number'] = i;
                 return map;
             }));
         }
-        Promise.all(promises).then(maps => {
+        Promise.all(promises).then(promiseData => {
+            const [progress, ...maps] = promiseData;
+            maps.map(map => {
+                if (!progress) {
+                    map.starCount = 0;
+                    return map;
+                }
+                const userResult = progress.filter(userRes => userRes.levelNum === map.number)[0];
+                if (!userResult) {
+                    map.starCount = 0;
+                    return map;
+                }
+                if (userResult.time < map.stars3) {
+                    map.starCount = 3;
+                    return map;
+                }
+                if (userResult.time < map.stars2) {
+                    map.starCount = 2;
+                    return map;
+                }
+                map.starCount = 1;
+                return map;
+            });
             this.levelOverviewPaginator.pageNum = levelPage.page;
             const data = {
-                maps: maps,
+                maps,
                 paginator: this.levelOverviewPaginator
             };
             bus.emit('level', [data, `/${levelPage.page}`]);

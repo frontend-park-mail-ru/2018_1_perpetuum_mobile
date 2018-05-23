@@ -9,6 +9,7 @@ import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
 import debounce from '../../Modules/debounce.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
+import {sharedData} from '../../Modules/sharedData';
 
 /**
  * Game view
@@ -143,11 +144,11 @@ class GameView extends ViewInterface {
         if (!!this.timeEl && !!this.rating) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
 
-            if (~~(this.timeNowSec/1000) > this.params.stars3) {
+            if (~~(this.timeNowSec) > this.params.stars3) {
                 this.star[2].classList.add('rating__one-star-falls');
                 this.finalStars = 2;
             }
-            if (~~(this.timeNowSec/1000) > this.params.stars2) {
+            if (~~(this.timeNowSec) > this.params.stars2) {
                 this.star[1].classList.add('rating__one-star-falls');
                 this.finalStars = 1;
             }

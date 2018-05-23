@@ -241,6 +241,7 @@ class UserController {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');
+                    bus.emit('unauthorized');
                 });
             }
         ).catch(

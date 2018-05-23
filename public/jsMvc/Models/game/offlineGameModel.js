@@ -23,6 +23,7 @@ class OfflineGameModel {
         this.setRight = [];
         this.gameProgress = [];
         this.mapNum = null; // current map number
+        this.results = null;
         this.mapStorage = mapStorage;
     }
 
@@ -39,6 +40,46 @@ class OfflineGameModel {
         } else {
             return Promise.resolve(this.mapStorage.mapCount());
         }
+    }
+
+    deleteProgress() {
+        this.results = null;
+    }
+
+    /**
+     * Get the user levels progress.
+     * @return {Promise<*[{levelNum: number, time: number, saved: boolean}]|null>}
+     */
+    getProgress() {
+        if (navigator.onLine && sharedData.data['currentUser']) {
+            return HttpModule.doGetFetch({url: `${baseUrl}/results`}).then(data => {
+                this.results = data;
+                this.results.map(lvl => {
+                    lvl.saved = true;
+                    return lvl;
+                });
+                return this.results;
+            }).catch(() => {
+                return null;
+            });
+        }
+        this.gameProgress.forEach(progress => {
+            this.results = this.results || [];
+            if (!this.results.some(res => {
+                if (progress.levelNum === res.levelNum) {
+                    if (progress.time < res.time) {
+                        res.time = progress.time;
+                        res.saved = false;
+                    }
+                    return true;
+                }
+                return false;
+            })) {
+                progress.saved = false;
+                this.results.push(progress);
+            }
+        });
+        return Promise.resolve(this.results);
     }
 
     /**
