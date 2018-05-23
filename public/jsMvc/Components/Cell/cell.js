@@ -151,6 +151,20 @@ class Cell {
         Cell.setProperty(cell, sizeCell, x, y);
     }
 
+    static setBorderProperty(cell, cellTop) {
+        cellTop.borderElement = cell;
+        cell.bottomElement = cellTop;
+        cell.classList.add('js-border', 'game-blendocu__border');
+        [cell.style.width, cell.style.height]  = [cellTop.style.width, cellTop.style.height];
+        [cell.style.left, cell.style.top] = [cellTop.style.left, cellTop.style.top];
+    }
+
+
+    static resizeBorderProperty(cell) {
+        [cell.style.width, cell.style.height]  = [cell.bottomElement.style.width, cell.bottomElement.style.height];
+        [cell.style.left, cell.style.top] = [cell.bottomElement.style.left, cell.bottomElement.style.top];
+    }
+
 }
 
 export {Cell};

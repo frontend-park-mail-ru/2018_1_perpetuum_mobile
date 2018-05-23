@@ -29,8 +29,8 @@ class RegisterView extends ViewInterface {
     render(params) {
         this.params = {
             form: 'js-register-form',
-            fields: [['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
-                ['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
+            fields: [['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
+                ['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
                 ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
         };
         Object.assign(params, this.params);
@@ -78,6 +78,8 @@ class RegisterView extends ViewInterface {
         });
 
         this.colour = new Colour('colors');
+        const firstForm = document.getElementsByClassName('js-profile-email-input')[0];
+        firstForm.focus();
     }
 
 

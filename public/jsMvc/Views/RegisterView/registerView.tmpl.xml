@@ -8,7 +8,7 @@
                 <fest:for iterate="params.fields" index="i" value="v">
                     <div class="description-text"><fest:value>v[0]</fest:value></div>
                     <label>
-                        <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
+                        <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}" autofocus="true"/> <div class="{v[5]} error-form__block"/>
                     </label>
                 </fest:for>
                 <input class="button_big js-login-button" type="submit" value="Register"/>

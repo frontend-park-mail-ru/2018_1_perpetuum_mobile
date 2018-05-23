@@ -79,6 +79,9 @@ class Popup {
                 this.onSubmitForm(evt);
             }
         });
+
+        const firstForm = this.el.querySelector('input');
+        firstForm.focus();
     }
 
     /**
@@ -86,7 +89,7 @@ class Popup {
      * @return {Popup} current class instance.
      */
     deletePopup() {
-        this.el.innerHTML = '';
+        this.el.remove();
         return this;
     }
 }

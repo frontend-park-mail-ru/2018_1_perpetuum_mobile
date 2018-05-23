@@ -21,7 +21,8 @@
     "start:raw": "node server",
     "beauty": "webpack --mode production",
     "beauty-server": "npm run beauty && DEBUG=mylogger node server",
-    "start": "npm run beauty-server"
+    "start": "npm run beauty-server",
+    "test": "echo ')))'"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -84,11 +84,11 @@
         height: 200vmin;
     }
 }
-
-.game-blendocu__empty-cell-hover {
-    border-color: var(--baseColor);
-    transition: 0.1s linear;
-}
+//
+//.game-blendocu__empty-cell-hover {
+//    border-color: var(--baseColor);
+//    transition: 0.1s linear;
+//}
 
 .game-blendocu__cell:hover {
     background-image: linear-gradient(-45deg, transparent 30%, rgba(255, 255, 255, 0.2), transparent 60%);
@@ -129,6 +129,15 @@
     margin-bottom: 12vmin;
     transition: all 0.3s linear;
     font-size: 10vmin;
+}
+
+.game-blendocu__border {
+    opacity: 0.3;
+    border: 3px solid transparent;
+    border-radius: 7px;
+    box-sizing: border-box;
+    transition: all 0.3s linear;
+    position: absolute;
 }
 
 @media screen and (max-width: 650px) {

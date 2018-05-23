@@ -76,6 +76,9 @@ class LoginView extends ViewInterface {
             }
         });
 
+        const firstForm = document.getElementsByClassName('js-profile-login-input')[0];
+        firstForm.focus();
+
         this.colour = new Colour('colors');
     }
 
