@@ -1,8 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
-    <div class="wrapper-block">
+    <div class="wrapper-block js-wrapper-block">
         <a class="wrapper-block__row-back" href="/"> &lt; </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main js-wrapper-login">
+            <fest:if test="!(params.maps === [])">
                 <div class="wrapper-block__section-header">Select level</div>
                 <div class="level">
                     <div class="levels">
@@ -22,15 +23,15 @@
                     <fest:get name="paginator-buttons">params.paginator</fest:get>
 
                 </div>
+                <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
+                <fest:get name="colour">params</fest:get>
+                <footer class="wrapper-block__profile">
+                    <div class="js-profile profile-footer">
+                        <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
+                        <fest:get name="footer">params.sharedData.currentUser</fest:get>
+                    </div>
+                </footer>
+            </fest:if>
         </div>
-        <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
-        <fest:get name="colour">params</fest:get>
-        <footer class="wrapper-block__profile">
-            <div class="js-profile profile-footer">
-                <fest:include src="./../../Components/UserFooter/UserFooter.tmpl.xml"/>
-                <fest:get name="footer">params.sharedData.currentUser</fest:get>
-            </div>
-        </footer>
-
     </div>
 </fest:template>

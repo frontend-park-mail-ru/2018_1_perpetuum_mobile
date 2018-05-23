@@ -7,6 +7,7 @@ import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './levelView.tmpl.xml';
 import {bus} from '../../Modules/bus.js';
+import {CubicPreloader} from "../../Components/Preloader/cubicPreloader";
 
 
 
@@ -30,6 +31,8 @@ class LevelView extends ViewInterface {
      */
     render(params = {}) {
         bus.emit('createLines');
+        super.render(Object.assign({}, params, {sharedData: sharedData.data}));
+        const preloader = new CubicPreloader();
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.getLevels();
             return this;
@@ -38,8 +41,7 @@ class LevelView extends ViewInterface {
             this.getLevels({page: +params.urlParams[0]});
             return this;
         }
-        params.sharedData = sharedData.data;
-        super.render(params);
+        preloader.removePreloader();
         this.init();
         return this;
     }
