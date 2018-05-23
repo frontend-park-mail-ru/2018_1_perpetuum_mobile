@@ -42,6 +42,9 @@ class OfflineGameModel {
         }
     }
 
+    /**
+     * Delete saved game progress results.
+     */
     deleteProgress() {
         this.results = null;
     }
