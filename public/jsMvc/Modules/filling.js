@@ -1,4 +1,5 @@
 class Filling {
+
     /**
      * return random number
      * @param min {number} - number to start

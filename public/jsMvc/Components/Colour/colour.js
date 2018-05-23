@@ -29,6 +29,7 @@ class Colour {
         this.paintForm.addEventListener('mousedown', this.setRandomScheme.bind(this));
 
         this.elemDom = document.getElementsByClassName(rootClassName)[0];
+        this.prevKeyScheme = 0;
     }
 
     /**
@@ -37,6 +38,10 @@ class Colour {
      */
     setRandomScheme() {
         let rand = fill.random(0, Object.keys(this.colorSet).length);
+        while (rand === this.prevKeyScheme) {
+            rand = fill.random(0, Object.keys(this.colorSet).length);
+        }
+        this.prevKeyScheme = rand;
         let keyRand = Object.keys(this.colorSet)[rand];
         this.setScheme(this.colorSet[keyRand]);
     }
