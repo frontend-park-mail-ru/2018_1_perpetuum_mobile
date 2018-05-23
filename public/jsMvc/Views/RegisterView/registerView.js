@@ -93,7 +93,7 @@ class RegisterView extends ViewInterface {
 
     /**
      * Destroy the current view.
-     * Delete all rendered html from view elementUnfixed.
+     * Delete all rendered html.
      * @return {RegisterView} The current object instance.
      */
     destroy() {

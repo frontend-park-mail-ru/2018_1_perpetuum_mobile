@@ -9,7 +9,6 @@ import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
 import debounce from '../../Modules/debounce.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
-import {sharedData} from '../../Modules/sharedData';
 
 /**
  * Game view
@@ -53,17 +52,17 @@ class GameView extends ViewInterface {
      * Render free blocks on field
      * @param {Number} sizeCell - size of one block
      */
-    drawFree(sizeCell) {
-        this.colourFree = [];
-        this.borderFree = [];
-        const free = this.params.cells.filter(v => v.fixed);
-        free.forEach((v, i) => {
-            this.colourFree[i] = document.createElement('div');
-            Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length);
-            this.borderFree[i] = document.createElement('div');
-            Cell.setBorderProperty(this.borderFree[i], this.colourFree[i]);
-            this.elementFixed.appendChild(this.borderFree[i]);
-            this.elementFixed.appendChild(this.colourFree[i]);
+    drawPool(sizeCell) {
+        this.colourPool = [];
+        this.borderPool = [];
+        const pool = this.params.cells.filter(v => !v.fixed);
+        pool.forEach((v, i) => {
+            this.colourPool[i] = document.createElement('div');
+            Cell.setPoolProperty(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length);
+            this.borderPool[i] = document.createElement('div');
+            Cell.setBorderProperty(this.borderPool[i], this.colourPool[i]);
+            this.elementPool.appendChild(this.borderPool[i]);
+            this.elementPool.appendChild(this.colourPool[i]);
         });
     }
 
@@ -71,12 +70,12 @@ class GameView extends ViewInterface {
      * Render field with empty and fill blocks
      * @param {Number} sizeCell - size of one block
      */
-    drawUnfixed(sizeCell) {
+    drawMap(sizeCell) {
         this.cell = [];
         this.params.cells.forEach((v, i) => {
             this.cell[i] = document.createElement('div');
-            Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
-            this.elementUnfixed.appendChild(this.cell[i]);
+            Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY);
+            this.elementMap.appendChild(this.cell[i]);
         });
     }
 
@@ -84,13 +83,15 @@ class GameView extends ViewInterface {
      * Render all game scene
      */
     drawField() {
-        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
-        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const count = this.params.cells.filter(v => v.fixed).length;
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
+        // elementUnfixed - elementMap
+        // elementFixed - elementPool
+        this.elementMap = this.el.getElementsByClassName('js-game-map')[0];
+        this.elementPool = this.el.getElementsByClassName('js-game-pool')[0];
+        const count = this.params.cells.filter(v => !v.fixed).length;
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, count);
         this.timeEl = this.el.getElementsByClassName('js-timer')[0];
-        this.drawUnfixed(sizeCell);
-        this.drawFree(sizeCell);
+        this.drawMap(sizeCell);
+        this.drawPool(sizeCell);
     }
 
     /**
@@ -117,11 +118,11 @@ class GameView extends ViewInterface {
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
 
         window.addEventListener('resize', debounce(() => {
-            const free = this.params.cells.filter(v => v.fixed);
-            const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, free.length);
-            this.params.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY));
-            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY, i, free.length, this.elementFixed));
-            this.borderFree.forEach(v => Cell.resizeBorderProperty(v));
+            const pool = this.params.cells.filter(v => !v.fixed);
+            const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
+            this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
+            pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
+            this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
         }, 200));
     }
 
@@ -191,7 +192,7 @@ class GameView extends ViewInterface {
 
         const shiftX = keyEvt.X - cell.getBoundingClientRect().left;
         const shiftY = keyEvt.Y - cell.getBoundingClientRect().top;
-        this.elementUnfixed.appendChild(cell);
+        this.elementMap.appendChild(cell);
 
         const onMoveFunc = this.onMoveEvent.bind(this, cell, shiftX, shiftY);
         this.keyHandler.addKeyListener('drag', onMoveFunc);

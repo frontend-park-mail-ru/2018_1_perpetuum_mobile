@@ -92,7 +92,7 @@ class LoginView extends ViewInterface {
 
     /**
      * Destroy the current view.
-     * Delete all rendered html from view elementUnfixed.
+     * Delete all rendered html.
      * @return {LoginView} The current object instance.
      */
     destroy() {

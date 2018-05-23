@@ -23,10 +23,10 @@ class OnlineGameView extends ViewInterface {
         this.drawField();
         window.addEventListener('resize', debounce(() => {
             const free = this.params.map.pool;
-            const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, free.length);
-            this.params.map.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY));
-            free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementFixed));
-            this.borderFree.forEach(v => Cell.resizeBorderProperty(v));
+            const sizeCell = Cell.findSizeCell(this.elementMap, this.params.map.countX, this.params.map.countY, this.elementPool, free.length);
+            this.params.map.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY));
+            free.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, free.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementPool));
+            this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
         }, 200));
 
         document.ontouchstart = evt => this.onStartEvent(evt);
@@ -67,16 +67,16 @@ class OnlineGameView extends ViewInterface {
      * Draw cubic pool.
      * @param {number} sizeCell - The cubic length.
      */
-    drawFree(sizeCell) {
-        this.colourFree = [];
-        this.borderFree = [];
+    drawPool(sizeCell) {
+        this.colourPool = [];
+        this.borderPool = [];
         this.params.map.pool.forEach((v, i, all) => {
-            this.colourFree[i] = document.createElement('div');
-            Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, all.length);
-            this.borderFree[i] = document.createElement('div');
-            Cell.setBorderProperty(this.borderFree[i], this.colourFree[i]);
-            this.elementFixed.appendChild(this.borderFree[i]);
-            this.elementFixed.appendChild(this.colourFree[i]);
+            this.colourPool[i] = document.createElement('div');
+            Cell.setPoolProperty(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, all.length);
+            this.borderPool[i] = document.createElement('div');
+            Cell.setBorderProperty(this.borderPool[i], this.colourPool[i]);
+            this.elementPool.appendChild(this.borderPool[i]);
+            this.elementPool.appendChild(this.colourPool[i]);
         });
     }
 
@@ -84,13 +84,13 @@ class OnlineGameView extends ViewInterface {
      * Draw cubic map.
      * @param {number} sizeCell - The cubic length.
      */
-    drawUnfixed(sizeCell) {
+    drawMap(sizeCell) {
         this.cell = [];
         this.params.map.cells.forEach((v, i) => {
             this.cell[i] = document.createElement('div');
-            v.fixed = !(v.colour);
-            Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY);
-            this.elementUnfixed.appendChild(this.cell[i]);
+            v.fixed = !!(v.colour);
+            Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY);
+            this.elementMap.appendChild(this.cell[i]);
         });
     }
 
@@ -98,11 +98,11 @@ class OnlineGameView extends ViewInterface {
      * Draw all (map + pool).
      */
     drawField() {
-        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
-        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, this.params.map.pool.length);
-        this.drawUnfixed(sizeCell);
-        this.drawFree(sizeCell);
+        this.elementMap = this.el.getElementsByClassName('js-game-map')[0];
+        this.elementPool = this.el.getElementsByClassName('js-game-pool')[0];
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.map.countX, this.params.map.countY, this.elementPool, this.params.map.pool.length);
+        this.drawMap(sizeCell);
+        this.drawPool(sizeCell);
     }
 
     setOpponent(params) {
@@ -140,7 +140,7 @@ class OnlineGameView extends ViewInterface {
 
         const shiftX = X - cell.getBoundingClientRect().left;
         const shiftY = Y - cell.getBoundingClientRect().top;
-        this.elementUnfixed.appendChild(cell);
+        this.elementMap.appendChild(cell);
         cell.borderElement.style.borderColor = 'var(--baseColor)';
 
         document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
@@ -222,7 +222,7 @@ class OnlineGameView extends ViewInterface {
         }, 300);
 
 
-        const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
+        const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         const position = this.cell.filter(v => v.x === payload.x && v.y === payload.y)[0];
 
         if (!cell) {
@@ -243,7 +243,7 @@ class OnlineGameView extends ViewInterface {
     }
 
     cubicDrop(payload) {
-        const cell = this.colourFree.filter(v => v.colour === payload.colour)[0];
+        const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         if (cell) {
             if (cell.fixedCubic === true) {
                 return;

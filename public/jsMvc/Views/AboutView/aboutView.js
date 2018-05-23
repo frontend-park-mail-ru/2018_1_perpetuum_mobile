@@ -41,7 +41,7 @@ class AboutView extends ViewInterface {
 
     /**
      * Destroy the current view.
-     * Delete all rendered html from view elementUnfixed.
+     * Delete all rendered html.
      * @return {AboutView} The current object instance.
      */
     destroy() {

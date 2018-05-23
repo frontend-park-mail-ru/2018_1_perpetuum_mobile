@@ -54,7 +54,7 @@ class MenuView extends ViewInterface {
 
     /**
      * Destroy the current view.
-     * Delete all rendered html from view elementUnfixed.
+     * Delete all rendered html.
      * @return {MenuView} The current object instance.
      */
     destroy() {

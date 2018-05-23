@@ -4,8 +4,8 @@
         <div class="wrapper-block__game-blendocu">
             <div class="online-game">
 
-                <div class="online-game__unfixed js-game-unfixed"/>
-                <div class="online-game__fixed js-game-fixed"/>
+                <div class="online-game__map js-game-map"/>
+                <div class="online-game__pool js-game-pool"/>
 
                 <div class="online-game__score js-score" >
                     <div class="online-game__player online-game__opponent js-opponent">

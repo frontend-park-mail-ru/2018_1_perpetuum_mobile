@@ -30,7 +30,7 @@ class Cell {
      * @param i {Number} - cell position relative to others
      * @param len {Number} - number of cells in a row
      */
-    static setPropertyFree(cell, parentElement, colour, sizeCell, i, len) {
+    static setPoolProperty(cell, parentElement, colour, sizeCell, i, len) {
         const OFFSET = 8;
         const offsetToCenterX = (parentElement.offsetWidth  - (sizeCell + OFFSET) * len) / 2;
         const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET)) / 2;
@@ -52,7 +52,7 @@ class Cell {
      * @param sizeX {Number} - number of cells in a row
      * @param sizeY {Number} - number of cells in a column
      */
-    static setPropertyFixed(cell, parentElement, v, sizeCell, sizeX, sizeY) {
+    static setFixedProperty(cell, parentElement, v, sizeCell, sizeX, sizeY) {
         const OFFSET = 8;
 
         const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET)) / 2;
@@ -60,7 +60,7 @@ class Cell {
         const y = v.y * sizeCell + OFFSET * v.y + offsetToCenterY  + parentElement.offsetTop;
         const x = v.x * sizeCell + OFFSET * v.x + offsetToCenterX;
         Cell.setProperty(cell, sizeCell, x, y);
-        if (!v.fixed) {
+        if (v.fixed) {
             cell.classList.add('game-blendocu__cell');
             const tick = document.createElement('div');
             tick.classList.add('game-blendocu__cell-fixed', 'u1f400');
@@ -74,7 +74,7 @@ class Cell {
     }
 
     /**
-     * cell can be placed in two div, and this method find minimum size to cell so the cells are displayed depending on the screen size
+     * cell can be placed in two div, and this method find maximum size to cell so the cells are displayed depending on the screen size
      * @param firstDiv {Object} - field in which the cell can located
      * @param X {Number} - number of cells in a row
      * @param Y {Number} - number of cells in a column
@@ -114,7 +114,7 @@ class Cell {
      * @param len {Number} - quantity of cells on bottom field
      * @param secondDiv - div of free element
      */
-    static resizeCell(cell, firstDiv, v, sizeCell, sizeX, sizeY, i, len, secondDiv) {
+    static resizeMap(cell, firstDiv, v, sizeCell, sizeX, sizeY, i, len, secondDiv) {
         const OFFSET = 8;
 
         const offsetToCenterX = (firstDiv.offsetWidth  - sizeX * (sizeCell + OFFSET)) / 2;
@@ -143,7 +143,7 @@ class Cell {
      * @param i {Number} - cell position relative to others
      * @param len {Number} - number of cells in a row
      */
-    static resizeFree(cell, parentElement, colour, sizeCell, i, len) {
+    static resizePool(cell, parentElement, colour, sizeCell, i, len) {
         const OFFSET = 8;
         const x = (OFFSET + sizeCell) * i + (parentElement.offsetWidth  - (sizeCell + OFFSET) * len) / 2 + OFFSET/2;
         const y = parentElement.offsetTop + (parentElement.offsetHeight - (sizeCell + OFFSET)) / 2;

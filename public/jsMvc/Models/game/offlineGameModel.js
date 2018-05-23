@@ -116,7 +116,7 @@ class OfflineGameModel {
      * Write the count to vacantCubes.
      */
     countVacantCubes() {
-        this.vacantCubes = this.map.cells.filter(el => el.fixed).length;
+        this.vacantCubes = this.map.cells.filter(el => !el.fixed).length;
     }
 
     /**
