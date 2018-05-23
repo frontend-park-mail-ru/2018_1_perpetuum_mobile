@@ -40,7 +40,7 @@ class OnlineGamePopup {
         this.timerId = setInterval(() => {
             image.style.background = fill.getRandomColor();
             login.innerHTML = fill.getRandomName();
-        }, 2000);
+        }, 3000);
         const tipsEl = this.el.getElementsByClassName('js-rules')[0];
         this.tipsTimer = setInterval(() => tipsEl.innerHTML = fill.getRandomTips(), 6000);
 
@@ -57,6 +57,18 @@ class OnlineGamePopup {
                 row.hidden = false;
             });
         }
+
+        const continueGame = document.getElementsByClassName('js-continue-game')[0];
+        if (continueGame) {
+            clearInterval(this.timerId);
+            clearInterval(this.tipsTimer);
+            continueGame.addEventListener('click', evt => {
+                evt.preventDefault();
+                evt.stopPropagation();
+                this.gameRestart();
+            }, {once: true});
+        }
+
         return this;
     }
 

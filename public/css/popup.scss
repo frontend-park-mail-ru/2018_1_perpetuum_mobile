@@ -163,7 +163,7 @@
 }
 
 .popup__online-image-opponent {
-    animation: opponent 2s infinite;
+    animation: opponent 3s infinite;
 }
 
 
@@ -185,13 +185,13 @@
         margin-top: 15vmin;
         opacity: 0;
     }
-    40% {
+    30% {
         margin-top: 0;
         opacity: 1;
     }
-    90% {
-        margin-top: -15vmin;
-        opacity: 0;
+    70% {
+        margin-top: 0;
+        opacity: 1;
     }
     100% {
         margin-top: -15vmin;
@@ -255,7 +255,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    line-height: 5vmin;
 }
 
 .win {

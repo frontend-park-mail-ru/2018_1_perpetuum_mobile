@@ -14,7 +14,7 @@ class OnlineGameView extends ViewInterface {
     }
 
     startGame(params) {
-        this.canRemove = [];
+        this.canRemove = new Set();
         this.popup.remove();
         this.params = params;
         const score = document.getElementsByClassName('online-game__score')[0];
@@ -26,6 +26,7 @@ class OnlineGameView extends ViewInterface {
             const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.map.countX, this.params.map.countY, this.elementFixed, free.length);
             this.params.map.cells.forEach((v, i) => Cell.setPropertyFixed(this.cell[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY));
             free.forEach((v, i) => (this.colourFree[i].isBottom) ? Cell.resizeFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, free.length) : Cell.resizeCell(this.colourFree[i], this.elementUnfixed, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementFixed));
+            this.borderFree.forEach(v => Cell.resizeBorderProperty(v));
         }, 200));
 
         document.ontouchstart = evt => this.onStartEvent(evt);
@@ -68,9 +69,13 @@ class OnlineGameView extends ViewInterface {
      */
     drawFree(sizeCell) {
         this.colourFree = [];
+        this.borderFree = [];
         this.params.map.pool.forEach((v, i, all) => {
             this.colourFree[i] = document.createElement('div');
             Cell.setPropertyFree(this.colourFree[i], this.elementFixed, v.colour, sizeCell, i, all.length);
+            this.borderFree[i] = document.createElement('div');
+            Cell.setBorderProperty(this.borderFree[i], this.colourFree[i]);
+            this.elementFixed.appendChild(this.borderFree[i]);
             this.elementFixed.appendChild(this.colourFree[i]);
         });
     }
@@ -136,6 +141,7 @@ class OnlineGameView extends ViewInterface {
         const shiftX = X - cell.getBoundingClientRect().left;
         const shiftY = Y - cell.getBoundingClientRect().top;
         this.elementUnfixed.appendChild(cell);
+        cell.borderElement.style.borderColor = 'var(--baseColor)';
 
         document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
         document.ontouchmove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
@@ -153,10 +159,6 @@ class OnlineGameView extends ViewInterface {
      */
     onMoveEvent(evt, cell, shiftX, shiftY) {
         if (cell.fixedCubic === true) {
-            if (this.canRemove.length) {
-                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-                this.canRemove.length = 0;
-            }
             return;
         }
         const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
@@ -167,16 +169,19 @@ class OnlineGameView extends ViewInterface {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
             Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
+
+            if (this.canRemove.size) {
+                this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
+                this.canRemove.clear();
+            }
             if (cell.canDrag) {
                 [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
                 [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
-                bottomElement.classList.add('game-blendocu__empty-cell-hover');
-                bottomElement.addEventListener('transitionend', debounce(() => this.canRemove.push(bottomElement), 10), false);
+                bottomElement.style.borderColor = 'var(--baseColor)';
+                bottomElement.addEventListener('transitionend', () => this.canRemove.add(bottomElement), {once: true});
+                cell.borderElement.style.borderColor = 'transparent';
             } else {
-                if (this.canRemove.length) {
-                    this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-                    this.canRemove.length = 0;
-                }
+                cell.borderElement.style.borderColor = 'var(--baseColor)';
             }
         }
     }
@@ -187,23 +192,15 @@ class OnlineGameView extends ViewInterface {
      * @param allocated(HTMLCollection) - array of empty cell to change opacity
      */
     onUpEvent(cell, allocated) {
-        if (cell.fixedCubic === true) {
-            if (this.canRemove.length) {
-                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-                this.canRemove.length = 0;
-            }
-            return;
-        }
-        [...allocated].forEach(v => v.style.opacity = '0.4');
+        [...allocated].forEach(v => {
+            v.style.opacity = '0.4';
+            v.style.borderColor = 'var(--inputColor)';
+        });
         document.onmousemove = null;
         cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
-            if (this.canRemove.length) {
-                this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-                this.canRemove.length = 0;
-            }
             return;
         }
         this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
@@ -237,9 +234,9 @@ class OnlineGameView extends ViewInterface {
         [cell.isBottom, cell.fixedCubic] = [false, true];
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
 
-        if (this.canRemove.length) {
-            this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-            this.canRemove.length = 0;
+        if (this.canRemove.size) {
+            this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
+            this.canRemove.clear();
         }
     }
 
@@ -252,25 +249,36 @@ class OnlineGameView extends ViewInterface {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         }
-        if (this.canRemove.length) {
-            this.canRemove.forEach(v => v.classList.remove('game-blendocu__empty-cell-hover'));
-            this.canRemove.length = 0;
+        if (this.canRemove.resize) {
+            this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
+            this.canRemove.clear();
         }
     }
 
     gameEnd(payload) {
+        const cells = document.getElementsByClassName('game-blendocu__cell');
+        [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         const popupWin = new OnlineGamePopup();
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
-        if (popupEl) {
-            popupWin.renderTo(popupEl);
-            popupWin.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
-        }
+        popupWin.gameRestart = () => this.gameRestart();
+        setTimeout(() => {
+            if (popupEl) {
+                popupWin.renderTo(popupEl);
+                popupWin.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
+            }
+        }, 1000);
     }
 
 
     isAllowed() {
         return !!sharedData.data.currentUser;
     }
+
+    gameRestart() {
+        this.destroy();
+        this.render();
+    }
+
 
 }
 

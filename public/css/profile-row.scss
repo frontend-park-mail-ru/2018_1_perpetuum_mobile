@@ -26,8 +26,13 @@
     border: none;
 }
 
-.profile-row__edit-icon:active {
+.profile-row__edit-icon:hover {
     color: white;
+}
+
+
+.profile-row__edit-icon:active {
+    color: var(--baseColor);
 }
 
 @media screen and (max-width: 650px) {
