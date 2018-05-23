@@ -234,6 +234,8 @@ class OnlineGameView extends ViewInterface {
         [cell.isBottom, cell.fixedCubic] = [false, true];
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
 
+        cell.borderElement.style.borderColor = 'transparent';
+
         if (this.canRemove.size) {
             this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
             this.canRemove.clear();
