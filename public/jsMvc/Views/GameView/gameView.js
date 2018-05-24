@@ -204,6 +204,7 @@ class GameView extends ViewInterface {
         this.keyHandler.addKeyListener('drag', onMoveFunc);
         this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
+
         cell.borderElement.style.borderColor = 'var(--baseColor)';
     }
 

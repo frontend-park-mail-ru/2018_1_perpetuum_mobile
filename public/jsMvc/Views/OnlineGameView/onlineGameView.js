@@ -6,11 +6,13 @@ import {sharedData} from '../../Modules/sharedData.js';
 import {bus} from '../../Modules/bus.js';
 import debounce from '../../Modules/debounce.js';
 import {baseUrl} from '../../Modules/HttpModule.js';
+import {keyHandler} from '../../Modules/game/keyHandler.js';
 
 class OnlineGameView extends ViewInterface {
     constructor() {
         super(template);
         this.popup = new OnlineGamePopup();
+        this.keyHandler = keyHandler;
     }
 
     onResize() {
@@ -34,15 +36,13 @@ class OnlineGameView extends ViewInterface {
 
     startGame(params) {
         this.toRemoveBorderColor = new Set();
+        this.keyHandler.start();
         this.popup.remove();
         this.params = params;
         const score = document.getElementsByClassName('online-game__score')[0];
         score.style.display = 'flex';
         this.setOpponent(this.params.opponent);
         this.drawField();
-
-        document.ontouchstart = evt => this.onStartEvent(evt);
-        document.onmousedown = evt => this.onStartEvent(evt);
 
         const row = document.getElementsByClassName('js-row')[0];
 
@@ -55,11 +55,13 @@ class OnlineGameView extends ViewInterface {
             }
         });
 
+        this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
         window.addEventListener('resize', debounce(() => this.onResize(), 200));
     }
 
 
     destroy() {
+        this.keyHandler.end();
         super.destroy();
         this.onClose();
         return this;
@@ -130,25 +132,23 @@ class OnlineGameView extends ViewInterface {
     }
 
     onStartEvent(evt) {
-        const cell = evt.target;
+        const cell = evt.evt.target;
 
         if ((cell.className.indexOf('js-fixed') === -1) || cell.fixedCubic) return;
 
         const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
 
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
+        const shiftX = evt.X - cell.getBoundingClientRect().left;
+        const shiftY = evt.Y - cell.getBoundingClientRect().top;
 
-        const shiftX = X - cell.getBoundingClientRect().left;
-        const shiftY = Y - cell.getBoundingClientRect().top;
         this.elementMap.appendChild(cell);
         cell.borderElement.style.borderColor = 'var(--baseColor)';
 
-        document.onmousemove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
-        document.ontouchmove = evt => this.onMoveEvent(evt, cell, shiftX, shiftY);
-        cell.onmouseup = () => this.onUpEvent(cell, allocated);
-        cell.ontouchend = () => this.onUpEvent(cell, allocated);
+
+        const onMoveFunc = this.onMoveEvent.bind(this, cell, shiftX, shiftY);
+        this.keyHandler.addKeyListener('drag', onMoveFunc);
+        this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
     }
 
@@ -159,18 +159,16 @@ class OnlineGameView extends ViewInterface {
      * @param shiftX(number) - shift on X relatively to center of cell
      * @param shiftY(number) - shift on Y relatively to center of cell
      */
-    onMoveEvent(evt, cell, shiftX, shiftY) {
+    onMoveEvent(cell, shiftX, shiftY, evt) {
         if (cell.fixedCubic === true) {
             return;
         }
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
         cell.hidden = true;
-        const bottomElement = document.elementFromPoint(X, Y);
+        const bottomElement = document.elementFromPoint(evt.X, evt.Y);
         if (bottomElement) {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
-            Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
+            Cell.putOnPosition(cell, `${evt.X - shiftX}px`, `${evt.Y - shiftY}px`);
 
             if (this.toRemoveBorderColor.size) {
                 this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
@@ -192,13 +190,14 @@ class OnlineGameView extends ViewInterface {
      * this method do some magic with current cell in touchend or mouseup event
      * @param cell - current cell
      * @param allocated(HTMLCollection) - array of empty cell to change opacity
+     * @param moveFunc - The function for moving the cubic.
      */
-    onUpEvent(cell, allocated) {
+    onUpEvent(cell, allocated, moveFunc) {
         [...allocated].forEach(v => {
             v.style.opacity = '0.4';
             v.style.borderColor = 'var(--inputColor)';
         });
-        document.onmousemove = null;
+        this.keyHandler.removeKeyListener('drag', moveFunc);
         cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
