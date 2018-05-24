@@ -18,7 +18,7 @@ class Cell {
         [cell.style.width, cell.style.height]  = [`${size}px`, `${size}px`];
         [cell.wrongX, cell.wrongY] = [`${X}px`, `${Y}px`];
         [cell.style.left, cell.style.top] = [`${X}px`, `${Y}px`];
-        cell.fixedCubic = false;
+        cell.fixedCubic = (!!cell.fixedCubic);
     }
 
     /**
@@ -67,10 +67,10 @@ class Cell {
             cell.appendChild(tick);
             cell.style.background = v.colour;
             [cell.x, cell.y] = [v.x, v.y];
-        } else {
-            cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
-            [cell.x, cell.y] = [v.x, v.y];
+            return;
         }
+        cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
+        [cell.x, cell.y] = [v.x, v.y];
     }
 
     /**
@@ -151,6 +151,11 @@ class Cell {
         Cell.setProperty(cell, sizeCell, x, y);
     }
 
+    /**
+     * set border element on cubic pool
+     * @param cell - border cubic
+     * @param cellTop - current cubic
+     */
     static setBorderProperty(cell, cellTop) {
         cellTop.borderElement = cell;
         cell.bottomElement = cellTop;
@@ -160,6 +165,10 @@ class Cell {
     }
 
 
+    /**
+     * resize border in case of resize window
+     * @param cell
+     */
     static resizeBorderProperty(cell) {
         [cell.style.width, cell.style.height]  = [cell.bottomElement.style.width, cell.bottomElement.style.height];
         [cell.style.left, cell.style.top] = [cell.bottomElement.style.left, cell.bottomElement.style.top];

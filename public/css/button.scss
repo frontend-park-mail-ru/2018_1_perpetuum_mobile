@@ -48,7 +48,7 @@
 }
 
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .button__user-footer {
         font-size: 5vmin;
         margin: 0 0 0 auto;

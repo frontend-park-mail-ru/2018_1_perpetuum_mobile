@@ -105,6 +105,18 @@ class OfflineGameController {
      * @param {object<page number>} mapNum - The level number to open.
      */
     openLevel(mapNum = { page : 1 }) {
+        // setTimeout(() => this.gameModel.getMap(mapNum).then(
+        //     (data) => {
+        //         if (mapNum.page < this.levelOverviewPaginator.levelsCount) {
+        //             data['toNextLevel'] = evt => {
+        //                 evt.preventDefault();
+        //                 evt.stopPropagation();
+        //                 this.openLevel( { page : mapNum.page + 1 } );
+        //             };
+        //         }
+        //         bus.emit('game', [data, `/${mapNum.page}`]);
+        //     }
+        // ), 1000);
         this.gameModel.getMap(mapNum).then(
             (data) => {
                 if (mapNum.page < this.levelOverviewPaginator.levelsCount) {

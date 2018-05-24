@@ -79,8 +79,17 @@
     }
 }
 
+.online-game__who-set:after {
+    content: "●";
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 4vmin;
+    line-height: 2vmin;
+}
 
-@media screen and (max-width: 450px) {
+
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .online-game__image {
         width: 13vmin;
         height: 13vmin;

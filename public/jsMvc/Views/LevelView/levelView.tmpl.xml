@@ -3,7 +3,7 @@
         <a class="wrapper-block__row-back" href="/"> &lt; </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main js-wrapper-login">
-            <fest:if test="!(params.maps === [])">
+            <fest:if test="params['paginator']">
                 <div class="wrapper-block__section-header">Select level</div>
                 <div class="level">
                     <div class="levels">

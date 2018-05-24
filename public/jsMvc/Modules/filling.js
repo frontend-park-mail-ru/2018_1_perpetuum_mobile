@@ -1,4 +1,8 @@
+/** @module modules/filling */
 class Filling {
+    constructor() {
+        this.prevTips = 0;
+    }
 
     /**
      * return random number
@@ -10,6 +14,10 @@ class Filling {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
+    /**
+     * return random name for popup in start of multiplayer
+     * @returns {string} - name
+     */
     getRandomName() {
         const name = ['Opponent', 'Loser', 'Bot', 'Witcher'];
         const adjective = ['Magic', 'Beauty', '', 'Master', 'Worthy'];
@@ -17,6 +25,10 @@ class Filling {
         return `${adjective[this.random(0,adjective.length)]}${name[this.random(0,name.length)]}${this.random(1, 99)}`;
     }
 
+    /**
+     * return random rgb color
+     * @returns {string} - rgb color
+     */
     getRandomColor() {
         const MAX_COLOR = 255;
 
@@ -27,6 +39,10 @@ class Filling {
         return `rgb(${r}, ${g}, ${b})`;
     }
 
+    /**
+     * get random tips in popup in start of miltiplayer
+     * @returns {string} - tips
+     */
     getRandomTips() {
         const tips = [
             'Put all the cubes in the gradient',
@@ -35,7 +51,13 @@ class Filling {
             'Walk the dog, wife and child',
             'Start searching the game in one time with your friend and play together'
         ];
-        return tips[this.random(0, tips.length)];
+        let currTips = this.random(0, tips.length);
+
+        while (currTips === this.prevTips) {
+            currTips = this.random(0, tips.length);
+        }
+        this.prevTips = currTips;
+        return tips[currTips];
     }
 }
 

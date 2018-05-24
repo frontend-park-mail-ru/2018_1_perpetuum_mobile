@@ -83,8 +83,6 @@ class GameView extends ViewInterface {
      * Render all game scene
      */
     drawField() {
-        // elementUnfixed - elementMap
-        // elementFixed - elementPool
         this.elementMap = this.el.getElementsByClassName('js-game-map')[0];
         this.elementPool = this.el.getElementsByClassName('js-game-pool')[0];
         const count = this.params.cells.filter(v => !v.fixed).length;
@@ -92,6 +90,18 @@ class GameView extends ViewInterface {
         this.timeEl = this.el.getElementsByClassName('js-timer')[0];
         this.drawMap(sizeCell);
         this.drawPool(sizeCell);
+    }
+
+    /**
+     * handler on resize window
+     * change size and position of the cells
+     */
+    onResize() {
+        const pool = this.params.cells.filter(v => !v.fixed);
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
+        this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
+        pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
+        this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
     }
 
     /**
@@ -117,13 +127,7 @@ class GameView extends ViewInterface {
 
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
 
-        window.addEventListener('resize', debounce(() => {
-            const pool = this.params.cells.filter(v => !v.fixed);
-            const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
-            this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
-            pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
-            this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
-        }, 200));
+        window.addEventListener('resize', debounce(() => this.onResize(), 200));
     }
 
     /**
@@ -166,6 +170,9 @@ class GameView extends ViewInterface {
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
         setTimeout(() => this.addPopupWin(this.finalStars), 2000);
+        // if (Notification.permission === 'granted') {
+        //     new Notification('You win', { body: `your score: ${this.finalStars}`, icon: '../favicon.ico' });
+        // }
     }
 
     /**
@@ -198,6 +205,7 @@ class GameView extends ViewInterface {
         this.keyHandler.addKeyListener('drag', onMoveFunc);
         this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
+
         cell.borderElement.style.borderColor = 'var(--baseColor)';
     }
 
