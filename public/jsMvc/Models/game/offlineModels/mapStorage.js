@@ -56,7 +56,7 @@ class MapStorage {
     /**
      * Get the map from storage.
      * @param {number} mapNum - The map number (key).
-     * @return {Object} The map.
+     * @return {Object | undefined} The map.
      */
     getMap(mapNum) {
         return this.maps[mapNum];

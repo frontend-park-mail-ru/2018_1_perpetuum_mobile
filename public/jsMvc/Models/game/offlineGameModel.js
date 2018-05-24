@@ -92,15 +92,19 @@ class OfflineGameModel {
      * @return {Promise<{countX: number, countY: number, cells: *[]}>} The map.
      */
     getMap(mapNum) {
-        const data = this.mapStorage.getMap(mapNum.page);
         let promiseMap = null;
-        if (data !== undefined) {
-            promiseMap = Promise.resolve(data)
-        } else {
+        if (navigator.onLine) {
             promiseMap = HttpModule.doGetFetch({url: `${baseUrl}/level/` + mapNum.page}).then(data => {
                 this.mapStorage.addMap(mapNum.page, data);
                 return data;
             })
+        } else {
+            const data = this.mapStorage.getMap(mapNum.page);
+            if (data !== undefined) {
+                promiseMap = Promise.resolve(data)
+            } else {
+                promiseMap = Promise.reject(null);
+            }
         }
         return promiseMap.then(data => {
             this.map = data;
