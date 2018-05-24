@@ -6,7 +6,7 @@
             <div class="profile-footer__submenu">
                 <ul class="profile-footer__list--all">
                     <li class="profile-footer__list"><form class="js-logout-form" method="post"><input type="submit" value="Logout" class="profile-footer__link"/></form></li>
-                    <li class="profile-footer__list"><a class="profile-footer__link" href="/profile">Settings</a></li>
+                    <li class="profile-footer__list"><a class="profile-footer__link" href="/profile">Profile</a></li>
                 </ul>
             </div>
         </fest:if>

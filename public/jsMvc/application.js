@@ -79,11 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         router.start();
     });
 
-    if (Notification.permission !== 'denied') {
-        Notification.requestPermission(function (permission) {
-            if (permission === 'granted') {
-                new Notification('Hello', { body: 'welcome to the game', icon: '../favicon.ico' });
-            }
-        });
-    }
+    // if (Notification.permission !== 'denied') {
+    //     Notification.requestPermission(function (permission) {
+    //         if (permission === 'granted') {
+    //             new Notification('Hello', { body: 'welcome to the game', icon: '../favicon.ico' });
+    //         }
+    //     });
+    // }
 });

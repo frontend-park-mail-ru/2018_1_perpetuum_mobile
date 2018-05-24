@@ -144,6 +144,8 @@ class OnlineGameView extends ViewInterface {
 
         myName.innerHTML = sharedData.data.currentUser.login;
         myImage.style.background = `url(${sharedData.data.currentUser.image})  center center / cover`;
+        myImage.style.border = 'blue 5px solid';
+        myName.style.color = 'blue';
         this.myScore.innerHTML = '0';
 
         const opponentName = opponent.getElementsByClassName('js-name')[0];
@@ -153,6 +155,8 @@ class OnlineGameView extends ViewInterface {
         opponentName.innerHTML = params.login;
         opponentImage.style.background = `url(${baseUrl}/files/${params.image}) center center / cover`;
         this.opponentScore.innerHTML = '0';
+        opponentImage.style.border = 'red 5px solid';
+        opponentName.style.color = 'red';
         return this;
     }
 
@@ -193,6 +197,7 @@ class OnlineGameView extends ViewInterface {
         if (cell.fixedCubic === true) {
             return;
         }
+
         cell.hidden = true;
         const bottomElement = document.elementFromPoint(evt.X, evt.Y);
         if (bottomElement) {
@@ -265,6 +270,9 @@ class OnlineGameView extends ViewInterface {
             this.lastSettedCubic.isBottom = true;
             return;
         }
+
+        cell.classList.add('online-game__who-set');
+        cell.style.color = (payload.youSet) ? 'blue' : 'red';
 
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];
