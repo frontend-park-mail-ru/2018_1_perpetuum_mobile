@@ -10,6 +10,10 @@ class Filling {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
+    /**
+     * return random name for popup in start of multiplayer
+     * @returns {string} - name
+     */
     getRandomName() {
         const name = ['Opponent', 'Loser', 'Bot', 'Witcher'];
         const adjective = ['Magic', 'Beauty', '', 'Master', 'Worthy'];
@@ -17,6 +21,10 @@ class Filling {
         return `${adjective[this.random(0,adjective.length)]}${name[this.random(0,name.length)]}${this.random(1, 99)}`;
     }
 
+    /**
+     * return random rgb color
+     * @returns {string} - rgb color
+     */
     getRandomColor() {
         const MAX_COLOR = 255;
 
@@ -27,6 +35,10 @@ class Filling {
         return `rgb(${r}, ${g}, ${b})`;
     }
 
+    /**
+     * get random tips in popup in start of miltiplayer
+     * @returns {string} - tips
+     */
     getRandomTips() {
         const tips = [
             'Put all the cubes in the gradient',

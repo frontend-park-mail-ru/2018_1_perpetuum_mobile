@@ -33,7 +33,7 @@ class OnlineGameView extends ViewInterface {
         document.onmousedown = evt => this.onStartEvent(evt);
 
         const row = document.getElementsByClassName('js-row')[0];
-        row.addEventListener('click',evt => {
+        row.addEventListener('click', evt => {
             evt.preventDefault();
             evt.stopPropagation();
             const popupExit = new OnlineGamePopup();
@@ -265,6 +265,8 @@ class OnlineGameView extends ViewInterface {
         popupWin.gameRestart = () => this.gameRestart();
         setTimeout(() => {
             if (popupEl) {
+                const row = this.el.getElementsByClassName('js-row')[0];
+                row.remove();
                 popupWin.renderTo(popupEl);
                 popupWin.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
             }

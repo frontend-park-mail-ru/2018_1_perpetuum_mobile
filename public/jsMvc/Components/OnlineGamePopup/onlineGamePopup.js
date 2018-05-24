@@ -79,6 +79,7 @@ class OnlineGamePopup {
         this.form = this.el.getElementsByClassName('js-popup-form')[0];
     }
 
+
     remove() {
         clearInterval(this.timerId);
         clearInterval(this.tipsTimer);
