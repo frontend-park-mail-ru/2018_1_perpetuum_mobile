@@ -16,7 +16,16 @@
                             </tr>
 
                             <fest:for iterate="params.filling" index="i" value="v">
-                                <tr class="table__tr">
+                                <tr>
+                                    <fest:attributes>
+                                        <fest:attribute name="class">
+                                            table__tr<fest:space/>
+                                            <fest:if test="v.login === params.sharedData.currentUser.login">
+                                                table__current-user
+                                            </fest:if>
+                                        </fest:attribute>
+                                    </fest:attributes>
+
                                     <td><fest:value>(params.paginator.pageNum - 1) * 10 + i + 1</fest:value></td>
                                     <td><fest:value>v.login</fest:value></td>
                                     <td><fest:value>v.score</fest:value></td>

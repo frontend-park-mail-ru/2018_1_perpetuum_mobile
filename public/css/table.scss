@@ -19,6 +19,10 @@
     background: var(--darkGreyColor);
 }
 
+.table__current-user {
+    background: var(--logoColor) !important;
+}
+
 @media screen and (max-width: 450px), (max-height: 450px)  {
     .table {
         width: 80vmin;
