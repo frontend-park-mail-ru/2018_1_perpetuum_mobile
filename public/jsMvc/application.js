@@ -45,20 +45,6 @@ window.addEventListener('contextmenu', evt => {
 });
 
 
-function notifyMe() {
-    console.log(Notification.permission);
-    if (Notification.permission === 'granted') {
-        new Notification('hello');
-    }
-    if (Notification.permission !== 'denied') {
-        Notification.requestPermission(function (permission) {
-            if (permission === 'granted') {
-                new Notification('hello');
-            }
-        });
-    }
-}
-
 /**
  * When all DOM is loaded starts app.
  */
@@ -93,6 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         router.start();
     });
 
-    notifyMe();
-
+    if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            if (permission === 'granted') {
+                new Notification('Hello', { body: 'welcome to the game', icon: '../favicon.ico' });
+            }
+        });
+    }
 });

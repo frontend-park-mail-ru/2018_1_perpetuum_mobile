@@ -170,6 +170,9 @@ class GameView extends ViewInterface {
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
         setTimeout(() => this.addPopupWin(this.finalStars), 2000);
+        if (Notification.permission === 'granted') {
+            new Notification('You win', { body: `your score: ${this.finalStars}`, icon: '../favicon.ico' });
+        }
     }
 
     /**
