@@ -30,14 +30,14 @@ body {
     text-align: center;
     transition: all 0.3s linear;
     overflow: hidden;
-    color: var(--logoColor);
+    color: var(--baseColor);
     text-decoration: none;
     margin-top: 3vh;
     height: 22vh;
 }
 
 .wrapper-block__logo:hover {
-    color: var(--baseColor);
+    color: var(--logoHoverColor);
 }
 
 .wrapper-block__section-header {
