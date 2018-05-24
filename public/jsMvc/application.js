@@ -45,6 +45,20 @@ window.addEventListener('contextmenu', evt => {
 });
 
 
+function notifyMe() {
+    console.log(Notification.permission);
+    if (Notification.permission === 'granted') {
+        new Notification('hello');
+    }
+    if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+            if (permission === 'granted') {
+                new Notification('hello');
+            }
+        });
+    }
+}
+
 /**
  * When all DOM is loaded starts app.
  */
@@ -78,5 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     userController.loadMe().then(() => {
         router.start();
     });
+
+    notifyMe();
 
 });

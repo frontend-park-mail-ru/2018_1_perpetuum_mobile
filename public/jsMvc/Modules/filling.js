@@ -1,4 +1,8 @@
+/** @module modules/filling */
 class Filling {
+    constructor() {
+        this.prevTips = 0;
+    }
 
     /**
      * return random number
@@ -47,7 +51,13 @@ class Filling {
             'Walk the dog, wife and child',
             'Start searching the game in one time with your friend and play together'
         ];
-        return tips[this.random(0, tips.length)];
+        let currTips = this.random(0, tips.length);
+
+        while (currTips === this.prevTips) {
+            currTips = this.random(0, tips.length);
+        }
+        this.prevTips = currTips;
+        return tips[currTips];
     }
 }
 

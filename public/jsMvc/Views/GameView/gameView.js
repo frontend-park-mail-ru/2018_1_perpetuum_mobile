@@ -83,8 +83,6 @@ class GameView extends ViewInterface {
      * Render all game scene
      */
     drawField() {
-        // elementUnfixed - elementMap
-        // elementFixed - elementPool
         this.elementMap = this.el.getElementsByClassName('js-game-map')[0];
         this.elementPool = this.el.getElementsByClassName('js-game-pool')[0];
         const count = this.params.cells.filter(v => !v.fixed).length;

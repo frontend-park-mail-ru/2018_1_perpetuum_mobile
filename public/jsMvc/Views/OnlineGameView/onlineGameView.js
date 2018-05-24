@@ -9,12 +9,19 @@ import {baseUrl} from '../../Modules/HttpModule.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
 
 class OnlineGameView extends ViewInterface {
+    /**
+     * Create a OnlineGameView instance.
+     */
     constructor() {
         super(template);
         this.popup = new OnlineGamePopup();
         this.keyHandler = keyHandler;
     }
 
+    /**
+     * handler on resize window
+     * change size and position of the cells
+     */
     onResize() {
         const sizeCell = Cell.findSizeCell(this.elementMap, this.params.map.countX, this.params.map.countY, this.elementPool, this.params.map.pool.length);
         this.params.map.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY));
@@ -22,6 +29,11 @@ class OnlineGameView extends ViewInterface {
         this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
     }
 
+    /**
+     * Render the view.
+     * @param {object} params - The object with info provided to fest.
+     * @return {OnlineGameView} The current object instance.
+     */
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
@@ -34,6 +46,10 @@ class OnlineGameView extends ViewInterface {
         return this;
     }
 
+    /**
+     * Initialize map, players, render view.
+     * @param params Contains map and info about the opponent.
+     */
     startGame(params) {
         this.toRemoveBorderColor = new Set();
         this.keyHandler.start();
@@ -60,6 +76,10 @@ class OnlineGameView extends ViewInterface {
     }
 
 
+    /**
+     * Destructor.
+     * @returns {OnlineGameView} - The current object instance.
+     */
     destroy() {
         this.keyHandler.end();
         super.destroy();
@@ -109,6 +129,11 @@ class OnlineGameView extends ViewInterface {
         this.drawPool(sizeCell);
     }
 
+    /**
+     * set avatars, logins and scores of the players
+     * @param params - info about opponent
+     * @returns {OnlineGameView}
+     */
     setOpponent(params) {
         const me = document.getElementsByClassName('js-me')[0];
         const opponent  = document.getElementsByClassName('js-opponent')[0];
@@ -131,6 +156,11 @@ class OnlineGameView extends ViewInterface {
         return this;
     }
 
+
+    /**
+     * The method do some magic with current cell in 'startDrag' keyHandler event.
+     * @param {Object} evt - The event emitted by keyHandler.
+     */
     onStartEvent(evt) {
         const cell = evt.evt.target;
 
@@ -209,6 +239,10 @@ class OnlineGameView extends ViewInterface {
 
     }
 
+    /**
+     * method for set a cubic when the response came from the server and the cubic was set correctly
+     *  @param {{colour: string, your: number, opponent: number}} payload The info about cubic to be set, new players scores.
+     */
     cubicSet(payload) {
         const increment = document.createElement('div');
         increment.classList.add('online-game__increment-score');
@@ -231,6 +265,7 @@ class OnlineGameView extends ViewInterface {
             this.lastSettedCubic.isBottom = true;
             return;
         }
+
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
@@ -243,6 +278,10 @@ class OnlineGameView extends ViewInterface {
         }
     }
 
+    /**
+     * method for set a cubic when the response came from the server and the cubic was set incorrectly
+     * @param {{colour: string}} payload The info about cubic to be dropped to the pool.
+     */
     cubicDrop(payload) {
         const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         if (cell) {
@@ -258,6 +297,10 @@ class OnlineGameView extends ViewInterface {
         }
     }
 
+    /**
+     * method for add the popup when the game is over and the response came from the server
+     * @param {{your: string, opponent: string, result: string}} payload - The info about the scores and game winner.
+     */
     gameEnd(payload) {
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
@@ -272,11 +315,17 @@ class OnlineGameView extends ViewInterface {
         }, 1000);
     }
 
-
+    /**
+     * Is the view allowed to show.
+     * @return {boolean}
+     */
     isAllowed() {
         return !!sharedData.data.currentUser;
     }
 
+    /**
+     * restart the game when user click on 'continue game'
+     */
     gameRestart() {
         this.destroy();
         this.render();
