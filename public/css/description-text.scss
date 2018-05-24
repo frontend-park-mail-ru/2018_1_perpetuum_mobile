@@ -5,7 +5,7 @@
     color: #a8a8a8;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .description-text {
         font-size: 3vmin;
         margin-top: 1.5vmin;

@@ -95,6 +95,18 @@ class GameView extends ViewInterface {
     }
 
     /**
+     * handler on resize window
+     * change size and position of the cells
+     */
+    onResize() {
+        const pool = this.params.cells.filter(v => !v.fixed);
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
+        this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
+        pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
+        this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
+    }
+
+    /**
      * Add handlers for drag and drop
      * add animation of timer
      */
@@ -117,13 +129,7 @@ class GameView extends ViewInterface {
 
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
 
-        window.addEventListener('resize', debounce(() => {
-            const pool = this.params.cells.filter(v => !v.fixed);
-            const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
-            this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
-            pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
-            this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
-        }, 200));
+        window.addEventListener('resize', debounce(() => this.onResize(), 200));
     }
 
     /**

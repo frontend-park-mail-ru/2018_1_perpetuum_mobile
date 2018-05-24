@@ -9,7 +9,7 @@
 
                 <form class="profile-settings__avatar-form js-changeImageForm">
                     <div class="avatar-and-change-button">
-                        <img src="{params.sharedData.currentUser.image}" class="avatar-and-change-button__avatar"/>
+                        <img style="background: url({params.sharedData.currentUser.image}) center center / cover" class="avatar-and-change-button__avatar"/>
 
                         <div class="file-upload-button">
                             <button class="file-upload-button__trigger" type="button">Select img</button>

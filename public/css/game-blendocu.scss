@@ -140,7 +140,7 @@
     position: absolute;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .game-blendocu__cell-fixed {
         font-size: 6vmin;
     }

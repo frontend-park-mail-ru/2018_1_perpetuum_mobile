@@ -50,7 +50,7 @@
     font-size: 4vmin;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .level__item {
         width: 20vmin;
         height: 20vmin;

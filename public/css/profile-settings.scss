@@ -29,7 +29,7 @@
 }
 
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .profile-settings {
         width: 60%;
         margin: auto;

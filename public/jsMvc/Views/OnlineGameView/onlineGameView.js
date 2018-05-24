@@ -13,49 +13,51 @@ class OnlineGameView extends ViewInterface {
         this.popup = new OnlineGamePopup();
     }
 
-    startGame(params) {
-        this.canRemove = new Set();
-        this.popup.remove();
-        this.params = params;
-        const score = document.getElementsByClassName('online-game__score')[0];
-        score.style.display = 'flex';
-        this.setOpponent(this.params.opponent);
-        this.drawField();
-        window.addEventListener('resize', debounce(() => {
-            const free = this.params.map.pool;
-            const sizeCell = Cell.findSizeCell(this.elementMap, this.params.map.countX, this.params.map.countY, this.elementPool, free.length);
-            this.params.map.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY));
-            free.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, free.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY, i, free.length, this.elementPool));
-            this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
-        }, 200));
-
-        document.ontouchstart = evt => this.onStartEvent(evt);
-        document.onmousedown = evt => this.onStartEvent(evt);
-
-        const row = document.getElementsByClassName('js-row')[0];
-        row.addEventListener('click', evt => {
-            evt.preventDefault();
-            evt.stopPropagation();
-            const popupExit = new OnlineGamePopup();
-            const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
-            if (popupEl) {
-                popupExit.renderTo(popupEl);
-                popupExit.render({type: 'exit'});
-            }
-        });
+    onResize() {
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.map.countX, this.params.map.countY, this.elementPool, this.params.map.pool.length);
+        this.params.map.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY));
+        this.params.map.pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, this.params.map.pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY, i, this.params.map.pool.length, this.elementPool));
+        this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
     }
 
     render(params = {}) {
         bus.emit('removeLines');
         super.render(params);
         this.onReady();
-        const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
-        if (popupEl) {
-            this.popup.renderTo(popupEl);
+        this.popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
+        if (this.popupEl) {
+            this.popup.renderTo(this.popupEl);
             this.popup.render({type: 'loader', login: sharedData.data.currentUser.login, image: sharedData.data.currentUser.image});
         }
         return this;
     }
+
+    startGame(params) {
+        this.toRemoveBorderColor = new Set();
+        this.popup.remove();
+        this.params = params;
+        const score = document.getElementsByClassName('online-game__score')[0];
+        score.style.display = 'flex';
+        this.setOpponent(this.params.opponent);
+        this.drawField();
+
+        document.ontouchstart = evt => this.onStartEvent(evt);
+        document.onmousedown = evt => this.onStartEvent(evt);
+
+        const row = document.getElementsByClassName('js-row')[0];
+
+        row.addEventListener('click', evt => {
+            evt.preventDefault();
+            evt.stopPropagation();
+            if (this.popupEl) {
+                this.popup.renderTo(this.popupEl);
+                this.popup.render({type: 'exit'});
+            }
+        });
+
+        window.addEventListener('resize', debounce(() => this.onResize(), 200));
+    }
+
 
     destroy() {
         super.destroy();
@@ -114,7 +116,7 @@ class OnlineGameView extends ViewInterface {
         this.myScore = me.getElementsByClassName('js-rating')[0];
 
         myName.innerHTML = sharedData.data.currentUser.login;
-        myImage.src = sharedData.data.currentUser.image;
+        myImage.style.background = `url(${sharedData.data.currentUser.image})  center center / cover`;
         this.myScore.innerHTML = '0';
 
         const opponentName = opponent.getElementsByClassName('js-name')[0];
@@ -122,7 +124,7 @@ class OnlineGameView extends ViewInterface {
         this.opponentScore = opponent.getElementsByClassName('js-rating')[0];
 
         opponentName.innerHTML = params.login;
-        opponentImage.src = `${baseUrl}/files/${params.image}`;
+        opponentImage.style.background = `url(${baseUrl}/files/${params.image}) center center / cover`;
         this.opponentScore.innerHTML = '0';
         return this;
     }
@@ -170,19 +172,19 @@ class OnlineGameView extends ViewInterface {
             cell.hidden = false;
             Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
 
-            if (this.canRemove.size) {
-                this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
-                this.canRemove.clear();
+            if (this.toRemoveBorderColor.size) {
+                this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
+                this.toRemoveBorderColor.clear();
             }
-            if (cell.canDrag) {
-                [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
-                [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
-                bottomElement.style.borderColor = 'var(--baseColor)';
-                bottomElement.addEventListener('transitionend', () => this.canRemove.add(bottomElement), {once: true});
-                cell.borderElement.style.borderColor = 'transparent';
-            } else {
+            if (!cell.canDrag) {
                 cell.borderElement.style.borderColor = 'var(--baseColor)';
+                return;
             }
+            [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
+            [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
+            bottomElement.style.borderColor = 'var(--baseColor)';
+            bottomElement.addEventListener('transitionend', () => this.toRemoveBorderColor.add(bottomElement), {once: true});
+            cell.borderElement.style.borderColor = 'transparent';
         }
     }
 
@@ -236,9 +238,9 @@ class OnlineGameView extends ViewInterface {
 
         cell.borderElement.style.borderColor = 'transparent';
 
-        if (this.canRemove.size) {
-            this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
-            this.canRemove.clear();
+        if (this.toRemoveBorderColor.size) {
+            this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
+            this.toRemoveBorderColor.clear();
         }
     }
 
@@ -251,24 +253,22 @@ class OnlineGameView extends ViewInterface {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         }
-        if (this.canRemove.resize) {
-            this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
-            this.canRemove.clear();
+        if (this.toRemoveBorderColor.size) {
+            this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
+            this.toRemoveBorderColor.clear();
         }
     }
 
     gameEnd(payload) {
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
-        const popupWin = new OnlineGamePopup();
-        const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
-        popupWin.gameRestart = () => this.gameRestart();
+        this.popup.gameRestart = () => this.gameRestart();
         setTimeout(() => {
-            if (popupEl) {
+            if (this.popupEl) {
                 const row = this.el.getElementsByClassName('js-row')[0];
                 row.remove();
-                popupWin.renderTo(popupEl);
-                popupWin.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
+                this.popup.renderTo(this.popupEl);
+                this.popup.render({type: 'win', your: payload.your, opponent: payload.opponent, result: payload.result, reason: payload.reason});
             }
         }, 1000);
     }

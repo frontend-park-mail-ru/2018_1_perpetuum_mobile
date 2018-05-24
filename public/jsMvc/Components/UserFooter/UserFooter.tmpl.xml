@@ -2,7 +2,7 @@
     <fest:set name="footer">
         <fest:if test="!(params === null || params === undefined || params === {})">
             <div class="profile-footer__login"><fest:value>params.login</fest:value></div>
-            <img src="{params.image}" class="profile-footer__avatar js-profile-footer__avatar"/>
+            <img style="background: url({params.image}) center center / cover" class="profile-footer__avatar js-profile-footer__avatar"/>
             <div class="profile-footer__submenu">
                 <ul class="profile-footer__list--all">
                     <li class="profile-footer__list"><form class="js-logout-form" method="post"><input type="submit" value="Logout" class="profile-footer__link"/></form></li>

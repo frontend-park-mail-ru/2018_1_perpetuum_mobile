@@ -6,7 +6,7 @@
 
                 <div class="popup__inner-online">
                     <div class="popup__online-member">
-                        <img class="popup__online-image" src="{params.image}"/>
+                        <img class="popup__online-image" style="background: url({params.image}) center center / cover"/>
                         <div class="popup__online-login"><fest:value>params.login</fest:value></div>
                     </div>
                     <div class="popup__online-VS">VS</div>
