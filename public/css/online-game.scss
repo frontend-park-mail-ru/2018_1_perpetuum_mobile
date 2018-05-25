@@ -80,13 +80,14 @@
 }
 
 .online-game__who-opponent:after {
-    content: "⬥";
+    content: "⬧";
     position: absolute;
     bottom: 5px;
-    right: 10px;
-    font-size: 4vmin;
+    right: 7px;
+    font-size: 6vmin;
     line-height: 2vmin;
     color: black;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .online-game__who-me:after {
@@ -97,16 +98,18 @@
     font-size: 7vmin;
     line-height: 2vmin;
     color: black;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .online-game__who-opponent-avatar:after {
-    content: "⬥";
+    content: "⬧";
     display: inherit;
     position: initial;
     margin-top: -5vmin;
     font-size: 7vmin;
     line-height: 4.5vmin;
     color: white;
+    font-family: 'Orbitron', sans-serif;
 }
 
 .online-game__who-me-avatar:after {
@@ -117,6 +120,7 @@
     font-size: 9vmin;
     line-height: 4.5vmin;
     color: white;
+    font-family: 'Orbitron', sans-serif;
 }
 
 

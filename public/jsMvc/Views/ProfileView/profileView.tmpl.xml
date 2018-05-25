@@ -13,7 +13,7 @@
 
                         <div class="file-upload-button">
                             <button class="file-upload-button__trigger" type="button">Select img</button>
-                            <input class="js-upload-image file-upload-button__input" type="file" name="file"/>
+                            <input class="js-upload-image file-upload-button__input" type="file" accept="image/*" name="file"/>
                         </div>
                     </div>
 

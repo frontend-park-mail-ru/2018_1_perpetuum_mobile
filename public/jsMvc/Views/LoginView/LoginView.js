@@ -45,6 +45,7 @@ class LoginView extends ViewInterface {
      * Add handlers
      */
     init() {
+        const button = document.getElementsByClassName('js-login-button')[0];
         this.toLoginForm = this.el.getElementsByClassName(this.params.form)[0];
 
         this.formValid = [];
@@ -76,7 +77,7 @@ class LoginView extends ViewInterface {
             }
         });
 
-        const firstForm = document.getElementsByClassName('js-profile-login-input')[0];
+        const firstForm = document.querySelector('input');
         firstForm.focus();
 
         this.colour = new Colour('colors');

@@ -15,7 +15,6 @@ class Popup {
      * Create a pop-up
      */
     constructor() {
-        this.el = document.createElement('div');
         this.fest = template;
         bus.on('changeProfileForm-err', Error.serverError.bind(this));
     }
@@ -26,6 +25,7 @@ class Popup {
      * @return {Popup} current class instance.
      */
     renderTo(root) {
+        this.el = document.createElement('div');
         root.appendChild(this.el);
         return this;
     }
@@ -47,7 +47,20 @@ class Popup {
      */
     init() {
         const closeButton = this.el.getElementsByClassName('js-button-close')[0];
-        closeButton.addEventListener('click', this.deletePopup.bind(this));
+        closeButton.addEventListener('click', () => this.deletePopup(), {once: true});
+        this.el.addEventListener('keydown', evt => {
+            if (evt.keyCode === 27) {
+                this.deletePopup();
+            }
+        });
+
+        this.el.addEventListener('click', evt => {
+            const substrate = evt.target;
+            if (substrate.className.indexOf('js-substrate') !== -1) {
+                this.deletePopup();
+            }
+        });
+
         this.form = this.el.getElementsByClassName('js-popup-form')[0];
         this.formValid = [];
 
@@ -90,6 +103,7 @@ class Popup {
      */
     deletePopup() {
         this.el.remove();
+        this.el = null;
         return this;
     }
 }

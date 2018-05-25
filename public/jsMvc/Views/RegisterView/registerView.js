@@ -78,7 +78,7 @@ class RegisterView extends ViewInterface {
         });
 
         this.colour = new Colour('colors');
-        const firstForm = document.getElementsByClassName('js-profile-email-input')[0];
+        const firstForm = document.querySelector('input');
         firstForm.focus();
     }
 
