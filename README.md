@@ -1,5 +1,5 @@
 # 2018_1_perpetuum_mobile
-
+## [Blendocu.com](https://blendocu.com) || [Blendocu.me](https://blendocu.me)
 ## Состав
 
 - Васильева Надя [@Thewhiterabbit123](https://github.com/Thewhiterabbit123)
@@ -15,7 +15,7 @@
 
 Blendocu - это головоломка, в которой надо расположить кубики в правильной цветовой последовательности
 
-## HEROCU
+## HEROKU
 
 https://blendocu.herokuapp.com/
 

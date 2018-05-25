@@ -9,6 +9,7 @@ import {ScoreboardModel} from '../Models/scoreboardModel.js';
 
 import {PaginatorModule} from '../Modules/paginator.js';
 import {bus} from '../Modules/bus.js';
+import {API} from './API/api.js';
 
 
 /**
@@ -28,6 +29,17 @@ class ScoreboardController {
         this.scoreboardView.onPaginatorLeft = this.onPaginatorLeft.bind(this);
         this.scoreboardView.onPaginatorRight = this.onPaginatorRight.bind(this);
         this.scoreboardView.onOpenPage = this.openPage.bind(this);
+        this.scoreboardView.onLogout = this.logout.bind(this);
+    }
+
+    /**
+     * Logout via userController.
+     * @param evt - The event from html element.
+     * @return {ScoreboardController} The current object instance.
+     */
+    logout(evt) {
+        bus.emit(API.LOGOUT, [evt]);
+        return this;
     }
 
     /**
@@ -68,8 +80,6 @@ class ScoreboardController {
             this.paginator.pageNum = page.page;
             data['paginator'] = this.paginator;
             bus.emit('scoreboard', [data, `/${page.page}`]);
-        }).catch(() => {
-            //TODO: add 500 on service unavailable in HTML
         });
     }
 }

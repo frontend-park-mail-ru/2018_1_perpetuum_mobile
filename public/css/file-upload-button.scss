@@ -7,7 +7,7 @@
 }
 
 .file-upload-button {
-    height: 5vmax;
+    height: 40%;
     opacity: 0;
     font-size: 2vh;
     transition: all 0.3s linear;
@@ -27,7 +27,7 @@
     background-color: var(--greyColor);
     width: 20vmin;
     border: transparent;
-    height: 9vmin;
+    height: 100%;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     color: #FFFFFF;

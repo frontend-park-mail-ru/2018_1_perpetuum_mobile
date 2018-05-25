@@ -25,11 +25,11 @@ class OnlineGameModel {
      * @param {function(payload object)} func - The callback function.
      */
     unsubscribe(eventName, func) {
-        ws.off(eventName, func)
+        ws.off(eventName, func);
     }
 
     /**
-     * Send to the server info about placing the cube.
+     * Open ws connection and send to the server info about placing the cube.
      * Cube is not fixed yet. It waits for response.
      * @param {{color: string, x: number, y: number}} payload - Info about where and which cube was set.
      */
@@ -41,15 +41,16 @@ class OnlineGameModel {
      * Send to the server info that the player is ready to play.
      */
     ready() {
-        ws.send(CLIENT_EVENTS.READY);
+        ws.connect(() => ws.send(CLIENT_EVENTS.READY));
     }
 
     /**
-     * Send to the server info that the player closed the game screen.
+     * Send to the server info that the player closed the game screen and close ws connection.
      */
     close() {
         ws.send(CLIENT_EVENTS.CLOSE);
+        ws.disconnect();
     }
 }
 
-export {OnlineGameModel}
+export {OnlineGameModel};

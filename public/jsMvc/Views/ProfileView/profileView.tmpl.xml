@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
-    <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
+        <a class="wrapper-block__row-back" href="/"> &lt; </a>
     <a class="wrapper-block__logo" href="/"> Blendocu </a>
     <div class="wrapper-block__main js-wrapper-block">
             <div class="wrapper-block__section-header">Profile</div>
@@ -9,7 +9,7 @@
 
                 <form class="profile-settings__avatar-form js-changeImageForm">
                     <div class="avatar-and-change-button">
-                        <img src="{params.sharedData.currentUser.image}" class="avatar-and-change-button__avatar"/>
+                        <img style="background: url({params.sharedData.currentUser.image}) center center / cover" class="avatar-and-change-button__avatar"/>
 
                         <div class="file-upload-button">
                             <button class="file-upload-button__trigger" type="button">Select img</button>

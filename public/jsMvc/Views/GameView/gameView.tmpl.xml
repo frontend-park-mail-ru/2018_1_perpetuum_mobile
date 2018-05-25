@@ -1,6 +1,6 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper-block  js-wrapper-block">
-        <a class="wrapper-block__row-back u1f800" href="/level/1"> 🠨 </a>
+        <a class="wrapper-block__row-back" href="/"> &lt; </a>
         <div class="wrapper-block__game-blendocu">
             <div class="game-blendocu">
                 <div class="game-blendocu__score js-score" >
@@ -8,8 +8,8 @@
                     <div class="game-blendocu__timer js-timer"/>
                 </div>
 
-                <div class="game-blendocu__unfixed js-game-unfixed"/>
-                <div class="game-blendocu__fixed js-game-fixed"/>
+                <div class="game-blendocu__map js-game-map"/>
+                <div class="game-blendocu__pool js-game-pool"/>
             </div>
         </div>
     </div>

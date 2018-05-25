@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- '8'
+script:
+- npm run beauty
+- chmod 600 $HOME/frontend.pem
+- ssh-keyscan -H blendocu.com >> ~/.ssh/known_hosts
+- scp -i $HOME/frontend.pem -r public bfront@blendocu.com:/home/bfront/blendocu
+before_install:
+- openssl aes-256-cbc -K $encrypted_133c11f05450_key -iv $encrypted_133c11f05450_iv
+  -in frontend.pem.enc -out $HOME/frontend.pem -d

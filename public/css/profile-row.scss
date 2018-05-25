@@ -26,11 +26,16 @@
     border: none;
 }
 
-.profile-row__edit-icon:active {
+.profile-row__edit-icon:hover {
     color: white;
 }
 
-@media screen and (max-width: 980px) {
+
+.profile-row__edit-icon:active {
+    color: var(--baseColor);
+}
+
+@media screen and (max-width: 450px), (max-height: 450px)  {
     .profile-row {
         font-size: 6vh;
     }

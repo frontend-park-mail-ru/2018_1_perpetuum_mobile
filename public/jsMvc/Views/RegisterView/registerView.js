@@ -29,13 +29,14 @@ class RegisterView extends ViewInterface {
     render(params) {
         this.params = {
             form: 'js-register-form',
-            fields: [['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
-                ['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
+            fields: [['Email', 'js-profile-email-input', 'email', 'email', Validation.validateEmail, 'js-error-email'],
+                ['Login', 'js-profile-login-input', 'text', 'login', Validation.validateLogin, 'js-error-login'],
                 ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
         };
         Object.assign(params, this.params);
         super.render(params);
         this.init();
+        bus.emit('createLines');
         return this;
     }
 
@@ -77,6 +78,8 @@ class RegisterView extends ViewInterface {
         });
 
         this.colour = new Colour('colors');
+        const firstForm = document.getElementsByClassName('js-profile-email-input')[0];
+        firstForm.focus();
     }
 
 
@@ -86,6 +89,17 @@ class RegisterView extends ViewInterface {
      */
     isAllowed() {
         return !sharedData.data['currentUser'];
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html.
+     * @return {RegisterView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 }
 

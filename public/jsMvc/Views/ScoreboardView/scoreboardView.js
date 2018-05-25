@@ -6,6 +6,8 @@ import {ViewInterface} from '../ViewInterface.js';
 import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './scoreboardView.tmpl.xml';
+import {CubicPreloader} from '../../Components/Preloader/cubicPreloader.js';
+import {bus} from '../../Modules/bus.js';
 
 
 /**
@@ -28,6 +30,9 @@ class ScoreboardView extends ViewInterface {
      * @return {ScoreboardView} The current object instance.
      */
     render(params = {}) {
+        super.render(Object.assign({}, params, {sharedData: sharedData.data}));
+        const preloader = new CubicPreloader();
+
         if (Object.keys(params).length === 0 && params.constructor === Object) {
             this.onOpenPage();
             return this;
@@ -36,8 +41,8 @@ class ScoreboardView extends ViewInterface {
             this.onOpenPage({page: +params.urlParams[0]});
             return this;
         }
-        params.sharedData = sharedData.data;
-        super.render(params);
+        preloader.removePreloader();
+        bus.emit('createLines');
         this.init();
         return this;
     }
@@ -60,8 +65,23 @@ class ScoreboardView extends ViewInterface {
         this.colour = new Colour('colors');
     }
 
+    /**
+     * isAllowed - is the view allowed to show.
+     * @return {boolean}
+     */
     isAllowed() {
         return navigator.onLine;
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html.
+     * @return {ScoreboardView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 }
 

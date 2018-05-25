@@ -10,12 +10,15 @@
 }
 body {
     overflow: hidden;
+    height: 100%;
+    position: relative;
 }
 .wrapper-block__main {
     grid-row: 2/3;
     grid-column: 2/3;
     font-size: 8vmin;
     margin: auto;
+    z-index: 3;
 }
 
 .wrapper-block__logo {
@@ -23,24 +26,25 @@ body {
     font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 1/4;
-    font-size: 20vmin;
+    font-size: 11vw;
     text-align: center;
     transition: all 0.3s linear;
     overflow: hidden;
-    color: var(--logoColor);
+    color: var(--baseColor);
     text-decoration: none;
     margin-top: 3vh;
+    height: 22vh;
 }
 
 .wrapper-block__logo:hover {
-    color: var(--baseColor);
+    color: var(--logoHoverColor);
 }
 
 .wrapper-block__section-header {
     font-size: 5vmin;
     text-align: center;
     margin-bottom: 3vh;
-    margin-top: 2vh;
+    margin-top: 5vh;
     color: #FFFFFF;
 }
 
@@ -56,21 +60,26 @@ body {
     font-size: 8vmin;
     background: transparent;
     color: var(--inputColor);
+    cursor: pointer;
 }
 
 .wrapper-block__change-color:after {
     content: "🖌";
 }
 
-.wrapper-block__change-color:active {
+.wrapper-block__change-color:hover {
     color: white;
+}
+
+.wrapper-block__change-color:active {
+    color: var(--baseColor);
 }
 
 .wrapper-block__profile {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 40vmin;
+    width: 50vmin;
     margin: 0 2vmin 2vmin 0;
 }
 
@@ -89,9 +98,9 @@ body {
     color: var(--inputColor);
     opacity: 0.2;
     margin-left: 4vmin;
-    margin-top: 5vmin;
+    margin-top: 7vmin;
     transition: opacity 0.3s linear;
-    z-index: 100;
+    z-index: 10000;
 }
 
 .wrapper-block__row-back:active {
@@ -102,7 +111,8 @@ body {
     opacity: 0.6;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 450px), (max-height: 450px)  {
+
     .wrapper-block {
         grid-template-columns: 0 100% 0;
         grid-template-rows: 20% 65% 15%;
@@ -114,8 +124,8 @@ body {
 
     .wrapper-block__logo {
         font-family: 'Orbitron-black', sans-serif;
-        font-size: 19vmin;
-        margin-top: 5vh;
+        font-size: 12vw;
+        margin-top: 3vh;
     }
     .wrapper-block__change-color {
         width: 13vmin;
@@ -138,6 +148,9 @@ body {
     }
 
     @media screen and (orientation: portrait) {
+        .wrapper-block__logo {
+            font-size: 18vw;
+        }
         .wrapper-block {
             grid-template-columns: 0 100% 0;
             grid-template-rows: 15% 70% 15%;
@@ -151,6 +164,9 @@ body {
         }
         .wrapper-block__profile {
             width: 50%;
+        }
+        .online-game__row {
+            margin: 0;
         }
     }
 

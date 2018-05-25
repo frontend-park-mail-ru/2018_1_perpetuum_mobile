@@ -1,30 +1,60 @@
+/**
+ *  @module components/BackgroundAnimation
+ */
+import {bus} from '../../Modules/bus.js';
+import {fill} from '../../Modules/filling.js';
+import {keyHandler} from '../../Modules/game/keyHandler.js';
+import throttle from '../../Modules/throttle.js';
+
 class BackgroundAnimation {
+    /**
+     * create line animation random color
+     * @param position - position to create line
+     */
+    createELement(position) {
+        const line = document.createElement('div');
+        line.classList.add('background-animation');
+        const parentEl = document.getElementsByClassName('js-application')[0];
+        line.style.left = `${position}px`;
+        line.style.width = `${fill.random(5, 15)}vmin`;
+        line.style.animation = `line ${fill.random(2, 6)}s`;
+        line.style.backgroundColor = fill.getRandomColor();
+        parentEl.insertAdjacentElement('afterbegin', line);
+        line.addEventListener('animationend', () => line.remove(), {once: true});
+    }
+
+    /**
+     * constructor. Create current class instance
+     */
     constructor() {
-        // const line = document.createElement('div');
-        // line.classList.add('background-animation');
-        // const parentEl = document.getElementsByClassName('js-wrapper-block');
-        // const positionX = Math.floor(Math.random() * parentEl.offsetX);
-        // line.left = `${positionX}px`;
-        document.addEventListener('click', (evt) => {
-            const line = document.createElement('div');
-            //const lineBack = document.createElement('div');
-            //lineBack.classList.add('background-animation');
-            // line.classList.add('background-animation');
-            const parentEl = document.getElementsByClassName('js-wrapper-block')[0];
-            const positionX = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-            line.style.left = `${positionX}px`;
-            //line.style.left = `${positionX + Math.floor(Math.random())}px`;
-            parentEl.appendChild(line);
-            //parentEl.appendChild(lineBack);
-            line.addEventListener('animationend', () => {
-                line.remove();
-                //lineBack.remove();
-            });
-        });
+        this.keyHandler = keyHandler;
+        bus.on('createLines', () => this.addLines());
+        bus.on('removeLines', () => this.removeLines());
+        this.create = throttle(evt => this.createELement(evt.X), 100);
     }
 
-    createElementOnTimer() {
-
+    /**
+     * to bus emit createLines
+     */
+    addLines() {
+        this.keyHandler.start();
+        this.keyHandler.addKeyListener('startDrag', this.create);
+        this.time = setInterval(() => {
+            const parentEl = document.getElementsByClassName('js-application')[0];
+            const position = fill.random(0, parentEl.offsetWidth);
+            this.createELement(position);
+        }, fill.random(2000, 5000));
     }
+
+    /**
+     * to bus emit removeLines
+     */
+    removeLines() {
+        this.keyHandler.end();
+        clearInterval(this.time);
+    }
+
 }
-export {BackgroundAnimation};
+
+const backgroundAnimationSingleton = new BackgroundAnimation();
+export {backgroundAnimationSingleton as backgroundAnimation};

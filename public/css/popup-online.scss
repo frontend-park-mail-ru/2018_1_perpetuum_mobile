@@ -1,0 +1,124 @@
+.popup__inner-online {
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.popup__online-VS {
+    font-size: 9vw;
+    align-self: center;
+    color: white;
+}
+
+.popup__online-image {
+    width: 15vmin;
+    height: 15vmin;
+    margin: 0 5vw 2vmin 5vw;
+    border-radius: 5px;
+    border: var(--secondColor) 2px solid;
+    background: rgb(132, 66, 91);
+}
+
+.popup__online-image-opponent {
+    animation: opponent 3s infinite;
+}
+
+
+.popup__online-game-result {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    margin: 2vmin auto 2vmin auto;
+}
+
+.popup__online--reason {
+    width: 70%;
+    margin: 4vmin auto 6vmin auto;
+}
+
+@keyframes opponent {
+    0% {
+        margin-top: 15vmin;
+        opacity: 0;
+    }
+    30% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    70% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    100% {
+        margin-top: -15vmin;
+        opacity: 0;
+    }
+}
+
+.popup__online-rules{
+    font-size: 4vmin;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5vmin;
+    line-height: 5vmin;
+}
+
+.popup__online-rules-animated {
+    text-align: center;
+    animation: tips 6s infinite;
+}
+
+@keyframes tips {
+    0% {
+        margin-top: 3vmin;
+        opacity: 0;
+    }
+    10% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    90% {
+        margin-top: 0;
+        opacity: 1;
+    }
+    100% {
+        margin-top: -3vmin;
+        opacity: 0;
+    }
+}
+
+
+.popup__online-member {
+    align-self: center;
+}
+
+.popup__online-login {
+    font-size: 1.5vw;
+}
+
+.popup__online-stop-searching:hover {
+    border-bottom: var(--baseColor) 3px solid;
+}
+
+.popup__online-your-score {
+    color: var(--baseColor);
+}
+
+.popup__online-reason {
+    font-size: 4vmin;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.popup__online-lose {
+    font-size: 4vmin;
+    height: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5vmin;
+}

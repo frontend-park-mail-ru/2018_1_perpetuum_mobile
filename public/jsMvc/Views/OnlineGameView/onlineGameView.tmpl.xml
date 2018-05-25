@@ -1,21 +1,24 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="data">
     <div class="wrapper-block  js-wrapper-block">
-        <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
+        <a class="wrapper-block__row-back online-game__row js-row" href="/"> × </a>
         <div class="wrapper-block__game-blendocu">
             <div class="online-game">
+
+                <div class="online-game__map js-game-map"/>
+                <div class="online-game__pool js-game-pool"/>
+
                 <div class="online-game__score js-score" >
-                    <div class="online-game__player js-oponent">
-                        <img class="online-game__image" src="uPVkbgWoJ0o.jpg"/>
-                        <div class="online-game__player-name js-name">lol</div>
-                        <div class="js-rating online-game__star">12</div>
+                    <div class="online-game__player online-game__opponent js-opponent">
+                        <div class="online-game__image js-image"/>
+                        <div class="online-game__player-name js-name"/>
+                        <div class="js-rating online-game__star"/>
                     </div>
-                    <div class="online-game__player js-me">
-                        <div class="js-rating online-game__star">15</div>
-                        <div class="online-game__player-name js-name">lol</div>
-                        <img class="online-game__image" src="uPVkbgWoJ0o.jpg"/>
+                    <div class="online-game__player online-game__me js-me">
+                        <div class="js-rating online-game__star"/>
+                        <div class="online-game__player-name js-name"/>
+                        <div class="online-game__image js-image"/>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

@@ -3,17 +3,37 @@
     font-size: initial !important;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     width: 50vmax;
-    z-index: 10;
+    z-index: 1001;
     border-radius: 10px;
     background: #1c1c1c;
-    top: 20vmin;
+    top: 15vmin;
     position: fixed;
     box-shadow: 0 0 5px 1px rgba(98, 98, 98, 0.4);
     animation: forward 0.3s 1;
     margin: auto;
+    justify-content: center;
     left: 25%;
+}
+
+.popup__online-game-popup {
+    top: 10vmin;
+    left: 12.5vw;
+    z-index: 1000000;
+    height: 80%;
+    width: 75vw;
+}
+
+.popup__substrate {
+    background-color: rgba(1,1,1,0.6);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+    transition: 0.3s linear;
 }
 
 @keyframes forward {
@@ -36,10 +56,9 @@
 }
 
 .popup__title {
-    font-size: 5vh;
-    color: #ffffff;
-    top: 2vh;
-    margin: 1vh auto 4vh auto;
+    font-size: 6vh;
+    color: var(--baseColor);
+    margin: 6vh auto 6vh auto;
 }
 
 .popup__close {
@@ -68,6 +87,7 @@
 }
 
 .popup__win {
+    color: var(--baseColor);
     font-size: 10vh;
 }
 
@@ -78,7 +98,7 @@
     color: white;
     text-decoration: none;
     transition: all 0.3s linear;
-    font-size: 3vmin;
+    font-size: 4vmin;
     border-bottom: transparent 3px solid;
 }
 
@@ -86,9 +106,21 @@
     border-bottom: var(--baseColor) 3px solid;
 }
 
+.popup__offline-win {
+    color: white;
+}
+
 .popup__buttons {
+    line-height: initial;
     display: flex;
     flex-direction: row;
+    margin-bottom: 6vmin;
+}
+
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 6vmin;
 }
 
 .popup__time {
@@ -99,12 +131,22 @@
     font-size: 4vmin;
 }
 
+.win {
+    margin-top: 5%;
+}
 
-@media screen and (max-width: 980px) {
+.popup__back-unwant {
+    color: gray;
+}
+
+@media screen and (max-width: 650px), (max-height: 650px) {
+    .popup__title {
+        font-size: 5vh;
+    }
     .popup {
         left: 20vmax;
         width: 60%;
-        height: 70%;
+        height: 75%;
     }
     .popup__win {
         font-size: 13vmin;

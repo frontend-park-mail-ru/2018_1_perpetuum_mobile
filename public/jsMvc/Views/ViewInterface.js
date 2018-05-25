@@ -49,8 +49,8 @@ class ViewInterface {
     }
 
     /**
-     * Set the root elementUnfixed to this view.
-     * @param root - The elementUnfixed to which view will be appended to.
+     * Set the root element to this view.
+     * @param root - The element to which view will be appended to.
      * @return {ViewInterface} The current object instance.
      */
     renderTo(root) {
@@ -68,7 +68,7 @@ class ViewInterface {
 
     /**
      * Destroy the current view.
-     * Delete all rendered html from view elementUnfixed.
+     * Delete all rendered html.
      * @return {ViewInterface} The current object instance.
      */
     destroy() {

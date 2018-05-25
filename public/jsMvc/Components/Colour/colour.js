@@ -3,6 +3,8 @@
  */
 
 
+import {fill} from '../../Modules/filling.js';
+
 /**
  * Class for changing the color scheme.
  */
@@ -15,30 +17,20 @@ class Colour {
      */
     constructor(rootClassName) {
         this.colorSet = {
-            baseColorPurple: ['#e040fb', '#9c23c7', '#2e1e2e'],
-            baseColorYellow: ['#ffc107', '#ffa000', '#2e2e02'],
-            baseColorGreen:  ['#689f38', '#8bc34a', '#1e2e22'],
-            baseColorOrange: ['#e64a19', '#ff5722', '#391409'],
-            baseColorBlue:   ['#303f9f', '#3f51b5', '#10142b'],
+            baseColorPurple:    ['#e040fb', '#9121b9', '#3d283d', '#b534cb'],
+            baseColorYellow:    ['#ffc107', '#b97400', '#413d0d', '#e48f00'],
+            baseColorGreen:     ['#8ed649', '#54762d', '#244627', '#6fa839'],
+            baseColorOrange:    ['#fa6306', '#c2421a', '#391409', '#d85605'],
+            baseColorBlue:      ['#6472ff', '#354596', '#151a38', '#3849c2'],
+            baseColorLightBlue: ['#87fcff', '#25717a', '#11393e', '#66bfc1'],
         };
-        this.colorSetKeys = ['--baseColor', '--logoColor', '--firstGradientColor'];
+        this.colorSetKeys = ['--baseColor', '--logoColor', '--firstGradientColor', '--logoHoverColor'];
 
         this.paintForm = document.getElementsByClassName('wrapper-block__change-color')[0];
-        //document.addEventListener('DOMContentLoaded', this.setRandomScheme.bind(this));
         this.paintForm.addEventListener('mousedown', this.setRandomScheme.bind(this));
 
         this.elemDom = document.getElementsByClassName(rootClassName)[0];
-    }
-
-    /**
-     * Get random number from min to max.
-     * Used for selecting the colour scheme randomly.
-     * @param {number} min - The minimal number to choose.
-     * @param {number} max - The maximal number to choose.
-     * @return {number} The random number in interval from min to max.
-     */
-    static getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min)) + min;
+        this.prevKeyScheme = 0;
     }
 
     /**
@@ -46,7 +38,11 @@ class Colour {
      * Uses {@link setScheme}
      */
     setRandomScheme() {
-        let rand = Colour.getRandomInt(0, Object.keys(this.colorSet).length);
+        let rand = fill.random(0, Object.keys(this.colorSet).length);
+        while (rand === this.prevKeyScheme) {
+            rand = fill.random(0, Object.keys(this.colorSet).length);
+        }
+        this.prevKeyScheme = rand;
         let keyRand = Object.keys(this.colorSet)[rand];
         this.setScheme(this.colorSet[keyRand]);
     }
@@ -59,6 +55,8 @@ class Colour {
         colorSet.forEach( (item, i) => {
             this.elemDom.style.setProperty(this.colorSetKeys[i], item);
         });
+        const meta = document.getElementById('colour');
+        meta.content = colorSet[0];
     }
 }
 

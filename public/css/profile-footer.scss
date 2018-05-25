@@ -9,9 +9,9 @@
 .profile-footer__avatar {
     box-sizing: border-box;
     border: var(--secondColor) 2px solid;
-    border-radius: 3px;
-    width: 8vmin;
-    height: 8vmin;
+    border-radius: 5px;
+    width: 10vmin;
+    height: 10vmin;
     margin-right: 2vh;
 }
 
@@ -62,7 +62,7 @@
     border-bottom: var(--baseColor) 3px solid;
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 650px), (max-height: 650px) {
     .profile-footer {
         margin: 0;
     }

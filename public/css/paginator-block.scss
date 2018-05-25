@@ -13,8 +13,18 @@
 
 .scoreboard-paginator__button:disabled {
     color: var(--firstGradientColor);
+    font-size: 4vh;
+}
+
+.scoreboard-paginator__button:hover {
+    color: white;
 }
 
 .scoreboard-paginator__button:active {
-    color: white;
+    color: var(--baseColor);
+}
+
+.scoreboard-paginator__button:disabled:hover {
+    color: var(--firstGradientColor);
+    font-size: 4vh;
 }

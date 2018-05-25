@@ -5,18 +5,22 @@ let baseUrl = '';
 /** switches the backend url */
 switch (window.location.hostname) {
     case 'localhost':
-        baseUrl = 'http://localhost:3050';
-        // this.baseUrl = '//blendocu-back.herokuapp.com';
+        baseUrl = '//localhost:3050';
         break;
     case '127.0.0.1':
-        baseUrl = 'http://127.0.0.1:3050';
-        // this.baseUrl = '//blendocu-back.herokuapp.com';
+        baseUrl = '//127.0.0.1:3050';
         break;
     case 'blend-front.herokuapp.com':
         baseUrl = '//blend-back.herokuapp.com';
         break;
     case 'blendocu.herokuapp.com':
         baseUrl = '//blendocu-back.herokuapp.com';
+        break;
+    case 'blendocu.com':
+        baseUrl = '//back.blendocu.com';
+        break;
+    case 'blendocu.me':
+        baseUrl = '//back.blendocu.me';
         break;
     default:
         baseUrl = '';

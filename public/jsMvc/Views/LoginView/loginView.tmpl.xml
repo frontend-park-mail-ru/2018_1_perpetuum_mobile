@@ -1,16 +1,15 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block">
-        <a class="wrapper-block__row-back u1f800" href="/"> 🠨 </a>
+        <a class="wrapper-block__row-back" href="/"> &lt; </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
-        <div class="wrapper-block__main">
-            <section class="wrapper-block__main js-wrapper-login">
+        <div class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Login</div>
                 <form class="login-register-form-block js-login-form">
 
                     <fest:for iterate="params.fields" index="i" value="v">
                         <div class="description-text"><fest:value>v[0]</fest:value></div>
                         <label>
-                            <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
+                            <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/><div class="{v[5]} error-form__block"/>
                         </label>
                     </fest:for>
 
@@ -22,7 +21,6 @@
                     <div class="description-text">  You are not registered? </div>
                     <a class="register-login-change__button" href="/register">Register</a>
                 </div>
-            </section>
         </div>
         <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
         <fest:get name="colour">params</fest:get>

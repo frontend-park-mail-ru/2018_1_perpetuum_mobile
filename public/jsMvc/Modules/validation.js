@@ -31,7 +31,8 @@ function isAllowed(value) {
  * */
 function validateLength(value) {
     const MIN_LENGTH = 4;
-    return ((MIN_LENGTH > value.length) && (value.length > 0));
+    const MAX_LENGTH = 12;
+    return ((MIN_LENGTH > value.length) && (value.length > 0) || (value.length > MAX_LENGTH));
 }
 
 /**
@@ -47,8 +48,8 @@ class Validation {
      */
     static validateLogin(evt) {
         const login = evt.target.value;
-        const stat = !validateLength(login) ? true : 'Too short. Min 4 letters';
-        return !isAllowed(login) ? stat : 'Not latin';
+        const stat = !validateLength(login) ? true : 'Minimum 4 letters, maximum - 12';
+        return !isAllowed(login) ? stat : 'Not latin symbol';
     }
 
     /**
@@ -61,7 +62,7 @@ class Validation {
     static validatePassword(evt) {
         const password = evt.target.value;
         const stat = !validateLength(password) ? true : 'Too short. Min 4 letters';
-        return !isAllowed(password) ? stat : 'Not latin';
+        return !isAllowed(password) ? stat : 'Not latin symbol';
     }
 
     /**
@@ -86,7 +87,7 @@ class Validation {
     static validateLoginOrEmail(evt) {
         const loginOrEmail = evt.target.value;
         const stat = isEmail(loginOrEmail) || !validateLength(loginOrEmail) ? true : 'This is not login or email';
-        return !isAllowed(loginOrEmail) ? stat : 'This is not latin';
+        return !isAllowed(loginOrEmail) ? stat : 'This is not latin symbols';
     }
 
     /**

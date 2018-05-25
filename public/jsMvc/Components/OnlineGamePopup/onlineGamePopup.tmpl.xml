@@ -1,0 +1,57 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <div class="popup__substrate">
+        <div class="popup popup__online-game-popup">
+            <fest:if test="params.type === 'loader'">
+                <div class="popup__title">Waiting for opponent</div>
+
+                <div class="popup__inner-online">
+                    <div class="popup__online-member">
+                        <div class="popup__online-image" style="background: url({params.image}) center center / cover"/>
+                        <div class="popup__online-login"><fest:value>params.login</fest:value></div>
+                    </div>
+                    <div class="popup__online-VS">VS</div>
+                    <div class="popup__online-member popup__online-image-opponent ">
+                        <div class="popup__online-image js-opponent-image"/>
+                        <div class="popup__online-login js-opponent-login">...</div>
+                    </div>
+                </div>
+                <div class="popup__online-rules">
+                    <div class="popup__online-rules-animated  js-rules">Walk the dog, wife and child</div>
+                </div>
+            </fest:if>
+            <fest:if test="params.type === 'exit'">
+                <div class="popup__title">Are you sure?</div>
+                <div class="popup__online-lose">
+                    <div>You will lose your score</div>
+                </div>
+                <div class="popup__buttons">
+                    <a class="popup__back  popup__back-unwant" href="/"> Exit anyway </a>
+                    <a class="popup__back js-continue"> Continue the game </a>
+                </div>
+            </fest:if>
+
+            <fest:if test="params.type === 'win'">
+                <div class="popup__win win"><fest:value>params.result</fest:value></div>
+                <div class="popup__online-reason">
+                    <div class="popup__online--reason"><fest:value>params.reason</fest:value></div>
+                    <div class="popup__online-game-result popup__online-your-score">
+                        <div>Your score:</div>
+                        <div><fest:value>params.your</fest:value></div>
+                    </div>
+
+                    <div class="popup__online-game-result">
+                        <div> Opponent score: </div>
+                        <div><fest:value>params.opponent</fest:value></div>
+                    </div>
+                </div>
+                <div class="popup__buttons">
+                    <a class="popup__back  popup__back-unwant" href="/"> Back </a>
+                    <a class="popup__back js-continue-game "> Continue the game </a>
+                </div>
+
+
+            </fest:if>
+
+        </div>
+    </div>
+</fest:template>

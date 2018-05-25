@@ -33,6 +33,7 @@ class ProfileView extends ViewInterface {
         super.render(params);
         this.initParams();
         this.init();
+        bus.emit('createLines');
         return this;
     }
 
@@ -125,6 +126,17 @@ class ProfileView extends ViewInterface {
             document.getElementsByClassName('js-profile-settings-file-name')[0].innerHTML = avatar.name;
         }
         return (isValid !== true) ? Error.showAvatarError(isValid) : Error.hideAvatarError();
+    }
+
+    /**
+     * Destroy the current view.
+     * Delete all rendered html.
+     * @return {ProfileView} The current object instance.
+     */
+    destroy() {
+        super.destroy();
+        bus.emit('removeLines');
+        return this;
     }
 }
 

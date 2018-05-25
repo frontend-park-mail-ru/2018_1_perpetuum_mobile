@@ -15,11 +15,13 @@ function requireAll(r) {
 requireAll(require.context('./../css/', true, /\.(css)$/));
 requireAll(require.context('./../css/', true, /\.(scss)$/));
 
+
 import {Router} from './Modules/router.js';
 import {OfflineGameController} from './Controller/gameController.js';
 import {UserController} from './Controller/userController.js';
 import {ScoreboardController} from './Controller/scoreboardController.js';
 import {enableSW} from './Modules/serviceWorker.js';
+import {backgroundAnimation} from './Components/BackgroundAnimation/backgroundAnimation.js';
 
 
 
@@ -47,7 +49,8 @@ window.addEventListener('contextmenu', evt => {
  * When all DOM is loaded starts app.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    enableSW();
+    const bA = backgroundAnimation;
+    //enableSW();
     const root = document.getElementsByClassName('js-application')[0];
     const router = new Router(root);
 
@@ -75,4 +78,12 @@ document.addEventListener('DOMContentLoaded', () => {
     userController.loadMe().then(() => {
         router.start();
     });
+
+    // if (Notification.permission !== 'denied') {
+    //     Notification.requestPermission(function (permission) {
+    //         if (permission === 'granted') {
+    //             new Notification('Hello', { body: 'welcome to the game', icon: '../favicon.ico' });
+    //         }
+    //     });
+    // }
 });

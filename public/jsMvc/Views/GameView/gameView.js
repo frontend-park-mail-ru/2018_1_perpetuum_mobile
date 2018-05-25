@@ -7,6 +7,8 @@ import {ViewInterface} from '../ViewInterface.js';
 import {Cell} from '../../Components/Cell/cell.js';
 import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
+import debounce from '../../Modules/debounce.js';
+import {keyHandler} from '../../Modules/game/keyHandler.js';
 
 /**
  * Game view
@@ -19,6 +21,7 @@ class GameView extends ViewInterface {
     constructor() {
         super(template);
         this._popup = new GamePopup();
+        this.keyHandler = keyHandler;
     }
 
     /**
@@ -49,12 +52,17 @@ class GameView extends ViewInterface {
      * Render free blocks on field
      * @param {Number} sizeCell - size of one block
      */
-    drawFree(sizeCell) {
-        const free = this.params.cells.filter(v => v.fixed);
-        free.forEach((v, i) => {
-            const colourFree = document.createElement('div');
-            Cell.setPropertyFree(colourFree, this.elementFixed, v.colour, sizeCell, i, free.length);
-            this.elementFixed.appendChild(colourFree);
+    drawPool(sizeCell) {
+        this.colourPool = [];
+        this.borderPool = [];
+        const pool = this.params.cells.filter(v => !v.fixed);
+        pool.forEach((v, i) => {
+            this.colourPool[i] = document.createElement('div');
+            Cell.setPoolProperty(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length);
+            this.borderPool[i] = document.createElement('div');
+            Cell.setBorderProperty(this.borderPool[i], this.colourPool[i]);
+            this.elementPool.appendChild(this.borderPool[i]);
+            this.elementPool.appendChild(this.colourPool[i]);
         });
     }
 
@@ -62,11 +70,12 @@ class GameView extends ViewInterface {
      * Render field with empty and fill blocks
      * @param {Number} sizeCell - size of one block
      */
-    drawUnfixed(sizeCell) {
-        this.params.cells.forEach(v => {
-            const cell = document.createElement('div');
-            Cell.setPropertyFixed(cell, this.elementUnfixed, v, sizeCell, this.params.countX, this.params.countY);
-            this.elementUnfixed.appendChild(cell);
+    drawMap(sizeCell) {
+        this.cell = [];
+        this.params.cells.forEach((v, i) => {
+            this.cell[i] = document.createElement('div');
+            Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY);
+            this.elementMap.appendChild(this.cell[i]);
         });
     }
 
@@ -74,12 +83,25 @@ class GameView extends ViewInterface {
      * Render all game scene
      */
     drawField() {
-        this.elementUnfixed = this.el.getElementsByClassName('js-game-unfixed')[0];
-        this.elementFixed = this.el.getElementsByClassName('js-game-fixed')[0];
-        const count = this.params.cells.filter(v => v.fixed).length;
-        const sizeCell = Cell.findSizeCell(this.elementUnfixed, this.params.countX, this.params.countY, this.elementFixed, count);
-        this.drawUnfixed(sizeCell);
-        this.drawFree(sizeCell);
+        this.elementMap = this.el.getElementsByClassName('js-game-map')[0];
+        this.elementPool = this.el.getElementsByClassName('js-game-pool')[0];
+        const count = this.params.cells.filter(v => !v.fixed).length;
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, count);
+        this.timeEl = this.el.getElementsByClassName('js-timer')[0];
+        this.drawMap(sizeCell);
+        this.drawPool(sizeCell);
+    }
+
+    /**
+     * handler on resize window
+     * change size and position of the cells
+     */
+    onResize() {
+        const pool = this.params.cells.filter(v => !v.fixed);
+        const sizeCell = Cell.findSizeCell(this.elementMap, this.params.countX, this.params.countY, this.elementPool, pool.length);
+        this.params.cells.forEach((v, i) => Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY));
+        pool.forEach((v, i) => (this.colourPool[i].isBottom) ? Cell.resizePool(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length) : Cell.resizeMap(this.colourPool[i], this.elementMap, v, sizeCell, this.params.countX, this.params.countY, i, pool.length, this.elementPool));
+        this.borderPool.forEach(v => Cell.resizeBorderProperty(v));
     }
 
     /**
@@ -87,6 +109,8 @@ class GameView extends ViewInterface {
      * add animation of timer
      */
     init() {
+        this.canRemove = new Set();
+        this.keyHandler.start();
         this.finalStars = 3;
         this.rating = this.el.getElementsByClassName('js-rating')[0];
         this.star = [];
@@ -98,17 +122,12 @@ class GameView extends ViewInterface {
         }
 
         this.startTimeSec = new Date().getTime();
-        window.requestAnimationFrame(this.timer.bind(this));
 
+        window.requestAnimationFrame(() => this.timer());
 
-        document.ontouchstart = evt => {
-            this.onStartEvent(evt);
-        };
+        this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
 
-
-        document.onmousedown = evt => {
-            this.onStartEvent(evt);
-        };
+        window.addEventListener('resize', debounce(() => this.onResize(), 200));
     }
 
     /**
@@ -118,129 +137,131 @@ class GameView extends ViewInterface {
         const popupEl = this.el.getElementsByClassName('wrapper-block__game-blendocu')[0];
         if (popupEl) {
             this._popup.renderTo(popupEl);
-            this._popup.render({numStars: this.finalStars, time: ` ${~~(this.timeNowSec/1000)}`, toNextLevel: this.params.toNextLevel});
+            this._popup.render({numStars: this.finalStars, time: ` ${~~(this.timeNowSec/1000)} `, toNextLevel: this.params.toNextLevel});
         }
     }
 
     /**
-     * callback for requesAnimationFrame
+     * callback for requestAnimationFrame
      * rerender timer on game scene
      */
     timer() {
-        const time = this.el.getElementsByClassName('js-timer')[0];
-
-        if (!!time && !!this.rating) {
+        if (!!this.timeEl && !!this.rating) {
             this.timeNowSec = new Date().getTime() - this.startTimeSec;
 
-            if (~~(this.timeNowSec/1000) > this.params.stars3) {
-                this.star[2].classList.remove('rating__one-star-good');
+            if (~~(this.timeNowSec) > this.params.stars3) {
+                this.star[2].classList.add('rating__one-star-falls');
                 this.finalStars = 2;
             }
-            if (~~(this.timeNowSec/1000) > this.params.stars2) {
-                this.star[1].classList.remove('rating__one-star-good');
+            if (~~(this.timeNowSec) > this.params.stars2) {
+                this.star[1].classList.add('rating__one-star-falls');
                 this.finalStars = 1;
             }
-            time.innerHTML = `${~~(this.timeNowSec/1000)}`;
-            this.animation = window.requestAnimationFrame(this.timer.bind(this));
+            this.timeEl.innerHTML = `${~~(this.timeNowSec/1000)}`;
+            this.animation = window.requestAnimationFrame(() => this.timer());
         }
     }
 
     /**
-     * callback for model in case of win
+     * Callback for model in case of win.
      */
     gameOnWin() {
-        const score = document.getElementsByClassName('js-score')[0];
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
-        setTimeout(this.addPopupWin.bind(this), 2000, this.finalStars);
-        setTimeout(() => score.innerHTML = '', 2000);
+        setTimeout(() => this.addPopupWin(this.finalStars), 2000);
+        // if (Notification.permission === 'granted') {
+        //     new Notification('You win', { body: `your score: ${this.finalStars}`, icon: '../favicon.ico' });
+        // }
     }
 
     /**
-     *
+     * Destructor.
      * @returns {GameView} - The current object instance.
      */
     destroy() {
-        this.el.innerHTML = '';
+        this.keyHandler.end();
+        super.destroy();
         return this;
     }
 
     /**
-     * this method do some magic with current cell in touchstart or mousedown event
-     * @param evt - event (touchstart || mousedown)
+     * The method do some magic with current cell in 'startDrag' keyHandler event.
+     * @param {Object} keyEvt - The event emitted by keyHandler.
      */
-    onStartEvent(evt) {
-        const allocated = document.getElementsByClassName('js-empty-cell');
-        const cell = evt.target;
+    onStartEvent(keyEvt) {
+        const cell = keyEvt.evt.target;
+
         if (cell.className.indexOf('js-fixed') === -1) return;
 
+        const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
 
-        const shiftX = X - cell.getBoundingClientRect().left + pageXOffset;
-        const shiftY = Y - cell.getBoundingClientRect().top + pageYOffset;
+        const shiftX = keyEvt.X - cell.getBoundingClientRect().left;
+        const shiftY = keyEvt.Y - cell.getBoundingClientRect().top;
+        this.elementMap.appendChild(cell);
 
-        this.elementUnfixed.appendChild(cell);
-
-        document.onmousemove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-        document.ontouchmove = evt => {
-            this.onMoveEvent(evt, cell, shiftX, shiftY);
-        };
-
-        cell.onmouseup = () => {
-            this.onUpEvent(cell, allocated);
-        };
-        cell.ontouchend = () => {
-            this.onUpEvent(cell, allocated);
-        };
+        const onMoveFunc = this.onMoveEvent.bind(this, cell, shiftX, shiftY);
+        this.keyHandler.addKeyListener('drag', onMoveFunc);
+        this.keyHandler.addKeyListener('endDrag', this.onUpEvent.bind(this, cell, allocated, onMoveFunc));
         cell.ondragstart = () => false;
+
+        cell.borderElement.style.borderColor = 'var(--baseColor)';
     }
 
     /**
-     * this method do some magic with current cell in touchmove or mousemove event
-     * @param evt(Event) - event (touchmove || mousemove)
-     * @param cell - current cell
-     * @param shiftX(number) - shift on X relatively to center of cell
-     * @param shiftY(number) - shift on Y relatively to center of cell
+     * The method do some magic with current cell in 'drag' kayHandler event
+     * @param {Object} cell - current cell
+     * @param {number} shiftX - shift on X relatively to center of cell
+     * @param {number} shiftY - shift on Y relatively to center of cell
+     * @param {Object} keyEvt - The event emitted by keyHandler.
      */
-    onMoveEvent(evt, cell, shiftX, shiftY) {
-        const X = (evt.pageX)? evt.pageX : evt.targetTouches[0].pageX;
-        const Y = (evt.pageY)? evt.pageY : evt.targetTouches[0].pageY;
+    onMoveEvent(cell, shiftX, shiftY, keyEvt) {
         cell.hidden = true;
-        const bottomElement = document.elementFromPoint(X, Y);
+        const bottomElement = document.elementFromPoint(keyEvt.X, keyEvt.Y);
         if (bottomElement) {
-            (bottomElement.className.indexOf('js-empty-cell') !== -1) ? cell.canDrag = true : cell.canDrag = false;
+            cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
             cell.hidden = false;
-            Cell.putOnPosition(cell, `${X - shiftX}px`, `${Y - shiftY}px`);
+            Cell.putOnPosition(cell, `${keyEvt.X - shiftX}px`, `${keyEvt.Y - shiftY}px`);
+            if (this.canRemove.size) {
+                this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
+                this.canRemove.clear();
+            }
             if (cell.canDrag) {
-                cell.currentY = getComputedStyle(bottomElement).top;
-                cell.currentX = getComputedStyle(bottomElement).left;
-                cell.x = bottomElement.x;
-                cell.y = bottomElement.y;
+                [cell.currentY, cell.currentX] = [getComputedStyle(bottomElement).top, getComputedStyle(bottomElement).left];
+                [cell.x, cell.y] = [bottomElement.x, bottomElement.y];
+                bottomElement.style.borderColor = 'var(--baseColor)';
+                bottomElement.addEventListener('transitionend', () => this.canRemove.add(bottomElement), {once: true});
+                cell.borderElement.style.borderColor = 'transparent';
+            } else {
+                cell.borderElement.style.borderColor = 'var(--baseColor)';
             }
         }
     }
 
     /**
-     * this method do some magic with current cell in touchend or mouseup event
-     * @param cell - current cell
-     * @param allocated(HTMLCollection) - array of empty cell to change opacity
+     * The method do some magic with current cell in 'endDrag' keyHandler event.
+     * @param cell - The current cell.
+     * @param {HTMLCollection} allocated - The array of empty cell to change opacity.
+     * @param moveFunc - The function for moving the cubic.
      */
-    onUpEvent(cell, allocated) {
-        [...allocated].forEach(v => v.style.opacity = '0.4');
-        document.onmousemove = null;
+    onUpEvent(cell, allocated, moveFunc) {
+        [...allocated].forEach(v => {
+            v.style.opacity = '0.4';
+            v.style.borderColor = 'var(--inputColor)';
+        });
+        this.keyHandler.removeKeyListener('drag', moveFunc);
+        cell.onmouseup = null;
         if (!cell.canDrag) {
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
+            cell.isBottom = true;
         } else {
             Cell.putOnPosition(cell, cell.currentX, cell.currentY);
+            cell.isBottom = false;
+            [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
             this.setCubic({x: cell.x, y: cell.y, colour: cell.colour});
         }
     }
-
 }
 
 export {GameView};
