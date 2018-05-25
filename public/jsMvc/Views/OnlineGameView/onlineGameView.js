@@ -139,24 +139,27 @@ class OnlineGameView extends ViewInterface {
         const opponent  = document.getElementsByClassName('js-opponent')[0];
 
         const myName = me.getElementsByClassName('js-name')[0];
-        const myImage = me.getElementsByClassName('js-image')[0];
+        const myImage = me.getElementsByClassName('js-image-me')[0];
         this.myScore = me.getElementsByClassName('js-rating')[0];
+        const mySymbol = document.createElement('div');
 
-        myName.innerHTML = sharedData.data.currentUser.login;
+        myName.innerHTML = `${sharedData.data.currentUser.login}`;
         myImage.style.background = `url(${sharedData.data.currentUser.image})  center center / cover`;
-        myImage.style.border = 'blue 5px solid';
-        myName.style.color = 'blue';
         this.myScore.innerHTML = '0';
+        mySymbol.classList.add('online-game__who-me-avatar');
+        myImage.appendChild(mySymbol);
+
 
         const opponentName = opponent.getElementsByClassName('js-name')[0];
-        const opponentImage = opponent.getElementsByClassName('js-image')[0];
+        const opponentImage = opponent.getElementsByClassName('js-image-opponent')[0];
+        const opponentSymbol = document.createElement('div');
         this.opponentScore = opponent.getElementsByClassName('js-rating')[0];
 
-        opponentName.innerHTML = params.login;
+        opponentName.innerHTML = `${params.login}`;
         opponentImage.style.background = `url(${baseUrl}/files/${params.image}) center center / cover`;
         this.opponentScore.innerHTML = '0';
-        opponentImage.style.border = 'red 5px solid';
-        opponentName.style.color = 'red';
+        opponentSymbol.classList.add('online-game__who-opponent-avatar');
+        opponentImage.appendChild(opponentSymbol);
         return this;
     }
 
@@ -271,8 +274,7 @@ class OnlineGameView extends ViewInterface {
             return;
         }
 
-        cell.classList.add('online-game__who-set');
-        cell.style.color = (payload.youSet) ? 'blue' : 'red';
+        (payload.youSet) ? cell.classList.add('online-game__who-me') : cell.classList.add('online-game__who-opponent');
 
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];

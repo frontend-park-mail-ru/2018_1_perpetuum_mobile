@@ -79,13 +79,44 @@
     }
 }
 
-.online-game__who-set:after {
-    content: "●";
+.online-game__who-opponent:after {
+    content: "⬥";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 4vmin;
+    line-height: 2vmin;
+    color: black;
+}
+
+.online-game__who-me:after {
+    content: "▴";
     position: absolute;
     bottom: 5px;
     right: 5px;
-    font-size: 4vmin;
+    font-size: 7vmin;
     line-height: 2vmin;
+    color: black;
+}
+
+.online-game__who-opponent-avatar:after {
+    content: "⬥";
+    display: inherit;
+    position: initial;
+    margin-top: -5vmin;
+    font-size: 7vmin;
+    line-height: 4.5vmin;
+    color: white;
+}
+
+.online-game__who-me-avatar:after {
+    content: "▴";
+    display: inherit;
+    position: initial;
+    margin-top: -5vmin;
+    font-size: 9vmin;
+    line-height: 4.5vmin;
+    color: white;
 }
 
 
