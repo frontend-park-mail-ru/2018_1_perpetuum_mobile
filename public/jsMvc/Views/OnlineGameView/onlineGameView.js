@@ -81,7 +81,6 @@ class OnlineGameView extends ViewInterface {
      * @returns {OnlineGameView} - The current object instance.
      */
     destroy() {
-        this.keyHandler.end();
         super.destroy();
         this.onClose();
         return this;
@@ -312,6 +311,7 @@ class OnlineGameView extends ViewInterface {
      * @param {{your: string, opponent: string, result: string}} payload - The info about the scores and game winner.
      */
     gameEnd(payload) {
+        this.keyHandler.end();
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         this.popup.gameRestart = () => this.gameRestart();

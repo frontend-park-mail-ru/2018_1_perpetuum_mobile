@@ -166,6 +166,7 @@ class GameView extends ViewInterface {
      * Callback for model in case of win.
      */
     gameOnWin() {
+        this.keyHandler.end();
         const cells = document.getElementsByClassName('game-blendocu__cell');
         [...cells].forEach(v => v.classList.add('game-blendocu__cell--win'));
         window.cancelAnimationFrame(this.animation);
@@ -180,7 +181,6 @@ class GameView extends ViewInterface {
      * @returns {GameView} - The current object instance.
      */
     destroy() {
-        this.keyHandler.end();
         super.destroy();
         return this;
     }

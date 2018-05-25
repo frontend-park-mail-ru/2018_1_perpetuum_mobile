@@ -49,6 +49,14 @@ class GamePopup {
 
         return this;
     }
+
+    /**
+     * Add handlers
+     */
+    init() {
+        this.form = this.el.getElementsByClassName('js-popup-form')[0];
+    }
+
 }
 
 export {GamePopup};
