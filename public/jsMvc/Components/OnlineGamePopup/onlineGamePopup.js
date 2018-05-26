@@ -12,7 +12,6 @@ class OnlineGamePopup {
      * Create a pop-up
      */
     constructor() {
-        this.el = document.createElement('div');
         this.fest = template;
     }
 
@@ -22,6 +21,7 @@ class OnlineGamePopup {
      * @return {OnlineGamePopup} current class instance.
      */
     renderTo(root) {
+        this.el = document.createElement('div');
         root.appendChild(this.el);
         return this;
     }
@@ -68,6 +68,20 @@ class OnlineGamePopup {
                 this.gameRestart();
             }, {once: true});
         }
+        //TODO exit in menu
+        //
+        // document.addEventListener('keydown', evt => {
+        //     if (evt.keyCode === 27) {
+        //         this.remove();
+        //     }
+        // });
+        //
+        // document.addEventListener('click', evt => {
+        //     const substrate = evt.target;
+        //     if (substrate.className.indexOf('js-substrate') !== -1) {
+        //         this.remove();
+        //     }
+        // });
 
         return this;
     }
@@ -86,6 +100,7 @@ class OnlineGamePopup {
         clearInterval(this.timerId);
         clearInterval(this.tipsTimer);
         this.el.remove();
+        this.el = null;
     }
 }
 
