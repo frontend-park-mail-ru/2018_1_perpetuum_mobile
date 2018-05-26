@@ -237,13 +237,12 @@ class OnlineGameView extends ViewInterface {
         this.keyHandler.removeKeyListener('drag', moveFunc);
         cell.onmouseup = null;
         if (!cell.canDrag) {
+            console.log('!cell.candrag');
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
             return;
         }
         this.onSetCubic({x: cell.x, y: cell.y, colour: cell.colour});
-        this.lastSettedCubic = cell;
-
     }
 
     /**
@@ -257,7 +256,6 @@ class OnlineGameView extends ViewInterface {
         increment.style.left = (payload.youSet) ? `${this.myScore.offsetLeft}px` : `${this.opponentScore.offsetLeft}px`;
         increment.addEventListener('animationend', increment.remove);
         this.el.appendChild(increment);
-        console.log('cubicSet', payload);
 
         setTimeout(() => {
             this.myScore.innerHTML = `${payload.your}`;
@@ -268,13 +266,6 @@ class OnlineGameView extends ViewInterface {
         const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         const position = this.cell.filter(v => v.x === payload.x && v.y === payload.y)[0];
 
-        if (!cell) {
-            Cell.putOnPosition(this.lastSettedCubic, this.lastSettedCubic.wrongX, this.lastSettedCubic.wrongY);
-            this.lastSettedCubic.isBottom = true;
-            console.log('!cell', payload);
-            return;
-        }
-
         (payload.youSet) ? cell.classList.add('online-game__who-me') : cell.classList.add('online-game__who-opponent');
 
         Cell.putOnPosition(cell, position.style.left, position.style.top);
@@ -282,6 +273,8 @@ class OnlineGameView extends ViewInterface {
         [cell.bottomX, cell.bottomY] = [payload.x, payload.y];
 
         cell.borderElement.style.borderColor = 'transparent';
+
+        console.log('cubicSet', payload.x, payload.y, cell.fixedCubic);
 
         if (this.toRemoveBorderColor.size) {
             this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
@@ -297,11 +290,15 @@ class OnlineGameView extends ViewInterface {
         const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         if (cell) {
             if (cell.fixedCubic === true) {
+                console.log('cubicFixed', payload.x, payload.y);
                 return;
             }
+            console.log('cellCubicDrop');
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             [cell.bottomX, cell.bottomY] = [cell.x, cell.y];
         }
+
+        console.log('cubicDrop', payload.x, payload.y);
         if (this.toRemoveBorderColor.size) {
             this.toRemoveBorderColor.forEach(v => v.style.borderColor = 'var(--inputColor)');
             this.toRemoveBorderColor.clear();
