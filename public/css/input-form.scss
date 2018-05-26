@@ -11,11 +11,15 @@
 }
 
 .input-form_wrong {
-    box-shadow: 0 0 15px var(--wrorngInputColor);
+    box-shadow: 0 0 10px var(--wrorngInputColor);
 }
 
 .input-form_right {
-    box-shadow: 0 0 15px var(--rightInputColor);
+    box-shadow: 0 0 10px var(--rightInputColor);
+}
+
+.input-form:focus {
+    background-color: #e6e6e6;
 }
 
 .input-form:-webkit-autofill {

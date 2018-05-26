@@ -20,9 +20,21 @@
     @extend %button;
 }
 
+.button:disabled {
+  background: #313131;
+  color: #262626;
+  cursor: default;
+}
+
 .button_big {
     @include size(46vmin, 6vmin);
     @extend %button;
+}
+
+.button_big:disabled {
+  background: #313131;
+  color: #262626;
+  cursor: default;
 }
 
 .button_little {
@@ -42,6 +54,10 @@
 
 .button_big:hover, .button_little:hover, .button__user-footer:hover {
     border-bottom: var(--baseColor) 3px solid;
+}
+
+.button_big:disabled:hover, .button_little:disabled:hover, .button__user-footer:disabled:hover {
+  border-bottom: transparent 3px solid;
 }
 
 .button:active {

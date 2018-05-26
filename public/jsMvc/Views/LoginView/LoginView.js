@@ -47,6 +47,7 @@ class LoginView extends ViewInterface {
     init() {
         const button = document.getElementsByClassName('js-login-button')[0];
         this.toLoginForm = this.el.getElementsByClassName(this.params.form)[0];
+        button.disabled = true;
 
         this.formValid = [];
 
@@ -62,6 +63,16 @@ class LoginView extends ViewInterface {
                 if (this.formValid[i].value.length === 0) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
+
+                const allValid = this.formValid.reduce((res, current) => {
+                    return !!current.valid && res;
+                }, true);
+
+                if (!allValid) {
+                    button.disabled = true;
+                    return;
+                }
+                button.disabled = false;
             });
         });
 
@@ -73,6 +84,7 @@ class LoginView extends ViewInterface {
             }, true);
 
             if (allValid === true) {
+                button.disabled = false;
                 this.onLogin(evt);
             }
         });

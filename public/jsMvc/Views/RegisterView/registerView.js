@@ -45,7 +45,8 @@ class RegisterView extends ViewInterface {
      */
     init() {
         this.toRegisterForm = this.el.getElementsByClassName(this.params.form)[0];
-
+        const button = document.getElementsByClassName('js-login-button')[0];
+        button.disabled = true;
         this.formValid = [];
 
         this.params.fields.forEach((value, i) => {
@@ -61,6 +62,15 @@ class RegisterView extends ViewInterface {
                 if (!this.formValid[i].value.length) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
+                const allValid = this.formValid.reduce((res, current) => {
+                    return !!current.valid && res;
+                }, true);
+
+                if (!allValid) {
+                    button.disabled = true;
+                    return;
+                }
+                button.disabled = false;
             });
         });
 
@@ -73,6 +83,7 @@ class RegisterView extends ViewInterface {
             }, true);
 
             if (allValid === true) {
+                button.disabled = false;
                 this.onRegister(evt);
             }
         });

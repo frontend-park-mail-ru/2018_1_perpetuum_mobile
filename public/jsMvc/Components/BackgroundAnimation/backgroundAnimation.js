@@ -30,7 +30,7 @@ class BackgroundAnimation {
         this.keyHandler = keyHandler;
         bus.on('createLines', () => this.addLines());
         bus.on('removeLines', () => this.removeLines());
-        this.create = throttle(evt => this.createELement(evt.X), 100);
+        this.create = throttle(evt => this.createELement(evt.X), 500);
     }
 
     /**

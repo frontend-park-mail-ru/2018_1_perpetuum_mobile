@@ -46,6 +46,8 @@ class Popup {
      * Add handlers
      */
     init() {
+        const button = this.el.getElementsByClassName('js-button')[0];
+        button.disabled = true;
         const closeButton = this.el.getElementsByClassName('js-button-close')[0];
         closeButton.addEventListener('click', () => this.deletePopup(), {once: true});
         this.el.addEventListener('keydown', evt => {
@@ -77,6 +79,16 @@ class Popup {
                 if (this.formValid[i].value.length === 0) {
                     this.formValid.valid = Error.delError(this.formValid[i], value[5]);
                 }
+
+                const allValid = this.formValid.reduce((res, current) => {
+                    return !!current.valid && res;
+                }, true);
+
+                if (!allValid) {
+                    button.disabled = true;
+                    return;
+                }
+                button.disabled = false;
             });
         });
 
@@ -88,7 +100,8 @@ class Popup {
                 return !!current.valid && res;
             }, true);
 
-            if (allValid === true) {
+            if (allValid) {
+                button.disabled = false;
                 this.onSubmitForm(evt);
             }
         });

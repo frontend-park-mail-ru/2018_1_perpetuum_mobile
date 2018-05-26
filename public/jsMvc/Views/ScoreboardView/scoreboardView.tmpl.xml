@@ -20,8 +20,10 @@
                                     <fest:attributes>
                                         <fest:attribute name="class">
                                             table__tr<fest:space/>
-                                            <fest:if test="v.login === params.sharedData.currentUser.login">
-                                                table__current-user
+                                            <fest:if test="params.sharedData.currentUser !== null">
+                                                <fest:if test="v.login === params.sharedData.currentUser.login">
+                                                    table__current-user
+                                                </fest:if>
                                             </fest:if>
                                         </fest:attribute>
                                     </fest:attributes>
