@@ -236,7 +236,7 @@ class OnlineGameView extends ViewInterface {
         });
         this.keyHandler.removeKeyListener('drag', moveFunc);
         cell.onmouseup = null;
-        if (!cell.canDrag) {
+        if (!cell.canDrag && !cell.fixedCubic) {
             console.log('!cell.candrag');
             Cell.putOnPosition(cell, cell.wrongX, cell.wrongY);
             cell.isBottom = true;
