@@ -257,6 +257,7 @@ class OnlineGameView extends ViewInterface {
         increment.style.left = (payload.youSet) ? `${this.myScore.offsetLeft}px` : `${this.opponentScore.offsetLeft}px`;
         increment.addEventListener('animationend', increment.remove);
         this.el.appendChild(increment);
+        console.log('cubicSet', payload);
 
         setTimeout(() => {
             this.myScore.innerHTML = `${payload.your}`;
@@ -270,6 +271,7 @@ class OnlineGameView extends ViewInterface {
         if (!cell) {
             Cell.putOnPosition(this.lastSettedCubic, this.lastSettedCubic.wrongX, this.lastSettedCubic.wrongY);
             this.lastSettedCubic.isBottom = true;
+            console.log('!cell', payload);
             return;
         }
 
