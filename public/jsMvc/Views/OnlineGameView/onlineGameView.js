@@ -202,9 +202,9 @@ class OnlineGameView extends ViewInterface {
 
         cell.hidden = true;
         const bottomElement = document.elementFromPoint(evt.X, evt.Y);
+        cell.hidden = false;
         if (bottomElement) {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
-            cell.hidden = false;
             Cell.putOnPosition(cell, `${evt.X - shiftX}px`, `${evt.Y - shiftY}px`);
 
             if (this.toRemoveBorderColor.size) {

@@ -9,6 +9,7 @@ import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
 import debounce from '../../Modules/debounce.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
+import throttle from "../../Modules/throttle";
 
 /**
  * Game view
@@ -219,9 +220,9 @@ class GameView extends ViewInterface {
     onMoveEvent(cell, shiftX, shiftY, keyEvt) {
         cell.hidden = true;
         const bottomElement = document.elementFromPoint(keyEvt.X, keyEvt.Y);
+        cell.hidden = false;
         if (bottomElement) {
             cell.canDrag = (bottomElement.className.indexOf('js-empty-cell') !== -1);
-            cell.hidden = false;
             Cell.putOnPosition(cell, `${keyEvt.X - shiftX}px`, `${keyEvt.Y - shiftY}px`);
             if (this.canRemove.size) {
                 this.canRemove.forEach(v => v.style.borderColor = 'var(--inputColor)');
@@ -233,9 +234,9 @@ class GameView extends ViewInterface {
                 bottomElement.style.borderColor = 'var(--baseColor)';
                 bottomElement.addEventListener('transitionend', () => this.canRemove.add(bottomElement), {once: true});
                 cell.borderElement.style.borderColor = 'transparent';
-            } else {
-                cell.borderElement.style.borderColor = 'var(--baseColor)';
+                return;
             }
+            cell.borderElement.style.borderColor = 'var(--baseColor)';
         }
     }
 
