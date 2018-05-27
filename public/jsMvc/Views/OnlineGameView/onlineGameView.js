@@ -145,7 +145,7 @@ class OnlineGameView extends ViewInterface {
         myName.innerHTML = `${sharedData.data.currentUser.login}`;
         myImage.style.background = `url(${sharedData.data.currentUser.image})  center center / cover`;
         this.myScore.innerHTML = '0';
-        mySymbol.classList.add('online-game__who-me-avatar');
+        mySymbol.classList.add('online-game__who-me-avatar', 'u2400');
         myImage.appendChild(mySymbol);
 
 
@@ -157,7 +157,7 @@ class OnlineGameView extends ViewInterface {
         opponentName.innerHTML = `${params.login}`;
         opponentImage.style.background = `url(${baseUrl}/files/${params.image}) center center / cover`;
         this.opponentScore.innerHTML = '0';
-        opponentSymbol.classList.add('online-game__who-opponent-avatar');
+        opponentSymbol.classList.add('online-game__who-opponent-avatar', 'u2800');
         opponentImage.appendChild(opponentSymbol);
         return this;
     }
@@ -265,7 +265,7 @@ class OnlineGameView extends ViewInterface {
         const cell = this.colourPool.filter(v => v.colour === payload.colour)[0];
         const position = this.cell.filter(v => v.x === payload.x && v.y === payload.y)[0];
 
-        (payload.youSet) ? cell.classList.add('online-game__who-me') : cell.classList.add('online-game__who-opponent');
+        (payload.youSet) ? cell.classList.add('online-game__who-me', 'u2400') : cell.classList.add('online-game__who-opponent', 'u2800');
 
         Cell.putOnPosition(cell, position.style.left, position.style.top);
         [cell.isBottom, cell.fixedCubic] = [false, true];

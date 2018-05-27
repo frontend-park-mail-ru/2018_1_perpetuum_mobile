@@ -12,13 +12,14 @@
     width: 18vmin;
     height: 18vmin;
     margin: 2vmin;
-    background: #1c1c1c;
+    background: #2e2e2e;
     border-radius: 5px;
     flex-direction: column;
+    border: 1px solid #292929;
 }
 
 .level__item:hover {
-  background: #313131;
+    background: #414141;
 }
 
 .level__image {
@@ -47,6 +48,10 @@
     pointer-events: all;
 }
 
+.level-passed {
+    border: 1px solid #292929;
+    background: #171616;
+}
 
 .level__rating {
     font-size: 4vmin;
