@@ -64,6 +64,10 @@ class Error {
         serverErr.innerHTML = msg;
     }
 
+    /**
+     * Show server response-related ok.
+     * @param {string} msg - Server response to show.
+     */
     static serverOk(msg) {
         const serverErr = this.el.getElementsByClassName('error-form__server-error')[0];
         serverErr.style = 'display: block; color: var(--rightInputColor)';

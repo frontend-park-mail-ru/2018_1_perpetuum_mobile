@@ -1,3 +1,7 @@
+/**
+ * @module views/resetView
+ */
+
 import {ViewInterface} from '../ViewInterface.js';
 import template from './resetView.tmpl.xml';
 import {bus} from '../../Modules/bus.js';
@@ -7,14 +11,26 @@ import {Colour} from '../../Components/Colour/colour';
 import {sharedData} from '../../Modules/sharedData';
 import {CubicPreloader} from '../../Components/Preloader/cubicPreloader';
 
+
+/**
+ * Class representing a view of resetting forgotten password.
+ */
 class ResetView extends ViewInterface {
 
+    /**
+     * Create a ResetView instance.
+     */
     constructor() {
         super(template);
         this.content = null;
         this.sendingPreloader = null;
     }
 
+    /**
+     * Render the view.
+     * @param {object} params - The object with info provided to fest.
+     * @return {ResetView} The current object instance.
+     */
     render(params = {}) {
         bus.emit('createLines');
         this.params = {
@@ -42,6 +58,9 @@ class ResetView extends ViewInterface {
         return this;
     }
 
+    /**
+     * Add handlers.
+     */
     init() {
         this.content = this.el.getElementsByClassName('js-wrapper-block')[0];
 
@@ -96,27 +115,40 @@ class ResetView extends ViewInterface {
         this.colour = new Colour('colors');
     }
 
+    /**
+     * Is the view allowed to show.
+     * @return {boolean}
+     */
     isAllowed() {
         return !sharedData.data['currentUser'];
     }
 
+    /**
+     * Show loader, hide content when user is waiting for server reply.
+     */
     showLoader() {
-        /*this.content.hidden = true;*/
         this.content.childNodes.forEach(node => {
             node.hidden = true;
         });
         this.sendingPreloader = new CubicPreloader();
     }
 
+    /**
+     * Remove loader, display content when server answered.
+     */
     removeLoader() {
         this.sendingPreloader.removePreloader();
         this.sendingPreloader = null;
-        /*this.content.hidden = false;*/
         this.content.childNodes.forEach(node => {
             node.hidden = false;
         });
     }
 
+    /**
+     * The method defines the behaviour of view due to status.
+     * @param {'OK'|'ERR'} status - The converted status of server response.
+     * @param {string} message - The message from server.
+     */
     onReply(status, message) {
         this.removeLoader();
         if (status === 'OK') {
@@ -126,10 +158,18 @@ class ResetView extends ViewInterface {
         this.onErrAnswer(message);
     }
 
+    /**
+     * Show error answer from server.
+     * @param {string} message - The message from server.
+     */
     onErrAnswer(message) {
         Error.serverError.bind(this)(message);
     }
 
+    /**
+     * Show ok answer from server.
+     * @param {string} message - The message from server.
+     */
     onOkAnswer(message) {
         Error.serverOk.bind(this)(message);
     }
