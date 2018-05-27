@@ -7,7 +7,7 @@
 /** @typedef {object} Event */
 
 import {ProfileView} from '../Views/ProfileView/profileView.js';
-import {LoginView} from '../Views/LoginView/LoginView.js';
+import {LoginView} from '../Views/LoginView/loginView.js';
 import {RegisterView} from '../Views/RegisterView/registerView.js';
 import {MenuView} from '../Views/MenuView/menuView.js';
 import {AboutView} from '../Views/AboutView/aboutView.js';
@@ -21,6 +21,7 @@ import {baseUrl} from '../Modules/HttpModule.js';
 
 import {sharedData} from '../Modules/sharedData.js';
 import {API} from './API/api.js';
+import {ResetView} from '../Views/ResetView/resetView.js';
 
 
 /**
@@ -32,6 +33,7 @@ class UserController {
      * Create and link user Views with proxy-functions.
      */
     constructor() {
+        this.resetView = new ResetView();
         this.loginView = new LoginView();
         this.registerView = new RegisterView();
         this.profileView = new ProfileView();
@@ -49,6 +51,7 @@ class UserController {
         this.profileView.onChangeEmail = this.changeEmail.bind(this);
         this.profileView.onChangeImage = this.changeImage.bind(this);
         this.profileView.onLogout = this.logout.bind(this);
+        this.resetView.onReset = this.reset.bind(this);
 
         this.menuView.onLogout = this.logout.bind(this);
 
@@ -199,6 +202,30 @@ class UserController {
     }
 
     /**
+     * Reset user password.
+     * @param {Event} evt - The form event signalized to reset password for email.
+     */
+    reset(evt) {
+        evt.preventDefault();
+
+        const form = evt.target;
+
+        const fields = ['email'];
+
+        const data = reduceWithValues(form.elements, fields);
+
+        this.userModel.reset(data).then(
+            data => {
+                bus.emit('reset-resp', ['OK', data.message]);
+            }
+        ).catch(
+            err => {
+                bus.emit('reset-resp', ['ERR', err.message])
+            }
+        )
+    }
+
+    /**
      * Register new user.
      * Extract the email, login and password from html form and
      * send it through user Model {@link module:models/userModel} to server.
@@ -214,7 +241,7 @@ class UserController {
         const data = reduceWithValues(form.elements, fields);
 
         this.userModel.register(data).then(
-            (response) => {
+            response => {
                 console.log(response);
                 this.loadMe().then(() => {
                     bus.emit('menu');

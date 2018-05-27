@@ -1,14 +1,19 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="popup__substrate js-substrate">
         <div class="popup">
-            <div class="popup__title"><fest:value>params.title</fest:value></div>
+            <div class="popup__title">
+                <fest:value>params.title</fest:value>
+            </div>
             <button type="button" class="popup__close js-button-close">x</button>
 
             <form class="js-popup-form popup__form">
                 <fest:for iterate="params.fields" index="i" value="v">
                     <label>
-                        <div class="description-text"><fest:value>v[0]</fest:value></div>
-                        <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/> <div class="{v[5]} error-form__block"/>
+                        <div class="form-description-text">
+                            <fest:value>v[0]</fest:value>
+                        </div>
+                        <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/>
+                        <div class="{v[5]} error-form__block"/>
                     </label>
                 </fest:for>
                 <input class="button_big button js-button" type="submit" value="{params.buttonValue}"/>

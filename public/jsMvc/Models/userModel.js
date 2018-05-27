@@ -12,6 +12,16 @@ import {HttpModule, baseUrl} from '../Modules/HttpModule.js';
 class UserModel {
 
     /**
+     * Reset user password.
+     * @param {{email: {string}}} data - The object with user email.
+     * @return {Promise<Object|Error>} The promise with object with success message or
+     * Error with error message.
+     */
+    reset(data) {
+        return HttpModule.doPostFetch({url: `${baseUrl}/reset`, data: data});
+    }
+
+    /**
      * Change user avatar.
      * @param {object} data - The object contains image.
      * @return {Promise<Object|Error>} The promise with object with success message or

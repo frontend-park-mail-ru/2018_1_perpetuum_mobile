@@ -1,9 +1,9 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
-    <div class="wrapper-block">
-        <a class="wrapper-block__row-back" href="/"> &lt; </a>
+    <div class="wrapper-block js-wrapper-block">
+        <a class="wrapper-block__row-back" href="/login"> &lt; </a>
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
-        <div class="wrapper-block__main js-wrapper-registration">
-            <div class="wrapper-block__section-header">Register</div>
+        <div class="wrapper-block__main js-wrapper-login">
+            <div class="wrapper-block__section-header">Reset password</div>
             <fest:include src="./../../Components/Form/form.tmpl.xml"/>
             <fest:get name="blendocu-form">params</fest:get>
 
@@ -14,9 +14,5 @@
         </div>
         <fest:include src="./../../Components/Colour/colour.tmpl.xml"/>
         <fest:get name="colour">params</fest:get>
-        <footer class="wrapper-block__profile">
-            <div class="js-profile profile-footer"/>
-        </footer>
-
     </div>
 </fest:template>

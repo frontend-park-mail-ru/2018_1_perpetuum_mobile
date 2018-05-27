@@ -34,9 +34,15 @@ class OfflineGameModel {
      */
     get levelCount() {
         if (navigator.onLine) {
-            return HttpModule.doGetFetch({url: `${baseUrl}/levelCount`}).then(data => {
-                return data.count;
-            });
+            return HttpModule.doGetFetch({url: `${baseUrl}/levelCount`})
+                .catch(() => {
+                    return 0;
+                })
+                .then(
+                    data => {
+                        return data.count;
+                    }
+            );
         } else {
             return Promise.resolve(this.mapStorage.mapCount());
         }

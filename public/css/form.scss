@@ -1,0 +1,46 @@
+.form-description-text {
+  font-size: 2.5vmin;
+  margin-top: 2vmin;
+  padding-bottom: 0.5vmin;
+  color: #a8a8a8;
+}
+
+.form-explanation-text {
+  font-size: 2vmin;
+  text-align: left;
+  color: #6b6b6b;
+}
+
+.form-explanation-href {
+  text-decoration: none;
+  color: #6b6b6b;
+  transition: all 0.3s linear;
+}
+
+.form-explanation-href:hover {
+  color: #ffffff;
+  transition: all 0.3s linear;
+}
+
+@media screen and (max-width: 450px), (max-height: 450px)  {
+  .form-description-text {
+    font-size: 3vmin;
+    margin-top: 1.5vmin;
+  }
+
+  .form-explanation-text {
+    font-size: 2vmin;
+  }
+
+  @media screen and (orientation: portrait) {
+    .form-description-text {
+      font-size: 4vmin;
+      margin-top: 2vmin;
+    }
+
+    .form-explanation-text {
+      font-size: 3vmin;
+    }
+  }
+
+}

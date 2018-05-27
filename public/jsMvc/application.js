@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     router.add('/login', userController.loginView, 'login');
     router.add('/profile', userController.profileView, 'profile');
     router.add('/register', userController.registerView, 'register');
+    router.add('/reset', userController.resetView, 'reset');
     router.add('/about', userController.aboutView, 'about');
     router.add('/', userController.menuView, 'menu');
 

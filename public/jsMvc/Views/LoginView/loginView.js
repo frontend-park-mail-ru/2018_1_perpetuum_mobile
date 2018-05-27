@@ -32,8 +32,32 @@ class LoginView extends ViewInterface {
         bus.emit('createLines');
         this.params = {
             form: 'js-login-form',
-            fields: [['Username or email address', 'js-profile-login-input', 'text', 'email', Validation.validateLoginOrEmail, 'js-error-login'],
-                ['Password', 'js-profile-password-input', 'password', 'password', Validation.validatePassword, 'js-error-password']]
+            fields: [
+                {
+                    value: 'Username or email address',
+                    classString: 'js-profile-login-input',
+                    type: 'text',
+                    name: 'email',
+                    validation: Validation.validateLoginOrEmail,
+                    errorClassString: 'js-error-login'
+                },
+                {
+                    value: 'Password',
+                    classString: 'js-profile-password-input',
+                    type: 'password',
+                    name: 'password',
+                    validation: Validation.validatePassword,
+                    errorClassString: 'js-error-password',
+                    explanation: {
+                        href: {
+                            value: '/reset',
+                            text: 'Forgot your password?'
+                        }
+                    }
+
+                }
+                ],
+            submit: {value: 'Login', classString: 'js-login-button'}
         };
         Object.assign(params, this.params);
         super.render(params);
@@ -45,7 +69,7 @@ class LoginView extends ViewInterface {
      * Add handlers
      */
     init() {
-        const button = document.getElementsByClassName('js-login-button')[0];
+        const button = this.el.getElementsByClassName(this.params.submit.classString)[0];
         this.toLoginForm = this.el.getElementsByClassName(this.params.form)[0];
         button.disabled = true;
 
@@ -53,15 +77,15 @@ class LoginView extends ViewInterface {
 
         this.params.fields.forEach((value, i) => {
 
-            this.formValid[i] = this.toLoginForm.getElementsByClassName(value[1])[0];
+            this.formValid[i] = this.toLoginForm.getElementsByClassName(value.classString)[0];
 
             this.formValid[i].addEventListener('keyup', (evt) => {
-                const isValid = value[4](evt);
+                const isValid = value.validation(evt);
 
-                this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value[5]) : Error.showError(this.formValid[i], isValid, value[5]);
+                this.formValid[i].valid = (isValid === true) ? Error.hideError(this.formValid[i], value.errorClassString) : Error.showError(this.formValid[i], isValid, value.errorClassString);
 
                 if (this.formValid[i].value.length === 0) {
-                    this.formValid.valid = Error.delError(this.formValid[i], value[5]);
+                    this.formValid.valid = Error.delError(this.formValid[i], value.errorClassString);
                 }
 
                 const allValid = this.formValid.reduce((res, current) => {

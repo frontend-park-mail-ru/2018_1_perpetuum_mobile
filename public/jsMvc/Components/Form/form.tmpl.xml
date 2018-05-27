@@ -1,0 +1,34 @@
+<fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
+    <fest:set name="blendocu-form">
+        <form class="login-register-form-block {params.form}">
+
+            <fest:for iterate="params.fields" index="i" value="v">
+                <label>
+                    <div class="form-description-text">
+                        <fest:value>v.value</fest:value>
+                    </div>
+                    <input class="input-form {v.classString}" type="{v.type}" name="{v.name}"/>
+                    <div class="{v.errorClassString} error-form__block"/>
+                    <fest:if test="v.explanation">
+                        <div class="form-explanation-text">
+                            <fest:if test="v.explanation.text">
+                                <fest:value>
+                                    v.explanation.text
+                                </fest:value>
+                            </fest:if>
+                            <fest:if test="v.explanation.href">
+                                <fest:space/>
+                                <a class="form-explanation-href" href="{v.explanation.href.value}">
+                                    <fest:value>v.explanation.href.text</fest:value>
+                                </a>
+                            </fest:if>
+                        </div>
+                    </fest:if>
+                </label>
+            </fest:for>
+
+            <input class="button_big {params.submit.classString}" type="submit" value="{params.submit.value}"/>
+            <div class="error-form__server-error"/>
+        </form>
+    </fest:set>
+</fest:template>

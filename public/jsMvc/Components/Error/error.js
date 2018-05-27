@@ -59,8 +59,14 @@ class Error {
      * @param {string} msg - Server response to show.
      */
     static serverError(msg) {
-        const serverErr = document.getElementsByClassName('error-form__server-error')[0];
-        serverErr.style = 'display: block';
+        const serverErr = this.el.getElementsByClassName('error-form__server-error')[0];
+        serverErr.style = 'display: block; color: var(--wrorngInputColor)';
+        serverErr.innerHTML = msg;
+    }
+
+    static serverOk(msg) {
+        const serverErr = this.el.getElementsByClassName('error-form__server-error')[0];
+        serverErr.style = 'display: block; color: var(--rightInputColor)';
         serverErr.innerHTML = msg;
     }
 

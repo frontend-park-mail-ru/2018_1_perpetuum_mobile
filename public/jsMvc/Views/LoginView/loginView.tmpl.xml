@@ -4,21 +4,11 @@
         <a class="wrapper-block__logo" href="/"> Blendocu </a>
         <div class="wrapper-block__main js-wrapper-login">
                 <div class="wrapper-block__section-header">Login</div>
-                <form class="login-register-form-block js-login-form">
-
-                    <fest:for iterate="params.fields" index="i" value="v">
-                        <label>
-                            <div class="description-text"><fest:value>v[0]</fest:value></div>
-                            <input class="input-form {v[1]}" type="{v[2]}" name="{v[3]}"/><div class="{v[5]} error-form__block"/>
-                        </label>
-                    </fest:for>
-
-                    <input class="button_big js-login-button" type="submit" value="Login"/>
-                    <div class="error-form__server-error"/>
-                </form>
+                <fest:include src="./../../Components/Form/form.tmpl.xml"/>
+                <fest:get name="blendocu-form">params</fest:get>
 
                 <div class="register-login-change">
-                    <div class="description-text">  You are not registered? </div>
+                    <div class="form-description-text"> You are not registered? </div>
                     <a class="register-login-change__button" href="/register">Register</a>
                 </div>
         </div>

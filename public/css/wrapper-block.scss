@@ -8,11 +8,13 @@
     text-align: center;
     margin: auto;
 }
+
 body {
     overflow: hidden;
     height: 100%;
     position: relative;
 }
+
 .wrapper-block__main {
     grid-row: 2/3;
     grid-column: 2/3;
