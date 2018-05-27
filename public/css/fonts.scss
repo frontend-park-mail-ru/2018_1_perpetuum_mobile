@@ -1,10 +1,3 @@
-@mixin fontFaceWoff($family,$src) {
-    @font-face {
-        font-family: $family;
-        src: url('#{$src}.woff') format('woff');
-    }
-}
-
 @mixin fontFaceTtf($family,$src) {
     @font-face {
         font-family: $family;
@@ -16,10 +9,12 @@
 @include fontFaceTtf('Orbitron-bold', '../fonts/Orbitron-Medium')
 @include fontFaceTtf('Orbitron-black', '../fonts/Orbitron-Bold')
 
-@include fontFaceWoff('u2000', '../fonts/u2000')
-@include fontFaceWoff('u1f400', '../fonts/u1f400')
-@include fontFaceWoff('u1f000', '../fonts/u1f000')
-@include fontFaceWoff('u1f800', '../fonts/u1f800')
+@include fontFaceTtf('u2800', '../fonts/u2800')
+@include fontFaceTtf('u2400', '../fonts/u2400')
+@include fontFaceTtf('u2000', '../fonts/u2000')
+@include fontFaceTtf('u1f400', '../fonts/u1f400')
+@include fontFaceTtf('u1f000', '../fonts/u1f000')
+@include fontFaceTtf('u1f800', '../fonts/u1f800')
 
 
 .u2000 {
@@ -39,4 +34,10 @@
 
 .u1f800 {
     font-family: 'u1f800', sans-serif;
+}
+.u2800 {
+    font-family: 'u2800', sans-serif;
+}
+.u2400 {
+    font-family: 'u2400', sans-serif;
 }
