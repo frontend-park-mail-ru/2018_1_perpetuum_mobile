@@ -4,6 +4,8 @@
 
 import template from './onlineGamePopup.tmpl.xml';
 import {fill} from '../../Modules/filling.js';
+import {bus} from '../../Modules/bus.js';
+
 /**
  * Popup class to show pop-up block in case of win
  */
@@ -68,20 +70,6 @@ class OnlineGamePopup {
                 this.gameRestart();
             }, {once: true});
         }
-        //TODO exit in menu
-        //
-        // document.addEventListener('keydown', evt => {
-        //     if (evt.keyCode === 27) {
-        //         this.remove();
-        //     }
-        // });
-        //
-        // document.addEventListener('click', evt => {
-        //     const substrate = evt.target;
-        //     if (substrate.className.indexOf('js-substrate') !== -1) {
-        //         this.remove();
-        //     }
-        // });
 
         return this;
     }

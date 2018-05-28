@@ -9,7 +9,6 @@ import {GamePopup} from '../../Components/GamePopup/gamePopup.js';
 import template from './gameView.tmpl.xml';
 import debounce from '../../Modules/debounce.js';
 import {keyHandler} from '../../Modules/game/keyHandler.js';
-import throttle from "../../Modules/throttle";
 
 /**
  * Game view
