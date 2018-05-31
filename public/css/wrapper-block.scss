@@ -114,6 +114,15 @@ body {
     opacity: 0.6;
 }
 
+.wrapper-block__vk {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 3px;
+    font-size: 2vmin;
+}
+
+
 @media screen and (max-width: 450px), (max-height: 450px)  {
 
     .wrapper-block {
