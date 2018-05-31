@@ -8,7 +8,7 @@ class VkButton {
         }, {type: 'custom', text: 'VK'});
 
         const btn = vk.getElementsByTagName('a')[0];
-        btn.style.color = 'gray';
+        btn.classList.add('wrapper-block__vk-inner');
     }
 }
 

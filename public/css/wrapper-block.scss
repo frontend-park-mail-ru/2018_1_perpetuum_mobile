@@ -119,9 +119,20 @@ body {
     top: 0;
     right: 0;
     margin: 3px;
-    font-size: 2vmin;
+    font-size: 3vmin;
 }
 
+.wrapper-block__vk-inner {
+  color: gray;
+}
+
+.wrapper-block__vk-inner:hover {
+  color: white;
+}
+
+.wrapper-block__vk-inner:focus {
+  color: var(--baseColor);
+}
 
 @media screen and (max-width: 450px), (max-height: 450px)  {
 
