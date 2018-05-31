@@ -117,7 +117,7 @@ class Validation {
      */
     static isValidImage(file) {
 
-        const MIME_TYPE = ['image/jpeg', 'image/png', 'image/jpeg'];
+        const MIME_TYPE = ['image/jpeg', 'image/png', 'image/jpeg', 'image/gif'];
 
         const stat = (MIME_TYPE.indexOf(file.type) !== -1) ? true : 'Wrong img type. Choose jpg/png/jpeg';
 
