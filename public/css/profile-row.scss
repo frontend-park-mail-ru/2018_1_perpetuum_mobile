@@ -7,13 +7,17 @@
     height: 6%;
 }
 
+.profile-row-grey {
+    color: grey;
+}
+
 .profile-row__predict-label {
     margin: auto 2vmin auto 2vmin;
 }
 
 .profile-row__center-label {
     text-align: left;
-    margin-left: 5%;
+    margin: auto 2vmin auto 2vmin;
 }
 
 .profile-row__edit-icon {

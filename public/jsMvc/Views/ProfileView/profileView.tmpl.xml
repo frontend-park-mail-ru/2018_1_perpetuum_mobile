@@ -25,18 +25,35 @@
                 <div class="profile-settings__info">
                     <div class="profile-row">
                         <div class="profile-row__predict-label"> Login: </div>
-                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.login</fest:value> </div>
+                        <div class="profile-row__center-label">
+                            <fest:value>
+                                params.sharedData.currentUser.login
+                            </fest:value>
+                        </div>
                         <button type="button" class="profile-row__edit-icon js-profile-login-change-button u1f400">🖉</button>
                     </div>
                     <div class="profile-row">
                         <div class="profile-row__predict-label"> Email: </div>
-                        <div class="profile-row__center-label"> <fest:value>params.sharedData.currentUser.email</fest:value> </div>
+                        <div class="profile-row__center-label">
+                            <fest:value>
+                                params.sharedData.currentUser.email
+                            </fest:value>
+                        </div>
                         <button type="button" class="profile-row__edit-icon js-profile-email-change-button u1f400">🖉</button>
                     </div>
                     <div class="profile-row">
                         <div class="profile-row__predict-label"> Password: </div>
                         <div class="profile-row__center-label"> •••• </div>
                         <button class="profile-row__edit-icon js-profile-password-change-button  u1f400">🖉</button>
+                    </div>
+                    <div class="profile-row profile-row-grey">
+                        <div class="profile-row__predict-label"> Token: </div>
+                        <div class="profile-row__center-label">
+                            #
+                            <fest:value>
+                                params.sharedData.currentUser.token
+                            </fest:value>
+                        </div>
                     </div>
                 </div>
             </div>

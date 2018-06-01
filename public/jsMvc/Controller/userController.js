@@ -291,7 +291,8 @@ class UserController {
                     image: `${baseUrl}/files/${me.image}`,
                     login: me.login,
                     email: me.email,
-                    score: me.score
+                    score: me.score,
+                    token: me.token
                 });
             }
         ).catch(

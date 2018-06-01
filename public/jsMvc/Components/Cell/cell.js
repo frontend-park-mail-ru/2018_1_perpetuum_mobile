@@ -26,11 +26,12 @@ class Cell {
      * @param cell {Object} - the current cell to assign css properties
      * @param parentElement {Object} - field in which the cell is located
      * @param colour {String} - background colour
+     * @param cubicId {Number} - cubic id for Alice
      * @param sizeCell {Number} - cell size
      * @param i {Number} - cell position relative to others
      * @param len {Number} - number of cells in a row
      */
-    static setPoolProperty(cell, parentElement, colour, sizeCell, i, len) {
+    static setPoolProperty(cell, parentElement, colour, cubicId, sizeCell, i, len) {
         const OFFSET = 8;
         const offsetToCenterX = (parentElement.offsetWidth  - (sizeCell + OFFSET) * len) / 2;
         const offsetToCenterY = (parentElement.offsetHeight - (sizeCell + OFFSET)) / 2;
@@ -41,6 +42,10 @@ class Cell {
         cell.isBottom = true;
         cell.classList.add('js-fixed', 'game-blendocu__cell');
         Cell.setProperty(cell, sizeCell, x, y);
+        const cubicIdDiv = document.createElement('div');
+        cubicIdDiv.innerHTML = `${cubicId}`;
+        cubicIdDiv.classList.add('online-game__cubic-id');
+        cell.appendChild(cubicIdDiv);
     }
 
     /**
