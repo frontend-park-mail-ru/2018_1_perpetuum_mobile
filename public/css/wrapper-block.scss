@@ -29,7 +29,6 @@ body {
     font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 1/4;
-    transition: all 0.3s linear;
     overflow: hidden;
     margin-top: 3vh;
     height: 22vh;
@@ -41,6 +40,7 @@ body {
     color: var(--baseColor);
     text-decoration: none;
     font-size: 11vw;
+    transition: all 0.3s linear;
 }
 
 
