@@ -71,6 +71,26 @@ class OnlineGameView extends ViewInterface {
             }
         });
 
+        const alice = document.getElementsByClassName('js-alice')[0];
+        this.cubicIdDiv = [];
+        this.setted = false;
+        alice.addEventListener('click', evt => {
+            evt.stopPropagation();
+            if (!this.setted) {
+                this.colourPool.forEach((v, i) => {
+                    if (v.cubicId) {
+                        this.cubicIdDiv[i] = document.createElement('div');
+                        this.cubicIdDiv[i].innerHTML = `${v.cubicId}`;
+                        this.cubicIdDiv[i].classList.add('online-game__cubic-id');
+                        v.appendChild(this.cubicIdDiv[i]);
+                    }
+                });
+                this.setted = true;
+                return;
+            }
+            this.cubicIdDiv.forEach(v => v.remove());
+            this.setted = false;
+        });
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
         window.addEventListener('resize', debounce(() => this.onResize(), 200));
     }
@@ -142,7 +162,7 @@ class OnlineGameView extends ViewInterface {
         this.myScore = me.getElementsByClassName('js-rating')[0];
         const mySymbol = document.createElement('div');
 
-        myName.innerHTML = `${sharedData.data.currentUser.login}`;
+        myName.innerHTML = `${sharedData.data.currentUser.login} <div style="color: gray; font-size: 2vmin">Token: #${sharedData.data.currentUser.token}</div>`;
         myImage.style.background = `url(${sharedData.data.currentUser.image})  center center / cover`;
         this.myScore.innerHTML = '0';
         mySymbol.classList.add('online-game__who-me-avatar', 'u2400');
@@ -170,7 +190,7 @@ class OnlineGameView extends ViewInterface {
     onStartEvent(evt) {
         const cell = evt.evt.target;
 
-        if ((cell.className.indexOf('js-fixed') === -1) || cell.fixedCubic) return;
+        if (cell && (cell.className.indexOf('js-fixed') === -1) || cell.fixedCubic) return;
 
         const allocated = document.getElementsByClassName('js-empty-cell');
         [...allocated].forEach(v => v.style.opacity = '0.8');

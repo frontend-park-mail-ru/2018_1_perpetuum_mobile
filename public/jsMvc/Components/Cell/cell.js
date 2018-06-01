@@ -43,10 +43,7 @@ class Cell {
         cell.classList.add('js-fixed', 'game-blendocu__cell');
         Cell.setProperty(cell, sizeCell, x, y);
         if (cubicId) {
-            const cubicIdDiv = document.createElement('div');
-            cubicIdDiv.innerHTML = `${cubicId}`;
-            cubicIdDiv.classList.add('online-game__cubic-id');
-            cell.appendChild(cubicIdDiv);
+            cell.cubicId = cubicId;
         }
     }
 
