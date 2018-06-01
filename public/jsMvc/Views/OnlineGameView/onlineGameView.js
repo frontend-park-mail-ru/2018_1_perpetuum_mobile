@@ -75,16 +75,20 @@ class OnlineGameView extends ViewInterface {
         const alice = document.getElementsByClassName('js-alice')[0];
         this.cubicIdDiv = [];
         this.cubicPlaceDiv = [];
-        this.setted = false;
+        this.aliceMode = false;
         alice.addEventListener('click', () => {
             const rules = document.createElement('div');
             rules.classList.add('online-game__alice-rule');
-            rules.innerHTML = 'to autorization say "мой токен:", <br>and "Поставь кубик № на место № №" ';
+            rules.innerHTML = 'To autorization: "Mой токен: #", <br>To set cubic: "Поставь кубик # на место # " ';
             this.el.appendChild(rules);
-            setInterval(() => rules.remove(), 4000);
+            setInterval(() => {
+                rules.style.opacity = '0';
+                rules.style.marginTop = '4vmin';
+            }, 6000);
+            setInterval(() => rules.remove(), 7000);
         }, {once: true});
         alice.addEventListener('click', () => {
-            if (!this.setted) {
+            if (!this.aliceMode) {
                 this.colourPool.forEach((v, i) => {
                     if (v.cubicId) {
                         this.cubicIdDiv[i] = document.createElement('div');
@@ -97,16 +101,15 @@ class OnlineGameView extends ViewInterface {
                 this.emtyCells.forEach((v, i) => {
                     this.cubicPlaceDiv[i] = document.createElement('div');
                     this.cubicPlaceDiv[i].style.margin = 'auto';
-                    console.log(v.place);
                     this.cubicPlaceDiv[i].innerHTML = v.place;
                     v.appendChild(this.cubicPlaceDiv[i]);
                 });
-                this.setted = true;
+                this.aliceMode = true;
                 return;
             }
             this.cubicIdDiv.forEach(v => v.remove());
             this.cubicPlaceDiv.forEach(v => v.remove());
-            this.setted = false;
+            this.aliceMode = false;
         });
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
         window.addEventListener('resize', debounce(() => this.onResize(), 200));

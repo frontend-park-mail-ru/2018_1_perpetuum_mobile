@@ -75,11 +75,11 @@ class Cell {
             return;
         }
         cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
-        console.log(v.place);
         cell.place = v.place;
         [cell.x, cell.y] = [v.x, v.y];
-        console.log(cell.place);
-        emptyCells.push(cell);
+        if (emptyCells) {
+            emptyCells.push(cell);
+        }
     }
 
     /**

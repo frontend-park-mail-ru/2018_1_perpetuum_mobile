@@ -40,7 +40,6 @@ class MenuView extends ViewInterface {
      * Initialize event handlers for the page: logout.
      */
     init() {
-        //const vk = vkButton;
         if (!sharedData.data['currentUser']) {
             const multiplayerAllowed = this.el.getElementsByClassName('js-multiplayer')[0];
             multiplayerAllowed.style.color = '#666666';
@@ -52,7 +51,9 @@ class MenuView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
         this.colour = new Colour('colors');
-        const vkButton = new VkButton();
+        if (navigator.onLine) {
+            const vkButton = new VkButton();
+        }
     }
 
     /**
