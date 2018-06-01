@@ -76,26 +76,24 @@ class OnlineGameView extends ViewInterface {
         this.cubicIdDiv = [];
         this.cubicPlaceDiv = [];
         this.aliceMode = false;
-        alice.addEventListener('click', () => {
-            const rules = document.createElement('div');
-            rules.classList.add('online-game__alice-rule');
-            rules.innerHTML = 'To autorization: "Mой токен: #", <br>To set cubic: "Поставь кубик # на место # " ';
-            this.el.appendChild(rules);
-            setInterval(() => {
-                rules.style.opacity = '0';
-                rules.style.marginTop = '4vmin';
-            }, 6000);
-            setInterval(() => rules.remove(), 7000);
-        }, {once: true});
+
         alice.addEventListener('click', () => {
             if (!this.aliceMode) {
+                const rules = document.createElement('div');
+                rules.classList.add('online-game__alice-rule');
+                rules.innerHTML = 'To autorization: "Mой токен: #", <br>To set cubic: "Поставь кубик # на место # " ';
+                this.el.appendChild(rules);
+                setInterval(() => {
+                    rules.style.opacity = '0';
+                    rules.style.marginTop = '4vmin';
+                }, 6000);
+                setInterval(() => rules.remove(), 7000);
                 this.colourPool.forEach((v, i) => {
                     if (v.cubicId) {
                         this.cubicIdDiv[i] = document.createElement('div');
                         this.cubicIdDiv[i].innerHTML = `${v.cubicId}`;
                         this.cubicIdDiv[i].classList.add('online-game__cubic-id');
                         v.appendChild(this.cubicIdDiv[i]);
-
                     }
                 });
                 this.emtyCells.forEach((v, i) => {
