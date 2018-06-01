@@ -51,6 +51,7 @@ class OnlineGameView extends ViewInterface {
      * @param params Contains map and info about the opponent.
      */
     startGame(params) {
+        this.emtyCells = [];
         this.toRemoveBorderColor = new Set();
         this.keyHandler.start();
         this.popup.remove();
@@ -73,9 +74,16 @@ class OnlineGameView extends ViewInterface {
 
         const alice = document.getElementsByClassName('js-alice')[0];
         this.cubicIdDiv = [];
+        this.cubicPlaceDiv = [];
         this.setted = false;
-        alice.addEventListener('click', evt => {
-            evt.stopPropagation();
+        alice.addEventListener('click', () => {
+            const rules = document.createElement('div');
+            rules.classList.add('online-game__alice-rule');
+            rules.innerHTML = 'to autorization say "мой токен:", <br>and "Поставь кубик № на место № №" ';
+            this.el.appendChild(rules);
+            setInterval(() => rules.remove(), 4000);
+        }, {once: true});
+        alice.addEventListener('click', () => {
             if (!this.setted) {
                 this.colourPool.forEach((v, i) => {
                     if (v.cubicId) {
@@ -83,12 +91,21 @@ class OnlineGameView extends ViewInterface {
                         this.cubicIdDiv[i].innerHTML = `${v.cubicId}`;
                         this.cubicIdDiv[i].classList.add('online-game__cubic-id');
                         v.appendChild(this.cubicIdDiv[i]);
+
                     }
+                });
+                this.emtyCells.forEach((v, i) => {
+                    this.cubicPlaceDiv[i] = document.createElement('div');
+                    this.cubicPlaceDiv[i].style.margin = 'auto';
+                    console.log(v.place);
+                    this.cubicPlaceDiv[i].innerHTML = v.place;
+                    v.appendChild(this.cubicPlaceDiv[i]);
                 });
                 this.setted = true;
                 return;
             }
             this.cubicIdDiv.forEach(v => v.remove());
+            this.cubicPlaceDiv.forEach(v => v.remove());
             this.setted = false;
         });
         this.keyHandler.addKeyListener('startDrag', (evt) => this.onStartEvent(evt));
@@ -132,7 +149,7 @@ class OnlineGameView extends ViewInterface {
         this.params.map.cells.forEach((v, i) => {
             this.cell[i] = document.createElement('div');
             v.fixed = !!(v.colour);
-            Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY);
+            Cell.setFixedProperty(this.cell[i], this.elementMap, v, sizeCell, this.params.map.countX, this.params.map.countY, this.emtyCells);
             this.elementMap.appendChild(this.cell[i]);
         });
     }

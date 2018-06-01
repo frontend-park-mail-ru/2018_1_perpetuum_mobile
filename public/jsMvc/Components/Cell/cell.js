@@ -55,8 +55,9 @@ class Cell {
      * @param sizeCell {Number} - cell size
      * @param sizeX {Number} - number of cells in a row
      * @param sizeY {Number} - number of cells in a column
+     * @param emptyCells
      */
-    static setFixedProperty(cell, parentElement, v, sizeCell, sizeX, sizeY) {
+    static setFixedProperty(cell, parentElement, v, sizeCell, sizeX, sizeY, emptyCells) {
         const OFFSET = 8;
 
         const offsetToCenterX = (parentElement.offsetWidth - sizeX * (sizeCell + OFFSET)) / 2;
@@ -74,7 +75,11 @@ class Cell {
             return;
         }
         cell.classList.add('game-blendocu__empty-cell', 'js-empty-cell');
+        console.log(v.place);
+        cell.place = v.place;
         [cell.x, cell.y] = [v.x, v.y];
+        console.log(cell.place);
+        emptyCells.push(cell);
     }
 
     /**
