@@ -23,7 +23,6 @@ class ResetView extends ViewInterface {
     constructor() {
         super(template);
         this.content = null;
-        this.sendingPreloader = null;
     }
 
     /**
@@ -43,10 +42,8 @@ class ResetView extends ViewInterface {
                     name: 'email',
                     validation: Validation.validateEmail,
                     errorClassString: 'js-error-reset'
-                }
-                ],
-            submit:
-                {
+                }],
+            submit: {
                 classString: 'js-reset-button',
                 value: 'Reset'
             }

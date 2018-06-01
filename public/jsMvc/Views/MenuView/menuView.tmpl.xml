@@ -1,6 +1,7 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
     <div class="wrapper-block js-wrapper-block">
-        <a class="wrapper-block__logo" href="/"> Blendocu </a>
+        <div class="wrapper-block__vk js-vk"/>
+        <a style="cursor: default;" class="wrapper-block__logo" href="/"> <div style="cursor: pointer; display: inline-block;">Blendocu</div> </a>
         <div class="wrapper-block__main js-wrapper-menu">
             <ul class="menu-list-block">
                 <li class="menu-list-block__item"><a class="menu-list-block__data" href="/level"> Start game </a> </li>

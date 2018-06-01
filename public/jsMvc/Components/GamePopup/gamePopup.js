@@ -3,6 +3,7 @@
  */
 
 import template from './gamePopup.tmpl.xml';
+import {bus} from "../../Modules/bus";
 /**
  * Popup class to show pop-up block in case of win
  */
@@ -11,7 +12,6 @@ class GamePopup {
      * Create a pop-up
      */
     constructor() {
-        this.el = document.createElement('div');
         this.fest = template;
     }
 
@@ -21,6 +21,7 @@ class GamePopup {
      * @return {GamePopup} current class instance.
      */
     renderTo(root) {
+        this.el = document.createElement('div');
         root.appendChild(this.el);
         return this;
     }
@@ -56,7 +57,6 @@ class GamePopup {
     init() {
         this.form = this.el.getElementsByClassName('js-popup-form')[0];
     }
-
 }
 
 export {GamePopup};

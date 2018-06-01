@@ -1,5 +1,5 @@
 <fest:template xmlns:fest="http://fest.mail.ru" context_name="params">
-    <div class="popup__substrate">
+    <div class="popup__substrate js-substrate">
         <div class="popup popup__online-game-popup">
             <fest:if test="params.type === 'loader'">
                 <div class="popup__title">Waiting for opponent</div>

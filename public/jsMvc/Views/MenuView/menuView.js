@@ -7,6 +7,7 @@ import {sharedData} from '../../Modules/sharedData.js';
 import {Colour} from '../../Components/Colour/colour.js';
 import template from './menuView.tmpl.xml';
 import {bus} from '../../Modules/bus.js';
+import {VkButton} from '../../Components/VkButton/vkButton.js';
 
 
 /**
@@ -39,6 +40,7 @@ class MenuView extends ViewInterface {
      * Initialize event handlers for the page: logout.
      */
     init() {
+        //const vk = vkButton;
         if (!sharedData.data['currentUser']) {
             const multiplayerAllowed = this.el.getElementsByClassName('js-multiplayer')[0];
             multiplayerAllowed.style.color = '#666666';
@@ -50,6 +52,7 @@ class MenuView extends ViewInterface {
             toLogoutForm.addEventListener('submit', this.onLogout);
         }
         this.colour = new Colour('colors');
+        const vkButton = new VkButton();
     }
 
     /**
