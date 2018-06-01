@@ -4,6 +4,15 @@
     height: 95%;
 }
 
+.online-game__cubic-id {
+    position: absolute;
+    font-size: 2.5vmin;
+    color: #000000;
+    bottom: 5px;
+    left: 5px;
+    font-family: 'Orbitron', sans-serif;
+}
+
 .online-game__score {
     width: 100vw;
     display: none;
@@ -79,23 +88,12 @@
     }
 }
 
-.online-game__who-opponent:after {
-    content: "⬧";
-    position: absolute;
-    bottom: 5px;
-    right: 7px;
-    font-size: 6vmin;
-    line-height: 2vmin;
-    color: black;
-}
-
-.online-game__who-me:after {
-    content: "▴";
+.online-game__who-set {
     position: absolute;
     bottom: 5px;
     right: 5px;
     font-size: 7vmin;
-    line-height: 2vmin;
+    line-height: 2.2vmin;
     color: black;
 }
 
