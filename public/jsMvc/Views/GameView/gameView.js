@@ -58,7 +58,7 @@ class GameView extends ViewInterface {
         const pool = this.params.cells.filter(v => !v.fixed);
         pool.forEach((v, i) => {
             this.colourPool[i] = document.createElement('div');
-            Cell.setPoolProperty(this.colourPool[i], this.elementPool, v.colour, sizeCell, i, pool.length);
+            Cell.setPoolProperty(this.colourPool[i], this.elementPool, v.colour, null, sizeCell, i, pool.length);
             this.borderPool[i] = document.createElement('div');
             Cell.setBorderProperty(this.borderPool[i], this.colourPool[i]);
             this.elementPool.appendChild(this.borderPool[i]);
