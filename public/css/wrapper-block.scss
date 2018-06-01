@@ -29,15 +29,20 @@ body {
     font-family: 'Orbitron-bold', sans-serif;
     grid-row: 1/2;
     grid-column: 1/4;
-    font-size: 11vw;
-    text-align: center;
     transition: all 0.3s linear;
     overflow: hidden;
-    color: var(--baseColor);
-    text-decoration: none;
     margin-top: 3vh;
     height: 22vh;
 }
+
+.wrapper-block__logo--inner {
+    cursor: pointer;
+    display: inline-block;
+    color: var(--baseColor);
+    text-decoration: none;
+    font-size: 11vw;
+}
+
 
 .wrapper-block__logo:hover {
     color: var(--logoHoverColor);
