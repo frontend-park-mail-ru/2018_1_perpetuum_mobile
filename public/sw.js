@@ -11,7 +11,17 @@ const CACHE_NAME = 'blendocuSw-v1';
 const cacheUrls = [
     '/',
     '/dist/out/style.css',
-    '/dist/out/application.js'
+    '/dist/out/application.js',
+    '/dist/out/fonts/',
+    '/dist/out/fonts/Orbitron-Bold.ttf',
+    '/dist/out/fonts/Orbitron-Medium.ttf',
+    '/dist/out/fonts/Orbitron-Regular.ttf',
+    '/dist/out/fonts/u1f000.ttf',
+    '/dist/out/fonts/u1f400.ttf',
+    '/dist/out/fonts/u1f800.ttf',
+    '/dist/out/fonts/u2000.ttf',
+    '/dist/out/fonts/u2400.ttf',
+    '/dist/out/fonts/u2800.ttf'
 ];
 
 
