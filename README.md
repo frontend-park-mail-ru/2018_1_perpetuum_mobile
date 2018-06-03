@@ -8,7 +8,7 @@
 - Гарифуллин Тимур [@gtt142](https://github.com/gtt142) 
 
 Ментор 
-- Цветков Александр [@warpobot](https://github.com/warprobot) 
+- Цветков Александр [@warprobot](https://github.com/warprobot) 
  
 
 ## Описание
